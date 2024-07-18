@@ -10,8 +10,9 @@
 (defn log-incoming-messages-task [dbconn msg-flow account-id]
   (m/sp 
      (try 
+       (info "incoming-msg-logger started for account: " account-id)
        (m/? (m/reduce (fn [_r msg]
-                               (info "storing: " msg)
+                               (info "storing incoming msg: " msg)
                                (store-message! dbconn account-id :in msg)
                                msg)
                              nil

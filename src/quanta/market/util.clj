@@ -1,10 +1,12 @@
 (ns quanta.market.util
   (:require
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m])
   (:import [missionary Cancelled]))
 
 (defn first-match [predicate flow]
   (m/reduce (fn [_r v]
+              (info "first-match check: " v)
               (when (predicate v)
                 (reduced v)))
             nil

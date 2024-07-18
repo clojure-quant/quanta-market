@@ -94,20 +94,24 @@
         (throw (ex-info "not connected" {:send-msg msg}))))))
 
 (defn send-msg-task [conn msg]
-  (m/sp (send-msg! conn msg)))
+  (m/sp 
+   (m/? (m/sleep 100))
+   (send-msg! conn msg)))
 
 (defn rpc-req! [conn msg]
-  (m/sp
-   (let [id (nano-id 8)
-         p-reqId (fn [{:keys [reqId]}]
-                   (= id reqId))
-         result (first-match p-reqId (:msg-flow conn))
-         msg (assoc msg :reqId id)]
-     (info "making request current conn:" conn)
-     (m/? (m/join vector
-                  (send-msg-task conn msg)
-                  result
-                  (m/sleep 5000))))))
+  (let [id (nano-id 8)
+        p-reqId (fn [{:keys [reqId req_id]}]
+                  (or (= id reqId) (= id req_id)))
+        result (first-match p-reqId (:msg-flow conn))
+        msg (assoc msg :reqId id "req_id" id)]
+    (info "making rpc request:  " msg)
+    (let [r (m/join vector
+                    (send-msg-task conn msg)
+                    result)]
+      (m/race r
+              (m/sleep 5000 {:error "request timeout after 5 seconds"
+                             :msg msg})))))
+
 
 (defn connection3 [opts]
    ; this returns a missionary flow 

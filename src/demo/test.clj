@@ -21,6 +21,7 @@ conn
 (m/? (ping! @conn))
 
 
+
 (require '[quanta.market.broker.bybit.task.auth :refer [authenticate!]])
 
 (m/?  (authenticate! @conn account))

@@ -4,6 +4,11 @@
    [quanta.market.broker.bybit.connection :as c]))
 
 
+(def ping-req-example 
+  {"req_id" "100001"
+   "op" "ping"})
+
+
 (def ping-success-example
   {:retCode 0
    :retMsg "OK"
@@ -14,5 +19,5 @@
 
 (defn ping! [conn]
   (let [msg {"op" "ping"}]
-    (info "ping! ")
+    (debug "ping! ")
     (c/rpc-req! conn msg)))

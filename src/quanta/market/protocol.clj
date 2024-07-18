@@ -2,8 +2,8 @@
 
 
 (defprotocol connection
-  (start! [this])
-  (stop! [this]))
+  (start! [this opts])
+  (stop! [this opts]))
 
 (defprotocol trade
   (order-create! [this order-new])

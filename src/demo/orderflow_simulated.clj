@@ -1,4 +1,4 @@
-(ns quanta.trade.broker.paper.orderflow-simulated
+(ns demo.orderflow-simulated
   (:require
    [missionary.core :as m]))
 

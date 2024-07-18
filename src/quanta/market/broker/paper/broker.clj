@@ -1,10 +1,10 @@
-(ns quanta.trade.broker.paper.broker
+(ns quanta.market.broker.paper.broker
   (:require
    [missionary.core :as m]
    [nano-id.core :refer [nano-id]]
    [tick.core :as t]
    [quanta.trade.broker.protocol :as B]
-   [quanta.market.broker.orderfiller :refer [random-fill-flow]]
+   [quanta.market.broker.paper.orderfiller :refer [random-fill-flow]]
    ))
 
 #_(defn log [& data]
@@ -71,7 +71,7 @@
    (m/reduce println nil
              (mix (m/seed [1 2 3 4 5 6 7 8]) (m/seed [:a :b :c]))))
 
-  (require '[quanta.trade.broker.paper.orderflow-simulated :refer [demo-order-action-flow]])
+  (require '[demo.orderflow-simulated :refer [demo-order-action-flow]])
 
      
   (def switch1 (create-order-flow-switch

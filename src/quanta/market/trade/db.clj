@@ -6,7 +6,8 @@
    [datahike.api :as d]))
 
 (def schema
-  [{:db/ident :message/timestamp
+  [; message
+   {:db/ident :message/timestamp
     :db/valueType :db.type/instant
     :db/cardinality :db.cardinality/one}
    {:db/ident :message/direction
@@ -20,7 +21,58 @@
     :db/cardinality :db.cardinality/one}
    {:db/ident :message/data
     :db/valueType :db.type/instant
-    :db/cardinality :db.cardinality/one}])
+    :db/cardinality :db.cardinality/one}
+  ; order
+  {:db/ident :order/account
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :message/asset
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :order/side
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :order/quantity
+   :db/valueType :db.type/double
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :order/type
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :order/limit
+   :db/valueType :db.type/double
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :order/date-created
+    :db/valueType :db.type/instant
+    :db/cardinality :db.cardinality/one}
+  {:db/ident :order/date-done
+   :db/valueType :db.type/instant
+   :db/cardinality :db.cardinality/one}
+   {:db/ident :order/status
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
+  ; trade
+  {:db/ident :trade/account
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :trade/order
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :trade/asset
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :trade/side
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :trade/quantity
+   :db/valueType :db.type/double
+   :db/cardinality :db.cardinality/one}
+  {:db/ident :trade/price
+   :db/valueType :db.type/double
+   :db/cardinality :db.cardinality/one}
+   {:db/ident :trade/date
+   :db/valueType :db.type/instant
+   :db/cardinality :db.cardinality/one}]
+  )
 
 (defn- cfg [path]
   {:store {:backend :file ; backends: in-memory, file-based, LevelDB, PostgreSQL
@@ -50,7 +102,7 @@
     (info "trade-db stopping ..")
     (d/release conn)))
 
-(defn store [conn account direction data]
+(defn store-message [conn account direction data]
   (let [tx {:message/timestamp (t/inst)
             :message/direction direction
             :message/account account

@@ -23,24 +23,28 @@
              signature]}))
 
 (def test-msg-auth-success
-  {:retCode 0
-   :retMsg "OK"
-   :connId "cpv85t788smd5eps8ncg-2tfk"
+  {:reqId "0MczApsc" ; optional
    :op "auth"
-   :reqId "0MczApsc" ; optional
-   })
+   :retCode 0
+   :retMsg "OK"
+   :connId "cpv85t788smd5eps8ncg-2tfk"})
+
+(def auth-error-example 
+  {:retCode 20001
+   :retMsg "Repeat auth"
+   :connId "cpv85t788smd5eps8ncg-2wqa"
+   :op "auth"})
 
 (defn auth-respose? [{:keys [op]}]
   (= op "auth"))
 
-(defn authenticate! [conn {:keys [account]}]
+(defn authenticate! [conn {:keys [api-key api-secret]}]
   (m/sp
-     (let [{:keys [api-key api-secret]} account]
      (info "auth! api-key: " api-key)
      (send-msg! conn (auth-msg api-key api-secret))
      (let [auth-result (m/? (first-match auth-respose? (:msg-flow conn)))]
        (info "auth result: " auth-result)
-       auth-result))))
+       auth-result)))
 
 
 

@@ -75,10 +75,7 @@
 (defn info? [conn]
   (let [stream (:stream conn)]
     (let [desc (s/description stream)]
-      desc
-    )
-  
-  ))
+      desc)))
 
 (defn connected? [stream]
   (when stream
@@ -108,9 +105,9 @@
          msg (assoc msg :reqId id)]
      (info "making request current conn:" conn)
      (m/? (m/join vector
-             (send-msg-task conn msg)
-             result
-             (m/sleep 5000))))))
+                  (send-msg-task conn msg)
+                  result
+                  (m/sleep 5000))))))
 
 (defn connection3 [opts]
    ; this returns a missionary flow 

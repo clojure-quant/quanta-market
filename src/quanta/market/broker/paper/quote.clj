@@ -1,4 +1,4 @@
-(ns quanta.market.broker.random
+(ns quanta.market.broker.paper.quote
   (:require
    [tick.core :as t]
    [missionary.core :as m]
@@ -46,17 +46,6 @@
                 :unsubscribed
                 ))))))
 
-; (def get-quote (memoize generate-quotes))
-
-
-(defmethod connection :random
-  [opts] 
-  nil)
-
-
-(defmethod get-quote :random
-  [type connection asset]
-  (generate-quotes asset))
 
 
 (comment

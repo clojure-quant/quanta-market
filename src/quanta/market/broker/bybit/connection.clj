@@ -122,62 +122,13 @@
                                :msg msg}))))
     (throw (ex-info "not connected" {:send-msg msg}))))
 
-
-{:retCode 110007,
- :retMsg "CheckMarginRatio fail! InsufficientAB",
- :connId "cpv85t788smd5eps8ncg-2wst",
- :op "order.create", :header {:Timenow "1721317726618", :X-Bapi-Limit-Status "9",
-                              :X-Bapi-Limit-Reset-Timestamp "1721317726618",
-                              :Traceid "69fd9ba06f2ff3365c5c542c1bbffa14", :X-Bapi-Limit "10"},
- :reqId "BVz-xF78", :data {}}
-
-
-(defn connection3 [opts]
-   ; this returns a missionary flow 
-  ; published events of this flow are connection-streams
-  (m/observe
-   (fn [!]
-     (info "connecting..")
-     (let [stream (connect! opts)
-           !-a (atom nil)
-           on-msg (fn [json]
-                    (let [msg (json->msg json)]
-                      (info "!msg rcvd: " msg)
-                      (when @!-a
-                        (@!-a msg))))
-           msg-flow (msg-flow !-a)]
-       (s/consume on-msg stream)
-       (info "connected!")
-       (! {:account opts
-           :api :bybit
-           :stream stream
-           :msg-flow msg-flow})
-       (fn []
-         (info "disconnecting.. stream " stream)
-         (.close stream))))))
-
-(defn set-interval [callback ms]
-  (future (while true (do (Thread/sleep ms) (callback)))))
-
-(defn gen-ping-sender [msg-stream]
-  (fn []
-    (debug "sending bybit ping..")
-    (send-msg! msg-stream {"op" "ping"})))
-
-(defn get-and-keep-connection [conn ms]
-  (m/ap
-   (let [c (m/? (next-value (:msg-flow conn)))]
-     (m/amb=
-      c
-      (m/? (m/sleep ms c))))))
-
 (comment
    ;raw websocket testing:
 
   (def c (connect! {:mode :main
                     :segment :spot}))
   (s/consume println c)
-  (send-msg-simple! c (subscription-msg "BTCUSDT"))
+
   c
   (.close c)
 

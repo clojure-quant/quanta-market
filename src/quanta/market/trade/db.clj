@@ -20,7 +20,7 @@
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
    {:db/ident :message/data
-    :db/valueType :db.type/instant
+    :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
   ; order
   {:db/ident :order/account
@@ -55,7 +55,7 @@
    :db/valueType :db.type/keyword
    :db/cardinality :db.cardinality/one}
   {:db/ident :trade/order
-   :db/valueType :db.type/keyword
+   :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one}
   {:db/ident :trade/asset
    :db/valueType :db.type/string
@@ -102,11 +102,12 @@
     (info "trade-db stopping ..")
     (d/release conn)))
 
-(defn store-message [conn account direction data]
+(defn store-message! [conn account direction data]
+  (info "storing message for account: " account " data:" data)
   (let [tx {:message/timestamp (t/inst)
             :message/direction direction
             :message/account account
-            :message/data data}]
+            :message/data (pr-str data)}]
     (d/transact conn [tx])))
 
 (defn query-messages
@@ -116,5 +117,5 @@
                             :message/account
                             :message/data]) ...]
            :in $ account
-           :where [?msg :msg/account account]]
+           :where [?msg :message/account account]]
          @conn account))

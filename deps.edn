@@ -14,7 +14,7 @@
   org.pinkgorilla/timbre {:mvn/version "0.0.7"}
   ;ta/indicator {:local/root "../indicator" :deps/manifest :deps}
   ;ta/calendar {:local/root "../calendar" :deps/manifest :deps}
-  io.replikativ/datahike {:mvn/version "0.6.1542"
+  io.replikativ/datahike {:mvn/version "0.6.1568"
                                     ;:exclusions [[org.clojure/clojurescript]]
                           }
   

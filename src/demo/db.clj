@@ -30,6 +30,8 @@ dispose!
  
  )
 
+(-> (query-messages tm {:account :bybit})
+    print-table)
 
 
 

@@ -6,41 +6,39 @@
   (:import [missionary Cancelled])
   )
 
-
-(defn log-incoming-messages-task [dbconn msg-flow account-id]
+(defn log-messages-task [dbconn msg-flow account-id direction]
   (m/sp 
      (try 
-       (info "incoming-msg-logger started for account: " account-id)
+       (info "msg-logger started for account: " account-id " direction: " direction)
        (m/? (m/reduce (fn [_r msg]
                                (info "storing incoming msg: " msg)
-                               (store-message! dbconn account-id :in msg)
+                               (store-message! dbconn account-id direction msg)
                                msg)
                              nil
                              msg-flow))
        (catch Cancelled _ true))))
 
-(defn create-logger! [dbconn account-id conn]
+(defn create-logger! [dbconn account-id direction msg-flow]
   (assert dbconn)
-  (assert conn)
-  (if-let [msg-flow (:msg-flow conn)]
-    (let [_ (info "creating incoming msg-logger!")
-          log-msg! (log-incoming-messages-task dbconn msg-flow account-id)
+  (assert msg-flow)
+    (let [_ (info "creating msg-logger!" account-id direction)
+          log-msg! (log-messages-task dbconn msg-flow account-id direction)
           dispose-logger (log-msg!
-                          #(info "incoming-msg-logger stopped successfully " %)
-                          #(error "incoming-msg-logger crashed!" %))]
+                          #(info "msg-logger stopped successfully " %)
+                          #(error "msg-logger crashed!" %))]
       dispose-logger)
     (do 
-      (error "cannot create incoming msg logger - no msg-flow.")
-      nil)))
+      (error "cannot create msg logger - no msg-flow.")
+      nil))
 
-(defn start-logger! [dbconn msg-logger account-id conn]
+(defn start-logger! [dbconn msg-logger account-id direction conn]
   (assert msg-logger)
-  (swap! msg-logger assoc account-id (create-logger! dbconn account-id conn)))
+  (swap! msg-logger assoc account-id (create-logger! dbconn account-id direction conn)))
 
 (defn stop-logger! [msg-logger account-id]
   (let [dispose-logger! (get @msg-logger account-id)]
    (when dispose-logger!
-    (info "stopping incoming msg logger for account " account-id)
+    (info "stopping msg logger for account " account-id)
     (dispose-logger!))
   (swap! msg-logger dissoc account-id)))
 

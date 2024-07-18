@@ -31,6 +31,24 @@
               v) nil
             (current-value flow)))
 
+(defn msg-flow [!-a]
+  ; without the stream the last subscriber gets all messages
+  (m/stream
+   (m/observe
+    (fn [!]
+      (reset! !-a !)
+      (fn []
+        (reset! !-a nil))))))
+
+(defn stream-sender []
+  (let [!-a (atom nil)]
+    {:flow (msg-flow !-a)
+     :send (fn [v]
+             (when-let [! @!-a]
+               (! v)))}))
+
+
+
 (comment
   (m/?
    (first-match #(> % 3)

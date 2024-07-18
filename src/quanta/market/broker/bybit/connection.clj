@@ -6,7 +6,7 @@
    [jsonista.core :as j] ; json read/write
    [aleph.http :as http]
    [manifold.stream :as s] ; websocket to bybit
-   [quanta.market.util :refer [first-match]]))
+   [quanta.market.util :refer [first-match stream-sender]]))
 
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
 
@@ -62,13 +62,18 @@
                    (if @!-a
                      (@!-a msg)
                      (warn "unprocessed msg: " msg))))
-        msg-flow (msg-flow !-a)]
+        msg-flow (msg-flow !-a)
+        out (stream-sender)
+        ]
     (s/consume on-msg stream)
     (info "connected!")
     {:account opts
      :api :bybit
      :stream stream
-     :msg-flow msg-flow}))
+     :msg-flow msg-flow
+     :msg-out-flow (:flow out)
+     :send-out-fn (:send out)
+     }))
 
 (defn connection-stop! [{:keys [stream msg-flow]}]
   (info "connection-stop.. ")
@@ -87,12 +92,13 @@
        (not (-> desc :sink :closed?))
        (not (-> desc :source :closed?))))))
 
-(defn send-msg! [{:keys [stream] :as conn} msg]
+(defn send-msg! [{:keys [stream send-out-fn] :as conn} msg]
   (let [json (j/write-value-as-string msg)]
     (info "send-msg!: " json)
     (if (connected? stream)
       (do @(s/put! stream json)
           (info "send-msg done!")
+          (send-out-fn msg)
           :send-success)
       (do
         (error "send-msg failed (no connection): " msg)

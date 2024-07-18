@@ -10,16 +10,13 @@
    ;[quanta.market.broker.paper]
    [quanta.market.broker.bybit]))
 
-
 (defn get-account [{:keys [accounts] :as _this} account-id]
   (get accounts account-id))
 
 (defn get-account-ids [{:keys [accounts] :as _this}]
   (keys accounts))
 
-
-
-(defrecord trade-manager [accounts db msg-logger]
+(defrecord trade-manager [accounts db msg-logger-in msg-logger-out]
   ;
   p/connection
   (start! [this {:keys [account]}]
@@ -28,13 +25,15 @@
       (let [{:keys [opts]} a
             _ (info "account: " account " opts: " opts)
             conn (p/start! a opts)]
-       (start-logger! db msg-logger account conn)
+       (start-logger! db msg-logger-in account :in (:msg-flow conn))
+       (start-logger! db msg-logger-out account :out (:msg-out-flow conn))
         conn
         )))
   (stop! [this {:keys [account]}]
     (if-let [a (get-account this account)]
       (let [{:keys [opts]} a]
-        (stop-logger! msg-logger account) 
+        (stop-logger! msg-logger-in account) 
+        (stop-logger! msg-logger-out account) 
         (p/stop! a opts))))
   ;
   p/trade
@@ -70,8 +69,9 @@
 (defn trade-manager-start [db-path accounts]
   (let [accounts (create-accounts accounts)
         db (trade-db-start db-path)
-        msg-logger (atom {})]
-    (trade-manager. accounts db msg-logger)))
+        msg-logger-in (atom {})
+        msg-logger-out (atom {})]
+    (trade-manager. accounts db msg-logger-in msg-logger-out)))
 
 (defn trade-manager-stop [{:keys [db accounts] :as this}]
   (stop-all-accounts this)

@@ -112,11 +112,11 @@
   (if conn
     (let [id (nano-id 8)
           p-reqId (fn [{:keys [reqId req_id]}]
-                    (info "target-id: " id "reqId: " reqId "req_id: " req_id)
+                    (debug "target-id: " id "reqId: " reqId "req_id: " req_id)
                     (or (= id reqId) (= id req_id)))
           result (first-match p-reqId (:msg-flow conn))
           msg (assoc msg :reqId id "req_id" id)]
-      (info "making rpc request:  " msg)
+      (debug "making rpc request:  " msg)
       (let [r (m/join get-result
                       (send-msg-task conn msg)
                       result)]

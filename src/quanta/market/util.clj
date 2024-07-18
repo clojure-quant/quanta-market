@@ -6,9 +6,9 @@
 
 (defn first-match [predicate flow]
   (m/reduce (fn [_r v]
-              (info "first-match check: " v)
+              (debug "first-match check: " v)
               (when (predicate v)
-                (info "success! returning: " v)
+                (debug "success! returning: " v)
                 (reduced v)))
             nil
             flow))

@@ -46,9 +46,18 @@
  :reqId "XiMTlhQV"})
 
 (defn order-create! [conn order]
-  (let [msg (order-create-msg order)]
+  (m/sp
     (info "order-create: " order " ..")
-    (c/rpc-req! conn msg)))
+   (let [msg (order-create-msg order)
+         {:keys [retCode retMsg] :as response} (m/? (c/rpc-req! conn msg))]
+     (if (= 0 retCode)
+       {:msg/type :order/confirmed
+        :order order}
+       {:msg/type :order/rejected
+        :order order
+        :message retMsg
+        :code retCode}))))
+
 
 (defn order-cancel-msg [{:keys [asset order-id]}]
   {"op" "order.cancel"
@@ -86,9 +95,17 @@
 
 
 (defn order-cancel! [conn order]
-  (let [msg (order-cancel-msg order)]
+  (m/sp 
     (info "order-cancel: " order " ..")
-    (c/rpc-req! conn msg)))
+    (let [msg (order-cancel-msg order)
+        {:keys [retCode retMsg] :as response} (m/? (c/rpc-req! conn msg))]
+      (if (= 0 retCode)
+        {:msg/type :cancel/confirmed
+         :order order}
+        {:msg/type :cancel/rejected
+         :order order
+         :message retMsg
+         :code retCode}))))
 
 (comment
   (require '[clojure.edn :refer [read-string]])

@@ -88,29 +88,48 @@
   (let [json (j/write-value-as-string msg)]
     (info "send-msg!: " json)
     (if (connected? stream)
-      (s/put! stream json)
+      (do @(s/put! stream json)
+          (info "send-msg done!")
+          :send-success)
       (do
         (error "send-msg failed (no connection): " msg)
         (throw (ex-info "not connected" {:send-msg msg}))))))
 
 (defn send-msg-task [conn msg]
-  (m/sp 
+  (m/sp
    (m/? (m/sleep 100))
    (send-msg! conn msg)))
 
+(defn get-result [send-result reply]
+  (info "send-result: " send-result)
+  (info "reply: " reply)
+  reply)
+
 (defn rpc-req! [conn msg]
-  (let [id (nano-id 8)
-        p-reqId (fn [{:keys [reqId req_id]}]
-                  (or (= id reqId) (= id req_id)))
-        result (first-match p-reqId (:msg-flow conn))
-        msg (assoc msg :reqId id "req_id" id)]
-    (info "making rpc request:  " msg)
-    (let [r (m/join vector
-                    (send-msg-task conn msg)
-                    result)]
-      (m/race r
-              (m/sleep 5000 {:error "request timeout after 5 seconds"
-                             :msg msg})))))
+  (if conn
+    (let [id (nano-id 8)
+          p-reqId (fn [{:keys [reqId req_id]}]
+                    (info "target-id: " id "reqId: " reqId "req_id: " req_id)
+                    (or (= id reqId) (= id req_id)))
+          result (first-match p-reqId (:msg-flow conn))
+          msg (assoc msg :reqId id "req_id" id)]
+      (info "making rpc request:  " msg)
+      (let [r (m/join get-result
+                      (send-msg-task conn msg)
+                      result)]
+        (m/race r
+                (m/sleep 5000 {:error "request timeout after 5 seconds"
+                               :msg msg}))))
+    (throw (ex-info "not connected" {:send-msg msg}))))
+
+
+{:retCode 110007,
+ :retMsg "CheckMarginRatio fail! InsufficientAB",
+ :connId "cpv85t788smd5eps8ncg-2wst",
+ :op "order.create", :header {:Timenow "1721317726618", :X-Bapi-Limit-Status "9",
+                              :X-Bapi-Limit-Reset-Timestamp "1721317726618",
+                              :Traceid "69fd9ba06f2ff3365c5c542c1bbffa14", :X-Bapi-Limit "10"},
+ :reqId "BVz-xF78", :data {}}
 
 
 (defn connection3 [opts]

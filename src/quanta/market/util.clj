@@ -8,6 +8,7 @@
   (m/reduce (fn [_r v]
               (info "first-match check: " v)
               (when (predicate v)
+                (info "success! returning: " v)
                 (reduced v)))
             nil
             flow))

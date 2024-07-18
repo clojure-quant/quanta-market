@@ -97,7 +97,7 @@
     (info "send-msg!: " json)
     (if (connected? stream)
       (do @(s/put! stream json)
-          (info "send-msg done!")
+          (debug "send-msg done!")
           (send-out-fn msg)
           :send-success)
       (do

@@ -11,7 +11,7 @@
      (try 
        (info "msg-logger started for account: " account-id " direction: " direction)
        (m/? (m/reduce (fn [_r msg]
-                               (info "storing incoming msg: " msg)
+                               (debug "storing incoming msg: " msg)
                                (store-message! dbconn account-id direction msg)
                                msg)
                              nil

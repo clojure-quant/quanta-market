@@ -27,8 +27,10 @@ dispose!
 
 (-> (query-messages tm {:account :florian/test1})
     print-table
- 
- )
+  )
+
+(-> (query-messages tm {:account :rene/test1})
+    print-table)
 
 (-> (query-messages tm {:account :bybit})
     print-table)

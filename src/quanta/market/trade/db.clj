@@ -1,6 +1,6 @@
 (ns quanta.market.trade.db
   (:require
-   [taoensso.timbre :as timbre :refer [info warn error]]
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
    [tick.core :as t]
    [clojure.java.io :as io]
    [datahike.api :as d]))
@@ -103,7 +103,7 @@
     (d/release conn)))
 
 (defn store-message! [conn account direction data]
-  (info "storing message for account: " account " data:" data)
+  (debug "storing message for account: " account " data:" data)
   (let [tx {:message/timestamp (t/inst)
             :message/direction direction
             :message/account account

@@ -1,12 +1,12 @@
 (ns demo.accounts)
 
 
- (def bybit-test-creds
-   (-> (System/getenv "MYVAULT")
-       (str "/goldly/quanta.edn")
-       slurp
-       read-string
-       :bybit/test))
+(defn get-creds [account-id]
+  (-> (System/getenv "MYVAULT")
+      (str "/goldly/quanta.edn")
+      slurp
+      read-string
+      account-id))
  
  (def accounts
    {; quote connections
@@ -17,6 +17,12 @@
     :florian/test1 {:type :bybit
                     :mode :test
                     :segment :trade
-                    :creds bybit-test-creds}
-      ; trade connections
+                    :creds (get-creds :bybit/florian)}
+    :rene/test1 {:type :bybit
+                 :mode :test
+                 :segment :trade
+                 :creds (get-creds :bybit/rene) }
+      
     })
+ 
+ accounts

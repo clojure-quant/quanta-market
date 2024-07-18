@@ -45,6 +45,14 @@
     (c/rpc-req! conn (subscription-stop-msg t))))
 
 
+(def subscription-success-demo
+  {"success" true
+   "ret_msg" "subscribe"
+   "conn_id" "cf71cb32-e914-40db-9710-ac45c8086cae"
+   "req_id" "6"
+   "op" "subscribe"})
+
+
 
 (comment
   (def conn

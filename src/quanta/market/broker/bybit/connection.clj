@@ -6,7 +6,7 @@
    [jsonista.core :as j] ; json read/write
    [aleph.http :as http]
    [manifold.stream :as s] ; websocket to bybit
-   [quanta.market.util :refer [first-match next-value always]]))
+   [quanta.market.util :refer [first-match]]))
 
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
 
@@ -40,13 +40,15 @@
   (j/read-value json j/keyword-keys-object-mapper))
 
 (defn msg-flow [!-a]
-  (m/observe
-   (fn [!]
-     (info "creating msg-flow reader..")
-     (reset! !-a !)
-     (fn []
-       (info "removing msg-flow reader..")
-       (reset! !-a nil)))))
+  ; without the stream the last subscriber gets all messages
+  (m/stream
+   (m/observe
+    (fn [!]
+      (info "creating msg-flow reader..")
+      (reset! !-a !)
+      (fn []
+        (info "removing msg-flow reader..")
+        (reset! !-a nil))))))
 
 ;(future-cancel ping-sender)
 
@@ -57,8 +59,9 @@
         on-msg (fn [json]
                  (let [msg (json->msg json)]
                    (info "!msg rcvd: " msg)
-                   (when @!-a
-                     (@!-a msg))))
+                   (if @!-a
+                     (@!-a msg)
+                     (warn "unprocessed msg: " msg))))
         msg-flow (msg-flow !-a)]
     (s/consume on-msg stream)
     (info "connected!")

@@ -2,19 +2,9 @@
 
 
 
-(def ping-response-demo
-  {"success" true
-   "ret_msg" "pong"
-   "conn_id" "85ea7772-1b16-4d76-ace2-4ac7e7b6d163"
-   "req_id" "100001"
-   "op" "ping"})
 
-(def subscription-success-demo
-  {"success" true
-   "ret_msg" "subscribe"
-   "conn_id" "cf71cb32-e914-40db-9710-ac45c8086cae"
-   "req_id" "6"
-   "op" "subscribe"})
+
+
 
 (def trade-msg-demo
   {"type" "snapshot"

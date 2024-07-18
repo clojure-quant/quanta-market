@@ -8,18 +8,12 @@
    [quanta.market.broker.bybit.task.order :as o]
    [quanta.market.broker.bybit.pinger :as pinger]))
 
-
 (defrecord bybit [opts conn ping]
   ;
   p/connection
   (start! [this opts]
-    (let [conn (c/connection-start! opts)
-          ;publish-quote! (fn [fix-msg]
-          ;                 (let [quote (fix-quote->quote fix-msg)]
-          ;                   (publish! this quote)))
-          ]
+    (let [conn (c/connection-start! opts)]
       (reset! (:conn this) conn)
-      ;(fix-api/on-quote client publish-quote!)
       (when-let [creds (:creds opts)]
         (info "authenticating secure account..")
         (m/? (a/authenticate! conn creds)))

@@ -7,7 +7,7 @@
   
 (defn ping-task [conn]
   (m/sp
-   (info "ping task start (this is the real start)..")
+   (info "ping task startd..")
    (try
      (loop [i 0]
        (m/? (m/sleep 1000))

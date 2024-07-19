@@ -45,7 +45,7 @@
       (p/order-cancel! a order-cancel))))
 
 (defn create-account [[id opts]]
-  [id (p/create-account opts)])
+  [id (p/create-account (assoc opts :account-id id))])
 
 (defn create-accounts [accounts]
   (->> accounts

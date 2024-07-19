@@ -8,8 +8,7 @@
                                 get-account]]
    [quanta.market.protocol]
    [demo.accounts :refer [accounts]]))
- 
- 
+  
  (modular.log/timbre-config!
  {:min-level [[#{"org.apache.http.*"
                  "org.eclipse.aether.*"
@@ -25,6 +24,7 @@
                         :path ".data/quanta.log"
                         :pattern :monthly}}})
  
+ 
  (def tm (trade-manager-start "/tmp/trade-db" accounts))
 
 
@@ -38,7 +38,12 @@
 (start-all-accounts tm)
  
  
+ 
+ 
+ 
+ 
 (stop-all-accounts tm)
+ 
 
 
  

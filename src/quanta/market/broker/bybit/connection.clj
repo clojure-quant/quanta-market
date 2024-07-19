@@ -9,18 +9,37 @@
    [quanta.market.util :refer [first-match stream-sender]]))
 
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
+ 
+(def mode
+  {:main "wss://stream.bybit.com/v5/"
+   :test "wss://stream-testnet.bybit.com/v5/"})
+
+(def segment 
+  {:data "public/"
+   :trade "trade"
+   :order-update "private"})
+
+(def asset-class 
+  {:spot "spot"
+   :future "linear"
+   :future-inverse "inverse"
+   :option "option"})
 
 (def websocket-destination-urls
-  {:main {:spot "wss://stream.bybit.com/v5/public/spot"
+  {:main {; data
+          :spot "wss://stream.bybit.com/v5/public/spot"
           :future "wss://stream.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
           :inverse "wss://stream.bybit.com/v5/public/inverse"
           :option "wss://stream.bybit.com/v5/public/option" ; USDC Option
+          ; trade
           :trade "wss://stream.bybit.com/v5/trade"
           :private "wss://stream.bybit.com/v5/private"}
-   :test {:spot "wss://stream-testnet.bybit.com/v5/public/spot"
+   :test {; data
+          :spot "wss://stream-testnet.bybit.com/v5/public/spot"
           :future "wss://stream-testnet.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
           :inverse "wss://stream-testnet.bybit.com/v5/public/inverse"
           :option "wss://stream-testnet.bybit.com/v5/public/option" ; USDC Option
+          ; trade
           :trade "wss://stream-testnet.bybit.com/v5/trade"
           :private "wss://stream-testnet.bybit.com/v5/private"}})
 
@@ -44,10 +63,10 @@
   (m/stream
    (m/observe
     (fn [!]
-      (info "creating msg-flow reader..")
+      (debug "creating msg-flow reader..")
       (reset! !-a !)
       (fn []
-        (info "removing msg-flow reader..")
+        (debug "removing msg-flow reader..")
         (reset! !-a nil))))))
 
 ;(future-cancel ping-sender)
@@ -58,16 +77,17 @@
         !-a (atom nil)
         on-msg (fn [json]
                  (let [msg (json->msg json)]
-                   (info "!msg rcvd: " msg)
+                   (info "!msg rcvd: " (:account-id opts) " " msg)
                    (if @!-a
                      (@!-a msg)
-                     (warn "unprocessed msg: " msg))))
+                     (warn "unprocessed msg: " (:account-id opts) " " msg))))
         msg-flow (msg-flow !-a)
         out (stream-sender)
         ]
     (s/consume on-msg stream)
-    (info "connected!")
+    (info (:account-id opts) " connected!")
     {:account opts
+     :opts opts
      :api :bybit
      :stream stream
      :msg-flow msg-flow

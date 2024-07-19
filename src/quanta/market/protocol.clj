@@ -3,7 +3,9 @@
 
 (defprotocol connection
   (start! [this opts])
-  (stop! [this opts]))
+  (stop! [this opts])
+  (msg-in-flow [this])
+  )
 
 (defprotocol trade
   (order-create! [this order-new])

@@ -23,7 +23,7 @@
       (when (= (:segment opts) :private)    
         (info (:account-id opts) "segment=private -> subscribing to execution and orderupdates..")
         ; ticketInfo does not work.
-        ;(m/? (s/subscription-start! conn :order/execution))
+        (m/? (s/subscription-start! conn :order/execution))
         (m/? (s/subscription-start! conn :order/update)))
       ; pinger
       (pinger/start-pinger conn ping)
@@ -36,6 +36,9 @@
         (c/connection-stop! conn)
         (reset! (:conn this) nil))
       nil))
+  (msg-in-flow [this])
+
+
   ;
   p/trade
   (order-create! [this order]

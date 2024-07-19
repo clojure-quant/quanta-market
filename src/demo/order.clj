@@ -29,8 +29,9 @@
    :asset "BTCUSDT.S"
    :side :buy
    :qty "0.0001"
-   :type :market
-   :limit "1000.0"
+   ;:ordertype :market
+   :ordertype :limit
+   :limit "68750.0"
    })
 
 

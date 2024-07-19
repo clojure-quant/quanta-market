@@ -1,0 +1,186 @@
+(#:message{:timestamp #inst "2024-07-19T20:27:10.343-00:00", :direction :out, 
+           :account :rene/test4, :data {"op" "order.create", 
+                                        "header" {"X-BAPI-TIMESTAMP" 1721420830241, "X-BAPI-RECV-WINDOW" "8000", 
+                                                  "Referer" "bot-001"},
+                                        "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Market", 
+                                                 "qty" "0.0001", "category" "spot", "timeInForce" "PostOnly"}], 
+                                        :reqId "m534xOwc", "req_id" "m534xOwc"}} 
+ #:message{:timestamp #inst "2024-07-19T20:27:10.863-00:00", :direction :in, 
+           :account :rene/test4, 
+           :data {:retCode 170003, :retMsg "An unknown parameter was sent.", 
+                                        :connId "cpv86i6c0hvd5nkl25n0-2y6a", :op "order.create", 
+                                        :header {:Timenow "1721420830707", :X-Bapi-Limit-Status "19",
+                                                 :X-Bapi-Limit-Reset-Timestamp "1721420830706", 
+                                                 :Traceid "696eec2446c6eef645bc4077aad6b74f", 
+                                                 :X-Bapi-Limit "20"}, :reqId "m534xOwc", :data {}}}
+ 
+ #:message{:timestamp #inst "2024-07-19T20:33:29.688-00:00", :direction :out, :account :rene/test4, 
+           :data {"op" "order.create", "header" {"X-BAPI-TIMESTAMP" 1721421209584, "X-BAPI-RECV-WINDOW" "8000",
+                                                 "Referer" "bot-001"}, 
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Market", "qty" "0.0001",
+                           "category" "spot", "timeInForce" "PostOnly"}],
+                  :reqId "wgb70I6q"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:33:30.009-00:00", 
+           :direction :in, :account :rene/test4, 
+           :data {:retCode 170003, :retMsg "An unknown parameter was sent.", 
+                  :connId "cpv86i6c0hvd5nkl25n0-2y75", :op "order.create",
+                  :header {:Timenow "1721421209847", :X-Bapi-Limit-Status "19", 
+                           :X-Bapi-Limit-Reset-Timestamp "1721421209847", 
+                           :Traceid "271f370b794b7f4253cb04347f8ba62a", :X-Bapi-Limit "20"},
+                  :reqId "wgb70I6q", :data {}}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:42:28.428-00:00", :direction :out, 
+           :account :rene/test4,
+           :data {"op" "order.create", "header" {"X-BAPI-TIMESTAMP" 1721421748325, 
+                                                 "X-BAPI-RECV-WINDOW" "8000", "Referer" "bot-001"},
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Limit", "qty" "0.0001", 
+                           "price" "1000.0", "category" "spot", "timeInForce" "PostOnly"}], 
+                  :reqId "R17Fo9HC"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:42:29.317-00:00", 
+           :direction :in, :account :rene/test4,
+           :data {:retCode 0, :retMsg "OK", :connId "cpv85t788smd5eps8ncg-2ya0",
+                  :op "order.create", :header {:Timenow "1721421749146", 
+                                               :X-Bapi-Limit-Status "19", 
+                                               :X-Bapi-Limit-Reset-Timestamp "1721421749146", 
+                                               :Traceid "7749cce3c114ad3405780c0f902bb43f", 
+                                               :X-Bapi-Limit "20"}, 
+                  :reqId "R17Fo9HC", :data {:orderLinkId "1733805728772483073", 
+                                            :orderId "1733805728772483072"}}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:53:37.890-00:00", :direction :out, 
+           :account :rene/test4, 
+           :data {"op" "order.create",
+                  "header" {"X-BAPI-TIMESTAMP" 1721422417788, 
+                                                 "X-BAPI-RECV-WINDOW" "8000", 
+                            "Referer" "bot-001"}, 
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Market", "qty" "0.0001", 
+                           "category" "spot", "timeInForce" "PostOnly"}], 
+                  :reqId "sCECoBn5"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:53:38.228-00:00", :direction :in, 
+           :account :rene/test4, 
+           :data {:retCode 170003, 
+                                        :retMsg "An unknown parameter was sent.", 
+                                        :connId "cpv85t788smd5eps8ncg-2ya9", 
+                                        :op "order.create", 
+                  :header {:Timenow "1721422418059", 
+                                                                     :X-Bapi-Limit-Status "19", 
+                           :X-Bapi-Limit-Reset-Timestamp "1721422418059", 
+                           :Traceid "0b7e746ae56fce2c7894a7002cb8ec37", :X-Bapi-Limit "20"}, 
+                  :reqId "sCECoBn5", :data {}}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:56:36.126-00:00", 
+           :direction :out, :account :rene/test4, 
+           :data {"op" "order.create",
+                  "header" {"X-BAPI-TIMESTAMP" 1721422596023, "X-BAPI-RECV-WINDOW" "8000", "Referer" "bot-001"}, 
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Limit", "qty" "0.0001",
+                           "category" "spot", "timeInForce" "PostOnly"}], 
+                  :reqId "Id_AKxa7"}}
+ 
+ #:message{:timestamp #inst "2024-07-19T20:56:36.452-00:00", :direction :in, :account :rene/test4,
+           :data {:retCode 170130, :retMsg "Data sent for paramter '' is not valid.", 
+                  :connId "cpv85t788smd5eps8ncg-2ya9", :op "order.create", 
+                  :header {:Timenow "1721422596293", :X-Bapi-Limit-Status "19", 
+                           :X-Bapi-Limit-Reset-Timestamp "1721422596292", 
+                           :Traceid "743e02ca3469de2a00e94e0b657f2b12", :X-Bapi-Limit "20"},
+                  :reqId "Id_AKxa7", :data {}}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:57:20.915-00:00", 
+           :direction :out, :account :rene/test4, 
+           :data {"op" "order.create", 
+                  "header" {"X-BAPI-TIMESTAMP" 1721422640813, "X-BAPI-RECV-WINDOW" "8000",
+                            "Referer" "bot-001"}, 
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Limit", 
+                           "qty" "0.0001", "category" "spot", "timeInForce" "PostOnly"}],
+                  :reqId "AjbZZ2Tx"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:57:21.233-00:00", :direction :in, 
+           :account :rene/test4, 
+           :data {:retCode 170130, :retMsg "Data sent for paramter '' is not valid.",
+                  :connId "cpv85t788smd5eps8ncg-2ya9", :op "order.create", 
+                  :header {:Timenow "1721422641070", :X-Bapi-Limit-Status "19", 
+                           :X-Bapi-Limit-Reset-Timestamp "1721422641070", 
+                           :Traceid "57f8a390cad3f36a003c85f6fc89076a", 
+                           :X-Bapi-Limit "20"}, :reqId "AjbZZ2Tx", :data {}}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:58:12.950-00:00", :direction :out
+           :account :rene/test4, 
+           :data {"op" "order.create", 
+                  "header" {"X-BAPI-TIMESTAMP" 1721422692848, "X-BAPI-RECV-WINDOW" "8000", 
+                            "Referer" "bot-001"},
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", 
+                                                           "orderType" "Limit", "qty" "0.0001",
+                           "category" "spot", "timeInForce" "PostOnly"}], :reqId "h2dwlwA3"}}
+ 
+ #:message{:timestamp #inst "2024-07-19T20:58:13.272-00:00", :direction :in, 
+           :account :rene/test4, 
+           :data {:retCode 170130, :retMsg "Data sent for paramter '' is not valid.",
+                  :connId "cpv85t788smd5eps8ncg-2ya9", :op "order.create",
+                  :header {:Timenow "1721422693109", :X-Bapi-Limit-Status "19", 
+                           :X-Bapi-Limit-Reset-Timestamp "1721422693108", 
+                           :Traceid "5ce8d54b49ec8e697bd1b929c8938010", 
+                           :X-Bapi-Limit "20"}, :reqId "h2dwlwA3", :data {}}}
+ 
+ #:message{:timestamp #inst "2024-07-19T20:58:50.906-00:00", :direction :out, 
+           :account :rene/test4, 
+           :data {"op" "order.create", 
+                  "header" {"X-BAPI-TIMESTAMP" 1721422730805,
+                                                 "X-BAPI-RECV-WINDOW" "8000",
+                            "Referer" "bot-001"}, 
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Limit", 
+                           "qty" "0.0001", "price" "70000.0", "category" "spot", "timeInForce" "PostOnly"}], 
+                  :reqId "Bmy9Oarl"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:58:51.227-00:00", 
+           :direction :in, :account :rene/test4, 
+           :data {:retCode 170193, :retMsg "Buy order price cannot be higher than 68900.58USDT.", 
+                  :connId "cpv85t788smd5eps8ncg-2ya9", :op "order.create", 
+                  :header {:Timenow "1721422731068", :X-Bapi-Limit-Status "19", 
+                           :X-Bapi-Limit-Reset-Timestamp "1721422731067",
+                           :Traceid "78d36b3eb4e63f682ce6e75f7ff53e46", 
+                           :X-Bapi-Limit "20"}, :reqId "Bmy9Oarl", :data {}}}
+ 
+ #:message{:timestamp #inst "2024-07-19T20:59:09.847-00:00", :direction :out, 
+           :account :rene/test4, 
+           :data {"op" "order.create", 
+                                        
+                  "header" {"X-BAPI-TIMESTAMP" 1721422749745, 
+                                                  "X-BAPI-RECV-WINDOW" "8000", "Referer" "bot-001"}, 
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Limit", "qty" "0.0001",
+                           "price" "68900.0", "category" "spot", "timeInForce" "PostOnly"}], 
+                  :reqId "rGLj29hf"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T20:59:10.172-00:00", :direction :in, :account :rene/test4, 
+           :data {:retCode 0, :retMsg "OK", :connId "cpv85t788smd5eps8ncg-2ya9", :op "order.create",
+                  :header {:Timenow "1721422750007", :X-Bapi-Limit-Status "19", :X-Bapi-Limit-Reset-Timestamp "1721422750006", 
+                           :Traceid "261ec9f64a3b1a8578f93c58283ba32e", :X-Bapi-Limit "20"}, :reqId "rGLj29hf", 
+                  :data {:orderLinkId "1733814124603074561", :orderId "1733814124603074560"}}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T21:12:59.557-00:00", :direction :out, :account :rene/test4, 
+           :data {"op" "order.create",
+                  "header" {"X-BAPI-TIMESTAMP" 1721423579455, "X-BAPI-RECV-WINDOW" "8000", "Referer" "bot-001"},
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Limit", "qty" "0.0001", "price" "68900.0", "category" "spot", "timeInForce" "PostOnly"}], :reqId "BJRhC9su"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T21:12:59.875-00:00", :direction :in, :account :rene/test4, 
+           :data {:retCode 170193, :retMsg "Buy order price cannot be higher than 68759.7435USDT.", 
+                  :connId "cpv86i6c0hvd5nkl25n0-2y7y", :op "order.create", 
+                  :header {:Timenow "1721423579716", :X-Bapi-Limit-Status "19", :X-Bapi-Limit-Reset-Timestamp "1721423579715", 
+                           :Traceid "255d0b26998246f83bbf1017a121d23e", :X-Bapi-Limit "20"}, 
+                  :reqId "BJRhC9su", :data {}}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T21:13:11.946-00:00", :direction :out, :account :rene/test4, 
+           :data {"op" "order.create", 
+                  "header" {"X-BAPI-TIMESTAMP" 1721423591844, "X-BAPI-RECV-WINDOW" "8000", "Referer" "bot-001"}, 
+                  "args" [{"symbol" "BTCUSDT", "side" "Buy", "orderType" "Limit", "qty" "0.0001", "price" "68750.0", 
+                           "category" "spot", "timeInForce" "PostOnly"}], 
+                  :reqId "c4VTMBW4"}} 
+ 
+ #:message{:timestamp #inst "2024-07-19T21:13:12.250-00:00", :direction :in, :account :rene/test4, 
+           :data {:retCode 0, :retMsg "OK", :connId "cpv86i6c0hvd5nkl25n0-2y7y", 
+                  :op "order.create", 
+                  :header {:Timenow "1721423592093", :X-Bapi-Limit-Status "19", 
+                           :X-Bapi-Limit-Reset-Timestamp "1721423592093", :Traceid "5e6341a7a28124db29ac6095ffeab91d", 
+                           :X-Bapi-Limit "20"}, :reqId "c4VTMBW4", 
+                  :data {:orderLinkId "1733821188532430849", :orderId "1733821188532430848"}}})

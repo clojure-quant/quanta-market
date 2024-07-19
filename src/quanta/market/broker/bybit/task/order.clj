@@ -55,7 +55,16 @@
  "symbol":"BTCUSDT",
  "side":"Buy","orderType":"Market","qty":"200","timeInForce":"IOC","orderLinkId":"spot-test-04","isLeverage":0,"orderFilter":"Order"}
 
-(defn order-create-msg [{:keys [asset side qty limit]}]
+(defn type->bybit [ordertype]
+  (case ordertype
+    :limit "Limit"
+    :market "Market"
+    "Market"))
+
+(type->bybit :limit)
+(type->bybit :market)
+
+(defn order-create-msg [{:keys [asset side qty limit ordertype]}]
   (error "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
   (let [{:keys [bybit-symbol category]} (asset-category asset)]
   {"op" "order.create"
@@ -69,7 +78,7 @@
                      :buy "Buy"
                      :short "Sell"
                      :sell :Sell)
-            "orderType" "Limit"
+            "orderType" (type->bybit ordertype) ; "Limit"
             "qty" qty
             "price" limit
             "category" category ; "linear"
@@ -93,7 +102,7 @@
                           :market "Market"
                           ) ; "Limit" ; Market, Limit
             "qty" qty
-            ;"price" limit
+            "price" limit
             "category" category ; "spot" ; "linear"
             "timeInForce" "PostOnly"
             ;"orderLinkId" "spot-test-04"
@@ -128,6 +137,7 @@
        {:msg/type :order/confirmed
         :order order}
        {:msg/type :order/rejected
+        :msg msg
         :order order
         :message retMsg
         :code retCode}))))

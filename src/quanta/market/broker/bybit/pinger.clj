@@ -10,8 +10,10 @@
    (info "ping task startd..")
    (try
      (loop [i 0]
-       (m/? (m/sleep 1000))
        (m/? (ping! conn))
+       ; To avoid network or program issues, we recommend that you send the 
+       ; ping heartbeat packet every 20 seconds to maintain the WebSocket connection.
+       (m/? (m/sleep 20000))
        (recur (inc i)))  
        (catch Cancelled _ true)
        (catch Exception _ false))))

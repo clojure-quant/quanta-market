@@ -25,6 +25,37 @@
    :rene/test1-orderupdate {:type :bybit
                             :mode :test
                             :segment :private
-                            :creds (get-creds :bybit/rene)}})
+                            :creds (get-creds :bybit/rene)}
+   
+   :rene/test2 {:type :bybit
+                :mode :test
+                :segment :trade
+                :creds (get-creds :bybit/rene2)}
+   :rene/test2-orderupdate {:type :bybit
+                            :mode :test
+                            :segment :private
+                            :creds (get-creds :bybit/rene2)}
+   
+   :rene/test3 {:type :bybit
+                :mode :test
+                :segment :trade
+                :creds (get-creds :bybit/rene3)}
+   :rene/test3-orderupdate {:type :bybit
+                            :mode :test
+                            :segment :private
+                            :creds (get-creds :bybit/rene3)}
+   
+
+   :rene/test4 {:type :bybit
+                :mode :test
+                :segment :trade
+                :creds (get-creds :bybit/rene4)}
+   :rene/test4-orderupdate {:type :bybit
+                            :mode :test
+                            :segment :private
+                            :creds (get-creds :bybit/rene4)}
+   
+   
+   })
 
 accounts

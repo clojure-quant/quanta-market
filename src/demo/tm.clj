@@ -1,6 +1,8 @@
 (ns demo.tm
   (:require 
    [modular.log]
+   [quanta.market.trade.db :as trade-db :refer [trade-db-start
+                                                trade-db-stop]]
    [quanta.market.trade :refer [trade-manager-start 
                                 start-all-accounts 
                                 stop-all-accounts
@@ -23,10 +25,11 @@
               #_:rolling #_{:type :file-rolling
                         :path ".data/quanta.log"
                         :pattern :monthly}}})
- 
- 
- (def tm (trade-manager-start "/tmp/trade-db" accounts))
 
+ 
+(def db (trade-db-start "/tmp/trade-db"))
+ 
+(def tm (trade-manager-start db accounts))
 
  (comment 
    tm
@@ -36,7 +39,7 @@
  
   (start-all-accounts tm)
   
-  (stop-all-accounts tm)  
+  (stop-all-accounts tm)
    
  ;  
    )

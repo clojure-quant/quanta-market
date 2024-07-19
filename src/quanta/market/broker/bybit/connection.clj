@@ -20,9 +20,9 @@
    :order-update "private"})
 
 (def asset-class 
-  {:spot "spot"
-   :future "linear"
-   :future-inverse "inverse"
+  {:spot "spot" ; BTCUSD  BTCUSDT
+   :future "linear" ; BTC-26JUL24 BTC-30AUG24 BTC-PERP
+   :future-inverse "inverse" ;  BTCUSD           BTCUSDZ24  BTCUSDU24 
    :option "option"})
 
 (def websocket-destination-urls
@@ -139,7 +139,9 @@
                     (debug "target-id: " id "reqId: " reqId "req_id: " req_id)
                     (or (= id reqId) (= id req_id)))
           result (first-match p-reqId (:msg-flow conn))
-          msg (assoc msg :reqId id "req_id" id)]
+          msg (assoc msg :reqId id 
+                     ;"req_id" id
+                     )]
       (debug "making rpc request:  " msg)
       (let [r (m/join get-result
                       (send-msg-task conn msg)

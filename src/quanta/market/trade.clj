@@ -3,8 +3,8 @@
    [missionary.core :as m]
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
-   [quanta.market.trade.db :as trade-db :refer [trade-db-start 
-                                                trade-db-stop]]
+   [quanta.market.trade.db :as trade-db :refer [trade-db-start
+                                               trade-db-stop]]
    [quanta.market.trade.msg-logger :refer [start-logger! stop-logger!]]
     ; default implementations:
    ;[quanta.market.broker.paper]
@@ -70,16 +70,16 @@
   (trade-db/print-messages db opts))
 
 
-(defn trade-manager-start [db-path accounts]
+(defn trade-manager-start [db accounts]
   (let [accounts (create-accounts accounts)
-        db (trade-db-start db-path)
         msg-logger-in (atom {})
         msg-logger-out (atom {})]
     (trade-manager. accounts db msg-logger-in msg-logger-out)))
 
 (defn trade-manager-stop [{:keys [db accounts] :as this}]
   (stop-all-accounts this)
-  (trade-db-stop db))
+  ;(trade-db-stop db)
+  )
 
 
 

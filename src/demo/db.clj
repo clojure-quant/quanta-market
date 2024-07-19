@@ -30,7 +30,6 @@ dispose!
                 :message/data
                 ] messages))
 
-
  (print-messages tm {:account :florian/test1})
 
  (print-messages tm {:account :rene/test1})

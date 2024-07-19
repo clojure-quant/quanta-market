@@ -15,14 +15,17 @@
   (start! [this opts]
     (let [conn (c/connection-start! opts)]
       (reset! (:conn this) conn)
+      ; auth
       (when-let [creds (:creds opts)]
         (info (:account-id opts) " authenticating secure account..")
         (m/? (a/authenticate! conn creds)))
+      ; orderupdate subscription
       (when (= (:segment opts) :private)    
         (info (:account-id opts) "segment=private -> subscribing to execution and orderupdates..")
         ; ticketInfo does not work.
         ;(m/? (s/subscription-start! conn :order/execution))
         (m/? (s/subscription-start! conn :order/update)))
+      ; pinger
       (pinger/start-pinger conn ping)
       conn))
   (stop! [this opts]

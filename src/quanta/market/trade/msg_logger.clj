@@ -26,10 +26,7 @@
           dispose-logger (log-msg!
                           #(info "msg-logger stopped successfully " %)
                           #(error "msg-logger crashed!" %))]
-      dispose-logger)
-    (do 
-      (error  account-id direction "cannot create msg logger - no msg-flow.")
-      nil))
+      dispose-logger))
 
 (defn start-logger! [dbconn msg-logger account-id direction conn]
   (assert msg-logger)

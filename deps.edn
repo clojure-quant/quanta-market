@@ -17,6 +17,7 @@
   io.replikativ/datahike {:mvn/version "0.6.1568"
                                     ;:exclusions [[org.clojure/clojurescript]]
                           }
+  com.joshuadavey/crockery {:mvn/version "0.3.0"} ; better table printing
   
   }
 

@@ -2,7 +2,7 @@
    (:require
     [missionary.core :as m]
     [quanta.market.trade.msg-logger :refer [create-logger!]]
-    [quanta.market.trade :refer [query-messages]]
+    [quanta.market.trade :refer [query-messages print-messages]]
     [clojure.pprint :refer [print-table]]
     [demo.tm :refer [tm]]))
   
@@ -24,22 +24,21 @@ dispose!
 (dispose!)
 
 
-
-(-> (query-messages tm {:account :florian/test1})
-    print-table
-  )
-
-(-> (query-messages tm {:account :rene/test1})
-    print-table)
+(defn print-history [messages]
+  (print-table [:message/timestamp
+                :message/direction
+                :message/data
+                ] messages))
 
 
-(-> (query-messages tm {:account :rene/test1-orderupdate})
-    print-table)
+ (print-messages tm {:account :florian/test1})
 
+ (print-messages tm {:account :rene/test1})
 
+ (print-messages tm {:account :rene/test1-orderupdate})
 
-(-> (query-messages tm {:account :bybit})
-    print-table)
+ (print-messages tm {:account :bybit})
+
 
 
 

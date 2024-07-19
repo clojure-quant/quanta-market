@@ -66,6 +66,10 @@
 (defn query-messages [{:keys [db] :as this} opts]
   (trade-db/query-messages db opts))
 
+(defn print-messages [{:keys [db] :as this} opts]
+  (trade-db/print-messages db opts))
+
+
 (defn trade-manager-start [db-path accounts]
   (let [accounts (create-accounts accounts)
         db (trade-db-start db-path)

@@ -3,7 +3,9 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [tick.core :as t]
    [clojure.java.io :as io]
-   [datahike.api :as d]))
+   [datahike.api :as d]
+   [crockery.core :as crockery]
+   ))
 
 (def schema
   [; message
@@ -23,56 +25,55 @@
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
   ; order
-  {:db/ident :order/account
-   :db/valueType :db.type/keyword
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :message/asset
-   :db/valueType :db.type/string
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :order/side
-   :db/valueType :db.type/keyword
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :order/quantity
-   :db/valueType :db.type/double
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :order/type
-   :db/valueType :db.type/keyword
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :order/limit
-   :db/valueType :db.type/double
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :order/date-created
+   {:db/ident :order/account
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :message/asset
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :order/side
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :order/quantity
+    :db/valueType :db.type/double
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :order/type
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :order/limit
+    :db/valueType :db.type/double
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :order/date-created
     :db/valueType :db.type/instant
     :db/cardinality :db.cardinality/one}
-  {:db/ident :order/date-done
-   :db/valueType :db.type/instant
-   :db/cardinality :db.cardinality/one}
+   {:db/ident :order/date-done
+    :db/valueType :db.type/instant
+    :db/cardinality :db.cardinality/one}
    {:db/ident :order/status
     :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one}
   ; trade
-  {:db/ident :trade/account
-   :db/valueType :db.type/keyword
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :trade/order
-   :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :trade/asset
-   :db/valueType :db.type/string
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :trade/side
-   :db/valueType :db.type/keyword
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :trade/quantity
-   :db/valueType :db.type/double
-   :db/cardinality :db.cardinality/one}
-  {:db/ident :trade/price
-   :db/valueType :db.type/double
-   :db/cardinality :db.cardinality/one}
+   {:db/ident :trade/account
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :trade/order
+    :db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :trade/asset
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :trade/side
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :trade/quantity
+    :db/valueType :db.type/double
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :trade/price
+    :db/valueType :db.type/double
+    :db/cardinality :db.cardinality/one}
    {:db/ident :trade/date
-   :db/valueType :db.type/instant
-   :db/cardinality :db.cardinality/one}]
-  )
+    :db/valueType :db.type/instant
+    :db/cardinality :db.cardinality/one}])
 
 (defn- cfg [path]
   {:store {:backend :file ; backends: in-memory, file-based, LevelDB, PostgreSQL
@@ -112,10 +113,27 @@
 
 (defn query-messages
   [conn {:keys [account]}]
-   (d/q '[:find [(pull ?msg [:message/timestamp
-                            :message/direction
-                            :message/account
-                            :message/data]) ...]
-           :in $ account
-           :where [?msg :message/account account]]
-         @conn account))
+  (->> (d/q '[:find [(pull ?msg [:message/timestamp
+                                :message/direction
+                                :message/account
+                                :message/data]) ...]
+             :in $ account
+             :where [?msg :message/account account]]
+           @conn account)
+      (sort-by :message/timestamp t/<)))
+
+
+(defn print-messages [conn opts]
+  (let [messages (query-messages conn opts)]
+    (crockery/print-table 
+     [{:name :message/timestamp, :align :left} 
+      {:name :message/direction, :align :right :title "i/o"} 
+      {:name :message/data, :align :left} 
+      ] 
+     messages)    
+    )
+  
+  )
+
+
+

@@ -28,21 +28,21 @@
  (def tm (trade-manager-start "/tmp/trade-db" accounts))
 
 
+ (comment 
+   tm
  
- tm
-
-(get-account-ids tm)
- (get-account tm :florian/test1)
-
-
-(start-all-accounts tm)
+   (get-account-ids tm)
+   (get-account tm :florian/test1)
+ 
+  (start-all-accounts tm)
+  
+  (stop-all-accounts tm)  
+   
+ ;  
+   )
  
  
  
- 
- 
- 
-(stop-all-accounts tm)
  
 
 

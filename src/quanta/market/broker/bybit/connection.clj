@@ -69,8 +69,6 @@
         (debug "removing msg-flow reader..")
         (reset! !-a nil))))))
 
-;(future-cancel ping-sender)
-
 (defn connection-start! [opts]
   (info "connection-start..")
   (let [stream (connect! opts)

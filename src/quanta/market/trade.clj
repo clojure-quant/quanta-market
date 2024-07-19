@@ -16,6 +16,8 @@
 (defn get-account-ids [{:keys [accounts] :as _this}]
   (keys accounts))
 
+
+
 (defrecord trade-manager [accounts db msg-logger-in msg-logger-out]
   ;
   p/connection
@@ -25,8 +27,8 @@
       (let [{:keys [opts]} a
             _ (info "account: " account " opts: " opts)
             conn (p/start! a opts)]
-       (start-logger! db msg-logger-in account :in (:msg-flow conn))
-       (start-logger! db msg-logger-out account :out (:msg-out-flow conn))
+       (start-logger! db msg-logger-in account :in (p/msg-in-flow a))
+       (start-logger! db msg-logger-out account :out (p/msg-out-flow a))
         conn
         )))
   (stop! [this {:keys [account]}]
@@ -35,6 +37,12 @@
         (stop-logger! msg-logger-in account) 
         (stop-logger! msg-logger-out account) 
         (p/stop! a opts))))
+  (msg-in-flow [this]
+    nil
+    )
+  (msg-out-flow [this]
+    nil            
+                )
   ;
   p/trade
   (order-create! [this {:keys [account] :as order}]

@@ -51,18 +51,14 @@
 ;// Spot Market Buy order, qty is quote currency
 ;{"category":"spot","symbol":"BTCUSDT","side":"Buy","orderType":"Market","qty":"200","timeInForce":"IOC","orderLinkId":"spot-test-04","isLeverage":0,"orderFilter":"Order"}
 
-{"category":"spot",
- "symbol":"BTCUSDT",
- "side":"Buy","orderType":"Market","qty":"200","timeInForce":"IOC","orderLinkId":"spot-test-04","isLeverage":0,"orderFilter":"Order"}
-
 (defn type->bybit [ordertype]
   (case ordertype
     :limit "Limit"
     :market "Market"
     "Market"))
 
-(type->bybit :limit)
-(type->bybit :market)
+;(type->bybit :limit)
+;(type->bybit :market)
 
 (defn order-create-msg [{:keys [asset side qty limit ordertype]}]
   (error "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")

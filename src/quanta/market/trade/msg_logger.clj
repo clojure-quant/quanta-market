@@ -7,6 +7,7 @@
   )
 
 (defn log-messages-task [dbconn msg-flow account-id direction]
+  (assert msg-flow "msg-logger needs msg-flow.")
   (m/sp 
      (try 
        (info  account-id direction "msg-logger started. ")
@@ -19,8 +20,8 @@
        (catch Cancelled _ true))))
 
 (defn create-logger! [dbconn account-id direction msg-flow]
-  (assert dbconn)
-  (assert msg-flow)
+  (assert msg-flow "msg-logger needs db-conn.")
+  (assert msg-flow "msg-logger needs msg-flow.")
     (let [_ (info account-id direction "creating msg-logger!")
           log-msg! (log-messages-task dbconn msg-flow account-id direction)
           dispose-logger (log-msg!

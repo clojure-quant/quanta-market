@@ -40,7 +40,7 @@
       (fn []
         (reset! !-a nil))))))
 
-(defn stream-sender []
+(defn flow-sender []
   (let [!-a (atom nil)]
     {:flow (msg-flow !-a)
      :send (fn [v]

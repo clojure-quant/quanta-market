@@ -10,6 +10,7 @@
                                 get-account]]
    [quanta.market.protocol]
    [demo.accounts :refer [accounts]]))
+ 
   
  (modular.log/timbre-config!
  {:min-level [[#{"org.apache.http.*"
@@ -29,7 +30,12 @@
  
 (def db (trade-db-start "/tmp/trade-db"))
  
+ 
+ 
 (def tm (trade-manager-start db accounts))
+
+ 
+ 
 
  (comment 
    tm

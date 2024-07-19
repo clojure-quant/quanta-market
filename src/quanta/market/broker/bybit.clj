@@ -2,6 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
+   [quanta.market.util :refer [first-match flow-sender]]
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.connection :as c]
    [quanta.market.broker.bybit.task.auth :as a]
@@ -9,11 +10,12 @@
    [quanta.market.broker.bybit.task.subscription :as s]
    [quanta.market.broker.bybit.pinger :as pinger]))
 
-(defrecord bybit [opts conn ping]
+
+(defrecord bybit [opts conn ping flow-sender-in flow-sender-out]
   ;
   p/connection
   (start! [this opts]
-    (let [conn (c/connection-start! opts)]
+    (let [conn (c/connection-start! flow-sender-in flow-sender-out opts)]
       (reset! (:conn this) conn)
       ; auth
       (when-let [creds (:creds opts)]
@@ -24,7 +26,8 @@
         (info (:account-id opts) "segment=private -> subscribing to execution and orderupdates..")
         ; ticketInfo does not work.
         (m/? (s/subscription-start! conn :order/execution))
-        (m/? (s/subscription-start! conn :order/update)))
+        (m/? (s/subscription-start! conn :order/update))
+        )
       ; pinger
       (pinger/start-pinger conn ping)
       conn))
@@ -36,9 +39,10 @@
         (c/connection-stop! conn)
         (reset! (:conn this) nil))
       nil))
-  (msg-in-flow [this])
-
-
+  (msg-in-flow [this]
+     (:flow (:flow-sender-in this)))
+  (msg-out-flow [this]
+      (:flow (:flow-sender-out this)))
   ;
   p/trade
   (order-create! [this order]
@@ -53,6 +57,10 @@
 (defmethod p/create-account :bybit
   [opts]
   (info "creating bybit : " opts)
-  (bybit. opts (atom nil) (atom nil)))
+  (bybit. opts 
+          (atom nil) 
+          (atom nil)
+          (flow-sender)
+          (flow-sender)))
 
   

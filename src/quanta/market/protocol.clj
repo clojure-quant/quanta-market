@@ -5,7 +5,7 @@
   (start! [this opts])
   (stop! [this opts])
   (msg-in-flow [this])
-  )
+  (msg-out-flow [this]))
 
 (defprotocol trade
   (order-create! [this order-new])

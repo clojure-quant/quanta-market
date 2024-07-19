@@ -4,6 +4,7 @@
    [missionary.core :as m]
    [buddy.core.codecs :as crypto.codecs] ; authentication
    [buddy.core.mac :as crypto.mac]
+   [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.connection :refer [send-msg! connection-start!]]
    [quanta.market.util :refer [first-match]]))
 
@@ -42,22 +43,9 @@
   (m/sp
      (info "auth! api-key: " api-key)
      (send-msg! conn (auth-msg api-key api-secret))
-     (let [auth-result (m/? (first-match auth-respose? (:msg-flow conn)))]
+     (let [auth-result (m/? (first-match auth-respose? (:msg-in-flow conn)))]
        (info "auth result: " auth-result)
        auth-result)))
-
-
-
-(defn secure-connection
-  [{:keys [account] :as opts}]
-  (m/ap
-   (info "creating secure account")
-   (let [c (m/?> (connection-start! opts))]
-     (if c
-       (m/? (authenticate! c account))
-       (error "secure-connection could not get stream!"))
-     (info "returning c")
-     c)))
 
 
 

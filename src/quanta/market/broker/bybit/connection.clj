@@ -6,7 +6,7 @@
    [jsonista.core :as j] ; json read/write
    [aleph.http :as http]
    [manifold.stream :as s] ; websocket to bybit
-   [quanta.market.util :refer [first-match stream-sender]]))
+   [quanta.market.util :refer [first-match]]))
 
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
  
@@ -58,42 +58,29 @@
 (defn json->msg [json]
   (j/read-value json j/keyword-keys-object-mapper))
 
-(defn msg-flow [!-a]
-  ; without the stream the last subscriber gets all messages
-  (m/stream
-   (m/observe
-    (fn [!]
-      (debug "creating msg-flow reader..")
-      (reset! !-a !)
-      (fn []
-        (debug "removing msg-flow reader..")
-        (reset! !-a nil))))))
-
-(defn connection-start! [opts]
+(defn connection-start! [flow-sender-in flow-sender-out opts]
   (info "connection-start..")
   (let [stream (connect! opts)
-        !-a (atom nil)
+        send-in-fn (:send flow-sender-in)
+        send-out-fn (:send flow-sender-out)
         on-msg (fn [json]
                  (let [msg (json->msg json)]
                    (info "!msg rcvd: " (:account-id opts) " " msg)
-                   (if @!-a
-                     (@!-a msg)
-                     (warn "unprocessed msg: " (:account-id opts) " " msg))))
-        msg-flow (msg-flow !-a)
-        out (stream-sender)
-        ]
+                   (send-in-fn msg)))]
+    (assert send-in-fn "send-in-fn must be defined")
+    (assert send-out-fn "send-out-fn must be defined")
     (s/consume on-msg stream)
     (info (:account-id opts) " connected!")
     {:account opts
      :opts opts
      :api :bybit
      :stream stream
-     :msg-flow msg-flow
-     :msg-out-flow (:flow out)
-     :send-out-fn (:send out)
-     }))
+     :send-in-fn send-in-fn
+     :send-out-fn send-out-fn
+     :msg-in-flow (:flow flow-sender-in)
+     :msg-out-flow (:flow flow-sender-out)}))
 
-(defn connection-stop! [{:keys [stream msg-flow]}]
+(defn connection-stop! [{:keys [stream]}]
   (info "connection-stop.. ")
   (.close stream))
 
@@ -138,7 +125,7 @@
           p-reqId (fn [{:keys [reqId req_id]}]
                     (debug "target-id: " id "reqId: " reqId "req_id: " req_id)
                     (or (= id reqId) (= id req_id)))
-          result (first-match p-reqId (:msg-flow conn))
+          result (first-match p-reqId (:msg-in-flow conn))
           msg (assoc msg :reqId id 
                      ;"req_id" id
                      )]

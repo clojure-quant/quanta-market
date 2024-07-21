@@ -73,7 +73,14 @@
 
 
 (defn last-trade-flow [msg-flow {:keys [asset]}]
-  (let [t (topic/topic :asset/trade asset)]
-    (warn "subscribing last-trade for asset: " asset )
+  (let [t (topic/topic :asset/trade [asset])]
+    (warn "subscribing last-trade for asset: " asset " topic: " t)
   (m/eduction (filter (topic/only-topic t)) msg-flow)))
   
+
+(comment 
+  (topic/topic :asset/trade ["BTCUSDT"])
+  
+  ;
+  )
+

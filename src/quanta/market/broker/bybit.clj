@@ -68,9 +68,9 @@
                        @(:conn this)
                        :asset/trade asset))
   (last-trade-flow [this account-asset]
-           (lt/last-trade-flow 
-             (p/msg-in-flow this)
-             account-asset))
+                   (let [flow (p/msg-in-flow this)]
+                         (assert flow "missing msg-in-flow")
+                         (lt/last-trade-flow flow account-asset)))
   ; bybit
   )
 

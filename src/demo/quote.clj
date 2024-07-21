@@ -7,12 +7,15 @@
 
 
 (def qsub {:account :bybit
-           :asset "ETHUSDT"})
-
-(m/? (p/subscribe-last-trade! qm qsub))
-
-
+           :asset "BTCUSDT"})
 
 (start-logging ".data/quotes.txt"
                (p/last-trade-flow qm qsub))
+
+
+(m/? (p/subscribe-last-trade! qm qsub))
+
+(m/? (p/unsubscribe-last-trade! qm qsub))
+
+
 

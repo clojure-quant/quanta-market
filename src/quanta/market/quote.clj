@@ -23,6 +23,7 @@
   )
 
 
+
 (defn quote-manager-start [cm]
   (quote-manager. cm))
 

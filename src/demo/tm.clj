@@ -45,7 +45,7 @@
      (start-logging ".data/order-update.txt"
                     (p/order-update-flow  tm))
      tm))
-  
+ 
 
 (def cm (setup-connection-manager))
 

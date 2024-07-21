@@ -27,3 +27,12 @@
 (defn get-topic-data [msg]
   (:data msg))
 
+(comment 
+    (topic :asset/stats ["EURUSD"])
+  
+  
+  
+  
+  
+ ; 
+  )

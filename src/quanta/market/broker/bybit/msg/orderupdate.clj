@@ -31,6 +31,20 @@
    :price "68750.00", ,
    :triggerPrice "0.00"})
 
+(defn normalize-orderstatus [orderStatus]
+  ;open status
+  (case orderStatus
+    ; open
+    "New" :new-order ;  order has been placed successfully
+    "PartiallyFilled" :trade;
+    "Untriggered" nil ; Conditional orders are created
+    ; closed
+    "Rejected"  :rejected
+    "PartiallyFilledCanceled"
+    "Filled" :trade
+    "Cancelled"  :canceled
+    "Triggered" nil
+    "Deactivated" nil))
 
 (defn normalize-bybit-orderupdate [{:keys [orderId
                                            orderLinkId
@@ -41,16 +55,13 @@
                                            updatedTime ; "1721421749149"
                                            ; leavesQty ; "0.000100"
                                            ;leavesValue "0.10000000",
-                                           rejectReason
-                                           ]}]
+                                           rejectReason]}]
   {:order-id orderLinkId
-   :status orderStatus
+   :orderupdatetype (normalize-orderstatus orderStatus)
    :cum-exec-qty cumExecQty
    :cum-exec-value cumExecValue
    :timestamp updatedTime
-   :reject-reason rejectReason
-   })
-
+   :reject-reason rejectReason})
 
 (defn order-id [msg]
   (get-in msg [:data]))
@@ -65,14 +76,12 @@
          data (get-topic-data msg)
          bybit-order-update (m/?> (split-seq-flow data))]
      (when bybit-order-update ; bug of split-seq-flow returns also nil.
-       (normalize-bybit-orderupdate bybit-order-update))
-     )))
+       (normalize-bybit-orderupdate bybit-order-update)))))
 
 (comment
   (def raw-order-flow (m/seed [{:data [1 2 3]}
-                               {:data [4 5]}
-                               ]))
-  
+                               {:data [4 5]}]))
+
 
   (def order-flow (order-update-flow raw-order-flow))
 

@@ -66,9 +66,3 @@
         ; trade
     :order/trade (process-trade order order-status trade-qty trade-price)
     order-status))
-
-
-(defn create-new-order [{:keys [type trade-qty trade-price] :as order-update}]
-  (when (= (:type order-update) :order/new)
-    {:order (:order-data order-update)
-     :order-status (open-order order-status)}))

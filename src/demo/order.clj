@@ -4,7 +4,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-printing start-logging]]
    [demo.pm :refer [pm]]
-   [quanta.market.portfolio :refer [create-order]]
+   [quanta.market.portfolio :refer [create-order get-working-orders]]
    ))
 
 (def assets
@@ -72,6 +72,7 @@
 (m/? (create-order pm order-spot))
 
 
+
 {:order {:account :rene/test4, :asset "BTCUSDT.S", :side :buy, :qty "0.0001", :type :market, :limit "1000.0"},
  :msg/type :order/confirmed}
 
@@ -81,11 +82,11 @@
    :order-id "my-id-007"})
 
 
-(m/? (p/order-cancel! tm cancel))
+(m/? (p/order-cancel! pm cancel))
 
 
 
-
+(get-working-orders pm)
 
 
 

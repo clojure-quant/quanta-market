@@ -25,10 +25,11 @@
 (def OrderUpdate
   [:map
    [:order-id :string]
-   [:account :keyword]
-   [:asset :string]
-   [:type [:enum :new-order :rejected :canceled :trade]]
-   [:qty [:double {:min above-zero}]]])
+   ;[:account :keyword]
+   ;[:asset :string]
+   [:orderupdatetype [:enum :new-order :rejected :canceled :trade]]
+   ;[:qty [:double {:min above-zero}]]
+   ])
 
 
 (def OrderStatus

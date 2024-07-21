@@ -3,6 +3,13 @@
 
 
 
+unit tests:
+
+clj -M:test
+
+
+
+
 order-status
  :live
  :not-live

@@ -35,18 +35,6 @@
    :limit 68750.0
    })
 
-(format "%f" 3.4)
-(str (:qty order-spot))
-(format "%f" (:qty order-spot))
-(format "%f" (:limit  order-spot))
-
-
-(def order-linear
-  (assoc order-spot :asset "BTC-27SEP24.L"))
-
-(def order-inverse
-  (assoc order-spot :asset "BTCUSD.I"))
-
 (m/? (create-order pm order-spot))
 
 (def cancel
@@ -62,6 +50,22 @@
 (get-working-orders pm)
 
 
+(comment 
+  
+(format "%f" 3.4)
+(str (:qty order-spot))
+(format "%f" (:qty order-spot))
+(format "%f" (:limit  order-spot))  
+
+  (def order-linear
+    (assoc order-spot :asset "BTC-27SEP24.L"))
+  
+  (def order-inverse
+    (assoc order-spot :asset "BTCUSD.I"))
+  
+  
+; 
+  )
 
 
 

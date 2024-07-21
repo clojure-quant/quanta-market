@@ -8,7 +8,7 @@
                                 stop-all-accounts
                                 get-account-ids
                                 get-account]]
-   [quanta.market.util :refer [start-printing start-logging]]
+   [quanta.market.util :refer [start-logging]]
    [demo.accounts :refer [accounts]]
    [quanta.market.protocol :as p]))
 

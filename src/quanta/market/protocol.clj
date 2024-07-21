@@ -13,6 +13,12 @@
   (order-update-msg-flow [this])
   (order-update-flow  [this]))
 
+(defprotocol quote
+  (subscribe-last-trade! [this sub])
+  (unsubscribe-last-trade! [this unsub])
+  (last-trade-flow [this account-asset]))
+
+
 (defmulti create-account 
   (fn [opts]
     (:type opts)))

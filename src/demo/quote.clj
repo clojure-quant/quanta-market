@@ -1,18 +1,18 @@
-(ns demo.quote)
+(ns demo.quote
+  (:require
+   [missionary.core :as m]
+   [quanta.market.protocol :as p]
+   [quanta.market.util :refer [start-logging]]
+   [demo.tm :refer [qm]]))
+
+
+(def qsub {:account :bybit
+           :asset "ETHUSDT"})
+
+(m/? (p/subscribe-last-trade! qm qsub))
 
 
 
+(start-logging ".data/quotes.txt"
+               (p/last-trade-flow qm qsub))
 
- 
-  
-  (require '[missionary.core :as m])
-  
-  (def print-quote (fn [r q] (println q)))
-  
-  (m/? (m/reduce
-        print-quote nil (get-quote this {:account :random
-                                         :asset "BTC"})))
-  
-  (m/? (m/reduce
-        print-quote nil (get-quote this {:account :bybit
-                                         :asset "BTCUSDT"})))

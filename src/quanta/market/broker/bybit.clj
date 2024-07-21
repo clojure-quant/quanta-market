@@ -10,6 +10,7 @@
    [quanta.market.broker.bybit.task.subscription :as s]
    [quanta.market.broker.bybit.pinger :as pinger]
    [quanta.market.broker.bybit.msg.orderupdate :as ou]
+   [quanta.market.broker.bybit.msg.lasttrade :as lt]
    ))
 
 
@@ -57,9 +58,20 @@
   (order-update-msg-flow [this] (:order-update-msg-flow this))
   (order-update-flow [this] (:order-update-flow this))
 
-  ; p/quote
-  ;(quote-stream [this]
-  ;  (get-stream this))
+   p/quote
+  (subscribe-last-trade! [this {:keys [asset]}]
+              (s/subscription-start!
+               @(:conn this)
+               :asset/trade asset))
+  (unsubscribe-last-trade! [this {:keys [asset]}]
+                      (s/subscription-stop!
+                       @(:conn this)
+                       :asset/trade asset))
+  (last-trade-flow [this account-asset]
+           (lt/last-trade-flow 
+             (p/msg-in-flow this)
+             account-asset))
+  ; bybit
   )
 
 

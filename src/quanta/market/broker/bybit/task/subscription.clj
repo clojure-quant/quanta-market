@@ -2,27 +2,13 @@
    (:require
     [taoensso.timbre :as timbre :refer [debug info warn error]]
     [missionary.core :as m]
-    [quanta.market.broker.bybit.connection :as c]))
+    [quanta.market.broker.bybit.connection :as c]
+    [quanta.market.broker.bybit.topic :refer [topic]]
+    ))
 
 ; https://bybit-exchange.github.io/docs/v5/websocket/public/trade
 
-(def topics
-  {:order/execution "ticketInfo"
-   :order/update "order"
-    ; market
-   :asset/orderbook "orderbook.%s.%s" ; depth asset OK
-   :asset/orderbook-top  "bookticker.%s" ; best bid ask every 100ms  NO
-   :asset/bars "kline.%s.%s" ; interval asset ; OK
-   :asset/stats "tickers.%s" ; OK
-   :asset/trade "publicTrade.%s"  ; symbol realtime  OK
-   :asset/liquidation "liquidation.%s" ; BAD
-   })
 
-(defn topic [type args]
-  (if-let [s (get topics type)]
-    (apply format s args)
-    (throw (Exception. (ex-info "topic not found" {:type type
-                                                   :args args})))))
 
 (defn subscription-start-msg [topic]
   {"op" "subscribe"

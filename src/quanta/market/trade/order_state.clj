@@ -34,7 +34,7 @@
 (defn create-update-task [{:keys [db alert :order-orderupdate-flow] :as state}]
   (assert order-orderupdate-flow ":order-update-flow option missing")
   (m/reduce (fn [_r {:keys [order order-update] :as msg}]
-              (alert "msg-received: " msg)
+              ;(alert "msg-received: " msg)
               (when order
                 (alert "processing order: " order)
                 (create-working-order state order))
@@ -83,3 +83,8 @@
                                            #(error "order-update-processor crashed: " %))]
     (assoc state
            :stop-update-processor stop-update-processor)))
+
+
+(defn order-manager-stop [{:keys [stop-update-processor]}]
+  (info "order-manager stopping..")
+  (stop-update-processor))

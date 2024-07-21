@@ -2,7 +2,6 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [quanta.market.util :refer [start-printing start-logging]]
    [demo.pm :refer [pm]]
    [quanta.market.portfolio :refer [create-order get-working-orders]]
    ))
@@ -48,33 +47,7 @@
 (def order-inverse
   (assoc order-spot :asset "BTCUSD.I"))
 
-{:code 170121,
- :order {:account :rene/test2, :asset "ETHUSDT.S", :side :buy, :qty "0.01", :limit "1000.0"},
- :msg/type :order/rejected,
- :message "Invalid symbol."}
-
-{:code 170131,
- :order {:account :rene/test2, :asset "BTCUSDT.S", :side :buy, :qty "0.01", :limit "1000.0"},
- :msg/type :order/rejected,
- :message "Insufficient balance."}
-
-
-(m/?  (p/order-create! tm order-spot))
-
-(m/?  (p/order-create! tm order-linear))
-
-(m/?  (p/order-create! tm order-inverse))
-;; => {:order {:account :rene/test1, :asset "ETHUSDT", :side :buy, :qty "0.01", :limit "1000.0"},
-;;     :message "Permission denied for current apikey",
-;;     :code 10005,
-;;     :msg/type :order/rejected}
-
 (m/? (create-order pm order-spot))
-
-
-
-{:order {:account :rene/test4, :asset "BTCUSDT.S", :side :buy, :qty "0.0001", :type :market, :limit "1000.0"},
- :msg/type :order/confirmed}
 
 (def cancel
   {:account :rene/test1

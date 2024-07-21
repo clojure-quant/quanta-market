@@ -5,7 +5,6 @@
    [quanta.market.util :refer [start-printing start-logging]]
    [demo.pm :refer [pm]]
    [quanta.market.portfolio :refer [create-order]]
-   
    ))
 
 (def assets

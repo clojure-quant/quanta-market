@@ -17,8 +17,9 @@
 
 
 (def pm (portfolio-manager-start {:db nil
-                                  :order-update-flow order-update-flow
+                                  ;:order-update-flow order-update-flow
                                   :tm tm
+                                  :alert-logfile ".data/alerts.txt"
                                   }))
 
 ;(get-working-orders pm)

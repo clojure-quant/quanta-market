@@ -32,22 +32,21 @@
 (def db (trade-db-start ".data/trade-db"))
  
  
+(defn setup-connection-manager []
+  (let [tm (trade-manager-start db accounts)
+        
+        ]
+    (start-logging ".data/msg-in.txt" (p/msg-in-flow tm))
+    (start-logging ".data/order-update-msg.txt"
+                   (p/order-update-msg-flow  tm))
+    (start-logging ".data/order-update.txt"
+                   (p/order-update-flow  tm))
+     (start-all-accounts tm)
+     tm))
+
  
-(def tm (trade-manager-start db accounts))
+(def tm (setup-connection-manager))
 
-
-(start-logging ".data/msg-in.txt"
-               (p/msg-in-flow tm))
-
-(start-printing
- (p/order-update-flow tm)
- "order-update")
-
-(start-logging ".data/order-update-msg.txt"
-               (p/order-update-msg-flow  tm))
-
-(start-logging ".data/order-update.txt"
-               (p/order-update-flow  tm))
 
 
  (comment 
@@ -55,10 +54,9 @@
  
    (get-account-ids tm)
    (get-account tm :florian/test1)
- 
-  (start-all-accounts tm)
-    
-  (stop-all-accounts tm)
+  
+   (start-all-accounts tm)    
+   (stop-all-accounts tm)
    
  ;  
    )

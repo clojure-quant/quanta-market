@@ -39,6 +39,16 @@
 (start-logging ".data/msg-in.txt"
                (p/msg-in-flow tm))
 
+(start-printing
+ (p/order-update-flow tm)
+ "order-update")
+
+(start-logging ".data/order-update-msg.txt"
+               (p/order-update-msg-flow  tm))
+
+(start-logging ".data/order-update.txt"
+               (p/order-update-flow  tm))
+
 
  (comment 
    tm

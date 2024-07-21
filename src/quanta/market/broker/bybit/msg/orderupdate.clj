@@ -41,7 +41,15 @@
                                            updatedTime ; "1721421749149"
                                            ; leavesQty ; "0.000100"
                                            ;leavesValue "0.10000000",
-                                           ]}])
+                                           rejectReason
+                                           ]}]
+  {:order-id orderLinkId
+   :status orderStatus
+   :cum-exec-qty cumExecQty
+   :cum-exec-value cumExecValue
+   :timestamp updatedTime
+   :reject-reason rejectReason
+   })
 
 
 (defn order-id [msg]
@@ -54,9 +62,11 @@
 (defn order-update-flow [raw-order-flow]
   (m/ap
    (let [msg (m/?> raw-order-flow)
-         data (get-topic-data msg)]
-     (m/?> (split-seq-flow data)))))
-
+         data (get-topic-data msg)
+         bybit-order-update (m/?> (split-seq-flow data))]
+     (when bybit-order-update ; bug of split-seq-flow returns also nil.
+       (normalize-bybit-orderupdate bybit-order-update))
+     )))
 
 (comment
   (def raw-order-flow (m/seed [{:data [1 2 3]}

@@ -4,6 +4,7 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [nano-id.core :refer [nano-id]]
    [tick.core :as t]
+   [quanta.market.protocol :as p]
    [quanta.market.trade.schema :as s]
    [quanta.market.trade.db :refer [store-new-order! store-order-update!]]
    [quanta.market.trade.order-status :as order-status]))
@@ -14,14 +15,7 @@
 (defn get-working-order [{:keys [working-orders]} order-id]
   (get @working-orders order-id))
 
-(defn create-order [{:keys [account asset side quantity type] :as order}]
-  (if (s/validate-order order)
-    (let [order-id (nano-id 8)]
-      (assoc order
-             :id order-id
-             :date-created (t/inst)))
-    (throw (ex-info "order-invalid" {:order order
-                                     :error (s/human-error-order order)}))))
+
 
 (defn process-order-new [{:keys [db alert working-orders] :as state}
                          order-update]
@@ -59,13 +53,14 @@
   "starts the porfolio manager.
    db is optional. if no db is passed, the database will not get updated and you 
    are working purely in memory."
-  [{:keys [db order-update-flow]}]
+  [{:keys [db tm order-update-flow]}]
   ; load-working-orders from db.
   (let [working-orders (atom {})
         ;open-positions (atom {})
         alert (fn [order-update reason]
                 (warn "order-update alert: " reason " order-update: " order-update))
         state {:db db
+               :tm tm
                :working-orders working-orders
                :order-update-flow order-update-flow
                ;:open-positions open-positions
@@ -76,7 +71,30 @@
     (assoc state
            :stop-update-processor stop-update-processor)))
 
+
 (defn portfolio-manager-stop [{:keys [stop-update-processor]}]
   (info "portfolio-manager stopping..")
   (stop-update-processor))
 
+
+(defn create-order [{:keys [tm] :as this}
+                    {:keys [account asset side quantity type] :as order}]
+  (if (s/validate-order order)
+    (let [order-id (nano-id 8)
+          order (assoc order
+                       :order-id order-id
+                       :date-created (t/inst))]
+      (if tm 
+        (p/order-create! tm order)
+        (error "cannot send order - :tm nil")))
+    (do 
+      (error "order invalid error: " (s/human-error-order order))
+      (throw (ex-info "order-invalid" {:order order
+                                       :error (s/human-error-order order)}))      )
+    ))
+
+
+(comment 
+  (nano-id 8)
+ ; 
+  )

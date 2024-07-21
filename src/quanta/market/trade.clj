@@ -47,7 +47,7 @@
   p/trade
   (order-create! [this {:keys [account] :as order}]
     (if-let [a (get-account this account)]
-      (p/order-create! a order)))
+        (p/order-create! a order))))
   (order-cancel! [this {:keys [account] :as order-cancel}]
     (if-let [a (get-account this account)]
       (p/order-cancel! a order-cancel)))

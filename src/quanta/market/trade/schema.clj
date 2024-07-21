@@ -17,9 +17,9 @@
   [:map
    [:account :keyword]
    [:asset :string]
-   [:side [:enum :long :short]]
+   [:side [:enum :buy :sell]]
    [:qty [:double {:min above-zero}]]
-   [:type [:enum :market :limit]]
+   [:ordertype [:enum :market :limit]]
    [:limit {:optional true} [:double {:min above-zero}]]])
 
 (def OrderUpdate

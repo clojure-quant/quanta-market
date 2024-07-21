@@ -3,7 +3,10 @@
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-printing start-logging]]
-   [demo.tm :refer [tm]]))
+   [demo.pm :refer [pm]]
+   [quanta.market.portfolio :refer [create-order]]
+   
+   ))
 
 (def assets
   [; spot
@@ -29,11 +32,15 @@
   {:account :rene/test4
    :asset "BTCUSDT.S"
    :side :buy
-   :qty "0.0001"
-   ;:ordertype :market
+   :qty 0.0001
    :ordertype :limit
-   :limit "68750.0"
+   :limit 68750.0
    })
+
+(format "%f" 3.4)
+(str (:qty order-spot))
+(format "%f" (:qty order-spot))
+(format "%f" (:limit  order-spot))
 
 
 (def order-linear
@@ -63,6 +70,9 @@
 ;;     :code 10005,
 ;;     :msg/type :order/rejected}
 
+(m/? (create-order pm order-spot))
+
+
 {:order {:account :rene/test4, :asset "BTCUSDT.S", :side :buy, :qty "0.0001", :type :market, :limit "1000.0"},
  :msg/type :order/confirmed}
 
@@ -75,15 +85,7 @@
 (m/? (p/order-cancel! tm cancel))
 
 
-(start-printing 
- (p/order-update-flow tm)
- "order-update")
 
-(start-logging ".data/order-update-msg.txt"
-      (p/order-update-msg-flow  tm))
-
-(start-logging ".data/order-update.txt"
-   (p/order-update-flow  tm))
 
 
 

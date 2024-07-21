@@ -60,7 +60,7 @@
 ;(type->bybit :limit)
 ;(type->bybit :market)
 
-(defn order-create-msg [{:keys [asset side qty limit ordertype]}]
+(defn order-create-msg [{:keys [order-id asset side qty limit ordertype]}]
   (error "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
   (let [{:keys [bybit-symbol category]} (asset-category asset)]
   {"op" "order.create"
@@ -68,19 +68,16 @@
              "X-BAPI-RECV-WINDOW" "8000"
              "Referer" "bot-001" ; for api broker
              }
-   "args" [{"symbol" bybit-symbol
+   "args" [{"orderLinkId" order-id ; max 36 chars numbers/letters(upper/lower) dashes underscores
+            "symbol" bybit-symbol
             "side" (case side
-                     :long "Buy"
                      :buy "Buy"
-                     :short "Sell"
-                     :sell :Sell)
+                     :sell "Sell")
             "orderType" (type->bybit ordertype) ; "Limit"
-            "qty" qty
-            "price" limit
+            "qty" (format "%f" qty)
+            "price" (format "%f" limit)
             "category" category ; "linear"
             "timeInForce" "PostOnly"}]}))
-
-
 
  (defn order-create-msg2 [{:keys [asset side qty type limit]}]
   (let [{:keys [symbol category]} (asset-category asset)]

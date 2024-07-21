@@ -2,6 +2,7 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
+   [quanta.market.util :refer [start-printing start-logging]]
    [demo.tm :refer [tm]]))
 
 (def assets
@@ -55,6 +56,7 @@
 (m/?  (p/order-create! tm order-spot))
 
 (m/?  (p/order-create! tm order-linear))
+
 (m/?  (p/order-create! tm order-inverse))
 ;; => {:order {:account :rene/test1, :asset "ETHUSDT", :side :buy, :qty "0.01", :limit "1000.0"},
 ;;     :message "Permission denied for current apikey",
@@ -71,6 +73,23 @@
 
 
 (m/? (p/order-cancel! tm cancel))
+
+
+(start-printing 
+ (p/order-update-flow tm)
+ "order-update")
+
+(start-logging ".data/order-update-msg.txt"
+      (p/order-update-msg-flow  tm))
+
+(start-logging ".data/order-update.txt"
+   (p/order-update-flow  tm))
+
+
+
+
+
+
 
 
 

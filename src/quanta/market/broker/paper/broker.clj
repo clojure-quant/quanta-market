@@ -5,6 +5,7 @@
    [tick.core :as t]
    [quanta.trade.broker.protocol :as B]
    [quanta.market.broker.paper.orderfiller :refer [random-fill-flow]]
+   [quanta.market.util :refer [mix]]
    ))
 
 #_(defn log [& data]
@@ -53,11 +54,6 @@
   (order-update-flow [{:keys [output-flow]}]
     output-flow))
 
-(defn mix
-  "Return a flow which is mixed by flows"
-  [& flows]
-  (m/ap (m/?> (m/?> (count flows) (m/seed flows)))))
-
 (defn create-random-fill-broker [{:keys [fill-probability wait-seconds] :as opts} order-input-flow]
   (let [
         broker nil ; (random-fill-broker. opts order-input-flow output-flow)
@@ -67,9 +63,7 @@
 (comment
   (log "hello")
  
-  (m/?
-   (m/reduce println nil
-             (mix (m/seed [1 2 3 4 5 6 7 8]) (m/seed [:a :b :c]))))
+
 
   (require '[demo.orderflow-simulated :refer [demo-order-action-flow]])
 

@@ -4,8 +4,9 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
    [quanta.market.trade.db :as trade-db :refer [trade-db-start
-                                               trade-db-stop]]
+                                                trade-db-stop]]
    [quanta.market.trade.msg-logger :refer [start-logger! stop-logger!]]
+   [quanta.market.util :refer [mix]]
     ; default implementations:
    ;[quanta.market.broker.paper]
    [quanta.market.broker.bybit]))
@@ -27,22 +28,21 @@
       (let [{:keys [opts]} a
             _ (info "account: " account " opts: " opts)
             conn (p/start! a opts)]
-       (start-logger! db msg-logger-in account :in (p/msg-in-flow a))
-       (start-logger! db msg-logger-out account :out (p/msg-out-flow a))
-        conn
-        )))
+        (start-logger! db msg-logger-in account :in (p/msg-in-flow a))
+        (start-logger! db msg-logger-out account :out (p/msg-out-flow a))
+        conn)))
   (stop! [this {:keys [account]}]
     (if-let [a (get-account this account)]
       (let [{:keys [opts]} a]
-        (stop-logger! msg-logger-in account) 
-        (stop-logger! msg-logger-out account) 
+        (stop-logger! msg-logger-in account)
+        (stop-logger! msg-logger-out account)
         (p/stop! a opts))))
   (msg-in-flow [this]
-    nil
-    )
+    (let [account-msg-in-flows (map p/msg-in-flow (vals (:accounts this)))]
+      (apply mix account-msg-in-flows)))
   (msg-out-flow [this]
-    nil            
-                )
+    (let [account-msg-out-flows (map p/msg-out-flow (vals (:accounts this)))]
+      (apply mix account-msg-out-flows)))
   ;
   p/trade
   (order-create! [this {:keys [account] :as order}]
@@ -50,7 +50,15 @@
       (p/order-create! a order)))
   (order-cancel! [this {:keys [account] :as order-cancel}]
     (if-let [a (get-account this account)]
-      (p/order-cancel! a order-cancel))))
+      (p/order-cancel! a order-cancel)))
+  (order-update-msg-flow [this]
+                     (let [account-flows (map p/order-update-msg-flow (vals (:accounts this)))]
+                       (apply mix account-flows))) 
+  (order-update-flow [this]
+    (let [account-flows (map p/order-update-flow (vals (:accounts this)))]
+      (apply mix account-flows))) 
+  ;
+  )
 
 (defn create-account [[id opts]]
   [id (p/create-account (assoc opts :account-id id))])

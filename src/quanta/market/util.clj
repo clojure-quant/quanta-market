@@ -40,7 +40,11 @@
       (fn []
         (reset! !-a nil))))))
 
-(defn flow-sender []
+(defn flow-sender 
+  "returns {:flow f
+            :send s}
+    (s v) pushes v to f."
+  []
   (let [!-a (atom nil)]
     {:flow (msg-flow !-a)
      :send (fn [v]
@@ -48,7 +52,43 @@
                (! v)))}))
 
 
+(defn mix
+  "Return a flow which is mixed by flows"
+  ; will generate (count flows) processes, 
+  ; so each mixed flow has its own process
+  [& flows]
+  (m/ap (m/?> (m/?> (count flows) (m/seed flows)))))
 
+
+(defn start-printing [flow label-str]
+  (let [print-task (m/reduce (fn [r v]
+                               (println label-str " " v)
+                               nil) 
+                             nil flow) 
+        
+        ]
+  (print-task
+     #(println "flow-printer completed: " %)
+     #(println "flow-printer crashed: " %))))
+
+(defn start-logging [file-name flow]
+  (let [print-task (m/reduce (fn [r v]
+                               (let [s (with-out-str (println v))]
+                               (spit file-name s :append true))
+                               nil)
+                             nil flow)]
+    (print-task
+     #(println "flow-logger completed: " %)
+     #(println "flow-logger crashed: " %))))
+
+(defn split-seq-flow [s]
+  (m/ap
+   (loop [s s]
+     (m/amb
+      (first s)
+      (let [s (rest s)]
+        (when (seq s)
+          (recur s)))))))
 (comment
   (m/?
    (first-match #(> % 3)
@@ -58,6 +98,12 @@
                  (current-value (m/seed [1 2 3]))))
 
   (m/? (current-value-task (m/seed [1 2 3])))
+
+
+    (m/?
+   (m/reduce println nil
+             (mix (m/seed [1 2 3 4 5 6 7 8]) (m/seed [:a :b :c]))))
+  
 
 ; 
   )

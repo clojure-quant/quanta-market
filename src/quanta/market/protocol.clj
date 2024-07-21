@@ -10,8 +10,8 @@
 (defprotocol trade
   (order-create! [this order-new])
   (order-cancel! [this order-cancel])
-  ;(order-status-flow [this])
-  )
+  (order-update-msg-flow [this])
+  (order-update-flow  [this]))
 
 (defmulti create-account 
   (fn [opts]

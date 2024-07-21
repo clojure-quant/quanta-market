@@ -8,10 +8,14 @@
    [quanta.market.broker.bybit.task.auth :as a]
    [quanta.market.broker.bybit.task.order :as o]
    [quanta.market.broker.bybit.task.subscription :as s]
-   [quanta.market.broker.bybit.pinger :as pinger]))
+   [quanta.market.broker.bybit.pinger :as pinger]
+   [quanta.market.broker.bybit.msg.orderupdate :as ou]
+   ))
 
 
-(defrecord bybit [opts conn ping flow-sender-in flow-sender-out]
+(defrecord bybit [opts conn ping 
+                  flow-sender-in flow-sender-out
+                  order-update-msg-flow order-update-flow]
   ;
   p/connection
   (start! [this opts]
@@ -43,12 +47,17 @@
      (:flow (:flow-sender-in this)))
   (msg-out-flow [this]
       (:flow (:flow-sender-out this)))
+              
   ;
   p/trade
   (order-create! [this order]
     (o/order-create! @(:conn this) order))
   (order-cancel! [this order]
     (o/order-cancel! @(:conn this) order))
+  (order-update-msg-flow [this] (:order-update-msg-flow this))
+  (order-update-flow [this] (:order-update-flow this))
+
+  ; p/quote
   ;(quote-stream [this]
   ;  (get-stream this))
   )
@@ -57,10 +66,18 @@
 (defmethod p/create-account :bybit
   [opts]
   (info "creating bybit : " opts)
-  (bybit. opts 
-          (atom nil) 
+  (let [flow-sender-in (flow-sender)
+        flow-sender-out (flow-sender)
+        order-update-msg-flow  (ou/order-update-msg-flow (:flow flow-sender-in))
+        order-update-flow (ou/order-update-flow order-update-msg-flow)
+        ]
+  (bybit. opts
           (atom nil)
-          (flow-sender)
-          (flow-sender)))
+          (atom nil)
+          flow-sender-in 
+          flow-sender-out
+          order-update-msg-flow
+          order-update-flow)))
+
 
   

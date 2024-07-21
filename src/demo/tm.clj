@@ -8,8 +8,9 @@
                                 stop-all-accounts
                                 get-account-ids 
                                 get-account]]
-   [quanta.market.protocol]
-   [demo.accounts :refer [accounts]]))
+   [quanta.market.util :refer [start-printing start-logging]]
+   [demo.accounts :refer [accounts]]
+   [quanta.market.protocol :as p]))
  
   
  (modular.log/timbre-config!
@@ -28,14 +29,16 @@
                         :pattern :monthly}}})
 
  
-(def db (trade-db-start "/tmp/trade-db"))
+(def db (trade-db-start ".data/trade-db"))
  
  
  
 (def tm (trade-manager-start db accounts))
 
- 
- 
+
+(start-logging ".data/msg-in.txt"
+               (p/msg-in-flow tm))
+
 
  (comment 
    tm
@@ -44,8 +47,7 @@
    (get-account tm :florian/test1)
  
   (start-all-accounts tm)
-   
-  
+    
   (stop-all-accounts tm)
    
  ;  

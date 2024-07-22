@@ -1,5 +1,7 @@
 (ns quanta.market.broker.bybit.msg.orderbook)
 
+; orderbook responses: type: snapshot,delta
+
 (def test-msg-asset-orderbook-snapshot
   {:topic "orderbook.1.BTCUSDT"
    :type "snapshot",

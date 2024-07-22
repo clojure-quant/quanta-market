@@ -3,10 +3,7 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
    [clojure.string :as s]
-   [quanta.market.broker.bybit.connection :as c]
-   [quanta.market.broker.bybit.task.auth :refer [authenticate!]]))
-
-; orderbook responses: type: snapshot,delta
+   [quanta.market.broker.bybit.connection :as c]))
 
  (defn category->bybit-category [c]
    (cond
@@ -21,8 +18,7 @@
     {:bybit-symbol bybit-symbol 
      :category (category->bybit-category category)}))
  
-
-
+(def order-spot-limit-tp-sl 
 ; Spot Limit order with market tp sl
 {"category" "spot",
  "symbol" "BTCUSDT",
@@ -34,7 +30,9 @@
  "takeProfit" "35000",
  "stopLoss" "27000",
  "tpOrderType" "Market",
- "slOrderType" "Market"}
+ "slOrderType" "Market"}  
+  )
+
 
 ; Spot Limit order with limit tp sl
 ;{"category": "spot","symbol": "BTCUSDT","side": "Buy","orderType": "Limit","qty": "0.01","price": "28000","timeInForce": "PostOnly","takeProfit": "35000","stopLoss": "27000","tpLimitPrice": "36000","slLimitPrice": "27500","tpOrderType": "Limit","slOrderType": "Limit"}
@@ -61,45 +59,30 @@
 ;(type->bybit :market)
 
 (defn order-create-msg [{:keys [order-id asset side qty limit ordertype]}]
-  (error "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-  (let [{:keys [bybit-symbol category]} (asset-category asset)]
+  (let [{:keys [bybit-symbol category]} (asset-category asset)
+        order-id-map (if order-id 
+                       {"orderLinkId" order-id} ; max 36 chars numbers/letters(upper/lower) dashes underscores
+                       {})
+        limit-price-map (if limit 
+                          {"price" (format "%f" limit)}
+                          {})]
   {"op" "order.create"
    "header" {"X-BAPI-TIMESTAMP" (System/currentTimeMillis)
              "X-BAPI-RECV-WINDOW" "8000"
              "Referer" "bot-001" ; for api broker
              }
-   "args" [{"orderLinkId" order-id ; max 36 chars numbers/letters(upper/lower) dashes underscores
-            "symbol" bybit-symbol
-            "side" (case side
-                     :buy "Buy"
-                     :sell "Sell")
-            "orderType" (type->bybit ordertype) ; "Limit"
-            "qty" (format "%f" qty)
-            "price" (format "%f" limit)
-            "category" category ; "linear"
-            "timeInForce" "PostOnly"}]}))
-
- (defn order-create-msg2 [{:keys [asset side qty type limit]}]
-  (let [{:keys [symbol category]} (asset-category asset)]
-  {"op" "order.create"
-   "header" {"X-BAPI-TIMESTAMP" (System/currentTimeMillis)
-             "X-BAPI-RECV-WINDOW" "8000"
-             ;"Referer" "bot-001" ; for api broker
-             }
-   "args" [{"symbol" symbol
-            "side" (case side ; Buy Sell
-                     :buy "Buy"
-                     :sell "Sell")
-            "orderType" (case type 
-                          :limit "Limit"
-                          :market "Market"
-                          ) ; "Limit" ; Market, Limit
-            "qty" qty
-            "price" limit
-            "category" category ; "spot" ; "linear"
-            "timeInForce" "PostOnly"
-            ;"orderLinkId" "spot-test-04"
-            }]}))
+   "args" [(merge 
+            order-id-map 
+            limit-price-map
+            {"symbol" bybit-symbol
+             "side" (case side
+                      :buy "Buy"
+                      :sell "Sell")
+             "orderType" (type->bybit ordertype) ; "Limit"
+             "qty" (format "%f" qty)
+             "category" category ; "linear"
+             "timeInForce" "PostOnly"}
+            )]}))
 
 (def order-response-failed-example
   {:retCode 110007,
@@ -155,6 +138,7 @@
  :op "order.cancel",
  :reqId "XMrZJoEs"}  
   )
+
 (def order-cancel-failed-example2
 {:retCode 110001,
  :retMsg "order not exists or too late to cancel",
@@ -168,8 +152,6 @@
   :X-Bapi-Limit "10"},
  :reqId "-Cquvtz7",
  :data {}})
-
-
 
 (defn order-cancel! [conn order]
   (m/sp 
@@ -187,34 +169,13 @@
 (comment
   
   (asset-category "BTC.S")
-
-  (require '[clojure.edn :refer [read-string]])
-  (def creds
-    (-> (System/getenv "MYVAULT")
-        (str "/goldly/quanta.edn")
-        slurp
-        read-string
-        :bybit/test))
-
-  (def account {:mode :test
-                :segment :trade
-                :account creds})
-
-  account
-  (def conn
-    (c/connection-start! account))
-
-  conn
-
-  (c/info? conn)
-
+  
   (def order
     {:asset "ETHUSDT"
      :side :buy
      :qty "0.01"
      :limit "1000.0"})
 
-  (m/?  (authenticate! conn account))
 
   (m/?  (order-create! conn order))
 

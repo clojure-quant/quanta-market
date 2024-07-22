@@ -29,12 +29,16 @@
 (def db (trade-db-start ".data/trade-db"))
 
 (defn setup-trade-manager []
-  (let [tm  (trade-manager-start accounts-trade)]
+  (let [tm  (trade-manager-start accounts-trade ".data/")]
     (start-logging ".data/order-update-msg.txt"
                    (p/order-update-msg-flow  tm))
     (start-logging ".data/order-update.txt"
                    (p/order-update-flow  tm))
+    (start-logging ".data/order-all-msgs.txt"
+                   (p/msg-flow  tm))
+
     tm))
+
 
 (def tm (setup-trade-manager))
 
@@ -48,6 +52,7 @@
   tm
 
   (p/start-trade tm)
+
   (p/stop-trade tm)
   (get-working-orders pm)
 

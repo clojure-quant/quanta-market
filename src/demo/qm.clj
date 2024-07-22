@@ -9,6 +9,7 @@
 
 (def qm (quote-manager-start accounts-quote))
 
+
 (comment
 
   (p/start-quote qm)
@@ -18,7 +19,7 @@
   (def qsub {:account :bybit
              :asset "BTCUSDT"})
 
-  (start-logging ".data/quotes-dump.txt"
+  (start-logging ".data/quotes-dump2.txt"
                  (p/last-trade-flow qm qsub))
 
 

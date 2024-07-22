@@ -1,50 +1,58 @@
 (ns quanta.market.trade
   (:require
    [missionary.core :as m]
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
-   [quanta.market.util :refer [mix]]
+   [quanta.market.util :refer [mix start-logging]]
    ; bring default implementations into scope:
-   [quanta.market.broker.bybit.tradeaccount]
-   ))
+   [quanta.market.broker.bybit.tradeaccount]))
 
 (defn get-tradeaccount [{:keys [tradeaccounts] :as _this} account-id]
   (get tradeaccounts account-id))
 
-(defrecord trade-manager [tradeaccounts]
-   p/tradeaccount
+(defrecord trade-manager [tradeaccounts log-dir]
+  p/tradeaccount
   (start-trade [this]
-     (doall (map p/start-trade (vals tradeaccounts)))
-     (keys tradeaccounts))
+    (doall (map p/start-trade (vals tradeaccounts)))
+    (keys tradeaccounts))
   (stop-trade [this]
-     (doall (map p/stop-trade (vals tradeaccounts)))
-      (keys tradeaccounts))
+    (doall (map p/stop-trade (vals tradeaccounts)))
+    (keys tradeaccounts))
   (order-create! [this {:keys [account] :as order}]
-                 (if-let [ta (get-tradeaccount this account)]
-                   (p/order-create! ta order)))
+    (if-let [ta (get-tradeaccount this account)]
+      (p/order-create! ta order)))
   (order-cancel! [this {:keys [account] :as order-cancel}]
-                 (if-let [ta (get-tradeaccount this account)]
-                   (p/order-cancel! ta order-cancel)))
+    (if-let [ta (get-tradeaccount this account)]
+      (p/order-cancel! ta order-cancel)))
   (order-update-msg-flow [this]
-                         (let [account-flows (map p/order-update-msg-flow (vals tradeaccounts))]
-                           (apply mix account-flows)))
+    (let [account-flows (map p/order-update-msg-flow (vals tradeaccounts))]
+      (apply mix account-flows)))
   (order-update-flow [this]
-                     (let [account-flows (map p/order-update-flow (vals tradeaccounts))]
-                       (apply mix account-flows))))
+    (let [account-flows (map p/order-update-flow (vals tradeaccounts))]
+      (apply mix account-flows)))
+   (msg-flow [this]
+    (let [account-flows (map p/msg-flow (vals tradeaccounts))]
+      (apply mix account-flows))))
 
 
-(defn create-account [[id opts]]
-  [id (p/create-tradeaccount (assoc opts :account-id id))])
+(defn create-account [log-dir [id opts]]
+  (let [account (p/create-tradeaccount (assoc opts :account-id id))
+        log-filename (str log-dir "account-" id ".txt")]
+    (when log-dir
+      (info "logging " id " to file: " log-filename)
+      (start-logging log-filename (p/msg-flow account)))
+    [id account]))
 
-(defn create-accounts [accounts]
+(defn create-accounts [accounts log-dir]
   (->> accounts
-       (map create-account)
+       (map #(create-account log-dir %))
        (into {})))
 
-(defn trade-manager-start [accounts]
-  (let [tradefeeds (create-accounts accounts)]
-    (trade-manager. tradefeeds)))
+(defn trade-manager-start [accounts log-dir]
+  (let [tradefeeds (create-accounts accounts log-dir)]
+    (trade-manager. tradefeeds log-dir)))
 
-  
+
 (defn trade-manager-stop [this]
   (p/stop-trade this)
   ;

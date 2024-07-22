@@ -2,9 +2,10 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
+   [quanta.market.util :refer [mix]]
+   [quanta.market.broker.bybit.websocket :refer [create-websocket]]
    [quanta.market.broker.bybit.task.order :as o]
-   [quanta.market.broker.bybit.msg.orderupdate :as ou]
-   [quanta.market.broker.bybit.websocket :refer [create-websocket]]))
+   [quanta.market.broker.bybit.msg.orderupdate :as ou]))
 
 (defrecord bybit-trade [opts websocket-order websocket-orderupdate]
   p/tradeaccount
@@ -19,6 +20,13 @@
     (o/order-create! (p/current-connection websocket-order) order))
   (order-cancel! [this order]
     (o/order-cancel! (p/current-connection websocket-order) order))
+  (msg-flow [this]
+    (let [order-in (p/msg-in-flow websocket-order)
+          order-out (p/msg-out-flow websocket-order)
+          orderupdate-in (p/msg-in-flow websocket-orderupdate)
+          orderupdate-out (p/msg-out-flow websocket-orderupdate)]
+      (mix order-in order-out orderupdate-in orderupdate-out))
+    (ou/order-update-msg-flow (p/msg-in-flow websocket-orderupdate)))
   (order-update-msg-flow [this] 
     (ou/order-update-msg-flow (p/msg-in-flow websocket-orderupdate)))
   (order-update-flow [this] 

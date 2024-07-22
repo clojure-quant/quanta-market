@@ -31,6 +31,7 @@
   (stop-trade [this])
   (order-create! [this order-new])
   (order-cancel! [this order-cancel])
+  (msg-flow [this])
   (order-update-msg-flow [this])
   (order-update-flow  [this]))
 

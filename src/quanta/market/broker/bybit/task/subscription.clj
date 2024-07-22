@@ -18,6 +18,7 @@
   [conn sub-type & args]
   (let [t (topic sub-type args)]
     (info "subscription-start topic: " t " ..")
+    (info "conn" conn)
     (c/rpc-req! conn (subscription-start-msg t))))
 
 (defn subscription-stop-msg [topic]

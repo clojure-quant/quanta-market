@@ -2,11 +2,10 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [demo.tm :refer [qm]]
-   [demo.pm :refer [pm]]
-   [quanta.trade.algo.order :refer [almost-market-order]]
+   [demo.tm :refer [tm pm]]
    [quanta.market.portfolio :refer [create-order get-working-orders order-cancel!]]
-   [quanta.market.algo.price :refer [get-last-trade-price]]
+   ;[quanta.market.algo.price :refer [get-last-trade-price]]
+   ;[quanta.trade.algo.order :refer [almost-market-order]]
    ))
 
 (def assets
@@ -37,6 +36,8 @@
    :ordertype :limit
    :limit 68750.0
    })
+
+(m/? (p/order-create! tm order-spot))
 
 (m/? (create-order pm order-spot))
 

@@ -1,4 +1,4 @@
-(ns quanta.precision)
+(ns quanta.market.precision)
 
 
 ;; => ({:lotSizeFilter

@@ -12,7 +12,7 @@
                             flow-sender-in flow-sender-out]
   ;
   p/connection
-  (start! [this opts]
+  (start! [this]
     (let [conn (c/connection-start! flow-sender-in flow-sender-out opts)]
       (reset! (:conn this) conn)
       ; auth
@@ -22,7 +22,7 @@
       ; pinger
       (pinger/start-pinger conn ping)
       conn))
-  (stop! [this opts]
+  (stop! [this]
     (let [conn @(:conn this)]
       (pinger/stop-pinger (:ping this))
       (when conn
@@ -38,6 +38,7 @@
     (:flow (:flow-sender-out this)))
   ; bybit websocket
   )
+
 
 (defn create-websocket
   [opts]

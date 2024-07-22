@@ -3,7 +3,7 @@
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.algo.price :refer [get-last-trade-price]]
-   [quanta.precision :refer [round-asset]]
+   [quanta.market.precision :refer [round-asset]]
    ))
 
 

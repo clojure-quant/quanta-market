@@ -1,4 +1,4 @@
-(ns demo.test
+(ns demo.dev.test
     (:require
     [missionary.core :as m]
     [quanta.market.protocol :as p]

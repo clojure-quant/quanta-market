@@ -41,10 +41,13 @@
 (def tm (setup-trade-manager))
 
 
+
 (def pm (portfolio-manager-start
          {:db nil
           :tm tm
           :alert-logfile ".data/alerts2.txt"}))
+
+
 
 (comment
   tm

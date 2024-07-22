@@ -12,6 +12,13 @@
   (get tradeaccounts account-id))
 
 (defrecord trade-manager [tradeaccounts log-dir]
+  p/trade-action
+  (order-create! [this {:keys [account] :as order}]
+    (if-let [ta (get-tradeaccount this account)]
+      (p/order-create! ta order)))
+  (order-cancel! [this {:keys [account] :as order-cancel}]
+    (if-let [ta (get-tradeaccount this account)]
+      (p/order-cancel! ta order-cancel)))
   p/tradeaccount
   (start-trade [this]
     (doall (map p/start-trade (vals tradeaccounts)))
@@ -19,19 +26,13 @@
   (stop-trade [this]
     (doall (map p/stop-trade (vals tradeaccounts)))
     (keys tradeaccounts))
-  (order-create! [this {:keys [account] :as order}]
-    (if-let [ta (get-tradeaccount this account)]
-      (p/order-create! ta order)))
-  (order-cancel! [this {:keys [account] :as order-cancel}]
-    (if-let [ta (get-tradeaccount this account)]
-      (p/order-cancel! ta order-cancel)))
   (order-update-msg-flow [this]
     (let [account-flows (map p/order-update-msg-flow (vals tradeaccounts))]
       (apply mix account-flows)))
   (order-update-flow [this]
     (let [account-flows (map p/order-update-flow (vals tradeaccounts))]
       (apply mix account-flows)))
-   (msg-flow [this]
+  (msg-flow [this]
     (let [account-flows (map p/msg-flow (vals tradeaccounts))]
       (apply mix account-flows))))
 
@@ -43,7 +44,7 @@
 
 (defn create-account [log-dir [id opts]]
   (let [account (p/create-tradeaccount (assoc opts :account-id id))
-        log-filename (account-log-filename log-dir id) ]
+        log-filename (account-log-filename log-dir id)]
     (when log-dir
       (info "logging " id " to file: " log-filename)
       (start-logging log-filename (p/msg-flow account)))
@@ -64,8 +65,8 @@
   ;
   )
 
-(comment 
+(comment
   (account-log-filename "./data/" :rene/test1-bybit)
-  
+
  ; 
   )

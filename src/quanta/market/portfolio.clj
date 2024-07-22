@@ -11,13 +11,11 @@
                                             order-manager-stop
                                             ]]))
 
-
 (defn wrap-order-update-flow [f]
   (m/eduction (map (fn [r] {:order-update r})) f))
 
 (defn wrap-order-flow [f]
   (m/eduction (map (fn [r] {:order r})) f))
-
 
 (defn create-flows [tm]
   (let [order-create-flow-sender (flow-sender)
@@ -31,6 +29,26 @@
   {:order-orderupdate-flow order-orderupdate-flow
    :send-new-order-to-flow send-new-order-to-flow}))
 
+(defrecord portfolio-manager [db tm order-manager send-new-order-to-flow]
+  p/trade-action
+  (order-create! [this {:keys [account asset side quantity type] :as order}]
+    (if (s/validate-order order)
+      (let [order-id (nano-id 8)
+            order (assoc order
+                         :order-id order-id
+                         :date-created (t/inst))]
+        (send-new-order-to-flow {:order order})
+        (if tm
+          (p/order-create! tm order)
+          (error "cannot send order - :tm nil")))
+      (do
+        (error "order invalid error: " (s/human-error-order order))
+        (throw (ex-info "order-invalid" {:order order
+                                         :error (s/human-error-order order)})))))
+  (order-cancel! [this {:keys [account] :as order-cancel}]
+     (if tm
+      (p/order-cancel! tm order-cancel)
+      (error "cannot cancel order - :tm nil"))))
 
 (defn portfolio-manager-start
   "starts the porfolio manager.
@@ -41,13 +59,9 @@
                 send-new-order-to-flow]} (create-flows tm)
         order-manager (order-manager-start {:db db 
                                             :alert-logfile alert-logfile
-                                            :order-orderupdate-flow order-orderupdate-flow})
-        state {:db db
-               :tm tm
-               :order-manager order-manager
-               :send-new-order-to-flow send-new-order-to-flow
-               }]
-     state))
+                                            :order-orderupdate-flow order-orderupdate-flow})]
+    (portfolio-manager. db tm order-manager send-new-order-to-flow) 
+    ))
 
 (defn portfolio-manager-stop [{:keys [order-manager]}]
   (info "portfolio-manager stopping..")
@@ -56,29 +70,3 @@
 (defn get-working-orders [{:keys [order-manager]}]
   (om/get-working-orders order-manager))
 
-(defn create-order [{:keys [tm send-new-order-to-flow] :as this}
-                    {:keys [account asset side quantity type] :as order}]
-  (if (s/validate-order order)
-    (let [order-id (nano-id 8)
-          order (assoc order
-                       :order-id order-id
-                       :date-created (t/inst))]
-      (send-new-order-to-flow {:order order})
-      (if tm
-        (p/order-create! tm order)
-        (error "cannot send order - :tm nil")))
-    (do
-      (error "order invalid error: " (s/human-error-order order))
-      (throw (ex-info "order-invalid" {:order order
-                                       :error (s/human-error-order order)})))))
-
-
-(defn order-cancel! [{:keys [tm send-new-order-to-flow] :as this} order-cancel]
-   (if tm
-     (p/order-cancel! tm order-cancel)
-     (error "cannot cancel order - :tm nil")))
-
-(comment
-  (nano-id 8)
- ; 
-  )

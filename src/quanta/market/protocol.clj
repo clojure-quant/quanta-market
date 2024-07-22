@@ -23,11 +23,13 @@
 
 ;; TRADE
 
+(defprotocol trade-action
+  (order-create! [this order-new])
+  (order-cancel! [this order-cancel]))
+
 (defprotocol tradeaccount
   (start-trade [this])
   (stop-trade [this])
-  (order-create! [this order-new])
-  (order-cancel! [this order-cancel])
   (msg-flow [this])
   (order-update-msg-flow [this])
   (order-update-flow  [this]))

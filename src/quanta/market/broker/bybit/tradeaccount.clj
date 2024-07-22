@@ -25,12 +25,6 @@
      (p/stop! websocket-order)
      (p/stop! websocket-orderupdate)
      opts)
-  (order-create! [this order]
-    (let [cur-conn (p/current-connection websocket-order)]
-      (assert cur-conn "cannot create order - cur-conn nil")
-      (o/order-create! cur-conn order)))
-  (order-cancel! [this order]
-    (o/order-cancel! (p/current-connection websocket-order) order))
   (msg-flow [this]
     (let [order-in (p/msg-in-flow websocket-order)
           order-out (p/msg-out-flow websocket-order)
@@ -48,7 +42,16 @@
   (order-update-flow [this] 
     (let [flow (p/order-update-msg-flow this)]
       (assert flow "order-update-msg-flow for websocket-orderupdate nil.")                 
-     (ou/order-update-flow flow))))
+     (ou/order-update-flow flow)))
+  p/trade-action
+  (order-create! [this order]
+               (let [cur-conn (p/current-connection websocket-order)]
+                 (assert cur-conn "cannot create order - cur-conn nil")
+                 (o/order-create! cur-conn order)))
+  (order-cancel! [this order]
+               (o/order-cancel! (p/current-connection websocket-order) order))
+; 
+  )
 
 
 (defmethod p/create-tradeaccount :bybit

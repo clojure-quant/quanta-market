@@ -14,7 +14,8 @@
 ;; QUOTE
 
 (defprotocol quotefeed
-  (socket [this])
+  (start-quote [this])
+  (stop-quote [this])
   (subscribe-last-trade! [this sub])
   (unsubscribe-last-trade! [this unsub])
   (last-trade-flow [this account-asset]))

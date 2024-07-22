@@ -1,7 +1,6 @@
 (ns quanta.market.broker.bybit-quotefeed
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
-   [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.task.subscription :as s]
    [quanta.market.broker.bybit.msg.lasttrade :as lt]
@@ -10,24 +9,28 @@
 
 (defrecord bybit-feed [opts websocket]
   p/quotefeed
-  (socket [this]
-          (:websocket this))
+  (start-quote [this]
+               (info "connecting bybit-quote websocket ")
+               (p/start! websocket))
+  (stop-quote [this]
+              (info "stopping bybit-quote websocket ")
+              (p/stop! websocket))
   (subscribe-last-trade! [this {:keys [asset]}]
      (s/subscription-start!
-       (p/current-connection (p/socket this))
+       (p/current-connection websocket)
        :asset/trade asset))
   (unsubscribe-last-trade! [this {:keys [asset]}]
      (s/subscription-stop!
-       (p/current-connection (p/socket this)) :asset/trade asset))
+       (p/current-connection websocket) :asset/trade asset))
   (last-trade-flow [this account-asset]
-    (let [flow (p/msg-in-flow (p/socket this))]
+    (let [flow (p/msg-in-flow websocket)]
       (assert flow "missing msg-in-flow")
       (lt/last-trade-flow flow account-asset))))
  
 
 (defmethod p/create-quotefeed :bybit
   [opts]
-  (info "creating bybit : " opts)
+  (info "creating bybit quotefeed : " opts)
   (let [opts (merge {:mode :main
                      :segment :spot} opts)
         websocket (create-websocket opts)]

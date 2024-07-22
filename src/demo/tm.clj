@@ -36,8 +36,6 @@
      (start-logging ".data/order-update.txt"
                     (p/order-update-flow  tm))
      tm))
- 
-
 
 (def tm (setup-trade-manager))
 
@@ -46,7 +44,6 @@
          {:db nil
           :tm tm
           :alert-logfile ".data/alerts.txt"}))
-
 
 (comment
   tm

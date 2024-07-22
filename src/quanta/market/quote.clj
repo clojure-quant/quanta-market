@@ -2,8 +2,7 @@
   (:require
    [quanta.market.protocol :as p]
   ; bring default implementations into scope:
-   [quanta.market.broker.bybit-quotefeed]
-   ))
+   [quanta.market.broker.bybit-quotefeed]))
 
 (defn get-feed [{:keys [quotefeeds] :as _this} account-id]
   (get quotefeeds account-id))
@@ -13,9 +12,12 @@
 
 (defrecord quote-manager [quotefeeds]
   p/quotefeed
-  (socket [this]
-    ; not applying to quote-manager really
-    )
+  (start-quote [this]
+    (doall (map p/start-quote (vals quotefeeds)))
+    (keys quotefeeds))
+  (stop-quote [this]
+    (doall (map p/stop-quote (vals quotefeeds)))
+    (keys quotefeeds))
   (subscribe-last-trade! [this {:keys [account] :as sub}]
     (when-let [feed (get-feed this account)]
       (p/subscribe-last-trade! feed sub)))
@@ -27,8 +29,6 @@
       (p/last-trade-flow feed account-asset)))
     ;
   )
-
-
 
 (defn create-account [[id opts]]
   [id (p/create-quotefeed (assoc opts :account-id id))])
@@ -46,26 +46,3 @@
 (defn quote-manager-stop [{:keys [db accounts] :as this}]
   ;
   )
-
-(defn start-feed [this account-id]
-  (let [feed (get-feed this account-id)
-        socket (p/socket feed)
-        opts (:opts feed)]
-    (p/start! socket opts)))
-
-(defn stop-feed [this account-id]
-  (let [feed (get-feed this account-id)
-        socket (p/socket feed)
-        opts (:opts feed)]
-    (p/stop! socket opts)))
-
-
-(defn start-all-feeds [this]
-  (let [account-ids (get-account-ids this)]
-    (doall (map #(start-feed this %) account-ids))
-    account-ids))
-
-(defn stop-all-feeds [this]
-  (let [account-ids (get-account-ids this)]
-     (doall (map #(stop-feed this %) account-ids))
-     account-ids))

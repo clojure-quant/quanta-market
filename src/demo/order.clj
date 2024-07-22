@@ -5,7 +5,7 @@
    [demo.tm :refer [qm]]
    [demo.pm :refer [pm]]
    [quanta.trade.algo.order :refer [almost-market-order]]
-   [quanta.market.portfolio :refer [create-order get-working-orders]]
+   [quanta.market.portfolio :refer [create-order get-working-orders order-cancel!]]
    [quanta.market.algo.price :refer [get-last-trade-price]]
    ))
 
@@ -43,6 +43,7 @@
 
 
 (m/? (get-last-trade-price qm :bybit "BTCUSDT"))
+
 ;; => {:asset "BTCUSDT", :price 68319.75, :size 9.99E-4, :time 1721609641809}
 
 (m/? (almost-market-order qm {:asset "BTCUSDT"
@@ -85,20 +86,28 @@
 
 
 
-
-
-
 (def cancel
-  {:account :rene/test1
-   :asset "ETHUSDT"
-   :order-id "my-id-007"})
+  {:account :rene/test4
+   :asset "BTCUSDT"
+   :order-id "OKzcAvMD"})
 
 
-(m/? (p/order-cancel! pm cancel))
+(m/? (order-cancel! pm cancel))
 
 
 
 (get-working-orders pm)
+
+(require '[clojure.pprint :refer [print-table]])
+
+(->> (get-working-orders pm)
+     (map :order)
+     (map #(select-keys % [:date-created :order-id]))
+     (sort-by :date-created)
+     print-table
+ 
+ )
+
 
 
 (comment 

@@ -73,6 +73,11 @@
                                        :error (s/human-error-order order)})))))
 
 
+(defn order-cancel! [{:keys [tm send-new-order-to-flow] :as this} order-cancel]
+   (if tm
+     (p/order-cancel! tm order-cancel)
+     (error "cannot cancel order - :tm nil")))
+
 (comment
   (nano-id 8)
  ; 

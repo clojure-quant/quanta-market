@@ -1,5 +1,6 @@
 (ns quanta.market.trade
   (:require
+   [clojure.string :as str]
    [missionary.core :as m]
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
@@ -34,10 +35,15 @@
     (let [account-flows (map p/msg-flow (vals tradeaccounts))]
       (apply mix account-flows))))
 
+(defn account-log-filename [log-dir id]
+  (let [account-str  (-> (str "account-" id ".txt")
+                         (str/replace #":" "")
+                         (str/replace #"/" "_"))]
+    (str log-dir account-str)))
 
 (defn create-account [log-dir [id opts]]
   (let [account (p/create-tradeaccount (assoc opts :account-id id))
-        log-filename (str log-dir "account-" id ".txt")]
+        log-filename (account-log-filename log-dir id) ]
     (when log-dir
       (info "logging " id " to file: " log-filename)
       (start-logging log-filename (p/msg-flow account)))
@@ -56,4 +62,10 @@
 (defn trade-manager-stop [this]
   (p/stop-trade this)
   ;
+  )
+
+(comment 
+  (account-log-filename "./data/" :rene/test1-bybit)
+  
+ ; 
   )

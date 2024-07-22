@@ -10,7 +10,6 @@
                                     get-working-orders]]
    [demo.accounts :refer [accounts-trade]]))
 
-
 (modular.log/timbre-config!
  {:min-level [[#{"org.apache.http.*"
                  "org.eclipse.aether.*"
@@ -30,17 +29,14 @@
 
 (defn setup-trade-manager []
   (let [tm  (trade-manager-start accounts-trade ".data/")]
-    (start-logging ".data/order-update-msg.txt"
+    (start-logging ".data/order-update-msg2.txt"
                    (p/order-update-msg-flow  tm))
-    (start-logging ".data/order-update.txt"
+    (start-logging ".data/order-update2.txt"
                    (p/order-update-flow  tm))
-    (start-logging ".data/order-all-msgs.txt"
+    (start-logging ".data/order-all-msgs2.txt"
                    (p/msg-flow  tm))
 
     tm))
-
-
-
 
 (def tm (setup-trade-manager))
 
@@ -48,7 +44,7 @@
 (def pm (portfolio-manager-start
          {:db nil
           :tm tm
-          :alert-logfile ".data/alerts.txt"}))
+          :alert-logfile ".data/alerts2.txt"}))
 
 (comment
   tm

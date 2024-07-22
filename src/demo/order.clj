@@ -28,22 +28,29 @@
    "BTCUSDZ24.I"])
 
 
-(def order-spot
+(def order-spot-limit
   {:account :rene/test4
    :asset "BTCUSDT.S"
    :side :buy
-   :qty 0.0001
+   :qty 0.001
    :ordertype :limit
    :limit 68750.0
    })
 
+(def order-spot-market
+  {:account :rene/test4
+   :asset "BTCUSDT.S"
+   :side :buy
+   :qty 0.001
+   :ordertype :market})
 
-(m/? (p/order-create! tm order-spot))
+(m/? (p/order-create! tm order-spot-limit))
+(m/? (p/order-create! tm order-spot-market))
 
-(m/? (create-order pm order-spot))
+(m/? (create-order pm order-spot-limit))
 
 
-(m/? (create-order pm order-spot))
+(m/? (create-order pm order-spot-market))
 
 
 

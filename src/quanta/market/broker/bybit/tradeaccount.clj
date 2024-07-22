@@ -1,11 +1,13 @@
 (ns quanta.market.broker.bybit.tradeaccount
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
+   [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [mix]]
    [quanta.market.broker.bybit.websocket :refer [create-websocket]]
    [quanta.market.broker.bybit.task.order :as o]
-   [quanta.market.broker.bybit.msg.orderupdate :as ou]))
+   [quanta.market.broker.bybit.msg.orderupdate :as ou]
+   [quanta.market.broker.bybit.task.subscription :as s]))
 
 (defrecord bybit-trade [opts websocket-order websocket-orderupdate]
   p/tradeaccount
@@ -13,6 +15,10 @@
      (info "connecting bybit-trade websockets ")
      (p/start! websocket-order)
      (p/start! websocket-orderupdate)
+     ; ticketInfo does not work.
+      (info "subscribing bybit order-updates..")
+     (m/? (s/subscription-start! (p/current-connection websocket-orderupdate) :order/execution))
+     (m/? (s/subscription-start! (p/current-connection websocket-orderupdate) :order/update))
      opts)
   (stop-trade [this]
      (info "closing bybit-trade websockets ")

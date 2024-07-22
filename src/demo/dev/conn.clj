@@ -15,14 +15,15 @@ account
 
 (def ta (p/create-tradeaccount account))
 
+
 (p/start-trade ta)
 
 (p/stop-trade ta)
  
-(start-logging ".data/test-account-msg5.txt"
+(start-logging ".data/test-account-msg6.txt"
                (p/msg-flow ta))
 
-(start-logging ".data/test-account-orderupdate5.txt"
+(start-logging ".data/test-account-orderupdate6.txt"
                (p/order-update-flow ta))
 
 (start-printing (p/msg-flow ta)
@@ -39,7 +40,7 @@ account
 (def order-spot-market
   {:account :rene/test4
    :asset "BTCUSDT.S"
-   :side :buy
+   :side :sell
    :qty 0.001
    :ordertype :market})
 
@@ -60,6 +61,7 @@ account
 ;;         "qty" "0.001"}
 
 (m/? (p/order-create! ta order-spot-market))
+
 (m/? (p/order-create! ta order-spot-limit))
 
 

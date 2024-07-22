@@ -30,16 +30,38 @@
   (let [factor (Math/pow 10 precision)]
     (/ (Math/round (* d factor)) factor)))
 
+(format "%.3f" (bigdec "0.001"))
+(format "%f" (bigdec "0.001"))
+(format "%f" (bigdec "0.000001"))
+(format "%f" 0.001)
+
+(format "%5d" 0.001)
 
 (def assets 
-  [{:asset "BTCUSDT" :precision 2}
-   {:asset "ETHUSDT" :precision 3}
+  [{:asset "BTCUSDT" :precision 2 :price "%.3f" :quantity "%.3f"}
+   {:asset "ETHUSDT" :precision 3 :price "%.3f" :quantity "%.3f"}
    ])
 
 (def asset-dict 
   (->> (map (juxt :asset identity) assets)
        (into {})))
    
+
+(defn format-price [asset p]
+   (let [{:keys [price]} (or (get asset-dict asset)
+                             (get asset-dict "BTCUSDT"))]
+     (format price p)))
+
+(defn format-qty [asset p]
+  (let [{:keys [quantity]} (or (get asset-dict asset)
+                            (get asset-dict "BTCUSDT"))]
+    (format quantity p)))
+
+(format-price nil 3.44444)
+(format-qty nil 0.001234567)
+
+
+
 
 (defn round-asset [asset price]
   (let [{:keys [precision]} (get asset-dict asset)]

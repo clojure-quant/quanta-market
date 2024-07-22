@@ -3,7 +3,9 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
    [clojure.string :as s]
-   [quanta.market.broker.bybit.connection :as c]))
+   [quanta.market.broker.bybit.connection :as c]
+   [quanta.market.precision :refer [format-price format-qty]]
+   ))
 
  (defn category->bybit-category [c]
    (cond
@@ -55,34 +57,47 @@
     :market "Market"
     "Market"))
 
+
+(defn tif->bybit [tif]
+  (case tif
+    ; "PostOnly"
+    :gtc "GTC" ; Good till canceled (GTC)
+    :fok "FOK" ; Fill or Kill (FOK) 
+    :ioc "IOC")) ; Immediate or Cancel (IOC)
+
 ;(type->bybit :limit)
 ;(type->bybit :market)
 
-(defn order-create-msg [{:keys [order-id asset side qty limit ordertype]}]
-  (let [{:keys [bybit-symbol category]} (asset-category asset)
-        order-id-map (if order-id 
-                       {"orderLinkId" order-id} ; max 36 chars numbers/letters(upper/lower) dashes underscores
-                       {})
-        limit-price-map (if limit 
-                          {"price" (format "%f" limit)}
-                          {})]
+(defn wrap-header [bybit-order]
   {"op" "order.create"
    "header" {"X-BAPI-TIMESTAMP" (System/currentTimeMillis)
              "X-BAPI-RECV-WINDOW" "8000"
              "Referer" "bot-001" ; for api broker
              }
-   "args" [(merge 
-            order-id-map 
-            limit-price-map
-            {"symbol" bybit-symbol
-             "side" (case side
-                      :buy "Buy"
-                      :sell "Sell")
-             "orderType" (type->bybit ordertype) ; "Limit"
-             "qty" (format "%f" qty)
-             "category" category ; "linear"
-             "timeInForce" "PostOnly"}
-            )]}))
+   "args" [bybit-order]})
+
+(defn order->bybit-format [{:keys [order-id asset side qty limit ordertype tif]}]
+  (let [{:keys [bybit-symbol category]} (asset-category asset)
+        order-id-map (if order-id 
+                       {"orderLinkId" order-id} ; max 36 chars numbers/letters(upper/lower) dashes underscores
+                       {})
+        limit-price-map (if limit 
+                          {"price" (format-price asset limit)}
+                          {})
+         tif-map (if tif
+                    {"timeInForce" (tif->bybit tif)}
+                       {})]
+  (merge order-id-map 
+         limit-price-map
+         tif-map
+         {"symbol" bybit-symbol
+          "category" category 
+          "side" (case side
+                    :buy "Buy"
+                    :sell "Sell")
+          "orderType" (type->bybit ordertype) ; "Limit"
+          "qty" (format-qty asset qty)}
+            )))
 
 (def order-response-failed-example
   {:retCode 110007,
@@ -104,19 +119,38 @@
  :op "order.create",
  :reqId "XiMTlhQV"})
 
+(def order-response-failed-example3
+{:op "order.create",
+ :success false, 
+ :conn_id "cq1814tdaugt75sdcg8g-2ljtq",
+ :ret_msg "Params Error"})
+
+
+(defn order-create-raw! [conn bybit-order]
+  (m/sp
+   (let [msg (wrap-header bybit-order)
+         _ (info "order-create: " msg)
+         response (m/? (c/rpc-req! conn msg))]
+     response)))
+
+
+(defn parse-order-response [order {:keys [success retCode ret_msg retMsg] :as response}]
+  (if (or success (= 0 retCode))
+    {:msg/type :order/confirmed
+     :order order}
+    {:msg/type :order/rejected
+     :order order
+     :message (or retMsg ret_msg)
+     :code retCode}))
+
 (defn order-create! [conn order]
   (m/sp
     (info "order-create: " order " ..")
-   (let [msg (order-create-msg order)
-         {:keys [retCode retMsg] :as response} (m/? (c/rpc-req! conn msg))]
-     (if (= 0 retCode)
-       {:msg/type :order/confirmed
-        :order order}
-       {:msg/type :order/rejected
-        :msg msg
-        :order order
-        :message retMsg
-        :code retCode}))))
+   (let [bybit-order (order->bybit-format order)
+         response (m/? (order-create-raw! conn bybit-order))]
+     (parse-order-response order response)
+     )))
+
 
 
 (defn order-cancel-msg [{:keys [asset order-id]}]
@@ -170,6 +204,9 @@
   
   (asset-category "BTC.S")
   
+(->> 34.12345 (round2 4) double->str)
+(->> 34.12345 (round2 2) double->str)
+
   (def order
     {:asset "ETHUSDT"
      :side :buy

@@ -12,13 +12,17 @@
   (start-trade [this]
      (info "connecting bybit-trade websockets ")
      (p/start! websocket-order)
-     (p/start! websocket-orderupdate))
+     (p/start! websocket-orderupdate)
+     opts)
   (stop-trade [this]
      (info "closing bybit-trade websockets ")
      (p/stop! websocket-order)
-     (p/stop! websocket-orderupdate))
+     (p/stop! websocket-orderupdate)
+     opts)
   (order-create! [this order]
-    (o/order-create! (p/current-connection websocket-order) order))
+    (let [cur-conn (p/current-connection websocket-order)]
+      (assert cur-conn "cannot create order - cur-conn nil")
+      (o/order-create! cur-conn order)))
   (order-cancel! [this order]
     (o/order-cancel! (p/current-connection websocket-order) order))
   (msg-flow [this]
@@ -26,14 +30,19 @@
           order-out (p/msg-out-flow websocket-order)
           orderupdate-in (p/msg-in-flow websocket-orderupdate)
           orderupdate-out (p/msg-out-flow websocket-orderupdate)]
-      (mix order-in order-out orderupdate-in orderupdate-out))
-    (ou/order-update-msg-flow (p/msg-in-flow websocket-orderupdate)))
+      (assert order-in "order-in-msg flow nil")
+      (assert order-out "order-in-msg flow nil")
+      (assert orderupdate-in "order-in-msg flow nil")
+      (assert orderupdate-out "order-in-msg flow nil")
+      (mix order-in order-out orderupdate-in orderupdate-out)))
   (order-update-msg-flow [this] 
-    (ou/order-update-msg-flow (p/msg-in-flow websocket-orderupdate)))
+    (let [flow (p/msg-in-flow websocket-orderupdate)]
+       (assert flow "msg-in-flow for websocket-orderupdate nil.")
+       (ou/order-update-msg-flow flow)))
   (order-update-flow [this] 
-    (-> (p/msg-in-flow websocket-orderupdate)
-        (ou/order-update-msg-flow)
-        (ou/order-update-flow))))
+    (let [flow (p/order-update-msg-flow this)]
+      (assert flow "order-update-msg-flow for websocket-orderupdate nil.")                 
+     (ou/order-update-flow flow))))
 
 
 (defmethod p/create-tradeaccount :bybit
@@ -41,10 +50,12 @@
   (assert creds "bybit tradefeed needs :creds")
   (assert mode "bybit tradefeed needs :mode (:test :main)")
   (info "creating bybit tradefeed: " opts)
-  (let [opts-order (merge opts {:segment :private} opts)
-        opts-orderupdate (merge opts {:segment :trade} opts)
-        websocket-order (create-websocket opts-order)
-        websocket-orderupdate (create-websocket opts-orderupdate)]
+  (let [websocket-order 
+        (create-websocket
+          (merge opts {:segment :trade}))
+        websocket-orderupdate 
+        (create-websocket 
+          (merge opts {:segment :private}))]
     (bybit-trade. opts websocket-order websocket-orderupdate)))
 
 

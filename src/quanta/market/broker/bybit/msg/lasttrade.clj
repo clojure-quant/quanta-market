@@ -45,8 +45,8 @@
 
 (defn normalize-bybit-last-trade [{:keys [s p v T]}]
   {:asset s
-   :price p
-   :size v
+   :price (parse-double p)
+   :size (parse-double v)
    :time T})
 
 ;({:asset BTCUSDT, :price 60007.77, :size 9.9E-5}

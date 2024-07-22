@@ -4,8 +4,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-logging]]
    [demo.tm :refer [qm]]
-   [quanta.market.algo.almost-market-order :refer [get-last-trade-price]]
-   ))
+   [quanta.market.algo.price :refer [get-last-trade-price]]))
 
 
 (def qsub {:account :bybit
@@ -20,9 +19,7 @@
 (m/? (p/unsubscribe-last-trade! qm qsub))
 
 
-(m/? (get-last-trade-price qm :bybit "BTCUSDT")
- 
- )
+(m/? (get-last-trade-price qm :bybit "BTCUSDT"))
 
 
 

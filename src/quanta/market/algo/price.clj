@@ -1,4 +1,4 @@
-(ns quanta.market.algo.almost-market-order
+(ns quanta.market.algo.price
   (:require
    [missionary.core :as m]
    [quanta.market.util :refer [next-value start!]]
@@ -16,9 +16,6 @@
       result)))
 
 
-
-(defn set-limit-almost-market [{:keys [asset]}]
-  (let [qsub]))
 
 
 

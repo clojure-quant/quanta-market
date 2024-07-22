@@ -43,24 +43,7 @@
             "s" "ETHUSDT"
             "BT" false}]})
 
-
-(defn normalize-bybit-orderupdate [{:keys [orderId
-                                           orderLinkId
-                                           orderStatus ;  "New"
-                                           avgPrice
-                                           cumExecQty ; 
-                                           cumExecValue ; "0.00000000",
-                                           updatedTime ; "1721421749149"
-                                           ; leavesQty ; "0.000100"
-                                           ;leavesValue "0.10000000",
-                                           rejectReason]}]
-  {:order-id orderLinkId
-   :cum-exec-qty cumExecQty
-   :cum-exec-value cumExecValue
-   :timestamp updatedTime
-   :reject-reason rejectReason})
-
-(defn parse-bybit-trade [{:keys [s p v T]}]
+(defn normalize-bybit-last-trade [{:keys [s p v T]}]
   {:asset s
    :price p
    :size v
@@ -71,15 +54,28 @@
 ; {:asset BTCUSDT, :price 60008.02, :size 0.001843})
 ;({:asset BTCUSDT, :price 60008.97, :size 0.0049})
 
-
-(defn last-trade-flow [msg-flow {:keys [asset]}]
+(defn last-trade-msg-flow [msg-flow {:keys [asset]}]
   (let [t (topic/topic :asset/trade [asset])]
-    (warn "subscribing last-trade for asset: " asset " topic: " t)
-  (m/eduction (filter (topic/only-topic t)) msg-flow)))
-  
+    (warn "listening to last-trade for asset: " asset " topic: " t)
+  (m/eduction (filter (topic/only-topic t))
+              (map topic/get-topic-data)
+              msg-flow)))
+
+(defn last-trade-flow [msg-flow {:keys [asset] :as asset-account}]
+  ;(last-trade-msg-flow msg-flow asset-account)
+  (m/ap
+   (let [flow (last-trade-msg-flow msg-flow asset-account)
+         data (m/?> flow)
+         last-quote-update (m/?> (split-seq-flow data))]
+     (when last-quote-update ; bug of split-seq-flow returns also nil.
+       (normalize-bybit-last-trade last-quote-update)))))
 
 (comment 
   (topic/topic :asset/trade ["BTCUSDT"])
+
+(m/? (->> (m/seed (range 10))
+          (m/eduction (filter odd?) (mapcat range) (partition-all 4))
+          (m/reduce conj)))
   
   ;
   )

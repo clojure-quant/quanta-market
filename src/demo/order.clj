@@ -37,7 +37,11 @@
    :limit 68750.0
    })
 
+
 (m/? (p/order-create! tm order-spot))
+
+(m/? (create-order pm order-spot))
+
 
 (m/? (create-order pm order-spot))
 

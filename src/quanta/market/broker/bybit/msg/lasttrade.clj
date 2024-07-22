@@ -76,6 +76,9 @@
 (m/? (->> (m/seed (range 10))
           (m/eduction (filter odd?) (mapcat range) (partition-all 4))
           (m/reduce conj)))
+
+   ;(topic :asset/trade "BTCUSDT")
+   
   
   ;
   )

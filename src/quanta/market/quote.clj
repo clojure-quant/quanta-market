@@ -2,7 +2,7 @@
   (:require
    [quanta.market.protocol :as p]
   ; bring default implementations into scope:
-   [quanta.market.broker.bybit-quotefeed]))
+   [quanta.market.broker.bybit.quotefeed]))
 
 (defn get-feed [{:keys [quotefeeds] :as _this} account-id]
   (get quotefeeds account-id))

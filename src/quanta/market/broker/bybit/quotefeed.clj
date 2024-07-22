@@ -1,4 +1,4 @@
-(ns quanta.market.broker.bybit-quotefeed
+(ns quanta.market.broker.bybit.quotefeed
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]

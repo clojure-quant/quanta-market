@@ -18,7 +18,7 @@
   (def qsub {:account :bybit
              :asset "BTCUSDT"})
 
-  (start-logging ".data/quotes8.txt"
+  (start-logging ".data/quotes-dump.txt"
                  (p/last-trade-flow qm qsub))
 
 

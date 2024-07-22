@@ -1,4 +1,4 @@
-(ns quanta.market.broker.bybit-trade
+(ns quanta.market.broker.bybit.tradeaccount
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]

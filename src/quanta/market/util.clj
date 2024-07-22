@@ -60,6 +60,13 @@
   (m/ap (m/?> (m/?> (count flows) (m/seed flows)))))
 
 
+  (defn cont [flow]
+  (->> flow
+       (m/reductions (fn [r v]
+                       (if v v r)) nil)
+       (m/relieve {})))
+
+
 (defn start-printing [flow label-str]
   (let [print-task (m/reduce (fn [r v]
                                (println label-str " " v)

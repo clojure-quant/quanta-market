@@ -4,7 +4,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [mix]]
    ; bring default implementations into scope:
-   [quanta.market.broker.bybit-trade]
+   [quanta.market.broker.bybit.tradeaccount]
    ))
 
 (defn get-tradeaccount [{:keys [tradeaccounts] :as _this} account-id]

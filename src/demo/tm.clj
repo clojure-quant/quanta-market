@@ -6,10 +6,9 @@
                                                 trade-db-stop]]
    [quanta.market.trade :refer [trade-manager-start]]
    [quanta.market.util :refer [start-logging]]
-    [quanta.market.portfolio :refer [portfolio-manager-start
-                                     get-working-orders]]
-   [demo.accounts :refer [accounts-trade]]
-   ))
+   [quanta.market.portfolio :refer [portfolio-manager-start
+                                    get-working-orders]]
+   [demo.accounts :refer [accounts-trade]]))
 
 
 (modular.log/timbre-config!
@@ -30,17 +29,17 @@
 (def db (trade-db-start ".data/trade-db"))
 
 (defn setup-trade-manager []
-   (let [tm  (trade-manager-start accounts-trade)]
-     (start-logging ".data/order-update-msg.txt"
-                    (p/order-update-msg-flow  tm))
-     (start-logging ".data/order-update.txt"
-                    (p/order-update-flow  tm))
-     tm))
+  (let [tm  (trade-manager-start accounts-trade)]
+    (start-logging ".data/order-update-msg.txt"
+                   (p/order-update-msg-flow  tm))
+    (start-logging ".data/order-update.txt"
+                   (p/order-update-flow  tm))
+    tm))
 
 (def tm (setup-trade-manager))
 
 
-(def pm (portfolio-manager-start 
+(def pm (portfolio-manager-start
          {:db nil
           :tm tm
           :alert-logfile ".data/alerts.txt"}))
@@ -51,7 +50,7 @@
   (p/start-trade tm)
   (p/stop-trade tm)
   (get-working-orders pm)
-  
+
 
  ;  
   )

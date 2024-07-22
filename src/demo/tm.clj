@@ -5,7 +5,7 @@
    [quanta.market.trade.db :as trade-db :refer [trade-db-start
                                                 trade-db-stop]]
    [quanta.market.trade :refer [trade-manager-start]]
-   [quanta.market.util :refer [start-logging]]
+   [quanta.market.util :refer [start-logging start-printing]]
    [quanta.market.portfolio :refer [portfolio-manager-start
                                     get-working-orders]]
    [demo.accounts :refer [accounts-trade]]))
@@ -40,6 +40,8 @@
     tm))
 
 
+
+
 (def tm (setup-trade-manager))
 
 
@@ -52,6 +54,9 @@
   tm
 
   (p/start-trade tm)
+
+  (start-printing (p/msg-flow tm) "trade msg:")
+  
 
   (p/stop-trade tm)
   (get-working-orders pm)

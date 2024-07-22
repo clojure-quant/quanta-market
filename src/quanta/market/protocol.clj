@@ -1,8 +1,5 @@
 (ns quanta.market.protocol)
 
-(defmulti create-account
-  (fn [opts]
-    (:type opts)))
 
 (defprotocol connection
   (start! [this])

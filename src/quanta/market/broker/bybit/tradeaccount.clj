@@ -14,6 +14,7 @@
      (p/start! websocket-order)
      (p/start! websocket-orderupdate))
   (stop-trade [this]
+     (info "closing bybit-trade websockets ")
      (p/stop! websocket-order)
      (p/stop! websocket-orderupdate))
   (order-create! [this order]
@@ -33,6 +34,7 @@
     (-> (p/msg-in-flow websocket-orderupdate)
         (ou/order-update-msg-flow)
         (ou/order-update-flow))))
+
 
 (defmethod p/create-tradeaccount :bybit
   [{:keys [creds mode] :as opts}]

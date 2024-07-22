@@ -14,12 +14,12 @@
 
   (p/start-quote qm)
   (p/stop-quote qm)
-
+  
 
   (def qsub {:account :bybit
              :asset "BTCUSDT"})
 
-  (start-logging ".data/quotes-dump2.txt"
+   (start-logging ".data/quotes-dump3.txt"
                  (p/last-trade-flow qm qsub))
 
 

@@ -13,29 +13,29 @@
   ;
   p/connection
   (start! [this]
-    (let [conn (c/connection-start! flow-sender-in flow-sender-out opts)]
-      (reset! (:conn this) conn)
+    (let [new-conn (c/connection-start! flow-sender-in flow-sender-out opts)]
+      (reset! conn new-conn)
       ; auth
       (when-let [creds (:creds opts)]
         (info (:account-id opts) " authenticating secure account..")
-        (m/? (a/authenticate! conn creds)))
+        (m/? (a/authenticate! new-conn creds)))
       ; pinger
-      (pinger/start-pinger conn ping)
-      conn))
+      (pinger/start-pinger new-conn ping)
+      new-conn))
   (stop! [this]
-    (let [conn @(:conn this)]
-      (pinger/stop-pinger (:ping this))
-      (when conn
+    (let [cur-conn (p/current-connection this)]
+      (pinger/stop-pinger ping)
+      (when cur-conn
         (info (:account-id opts) "stopping connection..")
-        (c/connection-stop! conn)
-        (reset! (:conn this) nil))
+        (c/connection-stop! cur-conn)
+        (reset! conn nil))
       nil))
   (current-connection [this]
-    @(:conn this))
+    @conn)
   (msg-in-flow [this]
-    (:flow (:flow-sender-in this)))
+    (:flow flow-sender-in))
   (msg-out-flow [this]
-    (:flow (:flow-sender-out this)))
+    (:flow flow-sender-out))
   ; bybit websocket
   )
 

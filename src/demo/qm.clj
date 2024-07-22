@@ -3,7 +3,6 @@
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-logging]]
-   ;[quanta.market.algo.price :refer [get-last-trade-price]]
    [quanta.market.quote :refer [quote-manager-start]]
    [demo.accounts :refer [accounts-quote]]))
 

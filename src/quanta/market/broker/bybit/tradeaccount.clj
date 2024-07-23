@@ -18,7 +18,7 @@
      ; ticketInfo does not work.
       (info "subscribing bybit order-updates..")
      (m/? (s/subscription-start! (p/current-connection websocket-orderupdate) :order/execution))
-     (m/? (s/subscription-start! (p/current-connection websocket-orderupdate) :order/update))
+     ;(m/? (s/subscription-start! (p/current-connection websocket-orderupdate) :order/update))
      opts)
   (stop-trade [this]
      (info "closing bybit-trade websockets ")
@@ -52,6 +52,8 @@
                (o/order-cancel! (p/current-connection websocket-order) order))
 ; 
   )
+
+
 
 
 (defmethod p/create-tradeaccount :bybit

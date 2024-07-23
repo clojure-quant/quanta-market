@@ -1,7 +1,7 @@
 (ns quanta.market.broker.bybit.topic)
 
 (def topics
-  {:order/execution "ticketInfo"
+  {:order/execution "execution" ; ticketInfo did not work
    :order/update "order"
     ; market
    :asset/orderbook "orderbook.%s.%s" ; depth asset OK

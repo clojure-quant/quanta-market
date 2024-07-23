@@ -1,11 +1,11 @@
 (ns quanta.market.trade.order-state
-   (:require
-    [missionary.core :as m]
-    [taoensso.timbre :as timbre :refer [debug info warn error]]
-    [quanta.market.util :refer [flow-sender start-logging mix]]
-    [quanta.market.trade.schema :as s]
-    [quanta.market.trade.db :refer [store-new-order! store-order-update!]]
-    [quanta.market.trade.order-status :as order-status]))
+  (:require
+   [missionary.core :as m]
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
+   [quanta.market.util :refer [flow-sender start-logging mix]]
+   [quanta.market.trade.schema :as s]
+   [quanta.market.trade.db :refer [store-new-order! store-order-update!]]
+   [quanta.market.trade.working-order :as wo]))
 
 (defn get-working-orders [{:keys [working-orders]}]
   (vals @working-orders))
@@ -13,22 +13,31 @@
 (defn get-working-order [{:keys [working-orders]} order-id]
   (get @working-orders order-id))
 
-(defn create-working-order [{:keys [db alert working-orders] :as state}
-                            order]
-  (let [order-id (:order-id order)
-        working-order {:order order
-                       :order-status (order-status/open-order order)}]
+(defn create-working-order [{:keys [db working-orders] :as state}
+                            {:keys [order-id] :as order}]
+  (let [working-order (wo/create-working-order order)]
     (swap! working-orders assoc order-id working-order)
     (when db
       (store-new-order! db working-order))))
 
-(defn process-order-update [{:keys [db working-orders] :as state} order-state order-update]
-  (let [new-order-status (order-status/update-existing-order-status order-state order-update)]
-    (when db
-      (store-order-update! db order-update new-order-status))
-    (if (order-status/open? new-order-status)
-      (swap! working-orders update-in [(:order-id new-order-status) :order-status] new-order-status)
-      (swap! working-orders dissoc (:order-id new-order-status)))))
+
+(defn process-order-update [{:keys [db working-orders] :as state} working-order order-update]
+  (let [{:keys [new-order-status new-trade alert]} (wo/process-order-update working-order order-update)
+        order-id (-> working-order :order :order-id)]
+
+    (when alert
+      (error "order-update-alert: " alert))
+  
+    (when new-trade
+      (warn "order-update new trade: " new-trade))
+
+    (when new-order-status
+      (swap! working-orders assoc-in [order-id :order-status] new-order-status)
+      (when db
+        (store-order-update! db order-update new-order-status))
+      (when-not (wo/open? new-order-status)
+        (warn "removing closed order-status: " new-order-status "order: "  (:order working-order))
+        (swap! working-orders dissoc order-id)))))
 
 
 (defn create-update-task [{:keys [db alert :order-orderupdate-flow] :as state}]

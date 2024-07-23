@@ -48,7 +48,18 @@
 (m/? (p/order-create! pm order-spot-limit))
 (m/? (p/order-create! pm order-spot-market))
 
+(def order-linear
+  (assoc order-spot-market :asset "BTC-27SEP24.L"))
 
+(def order-linear-sell-limit
+  (assoc order-spot-limit
+         :asset "BTC-27SEP24.L"
+         :side :sell
+         :limit 69475.0
+         ))
+
+(m/? (p/order-create! pm order-linear-sell-limit))
+(m/? (p/order-create! pm order-linear))
 
 
 
@@ -81,8 +92,7 @@
 (format "%f" (:qty order-spot))
 (format "%f" (:limit  order-spot))  
 
-  (def order-linear
-    (assoc order-spot :asset "BTC-27SEP24.L"))
+  
   
   (def order-inverse
     (assoc order-spot :asset "BTCUSD.I"))

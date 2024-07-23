@@ -48,3 +48,24 @@
    "MovePosition"
    "UNKNOWN"])
 
+{:creationTime 1721703999518, 
+ :topic "execution", 
+ :id "102782796_BTC-27SEP24_17029046221", 
+ :data [{:underlyingPrice "", 
+         :category "linear", 
+         :execType "Trade", 
+         :execPrice "69175", 
+         :orderQty "0.001", 
+         :closedSize "0", 
+         :orderPrice "72420.5", 
+         :stopOrderType "UNKNOWN", 
+         :symbol "BTC-27SEP24", 
+         :orderType "Market", 
+         :marketUnit "", :isLeverage "0", :markPrice "68989.88", 
+         :tradeIv "", :indexPrice "", :createType "CreateByUser", 
+         :leavesQty "0", :markIv "", :blockTradeId "", 
+         :execQty "0.001", :execId "60c80c8e-ed4c-5505-9135-743b457d22ee", 
+         :execFee "0.03804625", :execTime "1721703999514", :side "Buy", 
+         :isMaker false, :seq 17029046221, :execValue "69.175", 
+         :orderLinkId "MjARTou9", :orderId "9c38c328-30cf-4374-9d69-9d30d3817201",
+         :feeRate "0.00055"}]}

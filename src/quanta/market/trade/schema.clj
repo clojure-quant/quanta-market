@@ -22,6 +22,24 @@
    [:ordertype [:enum :market :limit]]
    [:limit {:optional true} [:double {:min above-zero}]]])
 
+(def OrderUpdate
+  [:map
+   [:order-id :string]
+   ;[:account :keyword]
+   ;[:asset :string]
+   [:orderupdatetype [:enum :new-order
+                      :rejected
+                      :canceled
+                      :expired
+                      :trade
+                      :comment]]
+
+   [:trade-qty {:optional true} [:double {:min above-zero}]]
+   [:trade-value {:optional true} [:double {:min above-zero}]]
+
+   ;[:qty [:double {:min above-zero}]]
+   ])
+
 (def OrderStatus
   [:map
    [:order-id :string]
@@ -29,31 +47,19 @@
    [:fill-qty [:double {:min above-zero}]]
    [:fill-value [:double {:min above-zero}]]])
 
-
-(def OrderUpdate
+(def Trade
   [:map
-   [:order-id :string]
-   ;[:account :keyword]
-   ;[:asset :string]
-   [:orderupdatetype [:enum :new-order 
-                            :rejected 
-                            :canceled 
-                            :expired
-                            :trade
-                            :comment
-                      ]]
-   
-    [:trade-qty {:optional true} [:double {:min above-zero}]]
-    [:trade-value {:optional true} [:double {:min above-zero}]]
+   [:account :keyword]
+   [:asset :string]
+   [:side [:enum :buy :sell]]
+   [:qty [:double {:min above-zero}]]])
 
-   ;[:qty [:double {:min above-zero}]]
-   ])
+(def Position
+  [:map
+   [:account :keyword]
+   [:asset :string]
+   [:qty [:double]]])
  
-{:order-id 456, :orderupdatetype :trade, :trade-qty 3.0E-4, :trade-volume 200.0}
-
- 
-
-
 
 (defn validate-order [order]
   (m/validate Order order {:registry r}))

@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [demo.tm :refer [tm pm]]
+   [demo.tm :refer [pm]]
    [quanta.market.portfolio :refer [get-working-orders]]))
 
 (def assets
@@ -28,25 +28,38 @@
 (def order-spot-limit
   {:account :rene/test4
    :asset "BTCUSDT.S"
-   :side :sell
+   :side :buy
    :qty 0.001
    :ordertype :limit
-   :limit 66450.0})
+   :limit 66800.0})
 
-(def order-spot-market
+
+(def order-spot-market-buy
   {:account :rene/test4
    :asset "BTCUSDT.S"
    :side :buy
-   :qty 0.2
+   :qty 0.002
    :ordertype :market})
 
-(m/? (p/order-create! tm order-spot-limit))
-(m/? (p/order-create! tm order-spot-market))
+(def order-spot-market-sell
+  {:account :rene/test4
+   :asset "BTCUSDT.S"
+   :side :sell
+   :qty 0.002
+   :ordertype :market})
 
 (m/? (p/order-create! pm order-spot-limit))
-(m/? (p/order-create! pm order-spot-market))
+(m/? (p/order-create! pm order-spot-market-buy))
 
- 
+(m/? (p/order-create! pm order-spot-market-sell))
+
+; error MARKET BUY
+:message "Order value exceeded lower limit.",
+:code 170140
+
+:message "Insufficient balance.",
+:code 170131
+
 (m/?
  (p/order-create!
   pm
@@ -71,12 +84,10 @@
 (m/? (p/order-create! pm order-linear-sell-limit))
 (m/? (p/order-create! pm order-linear))
 
-
-
 (def cancel
   {:account :rene/test4
    :asset "BTCUSDT"
-   :order-id "OKzcAvMD"})
+   :order-id "mBDN7iIP"})
 
 
 (m/? (p/order-cancel! pm cancel))

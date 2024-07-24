@@ -95,9 +95,12 @@
                 bad-order-update-flow]} (create-flows tm)
         transactor (transactor-start {:order-orderupdate-flow order-orderupdate-flow
                                       :logfile transactor-logfile
-                                      :db db})]
+                                      :db db})
+        transactor-alert-f (:alert-f transactor)
+        alert-f (mix bad-order-update-flow transactor-alert-f)
+        ]
     (when alert-logfile 
-      (start-logging alert-logfile bad-order-update-flow))
+      (start-logging alert-logfile alert-f))
     (portfolio-manager. db tm transactor send-new-order-to-flow) 
     ))
 

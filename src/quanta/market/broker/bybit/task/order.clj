@@ -96,7 +96,10 @@
                     :buy "Buy"
                     :sell "Sell")
           "orderType" (type->bybit ordertype) ; "Limit"
-          "qty" (format-qty asset qty)}
+          "qty" (format-qty asset qty)
+          "marketUnit" "baseCoin" ; hack for market buy orders
+          }
+          
             )))
 
 (def order-response-failed-example

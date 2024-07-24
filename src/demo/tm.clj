@@ -39,6 +39,7 @@
     tm))
 
 
+
 (def tm (setup-trade-manager))
 
 (def pm (portfolio-manager-start

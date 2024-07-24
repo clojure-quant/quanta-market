@@ -16,3 +16,13 @@ option    500
   (count (get-assets "linear"))  ;; => 432
   (count (get-assets "inverse")) ;; => 13
   (count (get-assets "option"))  ;; => 500
+
+
+# rate limits
+              inverse	  linear	option	spot
+order/create	10/s	    10/s	  10/s	  20/s
+
+
+# BUY MARKET HACK
+ - for buy market bybit interprets the qty in USD.
+ - set "marketUnit" "baseCoin" ; hack for market buy orders so that qty is interpreted in BTC.

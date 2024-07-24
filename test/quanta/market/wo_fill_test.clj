@@ -3,9 +3,8 @@
    [clojure.test :refer :all]
    [missionary.core :as m]
    [quanta.market.trade.order :refer [order-change-flow
-                                      working-orders-flow
                                       current-working-orders
-                                      trades]]))
+                                      trade-flow]]))
 
 (def order-orderupdate-flow
   (m/seed [{:order-id "456"
@@ -44,11 +43,14 @@
 
 ; executions
 
-(def execution-flow (trades order-orderupdate-flow))
+(def order-changes (order-change-flow order-orderupdate-flow))
+
+(def execution-flow (trade-flow order-changes))
 
 
 (def executions 
   (m/? (m/reduce conj [] execution-flow))  
+
   )
 
 executions

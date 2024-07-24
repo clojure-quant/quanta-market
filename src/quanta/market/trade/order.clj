@@ -4,10 +4,10 @@
    [tick.core :as t]
    [missionary.core :as m]))
 
-(defn filled? [{:keys [order-open order-status] :as working-order}]
+(defn- filled? [{:keys [order-open order-status] :as working-order}]
   (>= (:fill-qty order-status) (:qty order-open)))
 
-(defn extract-trade [{:keys [open-order order-status] :as working-order}
+(defn- extract-trade [{:keys [open-order order-status] :as working-order}
                      {:keys [fill-qty fill-value] :as broker-order-status}]
   (if (and fill-qty fill-value)
     (let [_ (info "extracting trade: " broker-order-status)
@@ -28,8 +28,13 @@
     {}))
 
 
-(defn process-order-status [{:keys [open-order order-status] :as working-order}
-                            {:keys [status close-reason] :as broker-order-status}]
+(defn- process-order-status 
+  "reducer function 
+   input : broker-order-status updates
+   state is a working order (:open-order :order-status)
+   returns :transactions which are not kept in state"
+  [{:keys [open-order order-status] :as working-order}
+   {:keys [status close-reason] :as broker-order-status}]
   (let [; status prior to applying the broker-order-status
         cur-fill-qty (:fill-qty order-status)
         cur-fill-value (:fill-value order-status)
@@ -61,7 +66,7 @@
                           new-close-status)
      :transactions (merge trade-transaction close-trans)}))
 
-(defn create-working-order [order]
+(defn- create-working-order [order]
   {:open-order order
    :order-status {:status :open
                   :open-date (t/inst)
@@ -69,9 +74,13 @@
                   :fill-value 0.0}
    :transactions {:order/created order}})
 
-(defn working-order-flow
-  "consumes order-flow (at this point it should be filtered by order-id
-   returns working-order order-flow.
+(defn- working-order-flow
+  "returns a flow 
+   that consumes order-orderupdate-flow (so the orderupdate-flow filtered 
+   to the order-id)
+   returns {:open-order :order-status :transaction} map.
+   working-order (:open-order :order-status) is stateful.
+   :transactions are not stateful, so it means they are only sent once.
    this flow can be used to update the order-status of a working-order ui,
    and it can be used to extract events like :alert :order/open :order/close"
   [order-orderupdate-flow]
@@ -97,7 +106,13 @@
                 order-orderupdate-flow))
 
 
-(defn order-change-flow [order-orderupdate-flow]
+(defn order-change-flow 
+  "returns a flow that 
+   reads the order-orderupdate-flow and 
+   outputs messages {:order-id :order-status :transaction}
+   whereas :order-status is stateful and
+   :transaction is transactional"
+  [order-orderupdate-flow]
   (m/ap
    (let [[order-id >x] (m/?> ##Inf (m/group-by :order-id order-orderupdate-flow))
          _ (info "creating flow for order-id: " order-id)
@@ -105,7 +120,10 @@
      [order-id working-order])))
 
 
-(defn working-orders-flow [order-change-flow]
+(defn working-orders-flow 
+  "returns a flow, 
+   sending dictionary of all working orders."
+  [order-change-flow]
   (m/ap
    (let [orders (atom {})
          [order-id {:keys [order-status open-order transactions]}] (m/?> 1 order-change-flow)
@@ -118,6 +136,12 @@
        (swap! orders assoc order-id {:order-status order-status
                                      :open-order open-order})))))
 
+(defn order-status->working-order-flow [order-status-flow]
+  (let [last-status (m/? (m/reduce (fn [_r v] v) {} order-status-flow))]
+    (map (fn [[order-id working-order]]
+           ;  working-order
+           (assoc working-order :order-id order-id)) last-status)))
+
 (defn current-working-orders [order-orderupdate-flow]
   (let [order-changes (order-change-flow order-orderupdate-flow)
         order-status (working-orders-flow order-changes)
@@ -127,14 +151,20 @@
            (assoc working-order :order-id order-id)) last-status)))
 
 
-(defn trades [order-orderupdate-flow]
-  (m/ap 
-    (let [order-changes (order-change-flow order-orderupdate-flow)
-          [order-id {:keys [transactions]}] (m/?> 1 order-changes)
-          new-trade (:trade transactions)]
-      (if new-trade 
-        (assoc new-trade :order-id order-id)
-        (m/amb)
-        )
-      )))
+(defn- new-trade? [order-update-msg]
+  (info "new-trade order-update-msg: " order-update-msg)
+  (let [[order-id {:keys [transactions]}] order-update-msg
+        new-trade (:trade transactions)]
+    new-trade))
 
+
+(defn- order-update-msg->trade [order-update-msg]
+  (let [[order-id {:keys [transactions]}] order-update-msg
+        new-trade (:trade transactions)]
+    (assoc new-trade :order-id order-id)))
+
+
+(defn trade-flow [order-change-flow]
+  (m/eduction (filter new-trade?)
+              (map order-update-msg->trade)
+              order-change-flow))

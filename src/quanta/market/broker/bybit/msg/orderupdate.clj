@@ -5,20 +5,20 @@
    [quanta.market.util :refer [split-seq-flow]]))
 
 
-(defn normalize-orderstatus [orderStatus]
+(defn normalize-orderstatus [orderStatus rejectReason]
   ;open status
   (case orderStatus
     ; open
-    "New" :new-order ;  order has been placed successfully
-    "PartiallyFilled" :trade;
-    "Untriggered" nil ; Conditional orders are created
+    "New" [:open nil] ;  order has been placed successfully
+    "PartiallyFilled" [:open nil];
+    "Untriggered" [:open nil] ; Conditional orders are created
     ; closed
-    "Rejected"  :rejected
-    "PartiallyFilledCanceled"
-    "Filled" :trade
-    "Cancelled"  :canceled
-    "Triggered" nil
-    "Deactivated" nil))
+    "Rejected"  [:closed (str "Rejected: " rejectReason)]
+    "PartiallyFilledCanceled" [:closed "PartialFill"]
+    "Filled" [:closed "Filled"]
+    "Cancelled"  [:closed "Cancelled"]
+    "Triggered" [:closed "Triggered"]
+    "Deactivated" [:closed "Deactivated"]))
 
 (defn normalize-bybit-orderupdate [{:keys [orderId
                                            orderLinkId
@@ -29,13 +29,19 @@
                                            updatedTime ; "1721421749149"
                                            ; leavesQty ; "0.000100"
                                            ;leavesValue "0.10000000",
-                                           rejectReason]}]
-  {:order-id orderLinkId
-   :orderupdatetype (normalize-orderstatus orderStatus)
-   :cum-exec-qty cumExecQty
-   :cum-exec-value cumExecValue
-   :timestamp updatedTime
-   :reject-reason rejectReason})
+                                           rejectReason
+                                           ]}]
+  (let [[orderstatus close-reason]  (normalize-orderstatus orderStatus rejectReason)
+        orderupdate {:order-id orderLinkId
+                     :broker-order-status {:timestamp updatedTime
+                                           :order-id orderLinkId
+                                           :broker-order-id orderId
+                                           :status orderstatus
+                                           :fill-qty (parse-double cumExecQty)
+                                           :fill-value (parse-double cumExecValue)}}]
+     (if close-reason 
+       (assoc orderupdate :close-reason close-reason)
+       orderupdate)))
 
 (defn order-id [msg]
   (get-in msg [:data]))

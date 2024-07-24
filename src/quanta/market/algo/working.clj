@@ -1,9 +1,9 @@
-(ns quanta.trade.position.working
+(ns quanta.market.algo.working
   (:require
    [tick.core :as t]
    [missionary.core :as m]
    [quanta.market.broker.paper.quote :refer [get-quote]]
-   [quanta.trade.roundtrip :refer [return-prct return-abs return-log]])
+   [quanta.market.position.roundtrip :refer [return-prct return-abs return-log]])
   (:import [missionary Cancelled]))
 
 (defn value-position [position

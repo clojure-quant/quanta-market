@@ -4,32 +4,42 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [nano-id.core :refer [nano-id]]
    [tick.core :as t]
-   [quanta.market.util :refer [flow-sender start-logging mix]]
+   [quanta.market.util :refer [flow-sender start-logging mix current-value]]
    [quanta.market.protocol :as p]
    [quanta.market.trade.schema :as s]
-   [quanta.market.trade.order-state :as om :refer [order-manager-start
-                                            order-manager-stop
-                                            ]]))
+   [quanta.market.trade.transactor :refer [transactor-start]]))
 
-(defn wrap-order-update-flow [f]
-  (m/eduction (map (fn [r] {:order-update r})) f))
 
-(defn wrap-order-flow [f]
-  (m/eduction (map (fn [r] {:order r})) f))
+(defn only-valid-order-update [f]
+  (m/eduction 
+   (filter s/validate-broker-order-status) f))
 
+(defn only-bad-order-update [f]
+  (m/eduction 
+   (remove s/validate-broker-order-status)
+   (map (fn [order-update]
+          {:broker-order-status order-update
+           :validation-error (s/human-error-broker-order-status order-update)
+           }))
+    f))
+ 
 (defn create-flows [tm]
   (let [order-create-flow-sender (flow-sender)
         order-flow (:flow order-create-flow-sender)
-        send-new-order-to-flow (fn [order]
-                                 (warn "creating new order in db: " order)
-                                 ((:send order-create-flow-sender) order))
-        wrapped-orderupdate-flow (wrap-order-update-flow
-                                  (p/order-update-flow tm))
-        order-orderupdate-flow (mix wrapped-orderupdate-flow order-flow)]
+        send-new-order-to-flow (fn [order-update]
+                                 (warn "new order: " order-update)
+                                 ((:send order-create-flow-sender) order-update))
+        orderupdate-flow (p/order-update-flow tm)
+        ok-order-update-flow (only-valid-order-update orderupdate-flow)
+        bad-order-update-flow (only-bad-order-update orderupdate-flow)
+        
+        order-orderupdate-flow (mix ok-order-update-flow order-flow)]
   {:order-orderupdate-flow order-orderupdate-flow
-   :send-new-order-to-flow send-new-order-to-flow}))
+   :send-new-order-to-flow send-new-order-to-flow
+   :bad-order-update-flow bad-order-update-flow
+   }))
 
-(defrecord portfolio-manager [db tm order-manager send-new-order-to-flow]
+(defrecord portfolio-manager [db tm transactor send-new-order-to-flow]
   p/trade-action
   (order-create! [this {:keys [account asset side quantity type] :as order}]
     (if (s/validate-order order)
@@ -37,7 +47,8 @@
             order (assoc order
                          :order-id order-id
                          :date-created (t/inst))]
-        (send-new-order-to-flow {:order order})
+        (send-new-order-to-flow {:order-id order-id
+                                 :order order})
         (if tm
           (p/order-create! tm order)
           (error "cannot send order - :tm nil")))
@@ -51,22 +62,32 @@
       (error "cannot cancel order - :tm nil"))))
 
 (defn portfolio-manager-start
-  "starts the porfolio manager.
+  "portfolio-manager uses both broker-account-manager and the transactor.
+   it therefore is able to create/cancel orders, and know working-orders and open positions.
    db is optional. if no db is passed, the database will not get updated and you 
    are working purely in memory."
-  [{:keys [db tm alert-logfile]}]
+  [{:keys [db tm transactor-logfile alert-logfile]}]
   (let [{:keys [order-orderupdate-flow 
-                send-new-order-to-flow]} (create-flows tm)
-        order-manager (order-manager-start {:db db 
-                                            :alert-logfile alert-logfile
-                                            :order-orderupdate-flow order-orderupdate-flow})]
-    (portfolio-manager. db tm order-manager send-new-order-to-flow) 
+                send-new-order-to-flow
+                bad-order-update-flow]} (create-flows tm)
+        transactor (transactor-start {:order-orderupdate-flow order-orderupdate-flow
+                                      :logfile transactor-logfile
+                                      :db db})]
+    (when alert-logfile 
+      (start-logging alert-logfile bad-order-update-flow))
+    (portfolio-manager. db tm transactor send-new-order-to-flow) 
     ))
 
-(defn portfolio-manager-stop [{:keys [order-manager]}]
+(defn portfolio-manager-stop [{:keys [transactor]}]
   (info "portfolio-manager stopping..")
-  (order-manager-stop order-manager))
+  ;
+  )
 
-(defn get-working-orders [{:keys [order-manager]}]
-  (om/get-working-orders order-manager))
+(defn get-working-orders [{:keys [transactor]}]
+  (let [working-order-f (:working-order-f transactor)
+        cv (current-value working-order-f)
+        ]
+    (m/? cv)))
+
+  
 

@@ -2,7 +2,6 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [quanta.market.portfolio :refer [create-order get-working-orders order-cancel!]]
    [quanta.market.algo.price :refer [get-last-trade-price]]
    [quanta.market.algo.order :refer [order-with-limit-near-market]]
    [demo.qm :refer [qm]]
@@ -11,6 +10,8 @@
 
 
 (m/? (get-last-trade-price qm :bybit "BTCUSDT"))
+
+
 ;; => {:asset "BTCUSDT", :price 68319.75, :size 9.99E-4, :time 1721609641809}
 
 (m/? (order-with-limit-near-market qm {:asset "BTCUSDT"
@@ -23,12 +24,11 @@
 ;;     :asset "BTCUSDT.S", 
 ;;     :limit 67998.94}
 
-
-(let [order (m/? (order-with-limit-near-market qm {:asset "BTCUSDT"
+(let [order (m/? (order-with-limit-near-market qm {:asset "BTCUSDT.S"
                                           :side :buy
                                           :account :rene/test4
                                           }))]
-  (m/? (create-order pm order)))
+  (m/? (p/order-create! pm order)))
 
 
 

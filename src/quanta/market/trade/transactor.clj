@@ -24,13 +24,37 @@
 (defn working-orders-table [working-orders]
    (with-out-str 
     (crockery/print-table
-     [{:name :order-id, :align :left}
+     [{:name :account2, :title "account" :align :left :key-fn #(get-in % [:open-order :account])}
+      {:name :order-id2, :title "order-id" :align :left :key-fn #(get-in % [:open-order :order-id])}
       {:name :asset, :align :right :title "asset" :key-fn #(get-in % [:open-order :asset])}
       {:name :asset, :align :right :title "side" :key-fn #(get-in % [:open-order :side])}
       {:name :asset, :align :right :title "qty" :key-fn #(get-in % [:open-order :qty])}
+      {:name :order-type2, :title "otype" :align :left :key-fn #(get-in % [:open-order :ordertype])}
       {:name :asset, :align :right :title "fill-qty" :key-fn #(get-in % [:order-status :fill-qty])}
       {:name :asset, :align :right :title "fill-value" :key-fn #(get-in % [:order-status :fill-value])}]
      working-orders)))
+
+
+(defn position-dict->positions [position-dict]
+  (map (fn [[[account asset] net-qty]]
+         {:account account
+          :asset asset
+          :net-qty net-qty}) position-dict))
+
+(defn open-positions-table [open-positions]
+  (with-out-str
+    (crockery/print-table
+     [{:name :account2, :title "account" :align :left :key-fn :account}
+      {:name :asset, :align :right :title "asset" :key-fn :asset}
+      {:name :asset, :align :right :title "net-qty" :key-fn :net-qty}]
+     open-positions)))
+
+(defn wrap-positions [flow]
+  (m/eduction 
+   (map position-dict->positions)
+   (map open-positions-table)
+   flow))
+
 
 (defn wrap-table [flow]
   (m/eduction (map working-orders-table) flow))
@@ -52,6 +76,7 @@
         trade-f (trade-flow order-change-f)
         position-change-f (position-change-flow trade-f)
         open-position-f (open-positions-flow position-change-f)
+        open-position-table-f (wrap-positions open-position-f)
         ; log
         logger-dispose! (if logfile
                           (let [log-flow (mix ; order
@@ -62,14 +87,20 @@
                                               (wrap-title "trade" trade-f) ;
                                               ; position
                                               (wrap-title "position-change" position-change-f) 
-                                              (wrap-title "open positions" open-position-f))]
+                                              (wrap-title "open-positions" open-position-f)
+                                              (wrap-title "open-positions-table" open-position-table-f)
+                                          )]
                             (info "transactor is logging to: " logfile)
                             (start-logging logfile log-flow))
                           (warn "order-manager is NOT LOGGING!"))
         state {:db db
               ; :working-orders working-orders
-               ;:order-orderupdate-flow order-orderupdate-flow
-               :logger-dispose!! logger-dispose!}
+               :order-orderupdate-flow order-orderupdate-flow
+               :logger-dispose!! logger-dispose!
+               :open-position-f open-position-f
+               :working-order-f working-order-f
+               :trade-f trade-f
+               }
         ;update-task (create-update-task state)
         ;stop-update-processor (update-task #(info "order-update-processor stopped successfully: " %)
         ;                                   #(error "order-update-processor crashed: " %))
@@ -78,10 +109,16 @@
     state
     ))
 
-
-
 (defn transactor-stop [{:keys [stop-update-processor logger-dispose!]}]
   (info "transactor stopping..")
   ;(stop-update-processor)
   (when logger-dispose!
     (logger-dispose!)))
+
+(comment 
+  (position-dict->positions {[:rene/test4 "BTCUSDT.S"] 0.002})
+ ; 
+  )
+
+
+

@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [quanta.trade.position.exit.rule :refer [get-exit-rule]]
-   [quanta.trade.position.working :refer [working-position]]))
+   [quanta.market.algo.working :refer [working-position]]))
 
 (defn trailing-return [position]
   (let [working-position (working-position position)]

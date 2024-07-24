@@ -40,12 +40,14 @@
    ;[:qty [:double {:min above-zero}]]
    ])
 
-(def OrderStatus
+(def BrokerOrderStatus
   [:map
    [:order-id :string]
-   [:status [:enum :open :closed]]
-   [:fill-qty [:double {:min above-zero}]]
-   [:fill-value [:double {:min above-zero}]]])
+   [:broker-order-status [:map 
+                          [:status [:enum :open :closed]]
+                          [:fill-qty {:optional true} [:double ]]
+                          [:fill-value {:optional true} [:double ]]
+                          ]]])
 
 (def Trade
   [:map
@@ -68,11 +70,12 @@
   (->> (m/explain Order order {:registry r})
        (me/humanize)))
 
-(defn validate-order-update [order-update]
-  (m/validate OrderUpdate order-update {:registry r}))
 
-(defn human-error-order-update [order-update]
-  (->> (m/explain OrderUpdate order-update {:registry r})
+(defn validate-broker-order-status [order-status]
+  (m/validate BrokerOrderStatus order-status {:registry r}))
+
+(defn human-error-broker-order-status [order-status]
+  (->> (m/explain BrokerOrderStatus order-status {:registry r})
        (me/humanize)))
 
 
@@ -88,6 +91,18 @@
   (validate-order order)
   (human-error-order order)
   
+  (def order-status {:order-id "34"
+                     :broker-order-status {:status :closed
+                                           :fill-qty 3.0
+                                           :fill-value 50.0
+                                           }
+                     
+                     })
+  
+  (validate-broker-order-status order-status)
+  (human-error-broker-order-status order-status)
+
+
   (require '[malli.generator :as mg])
   (mg/generate Order {:registry r})
   ;; => {:account :HE,

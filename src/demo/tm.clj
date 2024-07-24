@@ -29,22 +29,22 @@
 
 (defn setup-trade-manager []
   (let [tm  (trade-manager-start accounts-trade ".data/")]
-    (start-logging ".data/order-update-msg2.txt"
-                   (p/order-update-msg-flow  tm))
-    (start-logging ".data/order-update2.txt"
-                   (p/order-update-flow  tm))
-    (start-logging ".data/order-all-msgs2.txt"
-                   (p/msg-flow  tm))
+    ;(start-logging ".data/order-update-all-msg.txt"
+    ;               (p/order-update-msg-flow  tm))
+    ;(start-logging ".data/order-update-all.txt"
+    ;               (p/order-update-flow  tm))
+    ;(start-logging ".data/order-all-msgs.txt"
+    ;               (p/msg-flow  tm))
 
     tm))
 
 (def tm (setup-trade-manager))
 
-
 (def pm (portfolio-manager-start
-         {:db nil
-          :tm tm
-          :alert-logfile ".data/alerts2.txt"}))
+         {:tm tm
+          :db nil
+          :transactor-logfile ".data/transactor.txt"
+          :alert-logfile ".data/transactor-error.txt"}))
 
 
 (comment
@@ -54,7 +54,6 @@
 
   (start-printing (p/msg-flow tm) "trade msg:")
   
-
   (p/stop-trade tm)
   (get-working-orders pm)
 

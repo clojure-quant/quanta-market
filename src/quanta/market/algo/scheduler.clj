@@ -1,4 +1,4 @@
-(ns quanta.trade.scheduler
+(ns quanta.market.algo.scheduler
   (:require
    [tick.core :as t]
    [ta.calendar.core :refer [current-close next-close]]

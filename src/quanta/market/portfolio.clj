@@ -39,23 +39,46 @@
    :bad-order-update-flow bad-order-update-flow
    }))
 
+
+
+
+
+(defn get-reject-reason [order-response]
+  ; {:msg/type :order/rejected,
+  ;  :message "Order value exceeded lower limit.",
+  ;  :code 170140}
+  ; {:msg/type :order/confirmed}
+  (let [msg-type (:msg/type order-response)
+        reject-reason (:message order-response)]
+    (when (= :order/rejected msg-type)
+       (warn "order was rejected. reason: " reject-reason)
+       reject-reason)))
+  
+
 (defrecord portfolio-manager [db tm transactor send-new-order-to-flow]
   p/trade-action
   (order-create! [this {:keys [account asset side quantity type] :as order}]
+    (m/sp 
     (if (s/validate-order order)
       (let [order-id (nano-id 8)
             order (assoc order
                          :order-id order-id
                          :date-created (t/inst))]
-        (send-new-order-to-flow {:order-id order-id
-                                 :order order})
         (if tm
-          (p/order-create! tm order)
+          (do (send-new-order-to-flow {:order-id order-id
+                                       :order order})
+              (let [response (m/? (p/order-create! tm order))
+                    reject-reason (get-reject-reason response)]
+                (when reject-reason 
+                  (send-new-order-to-flow {:order-id order-id
+                                           :broker-order-status {:status :closed
+                                                                 :reject-reason reject-reason}}))
+                response))
           (error "cannot send order - :tm nil")))
       (do
         (error "order invalid error: " (s/human-error-order order))
         (throw (ex-info "order-invalid" {:order order
-                                         :error (s/human-error-order order)})))))
+                                         :error (s/human-error-order order)}))))))
   (order-cancel! [this {:keys [account] :as order-cancel}]
      (if tm
       (p/order-cancel! tm order-cancel)

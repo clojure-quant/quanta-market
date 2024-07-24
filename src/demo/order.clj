@@ -37,7 +37,7 @@
   {:account :rene/test4
    :asset "BTCUSDT.S"
    :side :buy
-   :qty 0.1
+   :qty 0.2
    :ordertype :market})
 
 (m/? (p/order-create! tm order-spot-limit))
@@ -46,13 +46,13 @@
 (m/? (p/order-create! pm order-spot-limit))
 (m/? (p/order-create! pm order-spot-market))
 
-
+ 
 (m/?
  (p/order-create!
   pm
   {:account :rene/test4
    :asset "BTCUSDT.S"
-   :side :buy
+   :side :sell
    :qty 0.001
    :ordertype :limit
    :limit 66330.0}))

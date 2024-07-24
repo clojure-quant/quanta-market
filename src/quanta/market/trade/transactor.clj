@@ -50,15 +50,19 @@
         working-order-f (order-dict->order-seq-flow working-order-dict-f)
         working-order-table-f (wrap-table working-order-f)
         trade-f (trade-flow order-change-f)
-        ;position-change-f (position-change-flow trade-f)
-        ;open-position-f (open-positions-flow position-change-f)
+        position-change-f (position-change-flow trade-f)
+        open-position-f (open-positions-flow position-change-f)
         ; log
         logger-dispose! (if logfile
-                          (let [log-flow (mix (wrap-title "trade" trade-f) ;open-position-f
+                          (let [log-flow (mix ; order
                                               (wrap-title "order-change" order-change-f)
                                               (wrap-title "working-orders" working-order-f)
-                                               (wrap-title "working-orders-table" working-order-table-f)
-                                              )]
+                                              (wrap-title "working-orders-table" working-order-table-f)  
+                                              ; trade
+                                              (wrap-title "trade" trade-f) ;
+                                              ; position
+                                              (wrap-title "position-change" position-change-f) 
+                                              (wrap-title "open positions" open-position-f))]
                             (info "transactor is logging to: " logfile)
                             (start-logging logfile log-flow))
                           (warn "order-manager is NOT LOGGING!"))
@@ -73,6 +77,7 @@
     ;(assoc state :stop-update-processor stop-update-processor)
     state
     ))
+
 
 
 (defn transactor-stop [{:keys [stop-update-processor logger-dispose!]}]

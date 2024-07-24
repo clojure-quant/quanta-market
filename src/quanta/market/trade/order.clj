@@ -136,13 +136,23 @@
        (swap! orders assoc order-id {:order-status order-status
                                      :open-order open-order})))))
 
+(defn order-dict->order-seq-flow [working-order-dict-flow]
+  (m/eduction (map (fn [order-dict]
+                     (map (fn [[order-id working-order]]
+                                ;  working-order
+                            (assoc working-order :order-id order-id)) order-dict))) 
+                   working-order-dict-flow))
+
 (defn order-status->working-order-flow [order-status-flow]
   (let [last-status (m/? (m/reduce (fn [_r v] v) {} order-status-flow))]
     (map (fn [[order-id working-order]]
            ;  working-order
            (assoc working-order :order-id order-id)) last-status)))
 
-(defn current-working-orders [order-orderupdate-flow]
+(defn current-working-orders 
+  "snapshot of current workign orders.
+   used in tests - DO NOT USE IN REALTIME!"
+  [order-orderupdate-flow]
   (let [order-changes (order-change-flow order-orderupdate-flow)
         order-status (working-orders-flow order-changes)
         last-status (m/? (m/reduce (fn [_r v] v) {} order-status))]

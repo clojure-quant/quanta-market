@@ -78,6 +78,9 @@
 
 (defn start-logging [file-name flow]
   (let [print-task (m/reduce (fn [r v]
+                               (println v)
+                               (println "string? " (string? v))
+
                                (let [s (with-out-str (println v))]
                                  (spit file-name s :append true))
                                nil)

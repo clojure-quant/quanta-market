@@ -90,7 +90,7 @@
                         new-working-order))
                     :else
                     (assoc working-order
-                           :transactions {:alert {:text "logic error"
+                           :transactions {:alert {:text "update must contain either :order or :broker-order-status must be set"
                                                   :data {:working-order working-order
                                                          :msg msg}}})))
                 {}
@@ -125,4 +125,16 @@
     (map (fn [[order-id working-order]]
            ;  working-order
            (assoc working-order :order-id order-id)) last-status)))
+
+
+(defn trades [order-orderupdate-flow]
+  (m/ap 
+    (let [order-changes (order-change-flow order-orderupdate-flow)
+          [order-id {:keys [transactions]}] (m/?> 1 order-changes)
+          new-trade (:trade transactions)]
+      (if new-trade 
+        (assoc new-trade :order-id order-id)
+        (m/amb)
+        )
+      )))
 

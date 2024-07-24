@@ -95,9 +95,15 @@
                       (if order-closed?
                         (reduced new-working-order)
                         new-working-order))
+                    ; order update no order
+                    (and (nil? open-order) broker-order-status)
+                    (assoc working-order
+                           :transactions {:alert {:text "ignoring order-update to unknown order!"
+                                                  :data {:working-order working-order
+                                                         :msg msg}}})
                     :else
                     (assoc working-order
-                           :transactions {:alert {:text "update must contain either :order or :broker-order-status must be set"
+                           :transactions {:alert {:text "order-update is ignored - other reason"
                                                   :data {:working-order working-order
                                                          :msg msg}}})))
                 {}

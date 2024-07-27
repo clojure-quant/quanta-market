@@ -10,6 +10,7 @@
 
 (def qm (quote-manager-start accounts-quote))
 
+
 (comment
 
   (p/start-quote qm)
@@ -18,7 +19,7 @@
   ;; one quote
 
   (start-flow-logger!
-   ".data/quotes-btc.txt"
+   ".data/quotes-btc2.txt"
    :quote/one
    (p/get-quote qm {:account :bybit
                     :asset "BTCUSDT"}))
@@ -33,7 +34,7 @@
         quotes (map #(p/get-quote qm %) qsubs)
         last-quotes (apply m/latest vector quotes)]
     (start-flow-logger!
-     ".data/quotes-multi.txt"
+     ".data/quotes-multi2.txt"
      :multi-quote
      last-quotes))
 

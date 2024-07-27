@@ -19,7 +19,7 @@
              (m/amb (m/?> q))
              (catch Cancelled _
                (do  (info "get-quote will stop an existing subscription..")
-                    (m/? (p/unsubscribe-last-trade! qm sub))
+                    (m/?  (m/compel  (p/unsubscribe-last-trade! qm sub)))
                     (info "get-quote has unsubscribed. now removing from atom..")
                     (m/holding lock
                                (swap! subscriptions dissoc sub)))))))))

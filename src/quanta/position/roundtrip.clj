@@ -1,4 +1,4 @@
-(ns quanta.market.position.roundtrip)
+(ns quanta.position.roundtrip)
 
 
 (defn- sign-switch [side v]

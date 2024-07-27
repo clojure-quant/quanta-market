@@ -39,14 +39,16 @@
     tm))
 
 
-
 (def tm (setup-trade-manager))
 
 (def pm (portfolio-manager-start
          {:tm tm
           :db nil
-          :transactor-logfile ".data/transactor.txt"
-          :alert-logfile ".data/transactor-error.txt"}))
+          :transactor-logfile ".data/transactor2.txt"
+          :alert-logfile ".data/transactor-error2.txt"}))
+
+
+
 
 
 (comment

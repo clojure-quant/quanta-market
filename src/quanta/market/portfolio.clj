@@ -9,7 +9,6 @@
    [quanta.market.trade.schema :as s]
    [quanta.market.trade.transactor :refer [transactor-start]]))
 
-
 (defn only-valid-order-update [f]
   (m/eduction 
    (filter s/validate-broker-order-status) f))
@@ -39,10 +38,6 @@
    :bad-order-update-flow bad-order-update-flow
    }))
 
-
-
-
-
 (defn get-reject-reason [order-response]
   ; {:msg/type :order/rejected,
   ;  :message "Order value exceeded lower limit.",
@@ -54,6 +49,11 @@
        (warn "order was rejected. reason: " reject-reason)
        reject-reason)))
   
+(defn- psnapshot [working-orders open-positions]
+  {:working-orders working-orders
+   :open-positions open-positions})
+
+
 
 (defrecord portfolio-manager [db tm transactor send-new-order-to-flow]
   p/trade-action
@@ -82,7 +82,20 @@
   (order-cancel! [this {:keys [account] :as order-cancel}]
      (if tm
       (p/order-cancel! tm order-cancel)
-      (error "cannot cancel order - :tm nil"))))
+      (error "cannot cancel order - :tm nil")))
+  
+  p/portfolio
+  (working-order-f [{:keys [transactor]}]
+      (:working-order-f transactor))
+  (open-position-f [{:keys [transactor]}]
+      (:open-position-f transactor))
+  (trade-f [{:keys [transactor]}]
+                   (:trade-f transactor))
+  (snapshot [{:keys [transactor]}]
+      @(:snapshot-a transactor))
+  ;
+    )
+
 
 (defn portfolio-manager-start
   "portfolio-manager uses both broker-account-manager and the transactor.
@@ -104,6 +117,7 @@
     (portfolio-manager. db tm transactor send-new-order-to-flow) 
     ))
 
+
 (defn portfolio-manager-stop [{:keys [transactor]}]
   (info "portfolio-manager stopping..")
   ;
@@ -114,6 +128,7 @@
         cv (current-value working-order-f)
         ]
     (m/? cv)))
+
 
   
 

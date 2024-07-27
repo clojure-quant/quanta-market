@@ -39,4 +39,11 @@
     (:type opts)))
 
 
+(defprotocol portfolio
+  (working-order-f [this])
+  (open-position-f [this])
+  (trade-f [this])
+  (snapshot [this]))
 
+
+  

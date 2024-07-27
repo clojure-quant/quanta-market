@@ -67,7 +67,7 @@ Non USDT pairs: 84
      (map #(select-keys % [:symbol :status :contractType]))
      ;(filter sdc?)
      ;( usdt?)
-     ;(remove perp?)
+     (filter perp?)
      ;(filter usdt?)
      ;(remove usde?)
      ;(remove btc?)

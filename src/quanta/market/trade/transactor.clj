@@ -2,7 +2,6 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
-   [crockery.core :as crockery]
    [quanta.market.util :refer [flow-sender start-logging mix]]
    [quanta.market.trade.schema :as s]
    [quanta.market.trade.print :as print]
@@ -49,7 +48,12 @@
     (filter get-alert)
     (map get-alert)
     order-change-f))
-    
+
+
+(defn snapshot [working-orders open-positions]
+  (warn "snapshot: " working-orders open-positions)
+  {:working-orders working-orders
+   :open-positions open-positions})
 
 (defn transactor-start
   "starts the transactor.
@@ -86,26 +90,35 @@
                             (info "transactor is logging to: " logfile)
                             (start-logging logfile log-flow))
                           (warn "order-manager is NOT LOGGING!"))
+        snapshot-a (atom {})
+        wo-cont-f (m/reductions (fn [r v] v) nil working-order-f)
+        op-cont-f (m/reductions (fn [r v] v) nil open-position-f)
+        update-snapshot-t (m/reduce (fn [_s v]
+                                      (warn "updater received: " v)
+                                      (reset! snapshot-a v))
+                                    {} 
+                                    (m/latest snapshot 
+                                              (m/relieve {} wo-cont-f)
+                                              (m/relieve {} op-cont-f)))
+        snapshot-dispose! (update-snapshot-t #(prn ::snapshot-success %)
+                                             #(prn ::snapshot-crash %))
         state {:db db
               ; :working-orders working-orders
                :order-orderupdate-flow order-orderupdate-flow
-               :logger-dispose!! logger-dispose!
+               :logger-dispose! logger-dispose!
                :open-position-f open-position-f
                :working-order-f working-order-f
                :trade-f trade-f
                :alert-f alert-f
-               }
-        ;update-task (create-update-task state)
-        ;stop-update-processor (update-task #(info "order-update-processor stopped successfully: " %)
-        ;                                   #(error "order-update-processor crashed: " %))
-        ]
-    ;(assoc state :stop-update-processor stop-update-processor)
-    state
-    ))
+               :snapshot-dispose! snapshot-dispose!
+               :snapshot-a snapshot-a
+               }]
+    state))
 
-(defn transactor-stop [{:keys [stop-update-processor logger-dispose!]}]
+(defn transactor-stop [{:keys [snapshot-dispose! logger-dispose!]}]
   (info "transactor stopping..")
-  ;(stop-update-processor)
+  (when snapshot-dispose!
+    (snapshot-dispose!))
   (when logger-dispose!
     (logger-dispose!)))
 

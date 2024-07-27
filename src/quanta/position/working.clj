@@ -34,9 +34,9 @@
   (require '[tick.core :as t])
   (m/? (m/reduce println
                  (working-position {:asset "BTCUSDT"
-                                      :qty 500
-                                      :entry-price 1000.0
-                                      :entry-date (t/instant)})))
+                                    :qty 500
+                                    :entry-price 1000.0
+                                    :entry-date (t/instant)})))
 
   (def positions [{:asset "BTCUSDT"
                    :side :long
@@ -57,8 +57,7 @@
                    :side :short
                    :qty 500
                    :entry-price 1000.0
-                   :entry-date (t/instant)}
-                  ])
+                   :entry-date (t/instant)}])
 
   (require '[clojure.pprint :refer [print-table]])
   (defn print-positions [& positions]
@@ -68,14 +67,14 @@
                   :win?] positions))
 
   (let [flows (map working-position positions)]
-    (m/? 
+    (m/?
      (m/reduce (constantly nil)
                (apply m/latest print-positions flows))))
 
 ; 
   )
 
-  
+
 
 
 

@@ -36,19 +36,18 @@
                    (reduced :loss)))]
         (m/reduce rf nil prct)))))
 
-  (comment
-    (def algo-opts {:asset "BTCUSDT"
-                    :exit [:profit-percent 1.0]})
+(comment
+  (def algo-opts {:asset "BTCUSDT"
+                  :exit [:profit-percent 1.0]})
 
-    (def position
-      {:asset "BTCUSDT"
-       :qty 500
-       :entry-price 10000.0})
+  (def position
+    {:asset "BTCUSDT"
+     :qty 500
+     :entry-price 10000.0})
 
-    (m/? (profit-trigger algo-opts position))
+  (m/? (profit-trigger algo-opts position))
 
 ;
-    )
+  )
 
 
-  

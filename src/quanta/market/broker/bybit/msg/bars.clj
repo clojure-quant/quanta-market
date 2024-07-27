@@ -1,6 +1,5 @@
 (ns quanta.market.broker.bybit.msg.bars)
 
-
 (def test-msg-asset-bars
   {:type "snapshot",
    :topic "kline.M.BTCUSDT",

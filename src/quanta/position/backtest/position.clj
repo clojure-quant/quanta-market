@@ -1,11 +1,8 @@
 (ns quanta.position.backtest.position)
 
-
-
 (defn backtest-positions []
   (atom {:positions {}
-         :trades 
-         }))
+         :trades}))
 
 (defn order->net-position-change [{:keys [asset side qty price] :as order}]
   (case side
@@ -16,7 +13,6 @@
 (defn enter-position [state {:keys [asset side qty price] :as order}]
   (assoc state asset {:asset asset
                       :net-qty (order->net-position-change order)}))
-
 
 (defn enter-position [state {:keys [asset side qty price] :as order}]
   (assoc state asset {:asset asset

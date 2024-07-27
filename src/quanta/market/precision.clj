@@ -1,6 +1,5 @@
 (ns quanta.market.precision)
 
-
 ;; => ({:lotSizeFilter
 ;;      {:basePrecision "0.000001",
 ;;       :quotePrecision "0.00000001",
@@ -17,7 +16,6 @@
 ;;      :status "Trading",
 ;;      :riskParameters {:limitParameter "0.03", :marketParameter "0.03"}})
 
-
 ;; The "M" suffix denotes a BigDecimal instance
 ;; http://download.oracle.com/javase/6/docs/api/java/math/BigDecimal.html
 
@@ -30,8 +28,6 @@
   (let [factor (Math/pow 10 precision)]
     (/ (Math/round (* d factor)) factor)))
 
-
-
 (def assets
   [{:asset "BTCUSDT" :precision 2 :price "%.3f" :quantity "%.3f"}
    {:asset "ETHUSDT" :precision 3 :price "%.3f" :quantity "%.3f"}])
@@ -39,7 +35,6 @@
 (def asset-dict
   (->> (map (juxt :asset identity) assets)
        (into {})))
-
 
 (defn format-price [asset p]
   (let [{:keys [price]} (or (get asset-dict asset)
@@ -51,15 +46,9 @@
                                (get asset-dict "BTCUSDT"))]
     (format quantity p)))
 
-
-
-
-
 (defn round-asset [asset price]
   (let [{:keys [precision]} (get asset-dict asset)]
     (round2 precision price)))
-
-
 
 (comment
 
@@ -88,12 +77,10 @@
   (-> (round2 2 50000.12345689M)
       type)
 
-
   (map (partial round2 2) [0.001 10.123456 9.5556])
  ; => 0.67M  
 
-
-  ;
+;
   )
 
 

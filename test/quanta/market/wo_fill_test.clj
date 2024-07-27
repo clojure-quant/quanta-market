@@ -25,7 +25,6 @@
                                   :fill-qty 0.10
                                   :fill-value 500.0}}]))
 
-
 (m/? (m/reduce conj [] (order-change-flow order-orderupdate-flow)))
 ;; => [["456" {}]
 ;;     ["456"
@@ -42,23 +41,18 @@
 ;;       :order-status {:status :open, :open-date #inst "2024-07-24T21:59:00.861-00:00", :fill-qty 0.1, :fill-value 500.0},
 ;;       :transactions {:trade {:qty 0.05, :value 300.0}}}]]
 
-
 ; executions
 
 (def order-changes (order-change-flow order-orderupdate-flow))
 
 (def execution-flow (trade-flow order-changes))
 
-
-(def executions 
-  (m/? (m/reduce conj [] execution-flow))  
-
-  )
+(def executions
+  (m/? (m/reduce conj [] execution-flow)))
 
 executions
 ;; => [{:qty 0.05, :value 200.0, :order-id "456", :account :demo8, :asset "BTC", :side :buy}
 ;;     {:qty 0.05, :value 300.0, :order-id "456", :account :demo8, :asset "BTC", :side :buy}]
-
 
 (defn simplify [{:keys [order-id open-order order-status]}]
   (-> order-status
@@ -72,18 +66,13 @@ executions
 working-order-summary
 ;; => ({:status :open, :fill-qty 0.1, :fill-value 500.0, :order-id "456"})
 
-
-
-
 (deftest working-orders-partial-fill
   (testing "partial fill"
     (is (= working-order-summary
            '({:status :open, :fill-qty 0.1, :fill-value 500.0, :order-id "456"}))))
   (testing "partial executions"
     (is (= executions
-        [{:qty 0.05, :value 200.0, :order-id "456", :account :demo8, :asset "BTC", :side :buy}
-         {:qty 0.05, :value 300.0, :order-id "456", :account :demo8, :asset "BTC", :side :buy}]
-          
-))))
-  
+           [{:qty 0.05, :value 200.0, :order-id "456", :account :demo8, :asset "BTC", :side :buy}
+            {:qty 0.05, :value 300.0, :order-id "456", :account :demo8, :asset "BTC", :side :buy}]))))
+
 

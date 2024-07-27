@@ -5,7 +5,6 @@
    [quanta.market.trade.position :refer [position-change-flow
                                          open-positions-flow]]))
 
-
 (def trade-flow
   (m/seed [{:account :rene1
             :asset "BTC"
@@ -34,8 +33,7 @@
 (def position-flow (open-positions-flow transaction-flow))
 
 (def position-transactions
-  (m/? (m/reduce conj transaction-flow
-                 )))
+  (m/? (m/reduce conj transaction-flow)))
 
 position-transactions
 ;; => [[[:rene1 "BTC"] :open]
@@ -55,7 +53,6 @@ open-positions
 ;;     {[:rene1 "BTC"] 0.006}
 ;;     {[:rene1 "BTC"] 0.006, [:rene1 "ETH"] 0.007}
 ;;     {[:rene1 "BTC"] 0.006}]
-
 
 (deftest position
   (testing "position-transactions"

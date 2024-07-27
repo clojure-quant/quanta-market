@@ -51,17 +51,12 @@
              (when-let [! @!-a]
                (! v)))}))
 
-
 (defn mix
   "Return a flow which is mixed by flows"
   ; will generate (count flows) processes, 
   ; so each mixed flow has its own process
   [& flows]
   (m/ap (m/?> (m/?> (count flows) (m/seed flows)))))
-
-
-
-
 
 (defn start-printing [flow label-str]
   (let [print-task (m/reduce (fn [r v]
@@ -91,64 +86,58 @@
         (when (seq s)
           (recur s)))))))
 
-  (defn cont 
-    "converts a discrete flow to a continuous flow. 
+(defn cont
+  "converts a discrete flow to a continuous flow. 
     returns nil in the beginning."
-    [flow]
+  [flow]
   (->> flow
        (m/reductions (fn [r v]
                        (if v v r)) nil)
        (m/relieve {})))
 
-
 (defonce running-tasks (atom {}))
 
-(defn start! 
+(defn start!
   "starts a missionary task
    task can be stopped with (stop! task-id).
    useful for working in the repl with tasks"
   [task id]
   (let [dispose! (task
-                 #(println "task completed: " %)
-                 #(println "task crashed: " %))]
+                  #(println "task completed: " %)
+                  #(println "task crashed: " %))]
     (swap! running-tasks assoc id dispose!)
-    (str "use (stop! " id ") to stop this task.")
-    ))
-  
-(defn stop! 
-   "stops a missionary task that has been started with start!
+    (str "use (stop! " id ") to stop this task.")))
+
+(defn stop!
+  "stops a missionary task that has been started with start!
     useful for working in the repl with tasks"
   [task-id]
   (if-let [dispose! (get @running-tasks task-id)]
     (dispose!)
     (println "cannot stop task - not existing!" task-id)))
-   
 
-(defn start-flow-printer! 
+(defn start-flow-printer!
   "starts printing a missionary flow to the console.
    printing can be stopped with (stop! id) 
    useful for working in the repl with flows."
   [f id]
   (let [print-task (m/reduce (fn [_r v]
-                                 (println id " " v)
-                                 nil)
-                               nil f)]
+                               (println id " " v)
+                               nil)
+                             nil f)]
     (start! print-task id)))
 
-
-(defn start-flow-logger! 
+(defn start-flow-logger!
   "starts logging a missionary flow to a file.
    can be stopped with (stop! id) 
    useful for working in the repl with flows."
   [file-name id f]
   (let [log-task (m/reduce (fn [r v]
-                               (let [s (with-out-str (println v))]
-                                 (spit file-name s :append true))
-                               nil)
-                             nil f)]
+                             (let [s (with-out-str (println v))]
+                               (spit file-name s :append true))
+                             nil)
+                           nil f)]
     (start! log-task id)))
-
-
 
 (comment
   (m/?
@@ -160,11 +149,9 @@
 
   (m/? (current-value-task (m/seed [1 2 3])))
 
-
   (m/?
    (m/reduce println nil
              (mix (m/seed [1 2 3 4 5 6 7 8]) (m/seed [:a :b :c]))))
-
 
 ; 
   )

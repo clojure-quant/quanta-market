@@ -1,6 +1,5 @@
 (ns quanta.market.protocol)
 
-
 (defprotocol connection
   (start! [this])
   (stop! [this])
@@ -20,7 +19,6 @@
 
 (defprotocol quote
   (get-quote [this sub]))
-
 
 (defmulti create-quotefeed
   (fn [opts]
@@ -43,7 +41,6 @@
   (fn [opts]
     (:type opts)))
 
-
 (defprotocol portfolio
   (working-order-f [this])
   (open-position-f [this])
@@ -51,4 +48,4 @@
   (snapshot [this]))
 
 
-  
+

@@ -38,8 +38,6 @@
     (:flow flow-sender-out))
   ; bybit websocket
   )
-
-
 (defn create-websocket
   [opts]
   (info "creating bybit-websocket : " opts)
@@ -54,4 +52,3 @@
                       flow-sender-out)))
 
 
-  

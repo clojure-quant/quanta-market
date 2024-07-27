@@ -3,8 +3,7 @@
    [tick.core :as t]
    [missionary.core :as m]
    [ta.calendar.core :refer [calendar-seq]]
-   [quanta.trade.position.exit.rule :refer [get-exit-rule]]
-   ))
+   [quanta.trade.position.exit.rule :refer [get-exit-rule]]))
 
 (defn get-time-bars [algo-opts]
   (let [[_ bars] (get-exit-rule algo-opts)]
@@ -28,10 +27,8 @@
         diff-ms (max diff-ms 1)]
     (m/sleep diff-ms :time)))
 
-
 (comment
- 
-  
+
   (get-exit-time {:calendar [:crypto :m]
                   :exit [:profit 2.0
                          :loss 0.3
@@ -49,14 +46,13 @@
                          :loss 0.3]} (t/instant))
    ;; => nil
 
-  
   (m/? (-> (get-exit-time {:calendar [:crypto :m]
                            :exit [:profit 2.0
                                   :loss 0.3
                                   :time 2]} (t/instant))
            (time-trigger)))
   ;; returns :time after 2 minutes.
-  
+
 ; 
   )
 

@@ -125,7 +125,6 @@
             @conn account)
        (sort-by :message/timestamp t/<)))
 
-
 (defn print-messages [conn opts]
   (let [messages (query-messages conn opts)]
     (crockery/print-table
@@ -149,10 +148,10 @@
 (defn store-order-update! [conn order-update order-status]
   (info "storing order-update: " order-update " new order-status" order-status)
   (let [order (rename-keys order-update {:id :order/id
-                                  :account :order/account
-                                  :side :order/side
-                                  :qty :order/qty
-                                  :asset :order/asset
-                                  :type :order/type})]
+                                         :account :order/account
+                                         :side :order/side
+                                         :qty :order/qty
+                                         :asset :order/asset
+                                         :type :order/type})]
     (d/transact conn [order-update])))
 

@@ -2,7 +2,7 @@
   (:require
    [quanta.market.protocol :as p]
    [quanta.market.quote.current :as current]
-    [quanta.market.util :refer [mix]]
+   [quanta.market.util :refer [mix]]
   ; bring default implementations into scope:
    [quanta.market.broker.bybit.quotefeed]))
 
@@ -30,8 +30,8 @@
     (when-let [feed (get-feed this account)]
       (p/last-trade-flow feed account-asset)))
   (msg-flow-quote [this]
-            (let [account-flows (map p/msg-flow-quote (vals quotefeeds))]
-              (apply mix account-flows)))
+    (let [account-flows (map p/msg-flow-quote (vals quotefeeds))]
+      (apply mix account-flows)))
   p/quote
   (get-quote [this sub]
     (current/get-quote this sub))
@@ -45,7 +45,6 @@
   (->> accounts
        (map create-account)
        (into {})))
-
 
 (defn quote-manager-start [accounts]
   (let [quotefeeds (create-accounts accounts)]

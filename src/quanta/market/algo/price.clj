@@ -12,8 +12,8 @@
               result (m/? (m/race
                            (m/sleep 5000 :timeout)
                            (next-value flow)))]
-      (start! (p/unsubscribe-last-trade! qm qsub))
-      result)))
+          (start! (p/unsubscribe-last-trade! qm qsub))
+          result)))
 
 
 

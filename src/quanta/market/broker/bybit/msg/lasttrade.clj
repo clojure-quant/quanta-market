@@ -57,9 +57,9 @@
 (defn last-trade-msg-flow [msg-flow {:keys [asset]}]
   (let [t (topic/topic :asset/trade [asset])]
     (warn "listening to last-trade for asset: " asset " topic: " t)
-  (m/eduction (filter (topic/only-topic t))
-              (map topic/get-topic-data)
-              msg-flow)))
+    (m/eduction (filter (topic/only-topic t))
+                (map topic/get-topic-data)
+                msg-flow)))
 
 (defn last-trade-flow [msg-flow {:keys [asset] :as asset-account}]
   ;(last-trade-msg-flow msg-flow asset-account)
@@ -70,16 +70,15 @@
      (when last-quote-update ; bug of split-seq-flow returns also nil.
        (normalize-bybit-last-trade last-quote-update)))))
 
-(comment 
+(comment
   (topic/topic :asset/trade ["BTCUSDT"])
 
-(m/? (->> (m/seed (range 10))
-          (m/eduction (filter odd?) (mapcat range) (partition-all 4))
-          (m/reduce conj)))
+  (m/? (->> (m/seed (range 10))
+            (m/eduction (filter odd?) (mapcat range) (partition-all 4))
+            (m/reduce conj)))
 
    ;(topic :asset/trade "BTCUSDT")
-   
-  
-  ;
+
+;
   )
 

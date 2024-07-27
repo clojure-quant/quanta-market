@@ -18,21 +18,15 @@
     (throw (Exception. (ex-info "topic not found" {:type type
                                                    :args args})))))
 
-
 (defn only-topic [topic]
   (fn [msg]
     (= topic (:topic msg))))
 
-
 (defn get-topic-data [msg]
   (:data msg))
 
-(comment 
-    (topic :asset/stats ["EURUSD"])
-  
-  
-  
-  
-  
- ; 
+(comment
+  (topic :asset/stats ["EURUSD"])
+
+; 
   )

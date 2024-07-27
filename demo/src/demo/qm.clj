@@ -12,17 +12,17 @@
 
 (comment
 
-  (p/start-quote qm)  
+  (p/start-quote qm)
 
 
   ;; one quote
-   
-  (start-flow-logger! 
+
+  (start-flow-logger!
    ".data/quotes-btc.txt"
    :quote/one
    (p/get-quote qm {:account :bybit
                     :asset "BTCUSDT"}))
-  
+
   (stop! :quote/one)
 
   ;; multiple quotes
@@ -36,15 +36,15 @@
      ".data/quotes-multi.txt"
      :multi-quote
      last-quotes))
-  
-   
+
+
   (stop! :multi-quote)
 
   ;; shutdown
 
   (p/stop-quote qm)
 
-  
+
 
 
 ;

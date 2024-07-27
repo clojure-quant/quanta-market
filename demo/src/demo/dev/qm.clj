@@ -45,6 +45,7 @@
   ;; stop logger
   (stop! :quote/manual)
   (stop! :quote/msg) 
+  
     
   ; stop websocket connections
   (p/stop-quote qm)

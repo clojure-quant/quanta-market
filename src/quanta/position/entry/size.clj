@@ -1,6 +1,5 @@
 (ns quanta.position.entry.size)
 
-
 (defmulti positionsize
   (fn [[type _opts] _close] type))
 

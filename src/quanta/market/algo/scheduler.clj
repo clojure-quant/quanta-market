@@ -74,7 +74,7 @@
     (multirobot
      #(prn ::success %)
      #(prn ::crash %)))
-  
+
   (dispose!)
 
 ;  

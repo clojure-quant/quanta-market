@@ -4,37 +4,34 @@
    [missionary.core :as m]
    [clojure.string :as s]
    [quanta.market.broker.bybit.connection :as c]
-   [quanta.market.precision :refer [format-price format-qty]]
-   ))
+   [quanta.market.precision :refer [format-price format-qty]]))
 
- (defn category->bybit-category [c]
-   (cond
-     (= c "S") "spot"
-     (= c "L") "linear"
-     (= c "P") "perpetual"
-     (= c "O") "option"
-     :else "spot"))
+(defn category->bybit-category [c]
+  (cond
+    (= c "S") "spot"
+    (= c "L") "linear"
+    (= c "P") "perpetual"
+    (= c "O") "option"
+    :else "spot"))
 
 (defn asset-category [asset]
   (let [[bybit-symbol category] (s/split asset #"\.")]
-    {:bybit-symbol bybit-symbol 
+    {:bybit-symbol bybit-symbol
      :category (category->bybit-category category)}))
- 
-(def order-spot-limit-tp-sl 
-; Spot Limit order with market tp sl
-{"category" "spot",
- "symbol" "BTCUSDT",
- "side" "Buy",
- "orderType" "Limit",
- "qty" "0.01",
- "price" "28000",
- "timeInForce" "PostOnly",
- "takeProfit" "35000",
- "stopLoss" "27000",
- "tpOrderType" "Market",
- "slOrderType" "Market"}  
-  )
 
+(def order-spot-limit-tp-sl
+; Spot Limit order with market tp sl
+  {"category" "spot",
+   "symbol" "BTCUSDT",
+   "side" "Buy",
+   "orderType" "Limit",
+   "qty" "0.01",
+   "price" "28000",
+   "timeInForce" "PostOnly",
+   "takeProfit" "35000",
+   "stopLoss" "27000",
+   "tpOrderType" "Market",
+   "slOrderType" "Market"})
 
 ; Spot Limit order with limit tp sl
 ;{"category": "spot","symbol": "BTCUSDT","side": "Buy","orderType": "Limit","qty": "0.01","price": "28000","timeInForce": "PostOnly","takeProfit": "35000","stopLoss": "27000","tpLimitPrice": "36000","slLimitPrice": "27500","tpOrderType": "Limit","slOrderType": "Limit"}
@@ -57,7 +54,6 @@
     :market "Market"
     "Market"))
 
-
 (defn tif->bybit [tif]
   (case tif
     ; "PostOnly"
@@ -78,30 +74,27 @@
 
 (defn order->bybit-format [{:keys [order-id asset side qty limit ordertype tif]}]
   (let [{:keys [bybit-symbol category]} (asset-category asset)
-        order-id-map (if order-id 
+        order-id-map (if order-id
                        {"orderLinkId" order-id} ; max 36 chars numbers/letters(upper/lower) dashes underscores
                        {})
-        limit-price-map (if limit 
+        limit-price-map (if limit
                           {"price" (format-price asset limit)}
                           {})
-         tif-map (if tif
-                    {"timeInForce" (tif->bybit tif)}
-                       {})]
-  (merge order-id-map 
-         limit-price-map
-         tif-map
-         {"symbol" bybit-symbol
-          "category" category 
-          "side" (case side
-                    :buy "Buy"
-                    :sell "Sell")
-          "orderType" (type->bybit ordertype) ; "Limit"
-          "qty" (format-qty asset qty)
-          "marketUnit" "baseCoin" ; hack for market buy orders
-          }
-          
-            )))
-
+        tif-map (if tif
+                  {"timeInForce" (tif->bybit tif)}
+                  {})]
+    (merge order-id-map
+           limit-price-map
+           tif-map
+           {"symbol" bybit-symbol
+            "category" category
+            "side" (case side
+                     :buy "Buy"
+                     :sell "Sell")
+            "orderType" (type->bybit ordertype) ; "Limit"
+            "qty" (format-qty asset qty)
+            "marketUnit" "baseCoin" ; hack for market buy orders
+            })))
 (def order-response-failed-example
   {:retCode 110007,
    :retMsg "ab not enough for new order",
@@ -116,18 +109,17 @@
    :data {}})
 
 (def order-response-failed-example2
-{:retCode 10005,
- :retMsg "Permission denied for current apikey",
- :connId "cpv86i6c0hvd5nkl25n0-2v79",
- :op "order.create",
- :reqId "XiMTlhQV"})
+  {:retCode 10005,
+   :retMsg "Permission denied for current apikey",
+   :connId "cpv86i6c0hvd5nkl25n0-2v79",
+   :op "order.create",
+   :reqId "XiMTlhQV"})
 
 (def order-response-failed-example3
-{:op "order.create",
- :success false, 
- :conn_id "cq1814tdaugt75sdcg8g-2ljtq",
- :ret_msg "Params Error"})
-
+  {:op "order.create",
+   :success false,
+   :conn_id "cq1814tdaugt75sdcg8g-2ljtq",
+   :ret_msg "Params Error"})
 
 (defn order-create-raw! [conn bybit-order]
   (m/sp
@@ -135,7 +127,6 @@
          _ (info "order-create: " msg)
          response (m/? (c/rpc-req! conn msg))]
      response)))
-
 
 (defn parse-order-response [order {:keys [success retCode ret_msg retMsg] :as response}]
   (if (or success (= 0 retCode))
@@ -148,13 +139,10 @@
 
 (defn order-create! [conn order]
   (m/sp
-    (info "order-create: " order " ..")
+   (info "order-create: " order " ..")
    (let [bybit-order (order->bybit-format order)
          response (m/? (order-create-raw! conn bybit-order))]
-     (parse-order-response order response)
-     )))
-
-
+     (parse-order-response order response))))
 
 (defn order-cancel-msg [{:keys [asset order-id]}]
   {"op" "order.cancel"
@@ -168,47 +156,46 @@
             "orderLinkId" order-id ; user order id
             }]})
 
-(def order-cancel-failed-example 
-{:retCode 10005,
- :retMsg "Permission denied for current apikey",
- :connId "cpv86i6c0hvd5nkl25n0-2v7a",
- :op "order.cancel",
- :reqId "XMrZJoEs"}  
-  )
+(def order-cancel-failed-example
+  {:retCode 10005,
+   :retMsg "Permission denied for current apikey",
+   :connId "cpv86i6c0hvd5nkl25n0-2v7a",
+   :op "order.cancel",
+   :reqId "XMrZJoEs"})
 
 (def order-cancel-failed-example2
-{:retCode 110001,
- :retMsg "order not exists or too late to cancel",
- :connId "cpv86i6c0hvd5nkl25n0-2v7a",
- :op "order.cancel",
- :header
- {:Timenow "1721243099025",
-  :X-Bapi-Limit-Status "9",
-  :X-Bapi-Limit-Reset-Timestamp "1721243099024",
-  :Traceid "0313d8af73592c2034d873ef1f6479ac",
-  :X-Bapi-Limit "10"},
- :reqId "-Cquvtz7",
- :data {}})
+  {:retCode 110001,
+   :retMsg "order not exists or too late to cancel",
+   :connId "cpv86i6c0hvd5nkl25n0-2v7a",
+   :op "order.cancel",
+   :header
+   {:Timenow "1721243099025",
+    :X-Bapi-Limit-Status "9",
+    :X-Bapi-Limit-Reset-Timestamp "1721243099024",
+    :Traceid "0313d8af73592c2034d873ef1f6479ac",
+    :X-Bapi-Limit "10"},
+   :reqId "-Cquvtz7",
+   :data {}})
 
 (defn order-cancel! [conn order]
-  (m/sp 
-    (info "order-cancel: " order " ..")
-    (let [msg (order-cancel-msg order)
-        {:keys [retCode retMsg] :as response} (m/? (c/rpc-req! conn msg))]
-      (if (= 0 retCode)
-        {:msg/type :cancel/confirmed
-         :order order}
-        {:msg/type :cancel/rejected
-         :order order
-         :message retMsg
-         :code retCode}))))
+  (m/sp
+   (info "order-cancel: " order " ..")
+   (let [msg (order-cancel-msg order)
+         {:keys [retCode retMsg] :as response} (m/? (c/rpc-req! conn msg))]
+     (if (= 0 retCode)
+       {:msg/type :cancel/confirmed
+        :order order}
+       {:msg/type :cancel/rejected
+        :order order
+        :message retMsg
+        :code retCode}))))
 
 (comment
-  
+
   (asset-category "BTC.S")
-  
-(->> 34.12345 (round2 4) double->str)
-(->> 34.12345 (round2 2) double->str)
+
+  (->> 34.12345 (round2 4) double->str)
+  (->> 34.12345 (round2 2) double->str)
 
   (def order
     {:asset "ETHUSDT"
@@ -216,16 +203,13 @@
      :qty "0.01"
      :limit "1000.0"})
 
-
   (m/?  (order-create! conn order))
 
-  
- (def cancel
-  {:asset "ETHUSDT"
-   :order-id "my-id-007"})
+  (def cancel
+    {:asset "ETHUSDT"
+     :order-id "my-id-007"})
 
-   (m/? (order-cancel! conn cancel))
-  
+  (m/? (order-cancel! conn cancel))
 
 ; 
   )

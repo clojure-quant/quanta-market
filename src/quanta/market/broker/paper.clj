@@ -1,10 +1,10 @@
 (ns quanta.market.broker.paper
-   (:require
-    [taoensso.timbre :as timbre :refer [debug info warn error]]
-    [quanta.market.protocol :as p]
-    [quanta.market.broker.bybit.connection :as c]
-    [quanta.market.broker.bybit.task.order :as o]))
-  
+  (:require
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
+   [quanta.market.protocol :as p]
+   [quanta.market.broker.bybit.connection :as c]
+   [quanta.market.broker.bybit.task.order :as o]))
+
 (defrecord paper [opts conn]
   p/trade
   (start [this]
@@ -27,13 +27,11 @@
   ;(quote-stream [this]
   ;  (get-stream this))
   (subscription-start! [this asset]
-     (generate-quotes asset))
-  )
-
+    (generate-quotes asset)))
 
 (defmethod p/create-account :paper
   [opts]
   (info "creating paper : " opts)
   (paper. opts (atom nil)))
-  
+
 

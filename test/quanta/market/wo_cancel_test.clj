@@ -4,8 +4,7 @@
    [missionary.core :as m]
    [quanta.market.trade.order :refer [order-change-flow
                                       working-orders-flow
-                                      current-working-orders
-                                      ]]))
+                                      current-working-orders]]))
 
 (def order-orderupdate-flow
   (m/seed [{:order-id "123"
@@ -33,9 +32,7 @@
            {:order-id "789"
             :broker-order-status {:order-id "789"
                                   :status :closed
-                                  :close-reason "rejected"}}
-           ]))
-
+                                  :close-reason "rejected"}}]))
 
 ; (current-working-orders order-orderupdate-flow)
 ;; => ({:order-status {:status :open, :open-date #inst "2024-07-23T21:09:57.579-00:00", :fill-qty 0.0, :fill-value 0.0},
@@ -43,7 +40,7 @@
 ;;      :order-id "123"})
 
 (defn simplify [{:keys [order-id open-order order-status]}]
-  (-> order-status 
+  (-> order-status
       (assoc :order-id order-id)
       (dissoc :open-date)))
 

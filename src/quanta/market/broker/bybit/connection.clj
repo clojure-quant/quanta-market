@@ -9,17 +9,17 @@
    [quanta.market.util :refer [first-match]]))
 
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
- 
+
 (def mode
   {:main "wss://stream.bybit.com/v5/"
    :test "wss://stream-testnet.bybit.com/v5/"})
 
-(def segment 
+(def segment
   {:data "public/"
    :trade "trade"
    :order-update "private"})
 
-(def asset-class 
+(def asset-class
   {:spot "spot" ; BTCUSD  BTCUSDT
    :future "linear" ; BTC-26JUL24 BTC-30AUG24 BTC-PERP
    :future-inverse "inverse" ;  BTCUSD           BTCUSDZ24  BTCUSDU24 
@@ -84,7 +84,6 @@
   (info "connection-stop.. ")
   (.close stream))
 
-
 (defn info? [conn]
   (let [stream (:stream conn)]
     (let [desc (s/description stream)]
@@ -126,7 +125,7 @@
                     (debug "target-id: " id "reqId: " reqId "req_id: " req_id)
                     (or (= id reqId) (= id req_id)))
           result (first-match p-reqId (:msg-in-flow conn))
-          msg (assoc msg :reqId id 
+          msg (assoc msg :reqId id
                      "req_id" id ; this is importan for quote-subscriptions.
                      )]
       (debug "making rpc request:  " msg)

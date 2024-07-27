@@ -3,8 +3,7 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.broker.bybit.connection :as c]))
 
-
-(def ping-req-example 
+(def ping-req-example
   {"req_id" "100001"
    "op" "ping"})
 
@@ -21,7 +20,6 @@
    "conn_id" "85ea7772-1b16-4d76-ace2-4ac7e7b6d163"
    "req_id" "100001"
    "op" "ping"})
-
 
 (defn ping! [conn]
   (let [msg {"op" "ping"}]

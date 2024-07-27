@@ -1,7 +1,7 @@
 (ns quanta.market.trade.print
-   (:require
-    [crockery.core :as crockery]))
-  
+  (:require
+   [crockery.core :as crockery]))
+
 (defn working-orders-table [working-orders]
   (with-out-str
     (crockery/print-table
@@ -15,7 +15,6 @@
       {:name :asset, :align :right :title "fill-qty" :key-fn #(get-in % [:order-status :fill-qty])}
       {:name :asset, :align :right :title "fill-value" :key-fn #(get-in % [:order-status :fill-value])}]
      working-orders)))
-
 
 (defn open-positions-table [open-positions]
   (with-out-str

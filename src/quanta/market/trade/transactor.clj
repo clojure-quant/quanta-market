@@ -16,10 +16,8 @@
   (m/eduction (map (fn [data]
                      (str "\r\n" title "\r\n"
                           (if (string? data)
-                              data
-                            (pr-str data)
-                            ))
-                     )) flow))
+                            data
+                            (pr-str data))))) flow))
 
 (defn position-dict->positions [position-dict]
   (map (fn [[[account asset] net-qty]]
@@ -28,27 +26,24 @@
           :net-qty net-qty}) position-dict))
 
 (defn wrap-positions [flow]
-  (m/eduction 
+  (m/eduction
    (map position-dict->positions)
    (map print/open-positions-table)
    flow))
 
-
 (defn wrap-table [flow]
-  (m/eduction 
-   (map print/working-orders-table) 
+  (m/eduction
+   (map print/working-orders-table)
    flow))
-
 
 (defn get-alert [order-change]
   (get-in order-change [:transactions :alert]))
 
 (defn transactor-alert [order-change-f]
   (m/eduction
-    (filter get-alert)
-    (map get-alert)
-    order-change-f))
-
+   (filter get-alert)
+   (map get-alert)
+   order-change-f))
 
 (defn snapshot [working-orders open-positions]
   (warn "snapshot: " working-orders open-positions)
@@ -77,16 +72,15 @@
         ; log
         logger-dispose! (if logfile
                           (let [log-flow (mix ; order
-                                              (wrap-title "order-change" order-change-f)
-                                              (wrap-title "working-orders" working-order-f)
-                                              (wrap-title "working-orders-table" working-order-table-f)  
+                                          (wrap-title "order-change" order-change-f)
+                                          (wrap-title "working-orders" working-order-f)
+                                          (wrap-title "working-orders-table" working-order-table-f)
                                               ; trade
-                                              (wrap-title "trade" trade-f) ;
+                                          (wrap-title "trade" trade-f) ;
                                               ; position
-                                              (wrap-title "position-change" position-change-f) 
-                                              (wrap-title "open-positions" open-position-f)
-                                              (wrap-title "open-positions-table" open-position-table-f)
-                                          )]
+                                          (wrap-title "position-change" position-change-f)
+                                          (wrap-title "open-positions" open-position-f)
+                                          (wrap-title "open-positions-table" open-position-table-f))]
                             (info "transactor is logging to: " logfile)
                             (start-logging logfile log-flow))
                           (warn "order-manager is NOT LOGGING!"))
@@ -96,8 +90,8 @@
         update-snapshot-t (m/reduce (fn [_s v]
                                       (warn "updater received: " v)
                                       (reset! snapshot-a v))
-                                    {} 
-                                    (m/latest snapshot 
+                                    {}
+                                    (m/latest snapshot
                                               (m/relieve {} wo-cont-f)
                                               (m/relieve {} op-cont-f)))
         snapshot-dispose! (update-snapshot-t #(prn ::snapshot-success %)
@@ -111,8 +105,7 @@
                :trade-f trade-f
                :alert-f alert-f
                :snapshot-dispose! snapshot-dispose!
-               :snapshot-a snapshot-a
-               }]
+               :snapshot-a snapshot-a}]
     state))
 
 (defn transactor-stop [{:keys [snapshot-dispose! logger-dispose!]}]
@@ -122,7 +115,7 @@
   (when logger-dispose!
     (logger-dispose!)))
 
-(comment 
+(comment
   (position-dict->positions {[:rene/test4 "BTCUSDT.S"] 0.002})
  ; 
   )

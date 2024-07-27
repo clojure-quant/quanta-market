@@ -7,8 +7,7 @@
 
 (defn initial-price []
   ;(rand 10000)
-  10000.0
-  )
+  10000.0)
 
 (defn update-price [p]
   (let [i (rand-int 5)]
@@ -43,10 +42,7 @@
                              false))]
               (if recur?
                 (recur (update-price p))
-                :unsubscribed
-                ))))))
-
-
+                :unsubscribed))))))
 
 (comment
   (initial-price)
@@ -60,19 +56,18 @@
 
   @subscription-a
 
-(require '[clojure.pprint :refer [print-table]])  
+  (require '[clojure.pprint :refer [print-table]])
 
-(defn print-quotes [& quotes]
-  (print-table [:asset :last :date] quotes))
-  
-(let [assets ["BTC" "ETH" "EURUSD" "QQQ" "EURUSD"]
-      quotes (map get-quote assets)]
-  (m/? (m/reduce (constantly nil)
-         (apply m/latest print-quotes quotes))))
+  (defn print-quotes [& quotes]
+    (print-table [:asset :last :date] quotes))
+
+  (let [assets ["BTC" "ETH" "EURUSD" "QQQ" "EURUSD"]
+        quotes (map get-quote assets)]
+    (m/? (m/reduce (constantly nil)
+                   (apply m/latest print-quotes quotes))))
  ; prints entire quote-table whenever one of the quotes updates.
 
-
- ; 
+; 
   )
 
 

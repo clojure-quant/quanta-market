@@ -30,7 +30,7 @@
    :retMsg "OK"
    :connId "cpv85t788smd5eps8ncg-2tfk"})
 
-(def auth-error-example 
+(def auth-error-example
   {:retCode 20001
    :retMsg "Repeat auth"
    :connId "cpv85t788smd5eps8ncg-2wqa"
@@ -41,11 +41,11 @@
 
 (defn authenticate! [conn {:keys [api-key api-secret]}]
   (m/sp
-     (info "auth! api-key: " api-key)
-     (send-msg! conn (auth-msg api-key api-secret))
-     (let [auth-result (m/? (first-match auth-respose? (:msg-in-flow conn)))]
-       (info "auth result: " auth-result)
-       auth-result)))
+   (info "auth! api-key: " api-key)
+   (send-msg! conn (auth-msg api-key api-secret))
+   (let [auth-result (m/? (first-match auth-respose? (:msg-in-flow conn)))]
+     (info "auth result: " auth-result)
+     auth-result)))
 
 
 

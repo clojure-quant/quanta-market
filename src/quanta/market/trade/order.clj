@@ -26,7 +26,6 @@
         {}))
     {}))
 
-
 (defn- process-order-status
   "reducer function 
    input : broker-order-status updates
@@ -109,7 +108,6 @@
                 {}
                 order-orderupdate-flow))
 
-
 (defn order-change-flow
   "returns a flow that 
    reads the order-orderupdate-flow and 
@@ -122,7 +120,6 @@
          _ (info "creating flow for order-id: " order-id)
          working-order (m/?> 1 (working-order-flow >x))]
      [order-id working-order])))
-
 
 (defn working-orders-flow
   "returns a flow, 
@@ -164,7 +161,6 @@
            ;  working-order
            (assoc working-order :order-id order-id)) last-status)))
 
-
 (defn- new-trade?
   "predicate if a order-update msg has a new trade"
   [order-update-msg]
@@ -181,7 +177,6 @@
            :account (:account open-order)
            :asset (:asset open-order)
            :side (:side open-order))))
-
 
 (defn trade-flow
   "creates a flow that has new-trades.

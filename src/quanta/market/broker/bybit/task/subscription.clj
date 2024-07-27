@@ -28,7 +28,6 @@
     (info "subscription-stop topic: " t " ..")
     (c/rpc-req! conn (subscription-stop-msg t))))
 
-
 (def subscription-success-demo
   {"success" true
    "ret_msg" "subscribe"
@@ -50,15 +49,12 @@
    :ret_msg "Batch subscription partially succeeded and partially failed.Successful subscriptions are as follows:[]. Subscription to the following topics failed because the topic does not exist or there is a subscription conflict:[ticketInfo]."
    :req_id "Tg7vi8n1"})
 
-
 (def subscription-success-order
   {:op "subscribe"
    :success true
    :conn_id "cq1814tdaugt75sdcg8g-22tvw"
    :ret_msg ""
    :req_id "W-goZgZQ"})
-
-
 
 (comment
   (def conn
@@ -75,9 +71,7 @@
         conn
         :asset/stats "BTCUSDT"))
 
-
 ;
   )
 
 
-  

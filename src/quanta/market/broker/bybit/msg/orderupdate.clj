@@ -4,7 +4,6 @@
    [quanta.market.broker.bybit.topic :refer [only-topic get-topic-data]]
    [quanta.market.util :refer [split-seq-flow]]))
 
-
 (defn normalize-orderstatus [orderStatus rejectReason]
   ;open status
   (case orderStatus
@@ -29,8 +28,7 @@
                                            updatedTime ; "1721421749149"
                                            ; leavesQty ; "0.000100"
                                            ;leavesValue "0.10000000",
-                                           rejectReason
-                                           ]}]
+                                           rejectReason]}]
   (let [[orderstatus close-reason]  (normalize-orderstatus orderStatus rejectReason)
         orderupdate {:order-id orderLinkId
                      :broker-order-status {:timestamp updatedTime
@@ -39,16 +37,15 @@
                                            :status orderstatus
                                            :fill-qty (parse-double cumExecQty)
                                            :fill-value (parse-double cumExecValue)}}]
-     (if close-reason 
-       (assoc orderupdate :close-reason close-reason)
-       orderupdate)))
+    (if close-reason
+      (assoc orderupdate :close-reason close-reason)
+      orderupdate)))
 
 (defn order-id [msg]
   (get-in msg [:data]))
 
 (defn order-update-msg-flow [msg-flow]
   (m/eduction (filter (only-topic "order")) msg-flow))
-
 
 (defn order-update-flow [raw-order-flow]
   (m/ap
@@ -62,14 +59,11 @@
   (def raw-order-flow (m/seed [{:data [1 2 3]}
                                {:data [4 5]}]))
 
-
   (def order-flow (order-update-flow raw-order-flow))
 
   (m/? (m/reduce conj order-flow))
 
-
-   ;(topic :order/update)
+;(topic :order/update)
 
  ; 
   )
-  

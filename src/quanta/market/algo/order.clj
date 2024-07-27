@@ -5,7 +5,6 @@
    [quanta.market.algo.price :refer [get-last-trade-price]]
    [quanta.market.precision :refer [round-asset]]))
 
-
 (defn price-off-market [price side]
   (let [diff 0.001]
     (case side
@@ -26,12 +25,10 @@
       :ordertype :limit
       :limit off-price-precision})))
 
-
 (comment
-  
+
   (price-off-market 60000.0 :buy)
   (price-off-market 60000.0 :sell)
-
 
 ;  
   )

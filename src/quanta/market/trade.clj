@@ -59,7 +59,6 @@
   (let [tradefeeds (create-accounts accounts log-dir)]
     (trade-manager. tradefeeds log-dir)))
 
-
 (defn trade-manager-stop [this]
   (p/stop-trade this)
   ;

@@ -27,7 +27,7 @@
     (let [flow (p/msg-in-flow websocket)]
       (assert flow "missing msg-in-flow")
       (lt/last-trade-flow flow account-asset)))
-   (msg-flow [this]
+   (msg-flow-quote [this]
             (let [msg-in (p/msg-in-flow websocket)
                   msg-out (p/msg-out-flow websocket)]
               (assert msg-in "msg-in flow nil")

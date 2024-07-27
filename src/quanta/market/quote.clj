@@ -29,8 +29,8 @@
   (last-trade-flow [this {:keys [account] :as account-asset}]
     (when-let [feed (get-feed this account)]
       (p/last-trade-flow feed account-asset)))
-  (msg-flow [this]
-            (let [account-flows (map p/msg-flow (vals quotefeeds))]
+  (msg-flow-quote [this]
+            (let [account-flows (map p/msg-flow-quote (vals quotefeeds))]
               (apply mix account-flows)))
   p/quote
   (get-quote [this sub]

@@ -8,13 +8,12 @@
    [demo.logging] ; for side effects
    ))
 
-
 (def qm (quote-manager-start accounts-quote))
 
 (comment
 
   (p/start-quote qm)  
-  (p/stop-quote qm)
+
 
   ;; one quote
    
@@ -38,9 +37,12 @@
      :multi-quote
      last-quotes))
   
-  
-  
+   
   (stop! :multi-quote)
+
+  ;; shutdown
+
+  (p/stop-quote qm)
 
   
 

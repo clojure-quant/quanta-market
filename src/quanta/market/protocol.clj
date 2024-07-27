@@ -16,7 +16,7 @@
   (subscribe-last-trade! [this sub])
   (unsubscribe-last-trade! [this unsub])
   (last-trade-flow [this account-asset])
-  (msg-flow [this]))
+  (msg-flow-quote [this]))
 
 (defprotocol quote
   (get-quote [this sub]))

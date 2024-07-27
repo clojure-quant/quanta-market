@@ -65,7 +65,7 @@
         send-out-fn (:send flow-sender-out)
         on-msg (fn [json]
                  (let [msg (json->msg json)]
-                   (info "!msg rcvd: " (:account-id opts) " " msg)
+                   (debug "!msg rcvd: " (:account-id opts) " " msg)
                    (send-in-fn msg)))]
     (assert send-in-fn "send-in-fn must be defined")
     (assert send-out-fn "send-out-fn must be defined")

@@ -18,8 +18,7 @@
   (last-trade-flow [this account-asset]))
 
 (defprotocol quote
-  (get-quote [this sub])
-  )
+  (get-quote [this sub]))
 
 
 (defmulti create-quotefeed

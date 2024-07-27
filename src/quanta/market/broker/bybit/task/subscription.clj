@@ -1,14 +1,11 @@
 (ns quanta.market.broker.bybit.task.subscription
-   (:require
-    [taoensso.timbre :as timbre :refer [debug info warn error]]
-    [missionary.core :as m]
-    [quanta.market.broker.bybit.connection :as c]
-    [quanta.market.broker.bybit.topic :refer [topic]]
-    ))
+  (:require
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
+   [missionary.core :as m]
+   [quanta.market.broker.bybit.connection :as c]
+   [quanta.market.broker.bybit.topic :refer [topic]]))
 
 ; https://bybit-exchange.github.io/docs/v5/websocket/public/trade
-
-
 
 (defn subscription-start-msg [topic]
   {"op" "subscribe"
@@ -40,27 +37,26 @@
    "op" "subscribe"})
 
 (def subsciption-err-execution
-{:op "subscribe"
- :reqId "IN7XkfuD"
- :retCode 10404 
- :retMsg ""
- :connId "cpv86i6c0hvd5nkl25n0-2x3h"
- })
+  {:op "subscribe"
+   :reqId "IN7XkfuD"
+   :retCode 10404
+   :retMsg ""
+   :connId "cpv86i6c0hvd5nkl25n0-2x3h"})
 
 (def subscription-err-ticketinfo
-{:op "subscribe", 
- :success false, 
- :conn_id "cq1814tdaugt75sdcg8g-22tvw", 
- :ret_msg "Batch subscription partially succeeded and partially failed.Successful subscriptions are as follows:[]. Subscription to the following topics failed because the topic does not exist or there is a subscription conflict:[ticketInfo]."
- :req_id "Tg7vi8n1"})
+  {:op "subscribe",
+   :success false,
+   :conn_id "cq1814tdaugt75sdcg8g-22tvw",
+   :ret_msg "Batch subscription partially succeeded and partially failed.Successful subscriptions are as follows:[]. Subscription to the following topics failed because the topic does not exist or there is a subscription conflict:[ticketInfo]."
+   :req_id "Tg7vi8n1"})
 
 
 (def subscription-success-order
-{:op "subscribe"
- :success true
- :conn_id "cq1814tdaugt75sdcg8g-22tvw"
- :ret_msg ""
- :req_id "W-goZgZQ"})
+  {:op "subscribe"
+   :success true
+   :conn_id "cq1814tdaugt75sdcg8g-22tvw"
+   :ret_msg ""
+   :req_id "W-goZgZQ"})
 
 
 
@@ -68,21 +64,20 @@
   (def conn
     (c/connection-start! {:mode :main
                           :segment :spot}))
-  
+
   (c/connection-stop! conn)
 
   (m/? (subscription-start!
         conn
         :asset/stats "BTCUSDT"))
-  
+
   (m/? (subscription-stop!
         conn
         :asset/stats "BTCUSDT"))
-  
-  
+
+
 ;
-  
-)
+  )
 
 
   

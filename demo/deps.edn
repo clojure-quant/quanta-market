@@ -1,0 +1,6 @@
+{:paths ["src" "resources"]
+ :deps {io.github.clojure-quant/quanta-market {:local/root "../" :deps/manifest :deps}
+       }
+
+}
+

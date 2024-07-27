@@ -1,6 +1,5 @@
 (ns demo.tm
   (:require
-   [modular.log]
    [quanta.market.protocol :as p]
    [quanta.market.trade.db :as trade-db :refer [trade-db-start
                                                 trade-db-stop]]
@@ -8,22 +7,11 @@
    [quanta.market.util :refer [start-logging start-printing]]
    [quanta.market.portfolio :refer [portfolio-manager-start
                                     get-working-orders]]
-   [demo.accounts :refer [accounts-trade]]))
+   [demo.accounts :refer [accounts-trade]]
+    [demo.logging] ; for side effects
+   ))
 
-(modular.log/timbre-config!
- {:min-level [[#{"org.apache.http.*"
-                 "org.eclipse.aether.*"
-                 "org.eclipse.jetty.*"
-                 "modular.oauth2.*"
-                 "modular.oauth2.token.refresh.*"
-                 "modular.ws.*"
-                 "webly.web.*"} :warn] ; webserver stuff - warn only
-                                       ; [#{"modular.ws.*"} :debug]
-              [#{"*"} :info]] ; default -> info
-  :appenders {:default {:type :console-color}
-              #_:rolling #_{:type :file-rolling
-                            :path ".data/quanta.log"
-                            :pattern :monthly}}})
+
 
 (def db (trade-db-start ".data/trade-db"))
 
@@ -55,10 +43,11 @@
   tm
 
   (p/start-trade tm)
-
+  (p/stop-trade tm)
+  
   (start-printing (p/msg-flow tm) "trade msg:")
   
-  (p/stop-trade tm)
+  
   (get-working-orders pm)
 
 

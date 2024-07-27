@@ -60,11 +60,7 @@
   (m/ap (m/?> (m/?> (count flows) (m/seed flows)))))
 
 
-  (defn cont [flow]
-  (->> flow
-       (m/reductions (fn [r v]
-                       (if v v r)) nil)
-       (m/relieve {})))
+
 
 
 (defn start-printing [flow label-str]
@@ -95,10 +91,64 @@
         (when (seq s)
           (recur s)))))))
 
-(defn start! [task]
-  (task
-    #(println "task completed: " %)
-    #(println "task crashed: " %)))
+  (defn cont 
+    "converts a discrete flow to a continuous flow. 
+    returns nil in the beginning."
+    [flow]
+  (->> flow
+       (m/reductions (fn [r v]
+                       (if v v r)) nil)
+       (m/relieve {})))
+
+
+(defonce running-tasks (atom {}))
+
+(defn start! 
+  "starts a missionary task
+   task can be stopped with (stop! task-id).
+   useful for working in the repl with tasks"
+  [task id]
+  (let [dispose! (task
+                 #(println "task completed: " %)
+                 #(println "task crashed: " %))]
+    (swap! running-tasks assoc id dispose!)
+    (str "use (stop! " id ") to stop this task.")
+    ))
+  
+(defn stop! 
+   "stops a missionary task that has been started with start!
+    useful for working in the repl with tasks"
+  [task-id]
+  (if-let [dispose! (get @running-tasks task-id)]
+    (dispose!)
+    (println "cannot stop task - not existing!" task-id)))
+   
+
+(defn start-flow-printer! 
+  "starts printing a missionary flow to the console.
+   printing can be stopped with (stop! id) 
+   useful for working in the repl with flows."
+  [f id]
+  (let [print-task (m/reduce (fn [_r v]
+                                 (println id " " v)
+                                 nil)
+                               nil f)]
+    (start! print-task id)))
+
+
+(defn start-flow-logger! 
+  "starts logging a missionary flow to a file.
+   can be stopped with (stop! id) 
+   useful for working in the repl with flows."
+  [file-name id f]
+  (let [log-task (m/reduce (fn [r v]
+                               (let [s (with-out-str (println v))]
+                                 (spit file-name s :append true))
+                               nil)
+                             nil f)]
+    (start! log-task id)))
+
+
 
 (comment
   (m/?

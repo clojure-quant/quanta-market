@@ -1,6 +1,7 @@
 (ns quanta.market.quote
   (:require
    [quanta.market.protocol :as p]
+   [quanta.market.quote.current :as current]
   ; bring default implementations into scope:
    [quanta.market.broker.bybit.quotefeed]))
 
@@ -27,6 +28,9 @@
   (last-trade-flow [this {:keys [account] :as account-asset}]
     (when-let [feed (get-feed this account)]
       (p/last-trade-flow feed account-asset)))
+  p/quote
+  (get-quote [this sub]
+    (current/get-quote this sub))
     ;
   )
 

@@ -17,6 +17,11 @@
   (unsubscribe-last-trade! [this unsub])
   (last-trade-flow [this account-asset]))
 
+(defprotocol quote
+  (get-quote [this sub])
+  )
+
+
 (defmulti create-quotefeed
   (fn [opts]
     (:type opts)))

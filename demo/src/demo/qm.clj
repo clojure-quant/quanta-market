@@ -16,7 +16,6 @@
   (p/start-quote qm)  
   (p/stop-quote qm)
 
-
   ;; one quote
    
   (start-flow-logger! 

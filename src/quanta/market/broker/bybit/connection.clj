@@ -127,7 +127,7 @@
                     (or (= id reqId) (= id req_id)))
           result (first-match p-reqId (:msg-in-flow conn))
           msg (assoc msg :reqId id 
-                     ;"req_id" id
+                     "req_id" id ; this is importan for quote-subscriptions.
                      )]
       (debug "making rpc request:  " msg)
       (let [r (m/join get-result

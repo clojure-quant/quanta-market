@@ -2,6 +2,7 @@
   (:require
    [quanta.market.protocol :as p]
    [quanta.market.quote.current :as current]
+    [quanta.market.util :refer [mix]]
   ; bring default implementations into scope:
    [quanta.market.broker.bybit.quotefeed]))
 
@@ -28,6 +29,9 @@
   (last-trade-flow [this {:keys [account] :as account-asset}]
     (when-let [feed (get-feed this account)]
       (p/last-trade-flow feed account-asset)))
+  (msg-flow [this]
+            (let [account-flows (map p/msg-flow (vals quotefeeds))]
+              (apply mix account-flows)))
   p/quote
   (get-quote [this sub]
     (current/get-quote this sub))

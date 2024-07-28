@@ -75,13 +75,15 @@
    msg-flow))
 
 
-(defn topic-transformed-flow [topic-data-f {:keys [topic asset depth interval] :as sub
-                                            :or {topic :asset/trade}}]
+(defn topic-transformed-flow [topic-data-f {:keys [topic asset depth interval only-finished?] :as sub
+                                            :or {topic :asset/trade
+                                                 only-finished? false
+                                                 }}]
 
   (case topic 
     :asset/trade (transform-last-trade-flow topic-data-f)
     :asset/stats (transform-stats-flow topic-data-f)
-    :asset/bars (transform-bars-flow topic-data-f)
+    :asset/bars (transform-bars-flow topic-data-f only-finished?)
     topic-data-f
     
     ))

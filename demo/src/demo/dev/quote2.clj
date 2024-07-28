@@ -31,11 +31,21 @@
                         :asset "BTCUSDT"}))
 
 (start-flow-logger!
- ".data/bybit-bars2.txt"
- :bars/msg
+ ".data/bybit-bars-unfinished.txt"
+ :bars-unfinished/msg
  (p/get-topic bb-quote {:topic :asset/bars
                         :interval "1"
                         :asset "BTCUSDT"}))
+
+(start-flow-logger!
+ ".data/bybit-bars-finished.txt"
+ :bars-finished/msg
+ (p/get-topic bb-quote {:topic :asset/bars
+                        :interval "1"
+                        :asset "BTCUSDT"
+                        :only-finished? true}))
+
+
 
 (start-flow-logger!
  ".data/bybit-orderbook.txt"
@@ -48,7 +58,8 @@
 (stop! :trade/msg)
 (stop! :stats/msg)
 (stop! :liquidation/msg)
-(stop! :bars/msg)
+(stop! :bars-finished/msg)
+(stop! :bars-unfinished/msg)
 (stop! :orderbook/msg)
 
 

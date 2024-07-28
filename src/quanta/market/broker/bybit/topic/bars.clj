@@ -35,11 +35,21 @@
    :timestamp timestamp
    :confirm confirm})
 
-(defn transform-bars-flow [topic-data-flow]
+(defn transform-bars-flow-raw [topic-data-flow]
   ; output of this flow:
-  
   (m/ap
    (let [data (m/?> topic-data-flow)
          bar (m/?> (split-seq-flow data))]
      (when bar ; bug of split-seq-flow returns also nil.
        (normalize-bybit-bars bar)))))
+
+(defn confirmed? [{:keys [confirm]}]
+  confirm)
+
+
+(defn transform-bars-flow [topic-data-flow only-finished?]
+  (if only-finished?
+     (m/eduction 
+       (filter confirmed?)
+       (transform-bars-flow-raw topic-data-flow))
+     (transform-bars-flow-raw topic-data-flow)))

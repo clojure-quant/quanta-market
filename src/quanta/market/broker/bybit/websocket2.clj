@@ -10,8 +10,9 @@
 
 
 (defn connect! [flow-sender-in flow-sender-out opts]
+  (info "connecting to bybit websocket opts: " opts)
   (let [c (c/connection-start! flow-sender-in flow-sender-out opts)]
-    (info "bybit websocket2 got a new connection: " c)
+   (debug "bybit websocket2 got a new connection: " c)
     #_(when-let [creds (:creds opts)]
         (info (:account-id opts) " authenticating secure account..")
         (m/? (a/authenticate! new-conn creds)))
@@ -34,9 +35,9 @@
      (loop [new-conn (connect! flow-sender-in flow-sender-out opts)]
        (m/amb new-conn
               (recur (do (when new-conn
-                           (info "waiting for connection2 to be dropped..")
+                           (debug "waiting for connection2 to be dropped..")
                            (when-let [sc (:stream-consumer new-conn)]
-                             (info "waiting for stream-consumer2 to return.")
+                             (debug "waiting for stream-consumer2 to return.")
                              (m/? (m/via m/blk @sc))
                              (m/? (m/sleep 5000))))
                          (connect! flow-sender-in flow-sender-out opts)))))))
@@ -53,7 +54,7 @@
 
 (defn create-websocket2
   [opts]
-  (info "creating bybit-websocket : " opts)
+  (info "wiring up bybit-websocket : " opts)
   (let [flow-sender-in (flow-sender)
         flow-sender-out (flow-sender)]
     (bybit-websocket2. opts

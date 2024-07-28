@@ -31,7 +31,7 @@
 
 (defn current-v [f]
   (m/reduce (fn [_r v]
-              (println "current-v: " v)
+              ;(println "current-v: " v)
               v) nil
             (take-first-non-nil f)))
 

@@ -13,7 +13,7 @@
 (defn subscribing-unsubscribing-quote-flow [{:keys [websocket lock subscriptions] :as this}  sub]
   (util/cont
    (m/ap
-    (info "get-quote will start a new subscription..")
+    (debug "get-quote will start a new subscription..")
     (let [topic (format-topic-sub sub)
           msg-in (p/msg-in-flow websocket)
           topic-data-f (topic-data-flow msg-in topic)
@@ -44,7 +44,7 @@
 
 (defmethod p/create-quotefeed :bybit-category
   [opts]
-  (info "creating bybit quotefeed : " opts)
+  (info "wiring up bybit-category feed : " opts)
   (let [opts (merge {:mode :main
                      :segment :spot} opts)
         websocket (create-websocket2 opts)

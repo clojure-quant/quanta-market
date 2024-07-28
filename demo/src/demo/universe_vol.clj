@@ -3,8 +3,7 @@
    [clojure.pprint :refer [print-table]]
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [quanta.market.util :refer [start-flow-logger! stop! start-flow-printer!
-                               current-v]]
+   [quanta.market.util :refer [current-v]]
    [quanta.market.broker.bybit.quotefeed] ; side effects
    [demo.logging] ; for side effects
    [demo.universe :refer [asset-symbols-both]]))
@@ -44,8 +43,7 @@
 
 (defn overview-t [assets]
   (let [tasks (map volume-t assets)
-        tasks (map wrap-blk tasks)
-        ]
+        tasks (map wrap-blk tasks)]
     (apply m/join vector tasks)))
 
 (m/? (overview-t ["BTCUSDT" "ETHUSDT"]))
@@ -71,6 +69,8 @@ overview
 
 
 (print-table (reverse (sort-by :value our-universe)))
+;; => nil
+
 
 ; |   :close |              :value |   :asset |
 ; |----------+---------------------+----------|
@@ -84,7 +84,16 @@ overview
 ; |    6.616 |   1.9114847919191E7 |  TONUSDT |
 ; |   2.4226 |   1.6734880202166E7 |  WIFUSDT |
 
-
+;|   :asset |              :value |   :close |
+;|----------+---------------------+----------|
+;|  BTCUSDT | 8.509642115311072E8 | 68019.37 |
+;|  ETHUSDT | 2.585400885119562E8 |  3263.13 |
+;|  SOLUSDT |   1.4907512771157E8 |   184.44 |
+;|  MNTUSDT |   7.8564381061146E7 |   0.7943 |
+;| USDCUSDT |   6.3094186854782E7 |      1.0 |
+;|  XRPUSDT |   4.0806880537186E7 |   0.5992 |
+;|  TONUSDT |    1.762338120611E7 |   6.5865 |
+;| DOGEUSDT |   1.6746077290697E7 |  0.12907 |
 
 
 

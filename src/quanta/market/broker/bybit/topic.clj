@@ -1,12 +1,11 @@
 (ns quanta.market.broker.bybit.topic
-    (:require
+  (:require
    [missionary.core :as m]
-      [taoensso.timbre :as timbre :refer [debug info warn error]]
-     [quanta.market.broker.bybit.topic.lasttrade :refer [transform-last-trade-flow  ]]
-     [quanta.market.broker.bybit.topic.stats :refer [transform-stats-flow]]
-     [quanta.market.broker.bybit.topic.bars :refer [transform-bars-flow]]
-     
-  ))
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
+   [quanta.market.broker.bybit.topic.lasttrade :refer [transform-last-trade-flow]]
+   [quanta.market.broker.bybit.topic.stats :refer [transform-stats-flow]]
+   [quanta.market.broker.bybit.topic.bars :refer [transform-bars-flow]]
+   [quanta.market.broker.bybit.topic.orderbook :refer [transform-book-flow]]))
 
 (def topics
   {:order/execution "execution" ; ticketInfo did not work
@@ -26,17 +25,17 @@
     (throw (Exception. (ex-info "topic not found" {:type type
                                                    :args args})))))
 
-(def bybit-intervals 
+(def bybit-intervals
   #{1 3 5 15 30 ;(min)
     60 120 240 360 720 ;(min)
     "D" ; (day)
     "W" ;(week)
-     "M" ; (month)
+    "M" ; (month)
     })
 
 
 (defn format-topic-sub [{:keys [topic asset depth interval] :as sub
-                         :or {topic :asset/trade}} ]
+                         :or {topic :asset/trade}}]
   (cond
     ; 2 args (orderbook)
     (contains? #{:asset/orderbook} topic)
@@ -64,29 +63,26 @@
   (fn [msg]
     (= topic (:topic msg))))
 
-(defn- get-topic-data [msg]
-  (:data msg))
+(defn- get-topic-type-data [msg]
+  (select-keys msg [:data :type]))
 
 (defn topic-data-flow [msg-flow topic]
   (warn "listening to topic: " topic)
-  (m/eduction 
+  (m/eduction
    (filter (only-topic topic))
-   (map get-topic-data)
+   (map get-topic-type-data)
    msg-flow))
-
 
 (defn topic-transformed-flow [topic-data-f {:keys [topic asset depth interval only-finished?] :as sub
                                             :or {topic :asset/trade
-                                                 only-finished? false
-                                                 }}]
+                                                 only-finished? false}}]
 
-  (case topic 
+  (case topic
     :asset/trade (transform-last-trade-flow topic-data-f)
     :asset/stats (transform-stats-flow topic-data-f)
     :asset/bars (transform-bars-flow topic-data-f only-finished?)
-    topic-data-f
-    
-    ))
+    :asset/orderbook (transform-book-flow topic-data-f)
+    topic-data-f))
 
 (comment
   (format-topic :asset/stats ["EURUSD"])

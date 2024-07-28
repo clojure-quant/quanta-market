@@ -3,56 +3,56 @@
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-flow-logger! stop! start-flow-printer!]]
-   [demo.logging] ; for side effects
-   [quanta.market.broker.bybit.quotefeed2]
    [quanta.market.broker.bybit.websocket2 :refer [create-websocket2]]
-   ))
+   [quanta.market.broker.bybit.quotefeed2] ; for side effects
+   [demo.logging] ; for side effects
+  ))
 
 (def bb-quote (p/create-quotefeed {:type :bybit2}))
 
 
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/bybit-trade4.txt"
+ ".data/bybit-trade5.txt"
  :trade/msg
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "BTCUSDT"}))
 
 (start-flow-logger!
- ".data/bybit-stats3.txt"
+ ".data/bybit-stats5.txt"
  :stats/msg
  (p/get-topic bb-quote {:topic :asset/stats
                         :asset "BTCUSDT"}))
 
 (start-flow-logger!
- ".data/bybit-liquidation.txt"
+ ".data/bybit-liquidation5.txt"
  :liquidation/msg
  (p/get-topic bb-quote {:topic :asset/liquidation
                         :asset "BTCUSDT"}))
 
 (start-flow-logger!
- ".data/bybit-bars-unfinished.txt"
+ ".data/bybit-bars-unfinished5.txt"
  :bars-unfinished/msg
  (p/get-topic bb-quote {:topic :asset/bars
                         :interval "1"
                         :asset "BTCUSDT"}))
 
 (start-flow-logger!
- ".data/bybit-bars-finished.txt"
+ ".data/bybit-bars-finished5.txt"
  :bars-finished/msg
  (p/get-topic bb-quote {:topic :asset/bars
                         :interval "1"
                         :asset "BTCUSDT"
                         :only-finished? true}))
 
-
-
 (start-flow-logger!
- ".data/bybit-orderbook.txt"
+ ".data/bybit-orderbook-5.txt"
  :orderbook/msg
  (p/get-topic bb-quote {:topic :asset/orderbook
-                        :depth 1
+                        :depth 1 ; spot: can be 1 50 200
                         :asset "BTCUSDT"}))
+
+
 
 
 (stop! :trade/msg)

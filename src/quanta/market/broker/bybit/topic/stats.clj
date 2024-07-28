@@ -18,11 +18,11 @@
           :lastPrice 65232.7
           }})
 
-(defn normalize-bybit-stats [{:keys [symbol 
-                                     prevPrice24h highPrice24h lowPrice24h lastPrice
-                                     volume24h turnover24h
-                                     price24hPcnt usdIndexPrice
-                                     ]}]
+(defn normalize-bybit-stats [{:keys [data _type]}]
+  (let [{:keys [symbol
+                prevPrice24h highPrice24h lowPrice24h lastPrice
+                volume24h turnover24h
+                price24hPcnt usdIndexPrice]}  data]
   {:asset symbol
    :open (parse-double prevPrice24h)
    :high (parse-double highPrice24h)
@@ -31,7 +31,7 @@
    :volume (parse-double volume24h)
    :value (parse-double turnover24h)
    :change  (parse-double price24hPcnt) 
-   :index (parse-double usdIndexPrice)})
+   :index (parse-double usdIndexPrice)}))
 
 
 (defn transform-stats-flow [topic-data-flow]

@@ -10,12 +10,6 @@
    [quanta.market.util :refer [mix] :as util])
   (:import [missionary Cancelled]))
 
-(defn last-trade-flow [websocket account-asset]
-  (m/ap
-   (info "last-trade-flow conn: " websocket)
-   (let [flow (p/msg-in-flow websocket)]
-     (assert flow "missing msg-in-flow")
-     (lt/last-trade-flow flow account-asset))))
 
 (defn subscribing-unsubscribing-quote-flow [{:keys [websocket lock subscriptions] :as this}  sub]
   (util/cont

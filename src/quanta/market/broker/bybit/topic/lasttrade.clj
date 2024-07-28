@@ -56,7 +56,7 @@
   ; output of this flow:
   ; {:asset BTCUSDT, :price 67662.78, :size 0.00761, :time 1722179969287, :BT false, :S Buy}
   (m/ap
-   (let [data (m/?> topic-data-flow)
+   (let [{:keys [data]} (m/?> topic-data-flow)
          last-quote-update (m/?> (split-seq-flow data))]
      (when last-quote-update ; bug of split-seq-flow returns also nil.
        (normalize-bybit-last-trade last-quote-update)))))

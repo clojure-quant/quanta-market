@@ -19,7 +19,7 @@
                         :asset "BTCUSDT"}))
 
 (start-flow-logger!
- ".data/bybit-stats.txt"
+ ".data/bybit-stats3.txt"
  :stats/msg
  (p/get-topic bb-quote {:topic :asset/stats
                         :asset "BTCUSDT"}))

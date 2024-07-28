@@ -1,8 +1,11 @@
 (ns quanta.market.protocol)
 
-(defprotocol connection
+(defprotocol manage-connection
   (start! [this])
   (stop! [this])
+  )
+
+(defprotocol connection
   (current-connection [this])
   (msg-in-flow [this])
   (msg-out-flow [this]))

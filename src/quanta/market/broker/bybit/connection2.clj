@@ -1,4 +1,4 @@
-(ns quanta.market.broker.bybit.connection
+(ns quanta.market.broker.bybit.connection2
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
@@ -66,10 +66,11 @@
         on-msg (fn [json]
                  (let [msg (json->msg json)]
                    (debug "!msg rcvd: " (:account-id opts) " " msg)
-                   (send-in-fn msg)))]
-    (assert send-in-fn "send-in-fn must be defined")
-    (assert send-out-fn "send-out-fn must be defined")
-    (s/consume on-msg stream)
+                   (send-in-fn msg)))
+        _ (assert send-in-fn "send-in-fn must be defined")
+        _ (assert send-out-fn "send-out-fn must be defined")
+        stream-consumer (s/consume on-msg stream)
+        ]
     (info (:account-id opts) " connected!")
     {:account opts
      :opts opts
@@ -78,7 +79,9 @@
      :send-in-fn send-in-fn
      :send-out-fn send-out-fn
      :msg-in-flow (:flow flow-sender-in)
-     :msg-out-flow (:flow flow-sender-out)}))
+     :msg-out-flow (:flow flow-sender-out)
+     :stream-consumer stream-consumer
+     }))
 
 (defn connection-stop! [{:keys [stream]}]
   (info "connection-stop.. ")

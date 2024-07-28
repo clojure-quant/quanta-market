@@ -22,14 +22,18 @@
             nil
             flow))
 
-(defn current-value [flow]
+(defn take-first-non-nil [f]
   ; flows dont implement deref
-  (m/eduction (take 1) flow))
+  (m/eduction 
+    (remove nil?)
+    (take 1) 
+    f))
 
-(defn current-value-task [flow]
+(defn current-v [f]
   (m/reduce (fn [_r v]
+              (println "current-v: " v)
               v) nil
-            (current-value flow)))
+            (take-first-non-nil f)))
 
 (defn msg-flow [!-a]
   ; without the stream the last subscriber gets all messages

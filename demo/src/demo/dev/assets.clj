@@ -3,12 +3,14 @@
    [clojure.edn :as edn]
    [clojure.string :as str]
    [clojure.pprint :refer [print-table]]
+   [clojure.java.io :as io]
    ))
 
 
 (defn load-category [category]
   (->
-   (str "resources/bybit-" category ".edn")
+   (str "bybit-" category ".edn")
+   (io/resource)
    (slurp)
    (edn/read-string)))
 
@@ -63,22 +65,27 @@ Non USDT pairs: 84
 (defn perp? [{:keys [symbol]}]
   (str/ends-with? symbol "PERP"))
 
+(defn linear-perp? [{:keys [contractType]}]
+  (= contractType "LinearPerpetual"))
+
+
 (->> (load-category "linear")
+     (filter linear-perp?)
+     (filter usdt?)
      (map #(select-keys % [:symbol :status :contractType]))
      ;(filter sdc?)
      ;( usdt?)
-     (filter perp?)
-     ;(filter usdt?)
+     ;(filter perp?)
+     
      ;(remove usde?)
      ;(remove btc?)
      ;(filter #(= "XEMUSDT" (:symbol %)))
      ;(filter #(= "LinearFutures" (:contractType %)))
-     
-
      ;count
      (print-table)
      ;first
      )
+
   
 :contractType "LinearPerpetual"
   ; linear 432
@@ -112,3 +119,10 @@ Non USDT pairs: 84
 |      WIFPERP | Trading |
 |      WLDPERP | Trading |
 |      XRPPERP | Trading |
+
+
+(->> (load-category "spot")
+
+
+
+

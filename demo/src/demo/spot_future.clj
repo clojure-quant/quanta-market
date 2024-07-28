@@ -30,7 +30,7 @@
 
 
 (start-flow-logger!
- ".data/spot-future-btc.txt"
+ ".data/spot-future-btc8.txt"
  :spot-future-btc
  (future-premium "BTCUSDT"))
 
@@ -42,9 +42,11 @@
 
 
 (start-flow-logger!
- ".data/spot-future-multiple.txt"
+ ".data/spot-future-multiple9.txt"
  :spot-future
  (future-premiums ["BTCUSDT" "ETHUSDT"]))
+
+; started 14:06
 
 (stop! :spot-future)
 

@@ -38,8 +38,14 @@
 (m/? (volume-t "BTCUSDT"))
 ;; => {:asset "BTCUSDT", :close 68007.54, :value 1.087035021867885E9}
 
+(defn wrap-blk [t]
+  (m/via m/blk (m/? t)))
+
+
 (defn overview-t [assets]
-  (let [tasks (map volume-t assets)]
+  (let [tasks (map volume-t assets)
+        tasks (map wrap-blk tasks)
+        ]
     (apply m/join vector tasks)))
 
 (m/? (overview-t ["BTCUSDT" "ETHUSDT"]))

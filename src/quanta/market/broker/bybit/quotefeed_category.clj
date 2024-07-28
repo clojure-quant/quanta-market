@@ -25,9 +25,9 @@
       (try
         (m/amb (m/?> topic-f))
         (catch Cancelled _
-          (do  (info "get-quote will stop an existing subscription..")
+          (do  (debug "get-quote will stop an existing subscription..")
                (m/?  (m/compel  (s/subscription-stop! conn topic)))
-               (info "get-quote has unsubscribed. now removing from atom..")
+               (debug "get-quote has unsubscribed. now removing from atom..")
                (m/holding lock
                           (swap! subscriptions dissoc sub)))))))))
 

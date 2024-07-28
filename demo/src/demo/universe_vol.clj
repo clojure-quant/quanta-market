@@ -36,15 +36,15 @@
         :close (:close s)}))))
 
 (m/? (volume-t "BTCUSDT"))
-
+;; => {:asset "BTCUSDT", :close 68007.54, :value 1.087035021867885E9}
 
 (defn overview-t [assets]
   (let [tasks (map volume-t assets)]
     (apply m/join vector tasks)))
 
 (m/? (overview-t ["BTCUSDT" "ETHUSDT"]))
-;; => [{:close 68078.24, :value 1.1284937148384445E9, :asset "BTCUSDT"}
-;;     {:close 3268.95, :value 3.248276251040947E8, :asset "ETHUSDT"}]
+;; => [{:asset "BTCUSDT", :close 67998.0, :value 1.0872855296622603E9}
+;;     {:asset "ETHUSDT", :close 3264.67, :value 3.118502665919389E8}]
 
 ; account size: 10k. 10x leverage = 100k trade.
 ; a trade can be over 1 hour.
@@ -72,7 +72,7 @@ overview
 ; |  3269.15 | 3.248433155842764E8 |  ETHUSDT |
 ; |    184.8 |   1.9700455063675E8 |  SOLUSDT |
 ; |   0.7972 |   8.8902977617348E7 |  MNTUSDT |
-; |   1.0001 |   7.9542247134599E7 | USDCUSDT |
+; |   1.0001 |   7.9542247134599E7 | USDCUSDT | xx
 ; |   0.6015 |   5.5843527554992E7 |  XRPUSDT |
 ; |  0.12972 |   2.4783186254902E7 | DOGEUSDT |
 ; |    6.616 |   1.9114847919191E7 |  TONUSDT |

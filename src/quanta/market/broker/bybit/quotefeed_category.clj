@@ -1,10 +1,9 @@
-(ns quanta.market.broker.bybit.quotefeed2
+(ns quanta.market.broker.bybit.quotefeed-category
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.task.subscription :as s]
-   ;[quanta.market.broker.bybit.topic.lasttrade :as lt]
    [quanta.market.broker.bybit.websocket2 :refer [create-websocket2]]
    [quanta.market.broker.bybit.topic :refer [format-topic-sub topic-data-flow topic-transformed-flow]]
    [quanta.market.util :refer [mix] :as util])
@@ -33,8 +32,8 @@
                           (swap! subscriptions dissoc sub)))))))))
 
 
-(defrecord bybit-feed2 [opts websocket subscriptions lock]
-  p/quote
+(defrecord bybit-category-feed [opts websocket subscriptions lock]
+  p/subscription-topic
   (get-topic [this sub]
     (or (get @subscriptions sub)
         (m/holding lock
@@ -42,7 +41,8 @@
                      (swap! subscriptions assoc sub qs)
                      qs)))))
 
-(defmethod p/create-quotefeed :bybit2
+
+(defmethod p/create-quotefeed :bybit-category
   [opts]
   (info "creating bybit quotefeed : " opts)
   (let [opts (merge {:mode :main
@@ -50,7 +50,7 @@
         websocket (create-websocket2 opts)
         subscriptions (atom {})
         lock (m/sem)]
-    (bybit-feed2. opts websocket subscriptions lock)))
+    (bybit-category-feed. opts websocket subscriptions lock)))
 
 
 

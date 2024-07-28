@@ -28,7 +28,7 @@
 (def websocket-destination-urls
   {:main {; data
           :spot "wss://stream.bybit.com/v5/public/spot"
-          :future "wss://stream.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
+          :linear "wss://stream.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
           :inverse "wss://stream.bybit.com/v5/public/inverse"
           :option "wss://stream.bybit.com/v5/public/option" ; USDC Option
           ; trade
@@ -36,7 +36,7 @@
           :private "wss://stream.bybit.com/v5/private"}
    :test {; data
           :spot "wss://stream-testnet.bybit.com/v5/public/spot"
-          :future "wss://stream-testnet.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
+          :linear "wss://stream-testnet.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
           :inverse "wss://stream-testnet.bybit.com/v5/public/inverse"
           :option "wss://stream-testnet.bybit.com/v5/public/option" ; USDC Option
           ; trade

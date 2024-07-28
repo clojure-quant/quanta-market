@@ -20,8 +20,13 @@
   (last-trade-flow [this account-asset])
   (msg-flow-quote [this]))
 
+(defprotocol subscription-topic
+  (get-topic [this sub]) 
+  )
+
 (defprotocol quote
-  (get-topic [this sub]))
+  (trade [this sub])
+  (orderbook [this sub]))
 
 (defmulti create-quotefeed
   (fn [opts]

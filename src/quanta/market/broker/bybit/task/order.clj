@@ -2,22 +2,10 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
-   [clojure.string :as s]
+   [quanta.market.broker.bybit.asset :refer [asset-category]]
    [quanta.market.broker.bybit.connection :as c]
    [quanta.market.precision :refer [format-price format-qty]]))
 
-(defn category->bybit-category [c]
-  (cond
-    (= c "S") "spot"
-    (= c "L") "linear"
-    (= c "P") "perpetual"
-    (= c "O") "option"
-    :else "spot"))
-
-(defn asset-category [asset]
-  (let [[bybit-symbol category] (s/split asset #"\.")]
-    {:bybit-symbol bybit-symbol
-     :category (category->bybit-category category)}))
 
 (def order-spot-limit-tp-sl
 ; Spot Limit order with market tp sl

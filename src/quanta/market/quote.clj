@@ -4,7 +4,7 @@
    [quanta.market.quote.current :as current]
    [quanta.market.util :refer [mix]]
   ; bring default implementations into scope:
-   [quanta.market.broker.bybit.quotefeed]))
+   [quanta.market.broker.bybit.quotefeed-old]))
 
 (defn get-feed [{:keys [quotefeeds] :as _this} account-id]
   (get quotefeeds account-id))

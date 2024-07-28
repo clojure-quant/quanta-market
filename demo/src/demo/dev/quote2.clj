@@ -11,20 +11,55 @@
 (def bb-quote (p/create-quotefeed {:type :bybit2}))
 
 
-
-(def qsub {:account :bybit
-           :asset "BTCUSDT"})
-
-
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/quotes9.txt"
- :quote/msg
- (p/get-quote bb-quote qsub))
+ ".data/bybit-trade4.txt"
+ :trade/msg
+ (p/get-topic bb-quote {:topic :asset/trade
+                        :asset "BTCUSDT"}))
+
+(start-flow-logger!
+ ".data/bybit-stats.txt"
+ :stats/msg
+ (p/get-topic bb-quote {:topic :asset/stats
+                        :asset "BTCUSDT"}))
+
+(start-flow-logger!
+ ".data/bybit-liquidation.txt"
+ :liquidation/msg
+ (p/get-topic bb-quote {:topic :asset/liquidation
+                        :asset "BTCUSDT"}))
+
+(start-flow-logger!
+ ".data/bybit-bars.txt"
+ :bars/msg
+ (p/get-topic bb-quote {:topic :asset/bars
+                        :interval "1"
+                        :asset "BTCUSDT"}))
+
+(start-flow-logger!
+ ".data/bybit-orderbook.txt"
+ :orderbook/msg
+ (p/get-topic bb-quote {:topic :asset/orderbook
+                        :depth 1
+                        :asset "BTCUSDT"}))
 
 
-(stop! :quote/msg)
+(stop! :trade/msg)
+(stop! :stats/msg)
+(stop! :liquidation/msg)
+(stop! :bars/msg)
+(stop! :orderbook/msg)
 
+
+(start-flow-logger!
+ ".data/quotes91.txt"
+ :quote/msg2
+ (p/get-quote bb-quote {:account :bybit
+                        :asset "ETHUSDT"}))
+
+
+(stop! :quote/msg2)
 
 
 (def ws2 

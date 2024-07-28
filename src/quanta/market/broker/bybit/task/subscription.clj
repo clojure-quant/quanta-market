@@ -2,31 +2,28 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
-   [quanta.market.broker.bybit.connection :as c]
-   [quanta.market.broker.bybit.topic :refer [topic]]))
+   [quanta.market.broker.bybit.connection :as c]))
 
 ; https://bybit-exchange.github.io/docs/v5/websocket/public/trade
 
-(defn subscription-start-msg [topic]
+(defn- subscription-start-msg [topic]
   {"op" "subscribe"
    "args" [topic]})
 
 (defn subscription-start!
-  [conn sub-type & args]
-  (let [t (topic sub-type args)]
-    (info "subscription-start topic: " t " ..")
-    (info "conn" conn)
-    (c/rpc-req! conn (subscription-start-msg t))))
+  [conn topic]
+    (info "subscription-start topic: " topic " ..")
+    (c/rpc-req! conn (subscription-start-msg topic)))
 
-(defn subscription-stop-msg [topic]
+(defn- subscription-stop-msg [topic]
   {"op" "unsubscribe"
    "args" [topic]})
 
 (defn subscription-stop!
-  [conn sub-type & args]
-  (let [t (topic sub-type args)]
-    (info "subscription-stop topic: " t " ..")
-    (c/rpc-req! conn (subscription-stop-msg t))))
+  [conn topic]
+    (info "subscription-stop topic: " topic " ..")
+    (c/rpc-req! conn (subscription-stop-msg topic)))
+
 
 (def subscription-success-demo
   {"success" true

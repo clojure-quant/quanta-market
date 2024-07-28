@@ -21,7 +21,7 @@
   (msg-flow-quote [this]))
 
 (defprotocol quote
-  (get-quote [this sub]))
+  (get-topic [this sub]))
 
 (defmulti create-quotefeed
   (fn [opts]

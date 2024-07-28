@@ -4,22 +4,11 @@
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.task.subscription :as s]
-   [quanta.market.broker.bybit.msg.lasttrade :as lt]
+   ;[quanta.market.broker.bybit.topic.lasttrade :as lt]
    [quanta.market.broker.bybit.websocket2 :refer [create-websocket2]]
+   [quanta.market.broker.bybit.topic :refer [format-topic-sub topic-data-flow topic-transformed-flow]]
    [quanta.market.util :refer [mix] :as util])
   (:import [missionary Cancelled]))
-
-
-(defn subscribe-last-trade! [conn {:keys [asset] :as sub}]
-  (info "subscribing: " sub)
-  (s/subscription-start!
-   conn
-   :asset/trade asset))
-
-(defn unsubscribe-last-trade! [conn {:keys [asset] :as sub}]
-  (info "unsubscribing: " sub)
-  (s/subscription-stop!
-   conn :asset/trade asset))
 
 (defn last-trade-flow [websocket account-asset]
   (m/ap
@@ -32,18 +21,19 @@
   (util/cont
    (m/ap
     (info "get-quote will start a new subscription..")
-    (let [conn (m/?> (p/current-connection websocket))
-          _ (info "quote subscriber new connection: " conn)
-          ;q (last-trade-flow websocket sub)
-          q (p/msg-in-flow websocket)
-          ]
+    (let [topic (format-topic-sub sub)
+          msg-in (p/msg-in-flow websocket)
+          topic-data-f (topic-data-flow msg-in topic)
+          topic-f (topic-transformed-flow topic-data-f sub)
+          conn (m/?> (p/current-connection websocket))
+          _ (info "quote subscriber new connection: " conn)]
       (m/amb "listening to data")
-      (m/? (subscribe-last-trade! conn sub))
+      (m/? (s/subscription-start! conn topic))
       (try
-        (m/amb (m/?> q))
+        (m/amb (m/?> topic-f))
         (catch Cancelled _
           (do  (info "get-quote will stop an existing subscription..")
-               (m/?  (m/compel  (unsubscribe-last-trade! conn sub)))
+               (m/?  (m/compel  (s/subscription-stop! conn topic)))
                (info "get-quote has unsubscribed. now removing from atom..")
                (m/holding lock
                           (swap! subscriptions dissoc sub)))))))))
@@ -51,7 +41,7 @@
 
 (defrecord bybit-feed2 [opts websocket subscriptions lock]
   p/quote
-  (get-quote [this sub]
+  (get-topic [this sub]
     (or (get @subscriptions sub)
         (m/holding lock
                    (let [qs (subscribing-unsubscribing-quote-flow this sub)]

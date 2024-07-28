@@ -1,4 +1,4 @@
-(ns quanta.market.broker.bybit.msg.orderbook)
+(ns quanta.market.broker.bybit.topic.orderbook)
 
 ; orderbook responses: type: snapshot,delta
 
@@ -17,3 +17,4 @@
    :data {:s "BTCUSDT", :b [], :seq 34575334606, :a [["65066.62" "0.133354"]], :u 33576050}})
 
  ; ;(topic :asset/orderbook "1" "BTCUSDT")
+

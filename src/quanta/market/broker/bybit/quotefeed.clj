@@ -3,7 +3,7 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.task.subscription :as s]
-   [quanta.market.broker.bybit.msg.lasttrade :as lt]
+   [quanta.market.broker.bybit.topic.lasttrade :as lt]
    [quanta.market.broker.bybit.websocket :refer [create-websocket]]
    [quanta.market.util :refer [mix]]))
 

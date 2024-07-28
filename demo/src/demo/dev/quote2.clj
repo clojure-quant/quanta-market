@@ -31,7 +31,7 @@
                         :asset "BTCUSDT"}))
 
 (start-flow-logger!
- ".data/bybit-bars.txt"
+ ".data/bybit-bars2.txt"
  :bars/msg
  (p/get-topic bb-quote {:topic :asset/bars
                         :interval "1"

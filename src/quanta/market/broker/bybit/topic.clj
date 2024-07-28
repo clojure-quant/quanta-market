@@ -4,6 +4,7 @@
       [taoensso.timbre :as timbre :refer [debug info warn error]]
      [quanta.market.broker.bybit.topic.lasttrade :refer [transform-last-trade-flow  ]]
      [quanta.market.broker.bybit.topic.stats :refer [transform-stats-flow]]
+     [quanta.market.broker.bybit.topic.bars :refer [transform-bars-flow]]
      
   ))
 
@@ -80,12 +81,10 @@
   (case topic 
     :asset/trade (transform-last-trade-flow topic-data-f)
     :asset/stats (transform-stats-flow topic-data-f)
+    :asset/bars (transform-bars-flow topic-data-f)
     topic-data-f
     
     ))
-
-
-
 
 (comment
   (format-topic :asset/stats ["EURUSD"])

@@ -1,4 +1,7 @@
-(ns quanta.market.broker.bybit.topic.bars)
+(ns quanta.market.broker.bybit.topic.bars
+   (:require
+    [missionary.core :as m]
+    [quanta.market.util :refer [split-seq-flow]]))
 
 (def test-msg-asset-bars
   {:type "snapshot",
@@ -18,4 +21,25 @@
            :turnover 16187728730.4876258,
            }]})
 
-;  ;(topic :asset/bars "M" "BTCUSDT")
+(defn normalize-bybit-bars [{:keys [_interval
+                                     start end timestamp confirm
+                                     open high low close volume turnover]}]
+  {:open (parse-double open)
+   :high (parse-double high)
+   :low (parse-double low)
+   :close (parse-double close)
+   :volume (parse-double volume)
+   :value (parse-double turnover)
+   :start start
+   :end end
+   :timestamp timestamp
+   :confirm confirm})
+
+(defn transform-bars-flow [topic-data-flow]
+  ; output of this flow:
+  
+  (m/ap
+   (let [data (m/?> topic-data-flow)
+         bar (m/?> (split-seq-flow data))]
+     (when bar ; bug of split-seq-flow returns also nil.
+       (normalize-bybit-bars bar)))))

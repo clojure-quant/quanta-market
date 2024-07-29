@@ -8,10 +8,6 @@
    [manifold.stream :as s] ; websocket to bybit
    [quanta.market.util :refer [first-match]]))
 
-;; TODO: remove
-;; identitacl to connection2, but stream-producer is not put to state.
-
-
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
 
 (def mode
@@ -32,7 +28,7 @@
 (def websocket-destination-urls
   {:main {; data
           :spot "wss://stream.bybit.com/v5/public/spot"
-          :future "wss://stream.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
+          :linear "wss://stream.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
           :inverse "wss://stream.bybit.com/v5/public/inverse"
           :option "wss://stream.bybit.com/v5/public/option" ; USDC Option
           ; trade
@@ -40,7 +36,7 @@
           :private "wss://stream.bybit.com/v5/private"}
    :test {; data
           :spot "wss://stream-testnet.bybit.com/v5/public/spot"
-          :future "wss://stream-testnet.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
+          :linear "wss://stream-testnet.bybit.com/v5/public/linear" ; USDT, USDC perpetual & USDC Futures
           :inverse "wss://stream-testnet.bybit.com/v5/public/inverse"
           :option "wss://stream-testnet.bybit.com/v5/public/option" ; USDC Option
           ; trade
@@ -56,24 +52,24 @@
         client @(http/websocket-client url)
         ;f (set-interval (gen-ping-sender client) 5000)
         ]
-    (info "bybit connected!")
+    (debug "bybit connected!")
     client))
 
 (defn json->msg [json]
   (j/read-value json j/keyword-keys-object-mapper))
 
 (defn connection-start! [flow-sender-in flow-sender-out opts]
-  (info "connection-start..")
+  (debug "connection-start..")
   (let [stream (connect! opts)
         send-in-fn (:send flow-sender-in)
         send-out-fn (:send flow-sender-out)
         on-msg (fn [json]
                  (let [msg (json->msg json)]
                    (debug "!msg rcvd: " (:account-id opts) " " msg)
-                   (send-in-fn msg)))]
-    (assert send-in-fn "send-in-fn must be defined")
-    (assert send-out-fn "send-out-fn must be defined")
-    (s/consume on-msg stream)
+                   (send-in-fn msg)))
+         _ (assert send-in-fn "send-in-fn must be defined")
+         _ (assert send-out-fn "send-out-fn must be defined")    
+         stream-consumer (s/consume on-msg stream)]
     (info (:account-id opts) " connected!")
     {:account opts
      :opts opts
@@ -82,9 +78,14 @@
      :send-in-fn send-in-fn
      :send-out-fn send-out-fn
      :msg-in-flow (:flow flow-sender-in)
-     :msg-out-flow (:flow flow-sender-out)}))
+     :msg-out-flow (:flow flow-sender-out)
+     :stream-consumer stream-consumer
+     }))
 
-(defn connection-stop! [{:keys [stream]}]
+(defn connection-stop! 
+   "close a websocket connection. 
+    input is the state map you get on connection-start!"
+  [{:keys [stream]}]
   (info "connection-stop.. ")
   (.close stream))
 

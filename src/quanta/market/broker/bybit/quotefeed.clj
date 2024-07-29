@@ -22,15 +22,15 @@
   (orderbook [this sub]
     (p/get-topic this (assoc sub :topic :asset/orderbook :depth 1))))
 
-(def categories 
+(def categories
   {:spot {:mode :main
           :segment :spot}
    :linear {:mode :main
-          :segment :linear}
+            :segment :linear}
    :inverse {:mode :main
-          :segment :inverse}
+             :segment :inverse}
    :option {:mode :main
-          :segment :options}})
+            :segment :options}})
 
 
 (defn make-feed [[kw opts]]
@@ -43,14 +43,14 @@
 
 (defmethod p/create-quotefeed :bybit
   [opts]
-  (info "creating bybit quotefeed .." )
-  (bybit-feed. (make-feeds )))
+  (info "creating bybit quotefeed ..")
+  (bybit-feed. (make-feeds)))
 
 
-(comment 
-  
-  (make-feeds)  
-  
+(comment
+
+  (make-feeds)
+
  ; 
   )
 

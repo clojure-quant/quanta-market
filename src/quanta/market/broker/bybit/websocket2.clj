@@ -4,7 +4,7 @@
    [missionary.core :as m]
    [quanta.market.util :refer [flow-sender]]
    [quanta.market.protocol :as p]
-   [quanta.market.broker.bybit.connection2 :as c]
+   [quanta.market.broker.bybit.connection :as c]
    [quanta.market.broker.bybit.task.auth :as a]
    [quanta.market.broker.bybit.pinger :as pinger])
   (:import [missionary Cancelled]))

@@ -11,25 +11,26 @@
 
 
 (defn subscribing-unsubscribing-quote-flow [{:keys [websocket lock subscriptions] :as this}  sub]
-  (util/cont
-   (m/ap
-    (debug "get-quote will start a new subscription..")
-    (let [topic (format-topic-sub sub)
-          msg-in (p/msg-in-flow websocket)
-          topic-data-f (topic-data-flow msg-in topic)
-          topic-f (topic-transformed-flow topic-data-f sub)
-          conn (m/?> (p/current-connection websocket))
-          _ (info "quote subscriber new connection: " conn)]
-      (m/amb "listening to data")
-      (m/? (s/subscription-start! conn topic))
-      (try
-        (m/amb (m/?> topic-f))
-        (catch Cancelled _
-          (do  (debug "get-quote will stop an existing subscription..")
-               (m/?  (m/compel  (s/subscription-stop! conn topic)))
-               (debug "get-quote has unsubscribed. now removing from atom..")
-               (m/holding lock
-                          (swap! subscriptions dissoc sub)))))))))
+  (let [topic (format-topic-sub sub)
+        msg-in (p/msg-in-flow websocket)
+        topic-data-f (topic-data-flow msg-in topic)
+        topic-f (topic-transformed-flow topic-data-f sub)
+        conn-f (p/current-connection websocket)]
+    (util/cont
+     (m/ap
+      (debug "get-quote will start a new subscription..")
+      (let [conn (m/?> conn-f)
+            _ (info "quote subscriber new connection: " conn)]
+        (m/amb "listening to data")
+        (m/? (s/subscription-start! conn topic))
+        (try
+          (m/amb (m/?> topic-f))
+          (catch Cancelled _
+            (do  (debug "get-quote will stop an existing subscription..")
+                 (m/?  (m/compel  (s/subscription-stop! conn topic)))
+                 (debug "get-quote has unsubscribed. now removing from atom..")
+                 (m/holding lock
+                            (swap! subscriptions dissoc sub))))))))))
 
 
 (defrecord bybit-category-feed [opts websocket subscriptions lock]

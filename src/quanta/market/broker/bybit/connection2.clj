@@ -1,4 +1,7 @@
 (ns quanta.market.broker.bybit.connection2
+  "actions on a websocket-connection.
+   no state.
+   "
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
@@ -43,23 +46,27 @@
           :trade "wss://stream-testnet.bybit.com/v5/trade"
           :private "wss://stream-testnet.bybit.com/v5/private"}})
 
-(defn get-ws-url [mode destination]
+(defn- get-ws-url [mode destination]
   (get-in websocket-destination-urls [mode destination]))
 
-(defn connect! [{:keys [mode segment]}]
+(defn- connect! 
+  [{:keys [mode segment]}]
   (let [url (get-ws-url mode segment)
-        _ (info "bybit connect mode: " mode " segment: " segment " url: "  url)
+        ; this info is the main logging when a websocket-connection is established.
+        _ (info "bybit connect! mode: " mode " segment: " segment " url: "  url)
         client @(http/websocket-client url)
         ;f (set-interval (gen-ping-sender client) 5000)
         ]
-    (info "bybit connected!")
+    (debug "bybit connected!")
     client))
 
-(defn json->msg [json]
+(defn- json->msg [json]
   (j/read-value json j/keyword-keys-object-mapper))
 
-(defn connection-start! [flow-sender-in flow-sender-out opts]
-  (info "connection-start..")
+(defn connection-start! 
+  "create a new bybit websocket connection and return a state map."
+  [flow-sender-in flow-sender-out opts]
+  (debug "connection-start..")
   (let [stream (connect! opts)
         send-in-fn (:send flow-sender-in)
         send-out-fn (:send flow-sender-out)
@@ -71,7 +78,7 @@
         _ (assert send-out-fn "send-out-fn must be defined")
         stream-consumer (s/consume on-msg stream)
         ]
-    (info (:account-id opts) " connected!")
+    (debug (:account-id opts) " connected!")
     {:account opts
      :opts opts
      :api :bybit
@@ -83,7 +90,10 @@
      :stream-consumer stream-consumer
      }))
 
-(defn connection-stop! [{:keys [stream]}]
+(defn connection-stop! 
+   "close a websocket connection. 
+    input is the state map you get on connection-start!"
+  [{:keys [stream]}]
   (info "connection-stop.. ")
   (.close stream))
 

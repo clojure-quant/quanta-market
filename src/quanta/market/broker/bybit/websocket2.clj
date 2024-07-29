@@ -6,13 +6,14 @@
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.connection2 :as c]
    [quanta.market.broker.bybit.task.auth :as a]
-   [quanta.market.broker.bybit.pinger :as pinger]))
+   [quanta.market.broker.bybit.pinger :as pinger])
+  (:import [missionary Cancelled]))
 
 
 (defn connect! [flow-sender-in flow-sender-out opts]
-  (info "connecting to bybit websocket opts: " opts)
+  (debug "connecting to bybit websocket opts: " opts)
   (let [c (c/connection-start! flow-sender-in flow-sender-out opts)]
-   (debug "bybit websocket2 got a new connection: " c)
+    (debug "bybit websocket2 got a new connection: " c)
     #_(when-let [creds (:creds opts)]
         (info (:account-id opts) " authenticating secure account..")
         (m/? (a/authenticate! new-conn creds)))
@@ -38,9 +39,12 @@
                            (debug "waiting for connection2 to be dropped..")
                            (when-let [sc (:stream-consumer new-conn)]
                              (debug "waiting for stream-consumer2 to return.")
-                             (m/? (m/via m/blk @sc))
-                             (m/? (m/sleep 5000))))
-                         (connect! flow-sender-in flow-sender-out opts)))))))
+                             (try
+                               (m/? (m/via m/blk @sc))
+                               (m/? (m/sleep 5000))
+                               (catch Cancelled _
+                                 (warn "current connection has been cancelled!"))))
+                           (connect! flow-sender-in flow-sender-out opts))))))))
   (msg-in-flow [this]
     (info "returning :flow flow-sender-in:  " flow-sender-in)
     (:flow flow-sender-in))
@@ -48,9 +52,6 @@
     (:flow flow-sender-out))
   ; bybit websocket
   )
-
-
-
 
 (defn create-websocket2
   [opts]

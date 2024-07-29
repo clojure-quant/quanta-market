@@ -8,6 +8,10 @@
    [manifold.stream :as s] ; websocket to bybit
    [quanta.market.util :refer [first-match]]))
 
+;; TODO: remove
+;; identitacl to connection2, but stream-producer is not put to state.
+
+
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
 
 (def mode

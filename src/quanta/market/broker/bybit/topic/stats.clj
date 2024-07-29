@@ -19,6 +19,7 @@
           }})
 
 (defn normalize-bybit-stats [{:keys [data _type]}]
+  ;(println "stats: " data)
   (let [{:keys [symbol
                 prevPrice24h highPrice24h lowPrice24h lastPrice
                 volume24h turnover24h

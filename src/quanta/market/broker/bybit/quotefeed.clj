@@ -12,7 +12,7 @@
     (let [asset (:asset sub)
           {:keys [bybit-symbol category]} (asset-category asset)
           category-kw (keyword category)
-          _ (info "asset:" asset " category: " category-kw "bb-symbol: " bybit-symbol)
+          _ (debug "asset:" asset " category: " category-kw "bb-symbol: " bybit-symbol)
           feed (get feeds category-kw)
           sub-category (assoc sub :asset bybit-symbol)]
       (p/get-topic feed sub-category)))

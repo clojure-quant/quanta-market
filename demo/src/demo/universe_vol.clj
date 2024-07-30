@@ -20,6 +20,8 @@
 
 
 
+
+
 (m/? (stats-t "BTCUSDT"))
 ;; => {:open 68027.25,
 ;;     :index 69763.215027,
@@ -75,13 +77,16 @@
 (defn wrap-blk [t]
   (m/via m/blk (m/? t)))
 
-
 (defn overview-t [assets]
   (let [tasks (map volume-t assets)
         tasks (map wrap-blk tasks)]
     (apply m/join vector tasks)))
 
+
+
 (m/? (overview-t ["BTCUSDT" "ETHUSDT" ]))
+
+
 ;; => [{:value 9.55591496414747E8, :asset "BTCUSDT", :close 69884.27}
 ;;     {:value 3.12556045574484E8, :asset "ETHUSDT", :close 3378.26}]
 
@@ -137,4 +142,18 @@ overview
 ;|   1.7429997814938E7 |  WIFUSDT |   2.5353 |
 
 
+; tuesday 8am
+;|     :asset |               :value |   :close |
+;|------------+----------------------+----------|
+;|    BTCUSDT | 1.4175209787609189E9 | 66763.28 |
+;|    ETHUSDT |  4.626849263924708E8 |  3353.09 |
+;|    SOLUSDT |     2.305848390597E8 |   181.17 |
+;|    XRPUSDT |    1.3154506873512E8 |   0.6259 |
+;|   USDCUSDT |   1.23173299195475E8 |   1.0002 |
+;|    MNTUSDT |    9.4500628179224E7 |   0.8002 |
+;|    TONUSDT |    2.4080089958007E7 |   6.6481 |
+;|   DOGEUSDT |    2.2946383027702E7 |  0.12933 |
+;|    WIFUSDT |     2.073386637738E7 |   2.3303 |
+;|   ONDOUSDT |   1.98444139212237E7 |  0.97968 |
+;| UXLINKUSDT |     1.566541611294E7 |   0.1877 |
 

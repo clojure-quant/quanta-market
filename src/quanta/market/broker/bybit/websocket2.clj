@@ -47,7 +47,7 @@
 
 
 (defn create-conn-f [opts flow-sender-in flow-sender-out]
-  (m/signal
+  (m/signal ; signal is continuous, and therefor allows reuse of existing connection
     (m/ap
      (loop [conn (connect! flow-sender-in flow-sender-out opts)]
        (let [sc (:stream-consumer conn)]

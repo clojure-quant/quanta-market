@@ -1,9 +1,9 @@
 (ns quanta.market.quote
   (:require
-   [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
    ; default quotefeed implementations
    [quanta.market.broker.bybit.quotefeed] ; side effects
+   [quanta.market.broker.paper.quote] ; side effects
    ))
 
 (defrecord quote-manager [feeds]
@@ -18,16 +18,18 @@
   (orderbook [this sub]
     (p/get-topic this (assoc sub :topic :asset/orderbook :depth 1))))
 
-
-(defn create-feed [[id opts]]
+(defn- create-feed [[id opts]]
   [id (p/create-quotefeed (assoc opts :feed id))])
 
-(defn create-feeds [feeds]
+(defn- create-feeds [feeds]
   (->> feeds
        (map create-feed)
        (into {})))
 
-(defn quote-manager-start [feeds]
+(defn quote-manager-start 
+  "A quote-manager is a quotefeed that multiplexes 
+   quotefeeds by :feed key in a get-topic subscription."
+  [feeds]
   (let [quotefeeds (create-feeds feeds)]
     (quote-manager. quotefeeds)))
 

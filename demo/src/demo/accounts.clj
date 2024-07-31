@@ -10,10 +10,8 @@
 
 (def accounts-quote 
   {; quote connections
-    ;:random {:type :random}
-   :bybit {:type :bybit
-           :mode :main
-           :segment :spot}})
+   :random {:type :random}
+   :bybit {:type :bybit}})
 
 (def accounts-trade
   {;:florian/test1 {:type :bybit

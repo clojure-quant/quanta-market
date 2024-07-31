@@ -19,16 +19,20 @@
 ;; QUOTE
 
 (defprotocol subscription-topic
-  (get-topic [this sub]) 
-  )
+  (get-topic [this sub]))
+
+
+(defmulti create-quotefeed
+  "a quotefeed must implement this method to create it.
+   each quotefeed implementation must have a unique :type.
+   A quotefeed must implement subscription-topic protocol."
+  (fn [opts]
+    (:type opts)))
 
 (defprotocol quote
   (trade [this sub])
   (orderbook [this sub]))
 
-(defmulti create-quotefeed
-  (fn [opts]
-    (:type opts)))
 
 ;; TRADE
 

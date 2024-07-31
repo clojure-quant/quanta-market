@@ -13,7 +13,8 @@
             nil
             flow))
 
-(defn next-value [flow]
+#_(defn next-value [flow]
+    ; same as current-v .. need to verify.
   (first-match #(not (nil? %)) flow))
 
 (defn always [flow]
@@ -142,6 +143,10 @@
                              nil)
                            nil f)]
     (start! log-task id)))
+
+(defn wrap-blk [t]
+  (m/via m/blk (m/? t)))
+
 
 (comment
   (m/?

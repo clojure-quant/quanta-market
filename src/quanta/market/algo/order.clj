@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [quanta.market.algo.price :refer [get-last-trade-price]]
+   [quanta.market.quote.price :refer [get-last-trade-price]]
    [quanta.market.precision :refer [round-asset]]))
 
 (defn price-off-market [price side]

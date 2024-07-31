@@ -1,28 +1,19 @@
-(ns demo.universe-vol
+(ns demo.quote.universe-vol
   (:require
    [clojure.pprint :refer [print-table]]
    [missionary.core :as m]
-   [quanta.market.protocol :as p]
-   [quanta.market.util :refer [current-v]]
-   [quanta.market.broker.bybit.quotefeed] ; side effects
-   [demo.logging] ; for side effects
-   [demo.universe :refer [asset-symbols-both]]))
-
-(def bb-quote (p/create-quotefeed {:type :bybit}))
-
+   [quanta.market.quote.core :refer [topic-snapshot]]
+   [demo.env :refer [qm]]
+   [demo.quote.universe :refer [asset-symbols-both]]))
 
 
 (defn stats-t [asset]
-  (current-v
-   (p/get-topic bb-quote {:topic :asset/stats
-                          :asset asset})))
-
-
-
-
-
+   (topic-snapshot qm {:feed :bybit
+                       :topic :asset/stats
+                       :asset asset}))
 
 (m/? (stats-t "BTCUSDT"))
+
 ;; => {:open 68027.25,
 ;;     :index 69763.215027,
 ;;     :value 9.550210782792867E8,

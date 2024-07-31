@@ -8,7 +8,7 @@
    [quanta.market.portfolio :refer [portfolio-manager-start
                                     get-working-orders]]
    [demo.accounts :refer [accounts-trade]]
-    [demo.logging] ; for side effects
+   [demo.logging] ; for side effects
    ))
 
 
@@ -44,10 +44,10 @@
 
   (p/start-trade tm)
   (p/stop-trade tm)
-  
+
   (start-printing (p/msg-flow tm) "trade msg:")
-  
-  
+
+
   (get-working-orders pm)
 
 

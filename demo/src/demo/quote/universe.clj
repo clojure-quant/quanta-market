@@ -1,4 +1,4 @@
-(ns demo.universe
+(ns demo.quote.universe
   (:require
    [clojure.edn :as edn]
    [clojure.string :as str]

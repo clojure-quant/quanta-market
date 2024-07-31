@@ -1,55 +1,36 @@
 (ns quanta.market.quote
   (:require
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
-   [quanta.market.quote.current :as current]
-   [quanta.market.util :refer [mix]]
-  ; bring default implementations into scope:
-   [quanta.market.broker.bybit.quotefeed-old]))
+   ; default quotefeed implementations
+   [quanta.market.broker.bybit.quotefeed] ; side effects
+   ))
 
-(defn get-feed [{:keys [quotefeeds] :as _this} account-id]
-  (get quotefeeds account-id))
-
-(defn get-account-ids [{:keys [quotefeeds] :as _this}]
-  (keys quotefeeds))
-
-(defrecord quote-manager [quotefeeds]
-  p/quotefeed
-  (start-quote [this]
-    (doall (map p/start-quote (vals quotefeeds)))
-    (keys quotefeeds))
-  (stop-quote [this]
-    (doall (map p/stop-quote (vals quotefeeds)))
-    (keys quotefeeds))
-  (subscribe-last-trade! [this {:keys [account] :as sub}]
-    (when-let [feed (get-feed this account)]
-      (p/subscribe-last-trade! feed sub)))
-  (unsubscribe-last-trade! [this {:keys [account] :as sub}]
-    (when-let [feed (get-feed this account)]
-      (p/unsubscribe-last-trade! feed sub)))
-  (last-trade-flow [this {:keys [account] :as account-asset}]
-    (when-let [feed (get-feed this account)]
-      (p/last-trade-flow feed account-asset)))
-  (msg-flow-quote [this]
-    (let [account-flows (map p/msg-flow-quote (vals quotefeeds))]
-      (apply mix account-flows)))
+(defrecord quote-manager [feeds]
+  p/subscription-topic
+  (get-topic [this sub]
+    (let [feed (:feed sub)
+          feed (get feeds feed)]
+      (p/get-topic feed sub)))
   p/quote
-  (get-quote [this sub]
-    (current/get-quote this sub))
-    ;
-  )
+  (trade [this sub]
+    (p/get-topic this (assoc sub :topic :asset/trade)))
+  (orderbook [this sub]
+    (p/get-topic this (assoc sub :topic :asset/orderbook :depth 1))))
 
-(defn create-account [[id opts]]
-  [id (p/create-quotefeed (assoc opts :account-id id))])
 
-(defn create-accounts [accounts]
-  (->> accounts
-       (map create-account)
+(defn create-feed [[id opts]]
+  [id (p/create-quotefeed (assoc opts :feed id))])
+
+(defn create-feeds [feeds]
+  (->> feeds
+       (map create-feed)
        (into {})))
 
-(defn quote-manager-start [accounts]
-  (let [quotefeeds (create-accounts accounts)]
+(defn quote-manager-start [feeds]
+  (let [quotefeeds (create-feeds feeds)]
     (quote-manager. quotefeeds)))
 
-(defn quote-manager-stop [{:keys [db accounts] :as this}]
+(defn quote-manager-stop [{:keys [feeds] :as this}]
   ;
   )

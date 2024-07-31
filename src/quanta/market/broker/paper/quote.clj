@@ -2,12 +2,13 @@
   (:require
    [tick.core :as t]
    [missionary.core :as m]
-   [quanta.market.protocol :refer [connection get-quote]])
+   [quanta.market.protocol :as p])
   (:import [missionary Cancelled]))
 
 (defn initial-price []
-  ;(rand 10000)
-  10000.0)
+  (rand 10000)
+  ;10000.0
+  )
 
 (defn update-price [p]
   (let [i (rand-int 5)]
@@ -19,55 +20,44 @@
       4 (* p 1.03) ; strong up
       )))
 
-(defonce subscription-a (atom #{}))
-
-(defn generate-quotes [asset]
-  (m/ap
+(defn generate-quotes [topic]
+  (let [asset (:asset topic)]
+    (m/stream 
+     (m/ap
    ; startup
-   (println "start generating quotes for: " asset)
-   (swap! subscription-a conj asset)
-   (loop [p (initial-price)]
-     (m/amb {:asset asset
-             :bid p
-             :ask p
-             :last p
-             :date (t/instant)
-             :feed :random}
-            (let [recur? (try
-                           (m/? (m/sleep 5000 true))
-                           (catch Cancelled ex
+      (println "start generating quotes for: " asset)
+      (loop [p (initial-price)]
+        (m/amb {:asset asset
+                :bid p
+                :ask p
+                :last p
+                :date (t/instant)
+                :feed :random}
+               (let [recur? (try
+                              (m/? (m/sleep 5000 true))
+                              (catch Cancelled ex
                              ; shutdown
-                             (println "stop generating quotes for: " asset)
-                             (swap! subscription-a disj asset)
-                             false))]
-              (if recur?
-                (recur (update-price p))
-                :unsubscribed))))))
+                                (println "stop generating quotes for: " asset)
+                                false))]
+                 (when recur?
+                   (recur (update-price p))))))))))
 
-(comment
-  (initial-price)
-  (update-price 100.0)
+(defrecord random-feed [lock subscriptions]
+  p/subscription-topic
+  (get-topic [this topic]
+             (or (get @subscriptions topic)
+                 (m/holding lock
+                            (let [qs (generate-quotes topic)]
+                              (swap! subscriptions assoc topic qs)
+                              qs)))))
 
-  (m/? (m/reduce
-        println nil (generate-quotes "BTC")))
+(defmethod p/create-quotefeed :random
+  [opts]
+  (let [subscriptions (atom {})
+        lock (m/sem)]
+    (random-feed. lock subscriptions)))
 
-  (m/? (m/reduce
-        println nil (get-quote "BTC")))
 
-  @subscription-a
 
-  (require '[clojure.pprint :refer [print-table]])
-
-  (defn print-quotes [& quotes]
-    (print-table [:asset :last :date] quotes))
-
-  (let [assets ["BTC" "ETH" "EURUSD" "QQQ" "EURUSD"]
-        quotes (map get-quote assets)]
-    (m/? (m/reduce (constantly nil)
-                   (apply m/latest print-quotes quotes))))
- ; prints entire quote-table whenever one of the quotes updates.
-
-; 
-  )
 
 

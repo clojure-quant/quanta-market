@@ -14,9 +14,9 @@
   (debug "connecting to bybit websocket opts: " opts)
   (let [c (c/connection-start! flow-sender-in flow-sender-out opts)]
     (debug "bybit websocket2 got a new connection: " c)
-    #_(when-let [creds (:creds opts)]
-        (info (:account-id opts) " authenticating secure account..")
-        (m/? (a/authenticate! new-conn creds)))
+    (when-let [creds (:creds opts)]
+        (info "websocket auth " opts)
+        (m/? (a/authenticate! c creds)))
                 ; pinger
                 ;(pinger/start-pinger new-conn ping)
     c))

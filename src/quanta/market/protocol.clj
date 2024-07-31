@@ -10,15 +10,13 @@
   (msg-in-flow [this])
   (msg-out-flow [this]))
 
-;; QUOTE
+(defprotocol connection-subscriber
+   (subscription-start! [this conn topic]) 
+   (subscription-stop! [this conn topic]) 
+   (topic-view [this conn topic]))
 
-(defprotocol quotefeed
-  (start-quote [this])
-  (stop-quote [this])
-  (subscribe-last-trade! [this sub])
-  (unsubscribe-last-trade! [this unsub])
-  (last-trade-flow [this account-asset])
-  (msg-flow-quote [this]))
+
+;; QUOTE
 
 (defprotocol subscription-topic
   (get-topic [this sub]) 

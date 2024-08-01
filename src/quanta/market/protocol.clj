@@ -11,6 +11,12 @@
   (msg-out-flow [this]))
 
 (defprotocol connection-subscriber
+    "data-feeds that have a connection (websocket/socket),
+     need to start start and stop subscription for a topic on
+     an established connection, and need to do this again in 
+     case the connection gets reconnected. 
+     They also need to filter data fore a topic from the 
+     connection inbound msg flow."
    (get-conn [this])
    (subscription-start! [this conn topic]) 
    (subscription-stop! [this conn topic]) 

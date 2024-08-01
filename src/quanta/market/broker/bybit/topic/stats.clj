@@ -8,14 +8,14 @@
    :ts 1721227632068
    :cs 34573306044,
    :data {:symbol "BTCUSDT"
-          :price24hPcnt 0.0250
-          :volume24h 18049.117915
-          :turnover24h 1173560587.96609125
-          :usdIndexPrice 65244.815694
-          :prevPrice24h 63638.89
-          :lowPrice24h 63592.23
-          :highPrice24h 66129.54
-          :lastPrice 65232.7
+          :price24hPcnt "0.0250"
+          :volume24h "18049.117915"
+          :turnover24h "1173560587.96609125"
+          :usdIndexPrice "65244.815694"
+          :prevPrice24h "63638.89"
+          :lowPrice24h "63592.23"
+          :highPrice24h "66129.54"
+          :lastPrice "65232.7"
           }})
 
 (defn normalize-bybit-stats [{:keys [data _type]}]
@@ -40,3 +40,24 @@
   (m/eduction 
      (map normalize-bybit-stats)
      topic-data-flow))
+
+(comment
+
+  (def topic-data-f (m/seed [test-msg-asset-stats]))
+
+  (def transformed-f (transform-stats-flow topic-data-f))
+
+  (m/? (m/reduce conj [] transformed-f))
+  ;; => [{:open 63638.89,
+  ;;      :index 65244.815694,
+  ;;      :value 1.1735605879660912E9,
+  ;;      :close 65232.7,
+  ;;      :volume 18049.117915,
+  ;;      :high 66129.54,
+  ;;      :low 63592.23,
+  ;;      :change 0.025,
+  ;;      :asset "BTCUSDT"}]
+
+  
+;
+  )

@@ -5,20 +5,20 @@
 
 (def test-msg-asset-bars
   {:type "snapshot",
-   :topic "kline.M.BTCUSDT",
+   :topic "kline.M.BTCUSDT"
    :ts 1721227909998,
-   :data [{:confirm false,
-           :start 1719792000000,
-           :end 1722470399999,
-           :interval "M",
+   :data [{:confirm false
+           :start 1719792000000
+           :end 1722470399999
+           :interval "M"
            :timestamp 1721227909998
            ; bar
-           :open 62772.83,
-           :high 66129.54,
-           :low 53345.94,
-           :close 65080.85,
-           :volume 271788.26813,
-           :turnover 16187728730.4876258,
+           :open "62772.83"
+           :high "66129.54"
+           :low "53345.94"
+           :close "65080.85"
+           :volume "271788.26813"
+           :turnover "16187728730.4876258"
            }]})
 
 (defn normalize-bybit-bars [{:keys [_interval
@@ -40,8 +40,10 @@
   (m/ap
    (let [{:keys [data]} (m/?> topic-data-flow)
          bar (m/?> (split-seq-flow data))]
-     (when bar ; bug of split-seq-flow returns also nil.
-       (normalize-bybit-bars bar)))))
+     (if bar ; bug of split-seq-flow returns also nil.
+       (normalize-bybit-bars bar)
+        (m/amb) ; this does not return anything, and therefore fixes split-seq-flow
+       ))))
 
 (defn confirmed? [{:keys [confirm]}]
   confirm)
@@ -53,3 +55,25 @@
        (filter confirmed?)
        (transform-bars-flow-raw topic-data-flow))
      (transform-bars-flow-raw topic-data-flow)))
+
+
+
+(comment
+
+  (def topic-data-f (m/seed [test-msg-asset-bars]))
+
+  (def transformed-f (transform-bars-flow-raw topic-data-f))
+
+  (m/? (m/reduce conj [] transformed-f))
+  ;; => [{:confirm false,
+  ;;      :open 62772.83,
+  ;;      :value 1.6187728730487625E10,
+  ;;      :start 1719792000000,
+  ;;      :close 65080.85,
+  ;;      :volume 271788.26813,
+  ;;      :high 66129.54,
+  ;;      :low 53345.94,
+  ;;      :end 1722470399999,
+  ;;      :timestamp 1721227909998}]
+;
+  )

@@ -88,6 +88,26 @@
   )
 
 
+(comment
+
+  (def topic-data-f (m/seed test-orderbook-1-updates))
+
+  (def transformed-f (transform-book-flow topic-data-f))
+
+  (m/? (m/reduce conj [] transformed-f))
+  ;; => [{}
+  ;;     {:bid nil, :bid-vol nil, :ask nil, :ask-vol nil}
+  ;;     {:bid nil, :bid-vol nil, :ask 67660.04, :ask-vol 0.674452}
+  ;;     {:bid 67659.36, :bid-vol 0.001968, :ask 67660.04, :ask-vol 0.674452}
+  ;;     {:bid 67658.71, :bid-vol 0.004138, :ask 67659.37, :ask-vol 0.104626}
+  ;;     {:bid 67658.71, :bid-vol 0.004138, :ask 67658.72, :ask-vol 0.416688}
+  ;;     {:bid 67658.71, :bid-vol 0.004138, :ask 67658.72, :ask-vol 0.424}]
+
+;
+  )
+
+
+
 
 
 (def test-orderbook-50-updates

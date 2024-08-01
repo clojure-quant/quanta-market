@@ -73,6 +73,11 @@
   (def transformed-f (transform-last-trade-flow topic-data-f))
 
   (m/? (m/reduce conj [] transformed-f))
+  ;; => [{:asset "ETHUSDT", :price 2263.77, :size 0.01056, :time 1706476799815, :BT false, :S "Buy", :i "2280000000184479515"}
+  ;;     {:asset "ETHUSDT", :price 2262.6, :size 0.19676, :time 1706476982154, :BT :false, :S "Sell", :i "2280000000184480265"}
+  ;;     {:asset "ETHUSDT", :price 2262.6, :size 0.17735, :time 1706476982154, :BT false, :S "Sell", :i "2280000000184480266"}
+  ;;     {:asset "ETHUSDT", :price 2262.6, :size 0.00512, :time 1706476982154, :BT false, :S "Sell", :i "2280000000184480267"}]
+
   
 ;
   )

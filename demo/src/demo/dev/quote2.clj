@@ -16,10 +16,11 @@
 
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/bybit-trade3.txt"
+ ".data/bybit-trade4.txt"
  :trade/msg
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "ETHUSDT"}))
+
 
 
 

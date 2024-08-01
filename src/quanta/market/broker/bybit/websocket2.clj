@@ -11,19 +11,21 @@
    [quanta.market.broker.bybit.pinger :as pinger])
   (:import [missionary Cancelled]))
 
-(defn connect! [flow-sender-in flow-sender-out opts]
+(defn connect! [flow-sender-in flow-sender-out opts ping]
   (info "connecting to bybit websocket opts: " opts)
   (let [c (c/connection-start! flow-sender-in flow-sender-out opts)]
     (debug "bybit websocket2 got a new connection: " c)
     (when-let [creds (:creds opts)]
       (info "websocket auth " opts)
       (m/? (a/authenticate! c creds)))
-                ; pinger
-                ;(pinger/start-pinger new-conn ping)
+      ; pinger
+      (pinger/stop-pinger ping) ; on reconnect, old pinger needs to be stopped
+      (pinger/start-pinger c ping)
     c))
 
-(defn disconnect! [conn]
+(defn disconnect! [conn ping]
   (try 
+    (pinger/stop-pinger ping)
     (ms/close! (:stream conn))
     (catch Exception ex
       (info "disconnect exception: " ex))))
@@ -50,10 +52,10 @@
                      (v (fn [] (throw x)))))
     (m/absolve v)))
 
-(defn create-conn-f [opts flow-sender-in flow-sender-out]
+(defn create-conn-f [opts flow-sender-in flow-sender-out ping]
   (m/signal ; signal is continuous, and therefore allows reuse of existing connection
    (m/ap
-    (loop [conn (connect! flow-sender-in flow-sender-out opts)]
+    (loop [conn (connect! flow-sender-in flow-sender-out opts ping)]
       (let [sc (:stream-consumer conn)
             conn-t (await-deferred sc)]
         (m/amb
@@ -64,14 +66,12 @@
                                true
                                (catch Cancelled _
                                  (do (info "websocket got cancelled.")
-                                     (disconnect! conn)
+                                     (disconnect! conn ping)
                                      false)))]
            (if reconnect?
-             (recur (connect! flow-sender-in flow-sender-out opts))
+             (recur (connect! flow-sender-in flow-sender-out opts ping))
              (reduced nil)
              ))))))))
-
-
 
 (defrecord bybit-websocket2 [conn-f flow-sender-in flow-sender-out]
   p/connection
@@ -91,7 +91,8 @@
   (info "wiring up bybit-websocket : " opts)
   (let [flow-sender-in (flow-sender)
         flow-sender-out (flow-sender)
-        conn-f (create-conn-f opts flow-sender-in flow-sender-out)]
+        ping (atom nil)
+        conn-f (create-conn-f opts flow-sender-in flow-sender-out ping)]
     (bybit-websocket2. conn-f
                        flow-sender-in
                        flow-sender-out)))

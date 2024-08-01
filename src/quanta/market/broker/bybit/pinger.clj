@@ -7,7 +7,7 @@
 
 (defn ping-task [conn]
   (m/sp
-   (info "ping task startd..")
+   (info "ping task starting..")
    (try
      (loop [i 0]
        (m/? (ping! conn))

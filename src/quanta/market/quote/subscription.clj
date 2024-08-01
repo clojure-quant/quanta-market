@@ -37,6 +37,8 @@
 
 (defrecord topic-subscriber [lock subscriptions feed]
   p/subscription-topic
+  (get-feed [this]
+    feed)
   (get-topic [this topic]
     (or (get @subscriptions topic)
         (m/holding lock

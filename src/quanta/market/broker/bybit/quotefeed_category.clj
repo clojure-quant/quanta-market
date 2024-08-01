@@ -25,7 +25,7 @@
           msg-in (p/msg-in-flow c)
           topic (format-topic-sub sub)
           topic-data-f (topic-data-flow msg-in topic)]
-      (topic-transformed-flow topic-data-f topic))))
+      (topic-transformed-flow topic-data-f sub))))
 
 (defmethod p/create-quotefeed :bybit-category
   [opts]

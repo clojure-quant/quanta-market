@@ -5,10 +5,12 @@
    [quanta.market.broker.bybit.topic.lasttrade :refer [transform-last-trade-flow]]
    [quanta.market.broker.bybit.topic.stats :refer [transform-stats-flow]]
    [quanta.market.broker.bybit.topic.bars :refer [transform-bars-flow]]
-   [quanta.market.broker.bybit.topic.orderbook :refer [transform-book-flow]]))
+   [quanta.market.broker.bybit.topic.orderbook :refer [transform-book-flow]]
+   [quanta.market.broker.bybit.topic.orderupdate :refer [transform-orderupdate-flow]]
+   ))
 
 (def topics
-  {:order/execution "execution" ; ticketInfo did not work
+  {:order/execution "execution" 
    :order/update "order"
     ; market
    :asset/orderbook "orderbook.%s.%s" ; depth asset OK
@@ -51,7 +53,7 @@
                  :asset/liquidation} topic)
     (format-topic topic [asset])
 
-        ; 0 args
+    ; 0 args
     (contains? #{:order/execution
                  :order/update} topic)
     (format-topic topic [])
@@ -78,11 +80,15 @@
                                                  only-finished? false}}]
 
   (case topic
+    ; quote feed
     :asset/trade (transform-last-trade-flow topic-data-f)
     :asset/stats (transform-stats-flow topic-data-f)
     :asset/bars (transform-bars-flow topic-data-f only-finished?)
     :asset/orderbook (transform-book-flow topic-data-f)
+    ; orderupdates
+    :order/update (transform-orderupdate-flow topic-data-f)
     topic-data-f))
+
 
 (comment
   (format-topic :asset/stats ["EURUSD"])

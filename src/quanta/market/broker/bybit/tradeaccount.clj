@@ -6,7 +6,7 @@
    [quanta.market.util :refer [mix]]
    [quanta.market.broker.bybit.websocket :refer [create-websocket]]
    [quanta.market.broker.bybit.task.order :as o]
-   [quanta.market.broker.bybit.msg.orderupdate :as ou]
+   [quanta.market.broker.bybit.topic.orderupdate :as ou]
    [quanta.market.broker.bybit.task.subscription :as s]))
 
 (defrecord bybit-trade [opts websocket-order websocket-orderupdate]

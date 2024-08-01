@@ -26,6 +26,7 @@
 ;; QUOTE
 
 (defprotocol subscription-topic
+  (get-feed [this])
   (get-topic [this sub]))
 
 
@@ -44,6 +45,7 @@
 ;; TRADE
 
 (defprotocol trade-action
+  (trade-action-msg-flow [this])
   (order-create! [this order-new])
   (order-cancel! [this order-cancel]))
 

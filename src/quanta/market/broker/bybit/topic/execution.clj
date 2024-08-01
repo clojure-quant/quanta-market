@@ -1,4 +1,4 @@
-(ns quanta.market.broker.bybit.msg.execution)
+(ns quanta.market.broker.bybit.topic.execution)
 
 {:creationTime 1721702600937, :topic "execution",
  :id "102782796_20000_1452874840",

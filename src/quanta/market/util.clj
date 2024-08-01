@@ -30,7 +30,9 @@
     (take 1) 
     f))
 
-(defn current-v [f]
+(defn current-v 
+  "gets the first non-nil value from the flow"
+  [f]
   (m/reduce (fn [_r v]
               ;(println "current-v: " v)
               v) nil

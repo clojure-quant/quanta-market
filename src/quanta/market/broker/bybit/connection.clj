@@ -70,7 +70,7 @@
          _ (assert send-in-fn "send-in-fn must be defined")
          _ (assert send-out-fn "send-out-fn must be defined")    
          stream-consumer (s/consume on-msg stream)]
-    (info (:account-id opts) " connected!")
+    (info "connected! " opts)
     {:account opts
      :opts opts
      :api :bybit

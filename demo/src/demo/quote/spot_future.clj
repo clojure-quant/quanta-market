@@ -3,7 +3,7 @@
    [clojure.pprint :refer [print-table]]
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [quanta.market.util :refer [start-flow-logger! stop! mix wrap-blk current-v first-match]]
+   [quanta.market.util :refer [start-flow-logger! stop! mix wrap-blk first-match]]
    [demo.env :refer [qm]]
    [demo.quote.universe :refer [asset-symbols-both]]))
 
@@ -30,12 +30,11 @@
 
 
 (start-flow-logger!
- ".data/spot-future-btc1.txt"
+ ".data/spot-future-btc6.txt"
  :spot-future-btc
  (future-premium-f "BTCUSDT"))
 
 (stop! :spot-future-btc)
-
 
 (defn future-premiums [assets]
   (apply mix (map future-premium-f assets)))
@@ -63,6 +62,11 @@
             (m/sleep 60000 {:asset asset :error :timeout}))))
 
 (m/? (spread-t "BTCUSDT"))
+
+
+
+
+
 
 
 (defn premium-list [assets]

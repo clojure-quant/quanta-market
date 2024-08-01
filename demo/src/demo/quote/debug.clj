@@ -8,12 +8,13 @@
 ;; one quote
 
 (start-flow-logger!
- ".data/quotes-btc6.txt"
+ ".data/quotes-btc24.txt"
  :quote/one
  (p/get-topic qm {:feed :bybit
                   :asset "BTCUSDT"
                   :topic :asset/trade
                   }))
+
 
 (stop! :quote/one)
 

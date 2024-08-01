@@ -9,15 +9,17 @@
    [demo.logging] ; for side effects
   ))
 
-(def bb-quote (p/create-quotefeed {:type :bybit}))
+(def bb-quote (p/create-quotefeed {:type :bybit-category}))
 
 
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/bybit-trade7.txt"
+ ".data/bybit-trade8.txt"
  :trade/msg
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "BTCUSDT"}))
+
+
 
 (start-flow-logger!
  ".data/bybit-trade6-perp.txt"

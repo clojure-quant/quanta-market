@@ -11,9 +11,10 @@
   (msg-out-flow [this]))
 
 (defprotocol connection-subscriber
+   (get-conn [this])
    (subscription-start! [this conn topic]) 
    (subscription-stop! [this conn topic]) 
-   (topic-view [this conn topic]))
+   (topic-view [this topic]))
 
 
 ;; QUOTE

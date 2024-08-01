@@ -26,6 +26,12 @@
 ;; QUOTE
 
 (defprotocol subscription-topic
+  "this is the protocol that the user uses to get data for 
+   suscriptions by topic-sub. It is implemented by the quote-subscriber
+   which manages subscriptions for protocols that implement 
+   connection-subscriber.
+   get-topic gets a flow for a topic-sub
+   get-feed gets the underlying feed impl, in case one needs more."
   (get-feed [this])
   (get-topic [this sub]))
 
@@ -49,6 +55,11 @@
   (order-create! [this order-new])
   (order-cancel! [this order-cancel]))
 
+(defprotocol trade-update
+  (orderupdate-msg-flow [this])
+  (orderupdate-flow [this]))
+
+
 (defprotocol tradeaccount
   (start-trade [this])
   (stop-trade [this])
@@ -57,6 +68,9 @@
   (order-update-flow  [this]))
 
 (defmulti create-tradeaccount
+  "a tradeaccount must implement this method to create it.
+   each quotefeed implementation must have a unique :type.
+     A quotefeed must implement subscription-topic protocol."
   (fn [opts]
     (:type opts)))
 

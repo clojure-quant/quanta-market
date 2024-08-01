@@ -4,7 +4,7 @@
    [quanta.market.protocol :as p]
    [nano-id.core :refer [nano-id]]
    [quanta.market.util :refer [start-flow-logger! stop!]]
-   [quanta.market.broker.bybit.trade-update :refer [create-trade-update-feed trade-update-msg-flow]]
+   [quanta.market.broker.bybit.trade-update :refer [create-trade-update-feed]]
    [quanta.market.broker.bybit.trade-action :refer [create-trade-action]]
    [demo.accounts :refer [accounts-trade]]
    [demo.logging] ; side effect
@@ -14,23 +14,24 @@ accounts-trade
 
 (def opts (get accounts-trade :rene/test4))
 
+
+
 opts
 
 (def bb-orderupdate (create-trade-update-feed opts))
 
 
 (start-flow-logger!
- ".data/bybit-orderupdate-msg.txt"
+ ".data/bybit-orderupdate-msg3.txt"
  :orderupdate-msg
- (trade-update-msg-flow bb-orderupdate))
-
+ (p/orderupdate-msg-flow bb-orderupdate))
 
 
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/bybit-orderupdate2.txt"
+ ".data/bybit-orderupdate3.txt"
  :orderupdate
- (p/get-topic bb-orderupdate {:topic :order/update}))
+ (p/orderupdate-flow bb-orderupdate))
 
 
 (def bb-order (create-trade-action opts))
@@ -50,3 +51,4 @@ opts
 
 
 (m/? (p/order-create! bb-order order-spot-market-buy))
+

@@ -57,7 +57,7 @@
   ; {:asset BTCUSDT, :price 67662.78, :size 0.00761, :time 1722179969287, :BT false, :S Buy}
   (m/ap
    (let [{:keys [data]} (m/?> topic-data-flow)
-         _ (println "data : " data)
+         ;_ (println "data : " data)
          last-quote-update (m/?> (split-seq-flow data))]
      (if last-quote-update ; bug of split-seq-flow returns also nil.
        (normalize-bybit-last-trade last-quote-update)

@@ -3,6 +3,7 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
    [manifold.deferred :as d]
+   [manifold.stream :as ms]
    [quanta.market.util :refer [flow-sender cont]]
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.connection :as c]
@@ -20,6 +21,13 @@
                 ; pinger
                 ;(pinger/start-pinger new-conn ping)
     c))
+
+(defn disconnect! [conn]
+  (try 
+    (ms/close! (:stream conn))
+    (catch Exception ex
+      (info "disconnect exception: " ex))))
+
 
 (defn disconnected? [conn]
   (let [sc (:stream-consumer conn)]
@@ -42,25 +50,8 @@
                      (v (fn [] (throw x)))))
     (m/absolve v)))
 
-#_(defn create-conn-f1 [opts flow-sender-in flow-sender-out]
-    (m/stream
-     (m/ap
-      (loop [new-conn (connect! flow-sender-in flow-sender-out opts)]
-        (m/amb new-conn
-               (recur (do (when new-conn
-                            (debug "waiting for connection2 to be dropped..")
-                            (when-let [sc (:stream-consumer new-conn)]
-                              (debug "waiting for stream-consumer2 to return.")
-                              (try
-                                (m/? (m/via m/blk @sc))
-                                (m/? (m/sleep 5000))
-                                (catch Cancelled _
-                                  (warn "current connection has been cancelled!"))))
-                            (connect! flow-sender-in flow-sender-out opts)))))))))
-
-
 (defn create-conn-f [opts flow-sender-in flow-sender-out]
-  (m/signal ; signal is continuous, and therefor allows reuse of existing connection
+  (m/signal ; signal is continuous, and therefore allows reuse of existing connection
    (m/ap
     (loop [conn (connect! flow-sender-in flow-sender-out opts)]
       (let [sc (:stream-consumer conn)
@@ -73,6 +64,7 @@
                                true
                                (catch Cancelled _
                                  (do (info "websocket got cancelled.")
+                                     (disconnect! conn)
                                      false)))]
            (if reconnect?
              (recur (connect! flow-sender-in flow-sender-out opts))

@@ -9,15 +9,17 @@
    [demo.logging] ; for side effects
   ))
 
+;; test the different kind of subscriptions that bybit supports
+
 (def bb-quote (p/create-quotefeed {:type :bybit-category}))
 
 
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/bybit-trade8.txt"
+ ".data/bybit-trade3.txt"
  :trade/msg
  (p/get-topic bb-quote {:topic :asset/trade
-                        :asset "BTCUSDT"}))
+                        :asset "ETHUSDT"}))
 
 
 
@@ -63,9 +65,6 @@
  (p/get-topic bb-quote {:topic :asset/orderbook
                         :depth 1 ; spot: can be 1 50 200
                         :asset "BTCUSDT"}))
-
-
-
 
 (stop! :trade/msg)
 (stop! :stats/msg)

@@ -11,7 +11,7 @@
 (defrecord bybit-subscriber [websocket]
   p/connection-subscriber
   (get-conn [_this]
-    (info "bybit subscriber returning websocket: " websocket)
+    ;(info "bybit subscriber returning websocket: " websocket)
      websocket)
   (subscription-start! [_this conn sub]
     (let [topic (format-topic-sub sub)]
@@ -21,7 +21,7 @@
       (s/subscription-stop! conn topic)))
   (topic-view [this sub]
     (let [c (p/get-conn this)
-          _ (info "getting msg-in-flow for c: " c)
+          ;_ (info "getting msg-in-flow for c: " c)
           msg-in (p/msg-in-flow c)
           topic (format-topic-sub sub)
           topic-data-f (topic-data-flow msg-in topic)]

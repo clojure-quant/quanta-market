@@ -2,6 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
+   [manifold.deferred :as d]
    [quanta.market.util :refer [flow-sender cont]]
    [quanta.market.protocol :as p]
    [quanta.market.broker.bybit.connection :as c]
@@ -9,9 +10,8 @@
    [quanta.market.broker.bybit.pinger :as pinger])
   (:import [missionary Cancelled]))
 
-
 (defn connect! [flow-sender-in flow-sender-out opts]
-  (debug "connecting to bybit websocket opts: " opts)
+  (info "connecting to bybit websocket opts: " opts)
   (let [c (c/connection-start! flow-sender-in flow-sender-out opts)]
     (debug "bybit websocket2 got a new connection: " c)
     (when-let [creds (:creds opts)]
@@ -29,7 +29,20 @@
   (m/sp (let [sc (:stream-consumer conn)]
           @sc)))
 
-(defn create-conn-f1 [opts flow-sender-in flow-sender-out]
+(defn await-deferred
+  "Returns a task completing with the result of given deferred"
+  [df]
+  (let [v (m/dfv)]
+    (d/on-realized df
+                   (fn [x] 
+                     (info "deferred success: " x)
+                     (v x))
+                   (fn [x] 
+                     (info "deferred error: " x)
+                     (v (fn [] (throw x)))))
+    (m/absolve v)))
+
+#_(defn create-conn-f1 [opts flow-sender-in flow-sender-out]
   (m/stream
    (m/ap
     (loop [new-conn (connect! flow-sender-in flow-sender-out opts)]
@@ -50,12 +63,15 @@
   (m/signal ; signal is continuous, and therefor allows reuse of existing connection
     (m/ap
      (loop [conn (connect! flow-sender-in flow-sender-out opts)]
-       (let [sc (:stream-consumer conn)]
+       (let [sc (:stream-consumer conn)
+             conn-t (await-deferred sc)]
          (m/amb
           conn
-          (do (m/? (m/via m/blk @sc))
+          (do (m/? conn-t)
+              ;(m/? (m/via m/blk @sc))
               (m/? (m/sleep 5000))
               (recur (connect! flow-sender-in flow-sender-out opts)))))))))
+
 
 
 

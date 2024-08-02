@@ -51,14 +51,18 @@
 ;; TRADE
 
 (defprotocol trade-action
+  (trade-action-flow [this])
   (trade-action-msg-flow [this])
   (order-create! [this order-new])
   (order-cancel! [this order-cancel]))
 
 (defprotocol trade-update
-  (orderupdate-msg-flow [this])
-  (orderupdate-flow [this]))
+  (orderupdate-flow [this])
+  (orderupdate-msg-flow [this]))
 
+(defprotocol trade-account
+  (account-flow [this])
+  (account-msg-flow [this]))
 
 (defprotocol tradeaccount
   (start-trade [this])

@@ -1,4 +1,4 @@
-(ns demo.dev.order
+(ns demo.dev.order.individual
   (:require 
    [missionary.core :as m]
    [quanta.market.protocol :as p]

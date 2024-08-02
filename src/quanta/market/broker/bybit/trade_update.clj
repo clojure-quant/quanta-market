@@ -8,6 +8,9 @@
 
 (defrecord bybit-trade-update [opts feed]
   p/trade-update
+  (orderupdate-flow [this]
+                    (println "FEED: " feed)
+                    (p/get-topic feed {:topic :order/update}))
   (orderupdate-msg-flow [this]
     (let [trade-feed (p/get-feed feed) ; bybit-subscriber
           websocket (p/get-conn trade-feed) ; websocket
@@ -15,10 +18,7 @@
           order-out (p/msg-out-flow websocket)]
       (assert order-in "order-in-msg flow nil")
       (assert order-out "order-in-msg flow nil")
-      (mix order-in order-out)))
-  (orderupdate-flow [this]
-    (println "FEED: " feed)
-    (p/get-topic feed {:topic :order/update})))
+      (mix order-in order-out))))
 
 (defn create-trade-update-feed [{:keys [mode]
                                  :or {mode :main}

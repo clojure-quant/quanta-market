@@ -1,9 +1,11 @@
-(ns demo.order
+(ns demo.order.category
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [demo.tm :refer [pm]]
-   [quanta.market.portfolio :refer [get-working-orders]]))
+   ;[demo.tm :refer [pm]]
+   [demo.tm :refer [tm]]
+   ;[quanta.market.portfolio :refer [get-working-orders]]
+   ))
 
 (def assets
   [; spot
@@ -48,8 +50,8 @@
    :qty 0.002
    :ordertype :market})
 
-(m/? (p/order-create! pm order-spot-limit))
-(m/? (p/order-create! pm order-spot-market-buy))
+(m/? (p/order-create! tm order-spot-limit))
+(m/? (p/order-create! tm order-spot-market-buy))
 
 (m/? (p/order-create! pm order-spot-market-sell))
 

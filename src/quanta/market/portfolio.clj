@@ -4,7 +4,7 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [nano-id.core :refer [nano-id]]
    [tick.core :as t]
-   [quanta.market.util :refer [flow-sender start-logging mix current-value]]
+   [quanta.market.util :refer [flow-sender start-logging mix current-v]]
    [quanta.market.protocol :as p]
    [quanta.market.trade.schema :as s]
    [quanta.market.trade.transactor :refer [transactor-start]]))
@@ -116,7 +116,7 @@
 
 (defn get-working-orders [{:keys [transactor]}]
   (let [working-order-f (:working-order-f transactor)
-        cv (current-value working-order-f)]
+        cv (current-v working-order-f)]
     (m/? cv)))
 
 

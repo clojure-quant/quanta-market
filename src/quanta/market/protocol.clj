@@ -22,7 +22,6 @@
    (subscription-stop! [this conn topic]) 
    (topic-view [this topic]))
 
-
 ;; QUOTE
 
 (defprotocol subscription-topic
@@ -47,7 +46,6 @@
   (trade [this sub])
   (orderbook [this sub]))
 
-
 ;; TRADE
 
 (defprotocol trade-action
@@ -64,19 +62,14 @@
   (account-flow [this])
   (account-msg-flow [this]))
 
-(defprotocol tradeaccount
-  (start-trade [this])
-  (stop-trade [this])
-  (msg-flow [this])
-  (order-update-msg-flow [this])
-  (order-update-flow  [this]))
-
 (defmulti create-tradeaccount
   "a tradeaccount must implement this method to create it.
    each quotefeed implementation must have a unique :type.
      A quotefeed must implement subscription-topic protocol."
   (fn [opts]
     (:type opts)))
+
+;; PORTFOLIO
 
 (defprotocol portfolio
   (working-order-f [this])

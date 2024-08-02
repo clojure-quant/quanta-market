@@ -20,16 +20,14 @@ opts
 bb
 
 (start-flow-logger!
- ".data/bybit-account.txt"
+ ".data/bybit-account2.txt"
  :account
  (p/account-flow bb))
 
 (start-flow-logger!
- ".data/bybit-account-msg.txt"
+ ".data/bybit-account-msg2.txt"
  :account-msg
  (p/account-msg-flow bb))
-
-
 
 (def order-spot-market-buy
   {:order-id (nano-id 8)
@@ -38,6 +36,14 @@ bb
    :qty 0.002
    :ordertype :market})
 
+(def order-spot-market-sell
+  {:order-id (nano-id 8)
+   :asset "BTCUSDT.S"
+   :side :sell
+   :qty 0.002
+   :ordertype :market})
 
 (m/? (p/order-create! bb order-spot-market-buy))
+
+(m/? (p/order-create! bb order-spot-market-sell))
 

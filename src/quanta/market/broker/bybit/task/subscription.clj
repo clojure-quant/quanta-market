@@ -6,7 +6,7 @@
 
 ; https://bybit-exchange.github.io/docs/v5/websocket/public/trade
 
-(defn- subscription-start-msg [topic]
+(defn subscription-start-msg [topic]
   {"op" "subscribe"
    "args" [topic]})
 
@@ -52,23 +52,4 @@
    :conn_id "cq1814tdaugt75sdcg8g-22tvw"
    :ret_msg ""
    :req_id "W-goZgZQ"})
-
-(comment
-  (def conn
-    (c/connection-start! {:mode :main
-                          :segment :spot}))
-
-  (c/connection-stop! conn)
-
-  (m/? (subscription-start!
-        conn
-        :asset/stats "BTCUSDT"))
-
-  (m/? (subscription-stop!
-        conn
-        :asset/stats "BTCUSDT"))
-
-;
-  )
-
 

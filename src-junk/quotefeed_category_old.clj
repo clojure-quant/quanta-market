@@ -15,7 +15,7 @@
         msg-in (p/msg-in-flow websocket)
         topic-data-f (topic-data-flow msg-in topic)
         topic-f (topic-transformed-flow topic-data-f sub)
-        conn-f (p/current-connection websocket)]
+        conn-f (p/connection-flow websocket)]
     (m/stream
      (m/ap
       (debug "get-quote will start a new subscription..")

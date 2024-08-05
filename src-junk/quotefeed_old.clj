@@ -17,11 +17,11 @@
     (p/stop! websocket))
   (subscribe-last-trade! [this {:keys [asset]}]
     (s/subscription-start!
-     (p/current-connection websocket)
+     (p/connection-flow websocket)
      :asset/trade asset))
   (unsubscribe-last-trade! [this {:keys [asset]}]
     (s/subscription-stop!
-     (p/current-connection websocket) :asset/trade asset))
+     (p/connection-flow websocket) :asset/trade asset))
   (last-trade-flow [this account-asset]
     (let [flow (p/msg-in-flow websocket)]
       (assert flow "missing msg-in-flow")

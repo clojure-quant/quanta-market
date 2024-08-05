@@ -6,7 +6,7 @@
   )
 
 (defprotocol connection
-  (current-connection [this])
+  (connection-flow [this])
   (msg-in-flow [this])
   (msg-out-flow [this]))
 

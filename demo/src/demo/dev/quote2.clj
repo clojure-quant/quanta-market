@@ -21,9 +21,6 @@
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "ETHUSDT"}))
 
-
-
-
 (start-flow-logger!
  ".data/bybit-trade6-perp.txt"
  :trade/msg
@@ -88,10 +85,12 @@
 (def ws2 
    (create-websocket2 {:type :bybit2
                       :mode :main
-                      :segment :spot})
+                      :segment :spot}
+                      [:bybit-test]
+                      )
   )
 
-(def conn-f (p/current-connection ws2))
+(def conn-f (p/connection-flow ws2))
 
 (start-flow-printer!
  conn-f

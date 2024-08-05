@@ -1,5 +1,6 @@
 (ns demo.quote.debug
   (:require
+   [tick.core :as t]
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-flow-logger! stop! mix]]
@@ -7,13 +8,18 @@
 
 ;; one quote
 
+
+(defn add-timestamp [f]
+  (m/ap  (let [msg (m/?> f)]
+           (assoc msg :timestamp (t/instant)))))
+
+
 (start-flow-logger!
- ".data/quotes-btc24.txt"
+ ".data/quotes-eth2.txt"
  :quote/one
- (p/get-topic qm {:feed :bybit
-                  :asset "BTCUSDT"
-                  :topic :asset/trade
-                  }))
+ (add-timestamp (p/get-topic qm {:feed :bybit
+                                 :asset "ETHUSDT"
+                                 :topic :asset/trade})))
 
 
 (stop! :quote/one)

@@ -67,7 +67,7 @@ account
 
 (m/? (p/order-cancel! ta {:order-id "234"}))
 (m/? (order-create-raw! 
-        (p/current-connection (:websocket-order ta))
+        (p/connection-flow (:websocket-order ta))
         {"price" "68750.00",
          "symbol" "BTCUSDT",
          "side" "Buy",

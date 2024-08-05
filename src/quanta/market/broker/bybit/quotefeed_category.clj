@@ -32,7 +32,8 @@
   (info "wiring up bybit-category feed : " opts)
   (let [opts (merge {:mode :main
                      :segment :spot} opts)
-        websocket (create-websocket2 opts)
+        label [:bybit (:segment opts) (or (:feed opts) (:account opts))]
+        websocket (create-websocket2 opts label)
         subscriber (bybit-subscriber. websocket)]
     (create-topic-subscriber subscriber)))
 

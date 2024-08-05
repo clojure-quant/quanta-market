@@ -9,7 +9,7 @@
 (defn subscribing-unsubscribing-quote-flow [{:keys [feed lock subscriptions] :as this}  sub]
   (let [topic-f (p/topic-view feed sub)
         c (p/get-conn feed)
-        conn-f (p/current-connection c)]
+        conn-f (p/connection-flow c)]
     (m/stream
      (m/ap
       (debug "get-quote will start a new subscription..")

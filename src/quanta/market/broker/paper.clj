@@ -8,7 +8,7 @@
 (defrecord paper [opts conn]
   p/trade
   (start [this]
-    (let [conn (c/connection-start! (:opts this))
+    (let [conn (c/connection-start! (:opts this) :paper)
           ;publish-quote! (fn [fix-msg]
           ;                 (let [quote (fix-quote->quote fix-msg)]
           ;                   (publish! this quote)))

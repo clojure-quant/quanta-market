@@ -4,8 +4,7 @@
    [missionary.core :as m]
    [buddy.core.codecs :as crypto.codecs] ; authentication
    [buddy.core.mac :as crypto.mac]
-   [quanta.market.protocol :as p]
-   [quanta.market.broker.bybit.connection :refer [send-msg! connection-start!]]
+   [quanta.market.broker.bybit.connection :refer [send-msg-task!]]
    [quanta.market.util :refer [first-match]]))
 
 (defn- sign
@@ -42,7 +41,7 @@
 (defn authenticate! [conn {:keys [api-key api-secret]}]
   (m/sp
    (info "auth! api-key: " api-key)
-   (send-msg! conn (auth-msg api-key api-secret))
+   (m/? (send-msg-task! conn (auth-msg api-key api-secret)))
    (let [auth-result (m/? (first-match auth-respose? (:msg-in-flow conn)))]
      (info "auth result: " auth-result)
      auth-result)))

@@ -50,10 +50,12 @@
    :qty 0.002
    :ordertype :market})
 
+
 (m/? (p/order-create! tm order-spot-limit))
 (m/? (p/order-create! tm order-spot-market-buy))
 
-(m/? (p/order-create! pm order-spot-market-sell))
+(m/? (p/order-create! tm order-spot-market-sell))
+
 
 ; error MARKET BUY
 :message "Order value exceeded lower limit.",

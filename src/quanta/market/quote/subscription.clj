@@ -16,30 +16,19 @@
       (let [conn (m/?> conn-f)
             _ (info "quote subscriber " sub " new connection: " conn)]
         (when conn ; (and conn (not (reduced? conn)))
-          
           (if (= conn :stop)
-            (info "connection stopped.")
-            (do (info "got a connection .. starting subscription.")
+            (do (info "connection stopped.")
+                (m/holding lock
+                          (swap! subscriptions dissoc sub)))
+            (do (info "got a new connection .. starting subscription.")
                 (m/? (p/subscription-start! feed conn sub))
                 (try
                   (m/?> topic-f)
-                  (catch Cancelled cancel
+                  (catch Cancelled _
                      (info "quote subscriber " sub " cancelled.")        
                      (m/?  (m/compel  (p/subscription-stop! feed conn sub)))
                   ))))
-        #_
-          (let [topic (m/?> topic-f)]
-                ;(when topic (println "subscribed topic: " topic))
-                ;(m/amb topic)
-            topic)
-            #_(do  (when (and conn (not (reduced? conn)))
-                   (debug "get-quote will stop an existing subscription..")
-                 )
-                 (debug "get-quote has unsubscribed. now removing from atom..")
-                 (m/holding lock
-                            (swap! subscriptions dissoc sub))
-                 ;(m/amb :disconnected)
-                 (throw cancel))))))))
+        ))))))
 
 
 (defrecord topic-subscriber [lock subscriptions feed]

@@ -17,8 +17,8 @@
 
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/bybit-trade9.txt"
- :trade/msg
+ ".data/bybit-trade91.txt"
+ :trade/msg2
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "ETHUSDT"}))
 
@@ -39,6 +39,7 @@
  :stats/msg
  (p/get-topic bb-quote {:topic :asset/stats
                         :asset "BTCUSDT"}))
+
 
 (start-flow-logger!
  ".data/bybit-liquidation5.txt"
@@ -68,7 +69,7 @@
                         :depth 1 ; spot: can be 1 50 200
                         :asset "BTCUSDT"}))
 
-(stop! :trade/msg)
+(stop! :trade/msg2)
 (stop! :stats/msg)
 (stop! :liquidation/msg)
 (stop! :bars-finished/msg)

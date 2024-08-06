@@ -9,14 +9,14 @@
 
 
 (defn conn [websocket]
-  (info "getting connection for websocket-order..")
+  (info "getting connection for websocket..")
   (let [conn-f (p/connection-flow websocket)]
     (current-v conn-f)))
 
 (defn send-msg-t [websocket id msg]
   (let [conn-t (conn websocket)
         msg (assoc msg :reqId id
-                   "req_id" id ; this is importan for quote-subscriptions.
+                   "req_id" id ; this is important for quote-subscriptions.
                    )]
     (info "sending msg: " msg)
     (m/sp

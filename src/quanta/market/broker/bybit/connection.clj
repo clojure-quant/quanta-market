@@ -55,7 +55,7 @@
   (let [v (m/dfv)]
     (d/on-realized df
                    (fn [x]
-                     (info "deferred success: " x)
+                     ;(info "deferred success: " x)
                      (v (fn [] x)))
                    (fn [x]
                      (info  "deferred error: " x)
@@ -65,9 +65,9 @@
 (defn- websocket-client-task [url]
   (m/sp 
     (let [client-deferred (http/websocket-client url)]
-       (info "connecting to bybit websocket url: " url)
+       ;(info "connecting to bybit websocket url: " url)
        (let [r (m/? (deferred->task client-deferred))]
-         (info "bybit websocket connected successfully!")
+         ;(info "bybit websocket connected successfully!")
          r))))
 
 (defn connect! 

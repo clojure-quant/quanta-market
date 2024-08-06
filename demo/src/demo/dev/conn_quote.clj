@@ -5,10 +5,9 @@
    [quanta.market.util :refer [start-flow-logger! stop! flow-sender current-v]]
    [quanta.market.broker.bybit.connection :as c]
    [quanta.market.broker.bybit.websocket2 :refer [create-websocket2 create-conn-f ]]
-   [quanta.market.broker.bybit.task.subscription :refer [subscription-start-msg]]
+   [quanta.market.broker.bybit.quote.subscription :refer [subscription-start-msg]]
    [quanta.market.broker.bybit.rpc :refer [rpc-req!]]
-      [quanta.market.broker.bybit.topic :refer [format-topic-sub topic-data-flow topic-transformed-flow]]
-
+   [quanta.market.broker.bybit.topic :refer [format-topic-sub topic-data-flow topic-transformed-flow]]
    ))
 
 
@@ -52,28 +51,9 @@ current-v
                :demo5))
 
 
-
-
-
-
-
-
 (m/? (current-v conn-f))
 
-
-
-
-
-;; => [{}, true, true, true, #error {
-;;     :cause "Dataflow variable derefence cancelled."
-;;     :via
-;;     [{:type missionary.Cancelled
-;;       :message "Dataflow variable derefence cancelled."}]
-;;     :trace
-;;     []}]
-
-
-  
+ 
  
 
 conn
@@ -83,13 +63,13 @@ conn
                            :test123))
 
 (start-flow-logger!
- ".data/test-msg-in.txt"
+ ".data/test-msg-in2.txt"
  :msg-in
  (p/msg-in-flow ws))
 
 
 (start-flow-logger!
- ".data/test-msg-out.txt"
+ ".data/test-msg-out2.txt"
  :msg-out
  (p/msg-out-flow ws))
 

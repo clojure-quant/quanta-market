@@ -24,8 +24,6 @@
      ;(pinger/stop-pinger ping) ; on reconnect, old pinger needs to be stopped
      ;(pinger/start-pinger c ping)
        (info "returning connection: " c)
-
-
        c)
      (catch Cancelled _
        (println "connectimpl shutting down..")
@@ -62,7 +60,7 @@
       (info label "disconnect exception: " ex))))
 
 
-(defn create-conn-f2 [opts flow-sender-in flow-sender-out ping label]
+#_(defn create-conn-f2 [opts flow-sender-in flow-sender-out ping label]
   (m/signal ; signal is continuous, and therefore allows reuse of existing connection
    (cont 
     (m/ap
@@ -84,17 +82,6 @@
               (recur (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label)))
               (reduced nil))))))))))
 
-#_(defn create-conn-f [opts flow-sender-in flow-sender-out ping label]
-    (m/signal ; signal is continuous, and therefore allows reuse of existing connection
-     (m/ap
-      (m/amb nil)
-      nil
-      (loop []
-        (let [conn (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label))]
-          (info "conn-f got a connection: " conn)
-          (m/amb conn)
-          (m/? (m/sleep 120000))
-          (recur))))))
 
 (defn reconnect! [flow-sender-in flow-sender-out opts ping label consumer-t]
   (m/sp (m/? consumer-t)
@@ -112,21 +99,19 @@
             (reset! conn-a conn)
             (m/amb conn (recur (m/? (reconnect! flow-sender-in flow-sender-out opts ping label consumer-t))))))
         (catch Cancelled _
-          (println "shutting down..")
+          (info "shutting down..")
           ;(m/?  (disconnect! @conn-a ping label))
-          true)))))))
+          :stop)))))))
+
 
 (defrecord bybit-websocket2 [conn-f flow-sender-in flow-sender-out label]
   p/connection
   (connection-flow [this]
     conn-f)
   (msg-in-flow [this]
-    ;(info "returning :flow flow-sender-in:  " flow-sender-in)
     (:flow flow-sender-in))
   (msg-out-flow [this]
-    (:flow flow-sender-out))
-  ; bybit websocket
-  )
+    (:flow flow-sender-out)))
 
 
 (defn create-websocket2

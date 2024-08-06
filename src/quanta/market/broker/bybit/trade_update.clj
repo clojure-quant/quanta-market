@@ -3,7 +3,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [mix]]
    ; side effects:
-   [quanta.market.broker.bybit.quotefeed-category]))
+   [quanta.market.broker.bybit.quote.quotefeed-category]))
 
 
 (defrecord bybit-trade-update [opts feed]

@@ -4,7 +4,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-flow-logger! stop! start-flow-printer!]]
    [quanta.market.broker.bybit.websocket2 :refer [create-websocket2]]
-   [quanta.market.broker.bybit.quotefeed-category] ; for side effects
+   [quanta.market.broker.bybit.quote.quotefeed-category] ; for side effects
    [quanta.market.broker.bybit.quotefeed] ; side effects
    [demo.logging] ; for side effects
   ))
@@ -14,15 +14,19 @@
 (def bb-quote (p/create-quotefeed {:type :bybit-category}))
 
 
+
  ; log all messages (for testing)
 (start-flow-logger!
- ".data/bybit-trade4.txt"
+ ".data/bybit-trade9.txt"
  :trade/msg
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "ETHUSDT"}))
 
+
+
+
 (start-flow-logger!
- ".data/bybit-trade6-perp.txt"
+ ".data/bybit-trade7-perp.txt"
  :trade/msg
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "BTCUSDT.P"}))
@@ -31,7 +35,7 @@
 
 
 (start-flow-logger!
- ".data/bybit-stats5.txt"
+ ".data/bybit-stats7.txt"
  :stats/msg
  (p/get-topic bb-quote {:topic :asset/stats
                         :asset "BTCUSDT"}))

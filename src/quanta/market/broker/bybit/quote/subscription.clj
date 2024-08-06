@@ -1,8 +1,4 @@
-(ns quanta.market.broker.bybit.task.subscription
-  (:require
-   [taoensso.timbre :as timbre :refer [debug info warn error]]
-   [missionary.core :as m]
-   [quanta.market.broker.bybit.connection :as c]))
+(ns quanta.market.broker.bybit.quote.subscription)
 
 ; https://bybit-exchange.github.io/docs/v5/websocket/public/trade
 
@@ -10,20 +6,9 @@
   {"op" "subscribe"
    "args" [topic]})
 
-(defn subscription-start!
-  [conn topic]
-    (info "subscription-start topic: " topic " ..")
-    (c/rpc-req! conn (subscription-start-msg topic)))
-
-(defn- subscription-stop-msg [topic]
+(defn subscription-stop-msg [topic]
   {"op" "unsubscribe"
    "args" [topic]})
-
-(defn subscription-stop!
-  [conn topic]
-    (info "subscription-stop topic: " topic " ..")
-    (c/rpc-req! conn (subscription-stop-msg topic)))
-
 
 (def subscription-success-demo
   {"success" true

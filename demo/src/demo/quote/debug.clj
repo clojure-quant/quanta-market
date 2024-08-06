@@ -13,7 +13,6 @@
   (m/ap  (let [msg (m/?> f)]
            (assoc msg :timestamp (t/instant)))))
 
-
 (start-flow-logger!
  ".data/quotes-eth2.txt"
  :quote/one

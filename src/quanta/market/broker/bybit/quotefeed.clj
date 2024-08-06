@@ -2,7 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.protocol :as p]
-   [quanta.market.broker.bybit.quotefeed-category] ; side effects
+   [quanta.market.broker.bybit.quote.quotefeed-category] ; side effects
    [quanta.market.broker.bybit.asset :refer [asset-category]]))
 
 

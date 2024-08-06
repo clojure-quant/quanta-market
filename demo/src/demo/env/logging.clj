@@ -1,4 +1,4 @@
-(ns demo.logging
+(ns demo.env.logging
   (:require
    [modular.log]))
 

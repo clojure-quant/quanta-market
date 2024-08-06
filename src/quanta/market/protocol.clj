@@ -5,6 +5,8 @@
   (stop! [this])
   )
 
+;; CONNECTION
+
 (defprotocol connection
   (connection-flow [this])
   (msg-in-flow [this])

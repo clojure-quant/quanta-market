@@ -11,16 +11,21 @@
 (defn- get-tradeaccount-order [{:keys [tradeaccounts] :as _this} {:keys [account]}]
   (get tradeaccounts account))
 
-(defn- mix-flows [tradeaccounts flow-fn]
+(defn- mix-flows [flow-fn tradeaccounts]
+  (info "mix flows")
   (let [accounts (vals tradeaccounts)
+        _ (info "accounts: " accounts)
         flows (map flow-fn accounts)]
+    (info "mixing flows..")
     (apply mix flows)))
 
 (defrecord trade-manager [tradeaccounts log-dir]
-   p/trade-action
+  p/trade-action
   (trade-action-flow [this]
+    (info "mixing trade-action flows..")
     (mix-flows p/trade-action-flow tradeaccounts))
   (trade-action-msg-flow [this]
+    (info "mixing trade-action-msg flows..")
     (mix-flows p/trade-action-msg-flow tradeaccounts))
   (order-create! [this order]
     (when-let [ta (get-tradeaccount-order this order)]
@@ -28,20 +33,24 @@
       (p/order-create! ta order)))
   (order-cancel! [this order-cancel]
     (if-let [ta (get-tradeaccount-order this order-cancel)]
-       (p/order-cancel! ta order-cancel)))
+      (p/order-cancel! ta order-cancel)))
   ; update
   p/trade-update
   (orderupdate-flow [this]
-                     (mix-flows p/orderupdate-flow tradeaccounts))
+    (info "mixing orderupdate-flow flows..")
+    (mix-flows p/orderupdate-flow tradeaccounts))
   (orderupdate-msg-flow [this]
+    (info "mixing orderupdate-msg flows..")
     (mix-flows p/orderupdate-msg-flow tradeaccounts))
   ; account
   p/trade-account
   (account-flow [this]
+    (info "mixing account flows..")
     (mix-flows p/account-flow tradeaccounts))
   (account-msg-flow [this]
+    (info "mixing account-msg flows..")
     (mix-flows p/account-msg-flow tradeaccounts)))
-  
+
 (defn account-log-filename [log-dir id ext]
   (let [account-str  (-> (str "account-" id ext ".txt")
                          (str/replace #":" "")

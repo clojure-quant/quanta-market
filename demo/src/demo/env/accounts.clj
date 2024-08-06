@@ -1,4 +1,4 @@
-(ns demo.accounts)
+(ns demo.env.accounts)
 
 
 (defn get-creds [account-id]

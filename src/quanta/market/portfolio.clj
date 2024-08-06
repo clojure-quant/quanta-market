@@ -27,7 +27,7 @@
         send-new-order-to-flow (fn [order-update]
                                  (warn "new order: " order-update)
                                  ((:send order-create-flow-sender) order-update))
-        orderupdate-flow (p/order-update-flow tm)
+        orderupdate-flow (p/orderupdate-flow tm)
         ok-order-update-flow (only-valid-order-update orderupdate-flow)
         bad-order-update-flow (only-bad-order-update orderupdate-flow)
 

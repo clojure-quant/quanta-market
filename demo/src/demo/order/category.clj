@@ -2,9 +2,8 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   ;[demo.tm :refer [pm]]
-   [demo.tm :refer [tm]]
-   ;[quanta.market.portfolio :refer [get-working-orders]]
+   [demo.env :refer [tm pm]]
+   [quanta.market.portfolio :refer [get-working-orders]]
    ))
 
 (def assets
@@ -53,8 +52,11 @@
 
 (m/? (p/order-create! tm order-spot-limit))
 (m/? (p/order-create! tm order-spot-market-buy))
-
 (m/? (p/order-create! tm order-spot-market-sell))
+
+(m/? (p/order-create! pm order-spot-limit))
+(m/? (p/order-create! pm order-spot-market-buy))
+(m/? (p/order-create! pm order-spot-market-sell))
 
 
 ; error MARKET BUY

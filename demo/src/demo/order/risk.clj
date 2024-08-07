@@ -1,8 +1,8 @@
-(ns demo.risk
+(ns demo.order.risk
   (:require
     [missionary.core :as m]
     [quanta.market.protocol :as p]
-    [demo.tm :refer [pm]]
+    [demo.env :refer [pm]]
    ))
 
 

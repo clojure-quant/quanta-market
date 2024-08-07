@@ -1,4 +1,4 @@
-(ns demo.orderflow-simulated
+(ns demo.order.orderflow-simulated
   (:require
    [missionary.core :as m]))
 

@@ -13,8 +13,9 @@
         _ (println "sub: " qsub)
         topic-f (p/get-topic qm qsub)]
     (m/race
-     (m/sleep 5000 :timeout)
+     (m/sleep timeout :timeout)
      (current-v topic-f))))
+
 
 
 

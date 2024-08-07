@@ -56,15 +56,9 @@
 
 (m/? (p/order-create! pm order-spot-limit))
 (m/? (p/order-create! pm order-spot-market-buy))
+
 (m/? (p/order-create! pm order-spot-market-sell))
 
-
-; error MARKET BUY
-:message "Order value exceeded lower limit.",
-:code 170140
-
-:message "Insufficient balance.",
-:code 170131
 
 (m/?
  (p/order-create!

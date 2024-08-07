@@ -9,7 +9,7 @@
 
 
 (defn conn [websocket]
-  (info "getting connection for websocket..")
+  (debug "getting connection for websocket..")
   (let [conn-f (p/connection-flow websocket)]
     (current-v conn-f)))
 

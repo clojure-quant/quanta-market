@@ -12,29 +12,11 @@
    [quanta.market.trade.position :refer [position-change-flow
                                          open-positions-flow]]))
 
-(defn wrap-title [title flow]
-  (m/eduction (map (fn [data]
-                     (str "\r\n" title "\r\n"
-                          (if (string? data)
-                            data
-                            (pr-str data))))) flow))
-
 (defn position-dict->positions [position-dict]
   (map (fn [[[account asset] net-qty]]
          {:account account
           :asset asset
           :net-qty net-qty}) position-dict))
-
-(defn wrap-positions [flow]
-  (m/eduction
-   (map position-dict->positions)
-   (map print/open-positions-table)
-   flow))
-
-(defn wrap-table [flow]
-  (m/eduction
-   (map print/working-orders-table)
-   flow))
 
 (defn get-alert [order-change]
   (get-in order-change [:transactions :alert]))
@@ -63,27 +45,10 @@
         order-change-f (order-change-flow order-orderupdate-flow)
         working-order-dict-f (working-orders-flow order-change-f)
         working-order-f (order-dict->order-seq-flow working-order-dict-f)
-        working-order-table-f (wrap-table working-order-f)
         trade-f (trade-flow order-change-f)
         position-change-f (position-change-flow trade-f)
         open-position-f (open-positions-flow position-change-f)
-        open-position-table-f (wrap-positions open-position-f)
         alert-f (transactor-alert order-change-f)
-        ; log
-        logger-dispose! (if logfile
-                          (let [log-flow (mix ; order
-                                          (wrap-title "order-change" order-change-f)
-                                          (wrap-title "working-orders" working-order-f)
-                                          (wrap-title "working-orders-table" working-order-table-f)
-                                              ; trade
-                                          (wrap-title "trade" trade-f) ;
-                                              ; position
-                                          (wrap-title "position-change" position-change-f)
-                                          (wrap-title "open-positions" open-position-f)
-                                          (wrap-title "open-positions-table" open-position-table-f))]
-                            (info "transactor is logging to: " logfile)
-                            (start-logging logfile log-flow))
-                          (warn "order-manager is NOT LOGGING!"))
         snapshot-a (atom {})
         wo-cont-f (m/reductions (fn [r v] v) nil working-order-f)
         op-cont-f (m/reductions (fn [r v] v) nil open-position-f)
@@ -99,7 +64,6 @@
         state {:db db
               ; :working-orders working-orders
                :order-orderupdate-flow order-orderupdate-flow
-               :logger-dispose! logger-dispose!
                :open-position-f open-position-f
                :working-order-f working-order-f
                :trade-f trade-f
@@ -108,12 +72,58 @@
                :snapshot-a snapshot-a}]
     state))
 
-(defn transactor-stop [{:keys [snapshot-dispose! logger-dispose!]}]
+(defn transactor-stop [{:keys [snapshot-dispose!]}]
   (info "transactor stopping..")
   (when snapshot-dispose!
-    (snapshot-dispose!))
+    (snapshot-dispose!)))
+
+;; transactor log
+
+(defn wrap-title [title flow]
+  (m/eduction (map (fn [data]
+                     (str "\r\n" title "\r\n"
+                          (if (string? data)
+                            data
+                            (pr-str data))))) flow))
+
+(defn wrap-table [flow]
+  (m/eduction
+   (map print/working-orders-table)
+   flow))
+
+(defn wrap-positions [flow]
+  (m/eduction
+   (map position-dict->positions)
+   (map print/open-positions-table)
+   flow))
+
+(defn transactor-log-start!
+  "writes transactor updates to a logfile"
+  [transactor logfile]
+  (let [{:keys [order-change-f working-order-f
+                trade-f
+                position-change-f open-position-f]} transactor
+        working-order-table-f (wrap-table working-order-f)
+        open-position-table-f (wrap-positions open-position-f)
+        log-flow (mix ; order
+                  (wrap-title "order-change" order-change-f)
+                  (wrap-title "working-orders" working-order-f)
+                  (wrap-title "working-orders-table" working-order-table-f)
+                  ; trade
+                  (wrap-title "trade" trade-f) ;
+                  ; position
+                  (wrap-title "position-change" position-change-f)
+                  (wrap-title "open-positions" open-position-f)
+                  (wrap-title "open-positions-table" open-position-table-f))]
+    (info "transactor is logging to: " logfile)
+    (start-logging logfile log-flow)))
+  
+(defn transactor-log-stop! [logger-dispose!]
   (when logger-dispose!
     (logger-dispose!)))
+
+
+
 
 (comment
   (position-dict->positions {[:rene/test4 "BTCUSDT.S"] 0.002})

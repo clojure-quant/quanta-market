@@ -7,7 +7,9 @@
    [quanta.market.util :refer [flow-sender start-logging mix current-v]]
    [quanta.market.protocol :as p]
    [quanta.market.trade.schema :as s]
-   [quanta.market.trade.transactor :refer [transactor-start]]))
+   [quanta.market.trade.transactor :refer [transactor-start transactor-log-start!
+                                           transactor-stop transactor-log-stop!
+                                           ]]))
 
 (defn only-valid-order-update [f]
   (m/eduction
@@ -51,7 +53,7 @@
   {:working-orders working-orders
    :open-positions open-positions})
 
-(defrecord portfolio-manager [db tm transactor send-new-order-to-flow]
+(defrecord portfolio-manager [db tm transactor send-new-order-to-flow transactor-log]
   p/trade-action
   (order-create! [this {:keys [account asset side quantity type] :as order}]
     (m/sp
@@ -91,6 +93,7 @@
     @(:snapshot-a transactor))
   ;
   )
+
 (defn portfolio-manager-start
   "portfolio-manager uses both broker-account-manager and the transactor.
    it therefore is able to create/cancel orders, and know working-orders and open positions.
@@ -101,18 +104,24 @@
                 send-new-order-to-flow
                 bad-order-update-flow]} (create-flows tm)
         transactor (transactor-start {:order-orderupdate-flow order-orderupdate-flow
-                                      :logfile transactor-logfile
                                       :db db})
+        transactor-log (transactor-log-start! transactor transactor-logfile)
         transactor-alert-f (:alert-f transactor)
         alert-f (mix bad-order-update-flow transactor-alert-f)]
     (when alert-logfile
       (start-logging alert-logfile alert-f))
-    (portfolio-manager. db tm transactor send-new-order-to-flow)))
+    (portfolio-manager. db tm transactor send-new-order-to-flow transactor-log)))
 
-(defn portfolio-manager-stop [{:keys [transactor]}]
+(defn portfolio-manager-stop [{:keys [transactor transactor-log]}]
   (info "portfolio-manager stopping..")
+  (when transactor
+    (transactor-stop transactor))
+  (when transactor-log 
+    (transactor-log-stop! transactor-log)
+    )
   ;
   )
+
 
 (defn get-working-orders [{:keys [transactor]}]
   (let [working-order-f (:working-order-f transactor)

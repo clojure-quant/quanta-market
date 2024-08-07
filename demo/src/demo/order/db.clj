@@ -1,4 +1,4 @@
-(ns demo.db
+(ns demo.order.db
    (:require
     [missionary.core :as m]
     [quanta.market.trade.msg-logger :refer [create-logger!]]

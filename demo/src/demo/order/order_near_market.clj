@@ -3,7 +3,7 @@
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [quanta.market.quote.core :refer [topic-snapshot]]
-   [quanta.market.algo.order :refer [limit-near-market limit-order-near-market]]
+   [quanta.market.robot.order :refer [limit-near-market limit-order-near-market]]
    [demo.env :refer [qm pm]]))
 
 

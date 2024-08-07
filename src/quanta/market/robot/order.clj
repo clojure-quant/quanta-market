@@ -1,7 +1,6 @@
-(ns quanta.market.algo.order
+(ns quanta.market.robot.order
   (:require
    [missionary.core :as m]
-   [quanta.market.protocol :as p]
    [quanta.market.quote.core :refer [topic-snapshot]]
    [quanta.market.precision :refer [round-asset]]))
 
@@ -12,7 +11,7 @@
     :sell (* price (+ 1.0 diff)))))
 
 (defn limit-near-market 
-  "returns the limit-price 
+  "returns a missionary task that returns the limit-price 
    diff percentage better than the 
    last trade trade price 
    using feed :feed
@@ -30,7 +29,12 @@
        off-price-precision))))
 
 
-(defn limit-order-near-market [qm {:keys [asset side account qty feed diff]
+(defn limit-order-near-market 
+   "returns a missionary task that returns a limit-order
+    whose limit is diff percentage better than the last 
+    trade trade price received using feed :feed
+    for order :asset :side"
+  [qm {:keys [asset side account qty feed diff]
                                    :as order}]
   (let [limit-price-t (limit-near-market qm order)]
   (m/sp

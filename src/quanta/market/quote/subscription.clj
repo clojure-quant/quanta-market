@@ -2,6 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m]
+   [quanta.market.util :as u]
    [quanta.market.protocol :as p])
   (:import [missionary Cancelled]))
 
@@ -18,7 +19,8 @@
         (when conn ; (and conn (not (reduced? conn)))
           (if (= conn :stop)
             (do (info "connection stopped.")
-                (m/holding lock
+                ;(m/holding lock
+                (u/with-lock lock 
                           (swap! subscriptions dissoc sub)))
             (do (info "got a new connection .. starting subscription.")
                 (m/? (p/subscription-start! feed conn sub))
@@ -30,21 +32,23 @@
                   ))))
         ))))))
 
-
 (defrecord topic-subscriber [lock subscriptions feed]
   p/subscription-topic
   (get-feed [this]
     feed)
   (get-topic [this topic]
     (or (get @subscriptions topic)
-        (m/holding lock
+        ;(m/holding lock
+        (u/with-lock lock 
                    (let [qs (subscribing-unsubscribing-quote-flow this topic)]
                      (swap! subscriptions assoc topic qs)
                      qs)))))
 
 (defn create-topic-subscriber [feed]
   (let [subscriptions (atom {})
-        lock (m/sem)]
+        ;lock (m/sem)
+        lock (u/rlock)
+        ]
     (topic-subscriber. lock subscriptions feed)))
 
 

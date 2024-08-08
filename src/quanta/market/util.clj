@@ -2,7 +2,10 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [missionary.core :as m])
-  (:import [missionary Cancelled]))
+  (:import
+   [missionary Cancelled]
+   [java.util.concurrent.locks ReentrantLock]))
+
 
 (defn first-match [predicate flow]
   (m/reduce (fn [_r v]
@@ -15,7 +18,7 @@
 
 #_(defn next-value [flow]
     ; same as current-v .. need to verify.
-  (first-match #(not (nil? %)) flow))
+    (first-match #(not (nil? %)) flow))
 
 (defn always [flow]
   (m/reduce (fn [_r v]
@@ -25,13 +28,13 @@
 
 (defn take-first-non-nil [f]
   ; flows dont implement deref
-  (m/eduction 
-    (remove nil?)
-    (take 1) 
-    f))
+  (m/eduction
+   (remove nil?)
+   (take 1)
+   f))
 
 
-(defn current-v 
+(defn current-v
   "gets the first non-nil value from the flow"
   [f]
   (m/reduce (fn [_r v]
@@ -151,6 +154,29 @@
   (m/via m/blk (m/? t)))
 
 
+
+(defn rlock []
+  (ReentrantLock.))
+
+(defmacro with-lock
+  "Executes exprs in an implicit do, while holding the lock of l.
+Will release the lock of l in all circumstances."
+  {:added "1.0"}
+  [l & body]
+  `(let [lockee# ~l]
+     (try
+       (let [locklocal# lockee#]
+         (.lock locklocal#)
+         (try
+           ~@body
+           (finally
+             (.unlock locklocal#)))))))
+
+
+
+
+
+
 (comment
   (m/?
    (first-match #(> % 3)
@@ -164,6 +190,11 @@
   (m/?
    (m/reduce println nil
              (mix (m/seed [1 2 3 4 5 6 7 8]) (m/seed [:a :b :c]))))
+
+  (def l (rlock))
+  
+  (with-lock l (+ 1 1))
+  (macroexpand '(with-lock l (+ 1 1)))
 
 ; 
   )

@@ -26,7 +26,8 @@
    (let [signal (m/?> signal-f)
          {:keys [asset side]} signal
          order-feed-diff (merge robot-opts signal)
-         order (m/? (place-order-near-market env order-feed-diff))]
+         place-order-t (place-order-near-market env order-feed-diff)
+         order (m/? place-order-t)]
      (warn "order placed: " order)
      {:signal signal
       :order-feed-diff order-feed-diff

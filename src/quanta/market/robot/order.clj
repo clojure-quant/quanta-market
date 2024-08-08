@@ -1,6 +1,8 @@
 (ns quanta.market.robot.order
   (:require
    [missionary.core :as m]
+   [quanta.market.protocol :as p]
+   [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.quote.core :refer [topic-snapshot]]
    [quanta.market.precision :refer [round-asset]]))
 
@@ -45,6 +47,22 @@
       :qty qty
       :ordertype :limit
       :limit limit-price}))))
+
+
+(defn place-order-near-market 
+     "returns a missionary task that returns a places
+      a limit-order near the last trade 
+      whose limit is diff percentage better than the last 
+      trade trade price received using feed :feed
+      for order :asset :side"
+   [{:keys [qm pm]} order-feed-diff]
+  (let [order-create-t (limit-order-near-market qm order-feed-diff)
+        ; order-place-t  ; cannot use the let trick here. 
+        ]
+    (m/sp
+     (let [order (m/? order-create-t)]
+       (warn "will place order: " order)
+       (m/? (p/order-create! pm order))))))
 
 
 (comment

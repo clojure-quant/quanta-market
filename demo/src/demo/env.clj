@@ -27,7 +27,7 @@
 (def tm (setup-trade-manager))
 
 
-(def db (trade-db-start ".data/trade-db"))
+;(def db (trade-db-start ".data/trade-db"))
 
 (def pm (portfolio-manager-start
          {:tm tm

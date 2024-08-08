@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [taoensso.timbre :as timbre :refer [debug info warn error]]
-   [quanta.market.util :refer [start-logging mix]]
+   [quanta.market.util :refer [start-logging mix wrap-blk]]
    [quanta.market.protocol :as p]
    [quanta.market.robot.order :refer [place-order-near-market]]
    ;[ta.calendar.core :refer [calendar-seq]]
@@ -25,6 +25,7 @@
          {:keys [asset side]} signal
          order-feed-diff (merge robot-opts signal)
          place-order-t (place-order-near-market env order-feed-diff)
+         ;place-order-t (wrap-blk place-order-t) ; this does not change anything.
          order (m/? place-order-t)]
      (warn "order placed: " order)
      {:signal signal

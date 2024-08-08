@@ -7,8 +7,6 @@
    [quanta.market.robot.order :refer [place-order-near-market]]
    ;[ta.calendar.core :refer [calendar-seq]]
   ; [quanta.trade.position.size :refer [positionsize]]
-
-   ;[quanta.trade.position.order :refer [Order]]
    ;[quanta.trade.supervisor :refer [error]]
    ;[quanta.trade.position.exit.time :refer [get-exit-time time-trigger]]
    ))

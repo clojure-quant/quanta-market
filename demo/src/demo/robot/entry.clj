@@ -5,7 +5,6 @@
    [quanta.market.robot.position :refer [start-entry-robot]]
    [demo.env :refer [qm pm]]))
 
-
 (def signal-flow-sender (flow-sender))
 
 (defn send-signal [signal]

@@ -6,7 +6,7 @@
    [quanta.market.robot.exit.rule :refer [get-exit-rule]]))
 
 (defn get-time-bars [algo-opts]
-  (let [[_ bars] (get-exit-rule algo-opts)]
+  (let [[_ bars] (get-exit-rule algo-opts :time)]
     bars))
 
 (defn get-exit-time [algo-opts entry-date]
@@ -20,7 +20,9 @@
            :end (last window)}
         (last window)))))
 
-(defn time-trigger [exit-time]
+(defn time-trigger 
+  "missionary task that will return :time when time is exit-time"
+  [exit-time]
   (let [exit-long (-> exit-time t/instant t/long)
         now-long (-> t/instant t/long)
         diff-ms (* 1000 (- exit-long now-long))

@@ -29,5 +29,12 @@
 ;; immediately after the first quote is received.
 ;; => :profit
 
+(def position2
+  {:asset "BTCUSDT"
+   :feed :bybit
+   :side :short
+   :qty 500
+   :entry-price 100000.0})
 
+(m/? (profit-trigger env algo-opts position2))
 

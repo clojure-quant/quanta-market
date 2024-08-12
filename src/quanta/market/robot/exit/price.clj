@@ -32,7 +32,7 @@
       (let [prct (trailing-return env position)
             rf (fn [_ tp]
                  (println "trailing loss " (:asset position) ": " tp " target: " target)
-                 (when (< tp (- 0.0 target))
+                 (when (and tp (< tp (- 0.0 target)))
                    (reduced :loss)))]
         (m/reduce rf nil prct)))))
 

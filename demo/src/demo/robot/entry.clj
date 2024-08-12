@@ -2,7 +2,7 @@
   (:require
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.util :refer [flow-sender]]
-   [quanta.market.robot.position :refer [start-entry-robot]]
+   [quanta.market.robot.entry :refer [start-entry-robot]]
    [demo.env :refer [qm pm]]))
 
 (def signal-flow-sender (flow-sender))

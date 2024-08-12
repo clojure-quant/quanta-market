@@ -6,7 +6,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-flow-logger! stop!]]
    [quanta.market.robot.exit.price :refer [profit-trigger]]
-   [quanta.market.robot.exit.signal :refer [exit-signal]]
+   [quanta.market.robot.signal :refer [exit-signal]]
    [demo.env :refer [qm pm]])
   (:import [missionary Cancelled]))
 

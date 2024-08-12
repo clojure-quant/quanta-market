@@ -1,14 +1,10 @@
-(ns quanta.market.robot.position
+(ns quanta.market.robot.entry
   (:require
    [missionary.core :as m]
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.util :refer [start-logging mix wrap-blk]]
    [quanta.market.protocol :as p]
    [quanta.market.robot.order :refer [place-order-near-market]]
-   ;[ta.calendar.core :refer [calendar-seq]]
-  ; [quanta.trade.position.size :refer [positionsize]]
-   ;[quanta.trade.supervisor :refer [error]]
-   ;[quanta.trade.position.exit.time :refer [get-exit-time time-trigger]]
    ))
 
 (defn create-entry-f [{:keys [qm pm] :as env}

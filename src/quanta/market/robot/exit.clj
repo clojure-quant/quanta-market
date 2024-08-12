@@ -1,4 +1,4 @@
-(ns quanta.market.robot.exit.signal
+(ns quanta.market.robot.exit
   (:require
    [missionary.core :as m]
    [quanta.market.robot.exit.time :refer [get-exit-time time-trigger]]

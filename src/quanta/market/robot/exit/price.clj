@@ -1,8 +1,8 @@
-(ns quanta.trade.position.exit.price
+(ns quanta.market.robot.exit.price
   (:require
    [missionary.core :as m]
-   [quanta.trade.position.exit.rule :refer [get-exit-rule]]
-   [quanta.market.algo.working :refer [working-position]]))
+   [quanta.market.robot.exit.rule :refer [get-exit-rule]]
+   [quanta.market.robot.position.working :refer [working-position]]))
 
 (defn trailing-return [position]
   (let [working-position (working-position position)]

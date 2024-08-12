@@ -1,8 +1,8 @@
-(ns quanta.trade.position.exit.signal
+(ns quanta.market.robot.exit.signal
   (:require
    [missionary.core :as m]
-   [quanta.trade.position.exit.time :refer [get-exit-time time-trigger]]
-   [quanta.trade.position.exit.price :refer [profit-trigger loss-trigger]]))
+   [quanta.market.robot.exit.time :refer [get-exit-time time-trigger]]
+   [quanta.market.robot.exit.price :refer [profit-trigger loss-trigger]]))
 
 (defn exit-signal
   "returns a missionary task.

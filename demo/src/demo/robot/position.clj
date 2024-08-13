@@ -18,7 +18,7 @@
 
 
 (start-flow-logger!
- ".data/working-position.txt"
+ ".data/working-position2.txt"
  :wp wp)
 
 (stop! :wp)
@@ -63,7 +63,7 @@
 
 
 (start-flow-logger!
- ".data/working-positions.txt"
+ ".data/working-positions2.txt"
  :wps table-print-f)
 
 (stop! :wps)

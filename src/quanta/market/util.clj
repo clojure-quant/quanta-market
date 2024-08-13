@@ -202,7 +202,7 @@ Will release the lock of l in all circumstances."
              (mix (m/seed [1 2 3 4 5 6 7 8]) (m/seed [:a :b :c]))))
 
   (def l (rlock))
-  
+
   (with-lock l (+ 1 1))
   (macroexpand '(with-lock l (+ 1 1)))
 

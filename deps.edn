@@ -16,10 +16,8 @@
                           }
   com.joshuadavey/crockery {:mvn/version "0.3.0"} ; better table printing
   org.pinkgorilla/timbre {:mvn/version "0.0.7"}
-  io.github.clojure-quant/quanta {:mvn/version "0.4.832"} ; calendar
-  
+  io.github.clojure-quant/quanta {:mvn/version "0.4.850"} ; calendar
   }
-
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"

@@ -154,6 +154,7 @@
   (m/via m/blk (m/? t)))
 
 
+;; lock
 
 (defn rlock []
   (ReentrantLock.))
@@ -173,6 +174,15 @@ Will release the lock of l in all circumstances."
              (.unlock locklocal#)))))))
 
 
+;; stolen from electric 
+
+(defn poll-task
+  "derive discrete flow from succession of polled values from a task (or mbox)"
+  [task]
+  #_(m/ap (m/? (m/?> (m/seed (repeat mbox)))))
+  (m/ap
+   (loop [v (m/? task)]
+     (m/amb v (recur (m/? task))))))
 
 
 

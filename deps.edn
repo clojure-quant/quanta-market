@@ -10,13 +10,15 @@
   aleph/aleph {:mvn/version "0.7.1"} ; websocket client steam bybit
   metosin/jsonista {:mvn/version "0.3.9"} ; faster json parser - TODO: use it instead of cheshire
   buddy/buddy-core {:mvn/version "1.10.413"}
-
   io.replikativ/datahike {:mvn/version "0.6.1568"
                                     ;:exclusions [[org.clojure/clojurescript]]
                           }
   com.joshuadavey/crockery {:mvn/version "0.3.0"} ; better table printing
   org.pinkgorilla/timbre {:mvn/version "0.0.7"}
-  io.github.clojure-quant/quanta {:mvn/version "0.4.850"} ; calendar
+  io.github.clojure-quant/quanta {:mvn/version "0.4.858"} ; calendar
+  io.github.clojure-quant/fix-engine {:git/sha "d25efeefd2db73dee622e826ae86248f74f38273"}
+
+
   }
  :aliases
  {:test {:extra-paths ["test"]

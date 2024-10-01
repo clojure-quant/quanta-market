@@ -7,19 +7,22 @@
   de.otto/nom {:mvn/version "0.3.0"}
   nano-id/nano-id {:mvn/version "1.1.0"}
   missionary/missionary {:mvn/version "b.39"} ; reactive framework.
-  aleph/aleph {:mvn/version "0.7.1"} ; websocket client steam bybit
-  metosin/jsonista {:mvn/version "0.3.9"} ; faster json parser - TODO: use it instead of cheshire
+  aleph/aleph {:mvn/version "0.7.1"} ; websocket client steam bybit ; http get in kibot-http 
   buddy/buddy-core {:mvn/version "1.10.413"}
-  io.replikativ/datahike {:mvn/version "0.6.1568"
-                                    ;:exclusions [[org.clojure/clojurescript]]
-                          }
+  io.replikativ/datahike {:mvn/version "0.6.1568"}
   com.joshuadavey/crockery {:mvn/version "0.3.0"} ; better table printing
+  clj-http/clj-http      {:mvn/version "3.12.3"} ; http requests (bybit)
+  metosin/jsonista {:mvn/version "0.3.9"} ; faster json parser - TODO: use it instead of cheshire
+  cheshire/cheshire      {:mvn/version "5.11.0"} ; json for bybit
+  throttler/throttler    {:mvn/version "1.0.1"}  ; api rate-limits
+  jarohen/chime {:mvn/version "0.3.3"} ; scheduler
+  com.velisco/clj-ftp {:mvn/version "1.1.0"} ; ftp
+  babashka/fs {:mvn/version "0.4.19"} ; create dirs
+  babashka/process {:mvn/version "0.5.21"} ; shell to other apps
+  org.clj-commons/hickory {:mvn/version "0.7.4"} ; http parser (kibot asset list)
   org.pinkgorilla/timbre {:mvn/version "0.0.7"}
   io.github.clojure-quant/quanta {:mvn/version "0.4.858"} ; calendar
-  io.github.clojure-quant/fix-engine {:git/sha "d25efeefd2db73dee622e826ae86248f74f38273"}
-
-
-  }
+  io.github.clojure-quant/fix-engine {:git/sha "d25efeefd2db73dee622e826ae86248f74f38273"}}
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
@@ -28,11 +31,11 @@
                       }
          :main-opts ["-m" "cognitect.test-runner"]
          :exec-fn cognitect.test-runner.api/test}
-  
+
   :build {:deps {io.github.clojure/tools.build {:git/tag "v0.6.1" :git/sha "515b334"}
                  io.github.seancorfield/build-clj {:git/tag "v0.5.4" :git/sha "bc9c0cc"}}
           :ns-default build}
-  
+
   :lint
   {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2024.03.13"}}
    :main-opts ["-m" "clj-kondo.main"
@@ -40,7 +43,7 @@
                "--fail-level" "error"
                "--lint"
                "./src"]}
-      
+
   ;
   }}
 

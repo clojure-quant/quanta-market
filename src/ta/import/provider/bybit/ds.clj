@@ -267,17 +267,5 @@
   (all-ds-valid [1 2 3 4 5])
   (all-ds-valid [1 2 3 (nom/fail ::asdf {}) 4 5])
 
-  (get-bars
-   {:asset "BTCUSDT"
-    :calendar [:crypto :m]}
-   {:start (-> "2024-02-29T00:00:00Z" t/instant)
-    :end (-> "2024-02-29T00:07:00Z" t/instant)})
-
-  (-> (get-bars
-       {:asset "BTCUSDT"
-        :calendar [:crypto :d]}
-       {:start (-> "2021-07-04T00:00:00Z" t/instant)
-        :end (-> "2024-05-02T00:00:00Z" t/instant)})
-      (tc/write-csv! "/clojure-quant/quanta/lib/indicator/test/ta/indicator/csv/BYBIT_SPOT_BTCUSDT_1D.csv"))
 ; 
   )

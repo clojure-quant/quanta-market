@@ -22,8 +22,7 @@
   (m/ap
    (let [position (m/?> open-position-f)]
      (println "position: " position)
-     position
-     )))
+     position)))
 
 (defn start-exit-robot [{:keys [qm pm] :as env}
                         {:keys [account qty feed diff] :as robot-opts}

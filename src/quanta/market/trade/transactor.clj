@@ -117,13 +117,10 @@
                   (wrap-title "open-positions-table" open-position-table-f))]
     (info "transactor is logging to: " logfile)
     (start-logging logfile log-flow)))
-  
+
 (defn transactor-log-stop! [logger-dispose!]
   (when logger-dispose!
     (logger-dispose!)))
-
-
-
 
 (comment
   (position-dict->positions {[:rene/test4 "BTCUSDT.S"] 0.002})

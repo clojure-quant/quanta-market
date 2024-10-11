@@ -6,7 +6,6 @@
    [missionary Cancelled]
    [java.util.concurrent.locks ReentrantLock]))
 
-
 (defn first-match [predicate flow]
   (m/reduce (fn [_r v]
               (debug "first-match check: " v)
@@ -32,7 +31,6 @@
    (remove nil?)
    (take 1)
    f))
-
 
 (defn current-v
   "gets the first non-nil value from the flow"
@@ -153,7 +151,6 @@
 (defn wrap-blk [t]
   (m/via m/blk (m/? t)))
 
-
 ;; lock
 
 (defn rlock []
@@ -173,7 +170,6 @@ Will release the lock of l in all circumstances."
            (finally
              (.unlock locklocal#)))))))
 
-
 ;; stolen from electric 
 
 (defn poll-task
@@ -183,9 +179,6 @@ Will release the lock of l in all circumstances."
   (m/ap
    (loop [v (m/? task)]
      (m/amb v (recur (m/? task))))))
-
-
-
 
 (comment
   (m/?

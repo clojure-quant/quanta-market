@@ -20,7 +20,7 @@
            :end (last window)}
         (last window)))))
 
-(defn time-trigger 
+(defn time-trigger
   "missionary task that will return :time when time is exit-time"
   [exit-time]
   (let [exit-long (-> exit-time t/instant t/long)

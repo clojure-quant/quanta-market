@@ -52,21 +52,3 @@
 (defn warning [result]
   (-> result last :warning))
 
-(comment
-  (def d (get-bars "65f0ad82c56400.56029279"
-                   "MCD.US"
-                   "2024-01-01"
-                   "2024-03-15"))
-
-  d
-
-  (require '[clojure.pprint :refer [print-table]])
-
-  (->> (get-bars "65f0ad82c56400.56029279"
-                 "MCD.US"
-                 "2020-01-01"
-                 "2024-03-15")
-       warning)
-
-;  
-  )

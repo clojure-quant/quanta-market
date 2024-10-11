@@ -1,6 +1,5 @@
 (ns quanta.market.broker.bybit.order.cancel)
 
-
 (defn order-cancel-msg [{:keys [asset order-id]}]
   {"op" "order.cancel"
    "header" {"X-BAPI-TIMESTAMP" (System/currentTimeMillis)

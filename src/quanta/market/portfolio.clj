@@ -8,8 +8,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.trade.schema :as s]
    [quanta.market.trade.transactor :refer [transactor-start transactor-log-start!
-                                           transactor-stop transactor-log-stop!
-                                           ]]))
+                                           transactor-stop transactor-log-stop!]]))
 
 (defn only-valid-order-update [f]
   (m/eduction
@@ -116,13 +115,10 @@
   (info "portfolio-manager stopping..")
   (when transactor
     (transactor-stop transactor))
-  (when transactor-log 
-    (transactor-log-stop! transactor-log)
-    )
+  (when transactor-log
+    (transactor-log-stop! transactor-log))
   ;
   )
-
-
 (defn get-working-orders [{:keys [transactor]}]
   (let [working-order-f (:working-order-f transactor)
         cv (current-v working-order-f)]

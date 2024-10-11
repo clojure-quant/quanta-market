@@ -22,7 +22,7 @@
 
 (defn generate-quotes [topic]
   (let [asset (:asset topic)]
-    (m/stream 
+    (m/stream
      (m/ap
    ; startup
       (println "start generating quotes for: " asset)
@@ -45,11 +45,11 @@
 (defrecord random-feed [lock subscriptions]
   p/subscription-topic
   (get-topic [this topic]
-             (or (get @subscriptions topic)
-                 (m/holding lock
-                            (let [qs (generate-quotes topic)]
-                              (swap! subscriptions assoc topic qs)
-                              qs)))))
+    (or (get @subscriptions topic)
+        (m/holding lock
+                   (let [qs (generate-quotes topic)]
+                     (swap! subscriptions assoc topic qs)
+                     qs)))))
 
 (defmethod p/create-quotefeed :random
   [opts]

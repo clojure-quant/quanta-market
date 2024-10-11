@@ -63,56 +63,53 @@
     (m/absolve v)))
 
 (defn- websocket-client-task [url]
-  (m/sp 
-    (let [client-deferred (http/websocket-client url)]
+  (m/sp
+   (let [client-deferred (http/websocket-client url)]
        ;(info "connecting to bybit websocket url: " url)
-       (let [r (m/? (deferred->task client-deferred))]
+     (let [r (m/? (deferred->task client-deferred))]
          ;(info "bybit websocket connected successfully!")
-         r))))
+       r))))
 
-(defn connect! 
+(defn connect!
   "returns a missionary task"
   [{:keys [mode segment]}]
-   (let [url (get-ws-url mode segment)]
-     (websocket-client-task url)))
+  (let [url (get-ws-url mode segment)]
+    (websocket-client-task url)))
 
 (defn json->msg [json]
   (j/read-value json j/keyword-keys-object-mapper))
 
 (defn connection-start! [flow-sender-in flow-sender-out opts label]
   (debug label "connection-start..")
-  (m/sp 
-  (let [_ (info label "bybit connection-start! opts: " opts)
-        stream (m/? (connect! opts))
-        _ (info "connection-start got stream: " stream)
-        send-in-fn (:send flow-sender-in)
-        send-out-fn (:send flow-sender-out)
-        _ (assert send-in-fn "send-in-fn must be defined")
-        _ (assert send-out-fn "send-out-fn must be defined")    
-        on-msg (fn [json]
-                 (let [msg (json->msg json)]
-                   (debug "!msg rcvd: " label " " msg)
-                   (send-in-fn msg)))
+  (m/sp
+   (let [_ (info label "bybit connection-start! opts: " opts)
+         stream (m/? (connect! opts))
+         _ (info "connection-start got stream: " stream)
+         send-in-fn (:send flow-sender-in)
+         send-out-fn (:send flow-sender-out)
+         _ (assert send-in-fn "send-in-fn must be defined")
+         _ (assert send-out-fn "send-out-fn must be defined")
+         on-msg (fn [json]
+                  (let [msg (json->msg json)]
+                    (debug "!msg rcvd: " label " " msg)
+                    (send-in-fn msg)))
          stream-consumer (s/consume on-msg stream)
-         consumer-task (deferred->task stream-consumer)
-        ]
-    (info label "connected! " opts)
-    {:account opts
-     :opts opts
-     :api :bybit
-     :stream stream
-     :send-in-fn send-in-fn
-     :send-out-fn send-out-fn
-     :msg-in-flow (:flow flow-sender-in)
-     :msg-out-flow (:flow flow-sender-out)
-     :stream-consumer stream-consumer
-     :consumer-task consumer-task
-     :label label
-     })))
+         consumer-task (deferred->task stream-consumer)]
+     (info label "connected! " opts)
+     {:account opts
+      :opts opts
+      :api :bybit
+      :stream stream
+      :send-in-fn send-in-fn
+      :send-out-fn send-out-fn
+      :msg-in-flow (:flow flow-sender-in)
+      :msg-out-flow (:flow flow-sender-out)
+      :stream-consumer stream-consumer
+      :consumer-task consumer-task
+      :label label})))
 
-
-(defn connection-stop! 
-   "close a websocket connection. 
+(defn connection-stop!
+  "close a websocket connection. 
     input is the state map you get on connection-start!"
   [{:keys [stream label]}]
   (info label "connection-stop.. ")
@@ -137,29 +134,27 @@
        (not (-> desc :sink :closed?))
        (not (-> desc :source :closed?))))))
 
-
 (defn put-t [stream json]
   (let [t (deferred->task (s/put! stream json))]
-    (m/sp 
-       (let [r (m/? t)]
-         (info "put result: " r " for json: " json)
-         (if r 
-           r
-           (throw (ex-info "send-msg failed" {:msg json})))))))
+    (m/sp
+     (let [r (m/? t)]
+       (info "put result: " r " for json: " json)
+       (if r
+         r
+         (throw (ex-info "send-msg failed" {:msg json})))))))
 
 (defn send-msg-task! [{:keys [stream send-out-fn label] :as conn} msg]
-  (m/sp 
-    (let [json (j/write-value-as-string msg)]
-    (info label "send-msg-task! " json)
-    (if conn 
-      (if (connected? stream)
-        (do (m/? (put-t stream json))
-          (debug label "send-msg done!")
-          (send-out-fn msg)
-          :send-success)
+  (m/sp
+   (let [json (j/write-value-as-string msg)]
+     (info label "send-msg-task! " json)
+     (if conn
+       (if (connected? stream)
+         (do (m/? (put-t stream json))
+             (debug label "send-msg done!")
+             (send-out-fn msg)
+             :send-success)
          (throw (ex-info "stream not connected" {:label label :send-msg msg})))
-       (throw (ex-info "conn nil" {:label label :send-msg msg})
-      )))))
+       (throw (ex-info "conn nil" {:label label :send-msg msg}))))))
 
 (defn send-msg-task-delayed! [conn msg]
   (m/sp

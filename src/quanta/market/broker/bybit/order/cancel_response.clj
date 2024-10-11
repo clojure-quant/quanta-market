@@ -1,7 +1,5 @@
 (ns quanta.market.broker.bybit.order.cancel-response)
 
-
-
 (def order-cancel-failed-example
   {:retCode 10005,
    :retMsg "Permission denied for current apikey",

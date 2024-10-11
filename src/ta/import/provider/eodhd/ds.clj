@@ -65,33 +65,3 @@
 
 (defn create-import-eodhd [api-token]
   (import-eodhd. api-token))
-
-(comment
-  (fmt-yyyymmdd (t/zoned-date-time))
-  (fmt-yyyymmdd (t/instant))
-
-  (error? [{:warning "Data is limited by one year as you have free subscription "}])
-
-  (require '[ta.import.provider.eodhd.raw :refer [d]])
-  d
-
-  (-> d
-      (eodhd-result->dataset)
-      tc/info)
-
-  (-> (parse-date-only "2024-01-01")
-      (t/at (t/time "00:00:00"))
-      (t/in "UTC"))
-
-  (convert-date "2024-01-01")
-
-  (def eodhd (create-import-eodhd "65f0ad82c56400.56029279"))
-
-  (b/get-bars eodhd
-              {:asset "RPM.AU"
-               :calendar [:us :d]}
-              {:start (t/zoned-date-time "2024-01-01T00:00:00Z")
-               :end (t/zoned-date-time "2024-03-20T00:00:00Z")})
-
-; 
-  )

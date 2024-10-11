@@ -52,12 +52,8 @@
             })))
 
 (defn order-create-msg [order]
-   (let [bybit-order (order->bybit-format order)]
-      (wrap-header bybit-order)))
-
-
-
-
+  (let [bybit-order (order->bybit-format order)]
+    (wrap-header bybit-order)))
 
 (def order-spot-limit-tp-sl
 ; Spot Limit order with market tp sl

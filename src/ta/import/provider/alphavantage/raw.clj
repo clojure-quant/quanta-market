@@ -29,18 +29,6 @@
 ;; GBG.L
 ;; LON:RR
 
-;; AlphaVantage ApiKey Management
-
-(defonce api-key (atom ""))
-
-(defn set-key!
-  "to use alphavantage api, call at least once set-key! api-key"
-  [key]
-  (info "setting alphavantage key..")
-  (reset! api-key key)
-  nil ; Important not to return by chance the key, as this would be shown in the repl.
-  )
-
 ;; helper
 
 (defn- fix-keywords-
@@ -76,10 +64,10 @@
     :else
     (process-success response)))
 
-(defn- get-av-raw [params process-success]
+(defn- get-av-raw [api-key params process-success]
   (-> (client/get "https://www.alphavantage.co/query"
                   {:accept :json
-                   :query-params (assoc params :apikey @api-key)})
+                   :query-params (assoc params :apikey api-key)})
       (:body)
       (cheshire.core/parse-string true)
       (success-if process-success)))
@@ -87,26 +75,27 @@
 (defonce get-av-throttled
   (throttler.core/throttle-fn get-av-raw 5 :minute))
 
-(defn get-av [params process-success] ; throtteled version
+(defn get-av [api-key params process-success] ; throtteled version
   (get-av-throttled
+   api-key
    params
    (fn [result]
      (if (= result :throttled)
        (do (warn "alphavantage request was throttled (this should NOT happen), retrying..")
-           (get-av-throttled params (fn [result2]
-                                      (if (= result2 :throttled)
-                                        (do (error "alphavantage request was throttled the second time.")
-                                            nil)
-                                        (process-success result2)))))
+           (get-av-throttled api-key params (fn [result2]
+                                              (if (= result2 :throttled)
+                                                (do (error "alphavantage request was throttled the second time.")
+                                                    nil)
+                                                (process-success result2)))))
        (process-success result)))))
 
 ;; Search Symbol
 
 (defn search
   "searches for available symbols by keyword"
-  [keywords]
-  (get-av {:function "SYMBOL_SEARCH"
-           :keywords keywords}
+  [api-key keywords]
+  (get-av api-key {:function "SYMBOL_SEARCH"
+                   :keywords keywords}
           (fn [response]
             (->> response
                  :bestMatches
@@ -224,11 +213,11 @@
 
 (defn get-daily
   "size: compact=last 100 days. full=entire history"
-  [size symbol]
-  (get-av {:function "TIME_SERIES_DAILY"
-           :symbol symbol
-           :outputsize (name size)
-           :datatype "json"}
+  [api-key size symbol]
+  (get-av api-key {:function "TIME_SERIES_DAILY"
+                   :symbol symbol
+                   :outputsize (name size)
+                   :datatype "json"}
           (fn [response]
             ;(println "response: " response)
             ;(println "information: " (:Information response))
@@ -236,11 +225,11 @@
 
 (defn get-daily-adjusted
   "size: compact=last 100 days. full=entire history"
-  [size symbol]
-  (get-av {:function "TIME_SERIES_DAILY_ADJUSTED"
-           :symbol symbol
-           :outputsize (name size)
-           :datatype "json"}
+  [api-key size symbol]
+  (get-av api-key {:function "TIME_SERIES_DAILY_ADJUSTED"
+                   :symbol symbol
+                   :outputsize (name size)
+                   :datatype "json"}
           (fn [response]
             ;(println "response: " response)
             (let [{:keys [meta series] :as result} (convert-bars- symbol :adjusted response)]
@@ -250,25 +239,26 @@
               result)
             ;(println "data adjusted: " (pr-str response))
             )))
+
 (defn get-daily-fx
   "size: compact=last 100 days. full=entire history"
-  [size symbol]
-  (get-av {:function "FX_DAILY"
-           :from_symbol (subs symbol 0 3)
-           :to_symbol (subs symbol 3)
-           :outputsize (name size)
-           :datatype "json"}
+  [api-key size symbol]
+  (get-av api-key {:function "FX_DAILY"
+                   :from_symbol (subs symbol 0 3)
+                   :to_symbol (subs symbol 3)
+                   :outputsize (name size)
+                   :datatype "json"}
           (fn [response]
             (convert-bars- symbol :fx response))))
 
 (defn get-daily-crypto
   "size: compact=last 100 days. full=entire history"
-  [size symbol]
-  (get-av {:function "DIGITAL_CURRENCY_DAILY"
-           :symbol (subs symbol 0 3)
-           :market (subs symbol 3)
-           :outputsize (name size)
-           :datatype "json"}
+  [api-key size symbol]
+  (get-av api-key {:function "DIGITAL_CURRENCY_DAILY"
+                   :symbol (subs symbol 0 3)
+                   :market (subs symbol 3)
+                   :outputsize (name size)
+                   :datatype "json"}
           (fn [response]
             (convert-bars- symbol :crypto response))))
 
@@ -276,10 +266,10 @@
 
 (defn get-crypto-rating
   "size: compact=last 100 days. full=entire history"
-  [symbol]
-  (get-av {:function "CRYPTO_RATING"
-           :symbol symbol
-           :datatype "json"}
+  [api-key symbol]
+  (get-av api-key {:function "CRYPTO_RATING"
+                   :symbol symbol
+                   :datatype "json"}
           (fn [response]
             (-> response
                 kwCryptoRating-

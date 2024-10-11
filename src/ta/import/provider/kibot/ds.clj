@@ -71,7 +71,7 @@
     :else
     (start-end->kibot range)))
 
-(defn get-bars [{:keys [asset calendar] :as opts} range]
+(defn get-bars [api-key {:keys [asset calendar] :as opts} range]
   (nom/let-nom> [range (select-keys range [:start :end])
                  _ (info "get-bars kibot " asset " " calendar " " range " ..")
                  symbol-map (symbol->provider asset)
@@ -84,22 +84,21 @@
                  _ (assert symbol-map (str "kibot symbol not found: " asset))
                  _ (assert period-kibot (str "kibot does not support frequency: " f))
                  _ (info "kibot make request interval: " period-kibot " range: " range-kibot "asset-kibot: " symbol-map)
-                 result (kibot/history (merge symbol-map
-                                              range-kibot
-                                              {:interval period-kibot
-                                               :timezone "UTC"
-                                               :splitadjusted 1}))
+                 result (kibot/history api-key (merge symbol-map
+                                                      range-kibot
+                                                      {:interval period-kibot
+                                                       :timezone "UTC"
+                                                       :splitadjusted 1}))
                  ds (kibot-result->dataset exchange result)]
                 (info "kibot request finished!")
                 ds))
 
 (defrecord import-kibot [api-key]
   barsource
-  (get-bars [this opts window]
-    (get-bars opts window)))
+  (get-bars [_ opts window]
+    (get-bars api-key opts window)))
 
 (defn create-import-kibot [api-key]
-  (kibot/set-key! api-key)
   (import-kibot. api-key))
 
 (defn symbols->str [symbols]
@@ -112,14 +111,17 @@
     provider-symbol))
 
 (comment
+
+  (def api-key {:user "guest" :password "guest"})
+
   (def csv "09/01/2023,26.73,26.95,26.02,26.1,337713\r\n")
   (def csv
-    (kibot/history {:symbol "SIL" ; SIL - ETF
-                    :interval "daily"
-                    :period 1
-                    :type "ETF" ; Can be stocks, ETFs forex, futures.
-                    :timezone "UTC"
-                    :splitadjusted 1}))
+    (kibot/history api-key {:symbol "SIL" ; SIL - ETF
+                            :interval "daily"
+                            :period 1
+                            :type "ETF" ; Can be stocks, ETFs forex, futures.
+                            :timezone "UTC"
+                            :splitadjusted 1}))
   csv
 
   (-> (kibot-result->dataset :us csv)
@@ -153,30 +155,6 @@
   (start-end->kibot {:start (t/inst)})
   (start-end->kibot {:end (t/inst)})
   (start-end->kibot {:start (t/inst) :end (t/inst)})
-
-  (get-bars {:asset "MSFT" ; stock
-             :calendar [:us :d]}
-            {:start dt})
-
-  (get-bars {:asset "MSFT"
-             :calendar [:us :d]
-             :import :kibot}
-            {:start (t/instant "2020-01-01T00:00:00Z")
-             :end (t/instant "2020-02-01T00:00:00Z")})
-
-  (-> (get-bars {:asset "NG0" ; future
-                 :calendar [:us :d]}
-                {:start dt})
-      (tc/info))
-
-  (get-bars {:asset "EUR/USD" ; forex
-             :calendar [:forex :d]}
-            {:start (parse-date "2023-09-01")
-             :end (parse-date "2023-10-01")})
-
-  (get-bars  {:asset "IJH" ; ETF
-              :calendar [:etf :d]}
-             {:start (parse-date "2023-09-01")})
 
 ; 
   )

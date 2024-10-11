@@ -10,10 +10,7 @@
    [quanta.market.broker.bybit.order.create :refer [order-create-msg]]
    [quanta.market.broker.bybit.order.create-response :refer [post-process-order]]
    [quanta.market.broker.bybit.order.cancel :refer [order-cancel-msg]]
-   [quanta.market.broker.bybit.rpc :refer [rpc-req!]]
-   ))
-
-
+   [quanta.market.broker.bybit.rpc :refer [rpc-req!]]))
 
 (defrecord bybit-trade-action [opts websocket-order flow-sender]
   p/trade-action
@@ -39,10 +36,6 @@
       (rpc-req! websocket-order order-msg identity))
 ; 
     ))
-
-
-
-
 (defn create-trade-action
   [{:keys [creds mode] :as opts}]
   (assert creds "bybit tradefeed needs :creds")
@@ -50,7 +43,6 @@
   (info "creating bybit tradefeed: " opts)
   (let [flow-sender (flow-sender)
         websocket-order (create-websocket2 (merge opts {:segment :trade})
-                                           [:bybit :order (:account opts)]
-                                           )]
+                                           [:bybit :order (:account opts)])]
     (bybit-trade-action. opts websocket-order flow-sender)))
 

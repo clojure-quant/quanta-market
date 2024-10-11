@@ -4,8 +4,7 @@
    [taoensso.timbre :as timbre :refer [debug info warn error]]
    [quanta.market.util :refer [start-logging mix wrap-blk]]
    [quanta.market.protocol :as p]
-   [quanta.market.robot.order :refer [place-order-near-market]]
-   ))
+   [quanta.market.robot.order :refer [place-order-near-market]]))
 
 (defn create-entry-f [{:keys [qm pm] :as env}
                       {:keys [account qty feed diff] :as robot-opts}
@@ -36,7 +35,6 @@
         mixed-f (mix signal-f entry-f)]
     (start-logging logfile mixed-f)))
 
-
 ; new signal
 ; log new signal
 ; can open order ?
@@ -44,10 +42,7 @@
 ; create limit near market.
 ; -> result: failed-to-open or position-opened.
 
-
-
-
 (defn ExitPosition [algo-opts position]
     ;(M/ap (m/?> 
   )
- 
+

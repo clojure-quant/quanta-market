@@ -26,7 +26,7 @@
        (map create-feed)
        (into {})))
 
-(defn quote-manager-start 
+(defn quote-manager-start
   "A quote-manager is a quotefeed that multiplexes 
    quotefeeds by :feed key in a get-topic subscription."
   [feeds]

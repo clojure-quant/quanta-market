@@ -5,12 +5,11 @@
    ; side effects:
    [quanta.market.broker.bybit.quote.quotefeed-category]))
 
-
 (defrecord bybit-trade-update [opts feed]
   p/trade-update
   (orderupdate-flow [this]
-                    (println "FEED: " feed)
-                    (p/get-topic feed {:topic :order/update}))
+    (println "FEED: " feed)
+    (p/get-topic feed {:topic :order/update}))
   (orderupdate-msg-flow [this]
     (let [trade-feed (p/get-feed feed) ; bybit-subscriber
           websocket (p/get-conn trade-feed) ; websocket

@@ -8,12 +8,12 @@
    :topic "publicTrade.ETHUSDT"
    :ts 1706476799818
    :data [{:i "2280000000184479515"
-            :T 1706476799815
-            :p "2263.77"
-            :v "0.01056"
-            :S "Buy"
-            :s "ETHUSDT"
-            :BT false}]})
+           :T 1706476799815
+           :p "2263.77"
+           :v "0.01056"
+           :S "Buy"
+           :s "ETHUSDT"
+           :BT false}]})
 
 (def trade-msg-multiple-trades-demo
   {:type "snapshot"
@@ -26,20 +26,20 @@
            :S "Sell",
            :s "ETHUSDT",
            :BT :false}
-           {:i "2280000000184480266"
-            :T 1706476982154
-            :p "2262.6"
-            :v "0.17735"
-            :S "Sell"
-            :s "ETHUSDT"
-            :BT false}
-           {:i "2280000000184480267"
-            :T 1706476982154
-            :p "2262.6"
-            :v "0.00512"
-            :S "Sell"
-            :s "ETHUSDT"
-            :BT false}]})
+          {:i "2280000000184480266"
+           :T 1706476982154
+           :p "2262.6"
+           :v "0.17735"
+           :S "Sell"
+           :s "ETHUSDT"
+           :BT false}
+          {:i "2280000000184480267"
+           :T 1706476982154
+           :p "2262.6"
+           :v "0.00512"
+           :S "Sell"
+           :s "ETHUSDT"
+           :BT false}]})
 
 (defn normalize-bybit-last-trade [{:keys [s p v T BT S i]}]
   {:asset s
@@ -47,10 +47,9 @@
    :size (parse-double v)
    :time T
    ; unchanged from raw topic
-   :BT BT 
+   :BT BT
    :S S
-   :i i
-   })
+   :i i})
 
 (defn transform-last-trade-flow [topic-data-flow]
   ; output of this flow:
@@ -63,11 +62,9 @@
        (normalize-bybit-last-trade last-quote-update)
        (m/amb) ; this does not return anything, and therefore fixes split-seq-flow
        ))))
-
-
 (comment
-    
-  (def topic-data-f (m/seed [last-trade-msg-demo 
+
+  (def topic-data-f (m/seed [last-trade-msg-demo
                              trade-msg-multiple-trades-demo]))
 
   (def transformed-f (transform-last-trade-flow topic-data-f))
@@ -78,7 +75,6 @@
   ;;     {:asset "ETHUSDT", :price 2262.6, :size 0.17735, :time 1706476982154, :BT false, :S "Sell", :i "2280000000184480266"}
   ;;     {:asset "ETHUSDT", :price 2262.6, :size 0.00512, :time 1706476982154, :BT false, :S "Sell", :i "2280000000184480267"}]
 
-  
 ;
   )
 

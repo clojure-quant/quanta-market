@@ -7,7 +7,6 @@
    [quanta.market.broker.bybit.trade-update :refer [create-trade-update-feed]]
    [quanta.market.broker.bybit.trade-action :refer [create-trade-action]]))
 
-
 (defrecord bybit-trade [opts order-s orderupdate-s]
   ; action
   p/trade-action
@@ -33,9 +32,6 @@
   (account-msg-flow [this]
     (mix (p/trade-action-msg-flow this)
          (p/orderupdate-msg-flow this))))
-
-
-
 
 (defmethod p/create-tradeaccount :bybit
   [{:keys [creds mode] :as opts}]

@@ -72,8 +72,6 @@
        (normalize-bybit-orderupdate order-update)
        (m/amb) ; this does not return anything, and therefore fixes split-seq-flow
        ))))
-
-
 (comment
   (def raw-order-flow (m/seed [order-update-msg-demo]))
 
@@ -81,6 +79,5 @@
 
   (m/? (m/reduce conj orderupdate-flow))
 
-
- ; 
+; 
   )

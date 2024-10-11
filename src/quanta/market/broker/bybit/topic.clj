@@ -6,11 +6,10 @@
    [quanta.market.broker.bybit.topic.stats :refer [transform-stats-flow]]
    [quanta.market.broker.bybit.topic.bars :refer [transform-bars-flow]]
    [quanta.market.broker.bybit.topic.orderbook :refer [transform-book-flow]]
-   [quanta.market.broker.bybit.topic.orderupdate :refer [transform-orderupdate-flow]]
-   ))
+   [quanta.market.broker.bybit.topic.orderupdate :refer [transform-orderupdate-flow]]))
 
 (def topics
-  {:order/execution "execution" 
+  {:order/execution "execution"
    :order/update "order"
     ; market
    :asset/orderbook "orderbook.%s.%s" ; depth asset OK
@@ -34,8 +33,6 @@
     "W" ;(week)
     "M" ; (month)
     })
-
-
 (defn format-topic-sub [{:keys [topic asset depth interval] :as sub
                          :or {topic :asset/trade}}]
   (cond
@@ -88,7 +85,6 @@
     ; orderupdates
     :order/update (transform-orderupdate-flow topic-data-f)
     topic-data-f))
-
 
 (comment
   (format-topic :asset/stats ["EURUSD"])

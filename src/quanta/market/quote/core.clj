@@ -4,7 +4,6 @@
    [quanta.market.util :refer [current-v]]
    [quanta.market.protocol :as p]))
 
-
 (defn topic-snapshot [qm {:keys [feed asset timeout topic]
                           :or {timeout 5000
                                topic :asset/trade}

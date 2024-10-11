@@ -59,29 +59,27 @@
     (catch Exception ex
       (info label "disconnect exception: " ex))))
 
-
 #_(defn create-conn-f2 [opts flow-sender-in flow-sender-out ping label]
-  (m/signal ; signal is continuous, and therefore allows reuse of existing connection
-   (cont 
-    (m/ap
-     (m/amb nil)
-     (loop [conn (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label))]
-       (info "conn-f got a connection: " conn)
-       (let [consumer-t (:consumer-task conn)]
-         (m/amb
-          conn
-          (let [reconnect? (try (m/? (m/sleep 50000)) ; delays are built into the connect task
+    (m/signal ; signal is continuous, and therefore allows reuse of existing connection
+     (cont
+      (m/ap
+       (m/amb nil)
+       (loop [conn (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label))]
+         (info "conn-f got a connection: " conn)
+         (let [consumer-t (:consumer-task conn)]
+           (m/amb
+            conn
+            (let [reconnect? (try (m/? (m/sleep 50000)) ; delays are built into the connect task
                                ;(m/? consumer-t)
-                                
-                                true
-                                (catch Cancelled _
-                                  (do (info label "websocket got cancelled.")
-                                      (disconnect! conn ping label)
-                                      false)))]
-            (if reconnect?
-              (recur (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label)))
-              (reduced nil))))))))))
 
+                                  true
+                                  (catch Cancelled _
+                                    (do (info label "websocket got cancelled.")
+                                        (disconnect! conn ping label)
+                                        false)))]
+              (if reconnect?
+                (recur (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label)))
+                (reduced nil))))))))))
 
 (defn reconnect! [flow-sender-in flow-sender-out opts ping label consumer-t]
   (m/sp (m/? consumer-t)
@@ -90,19 +88,18 @@
 
 (defn create-conn-f [opts flow-sender-in flow-sender-out ping label]
   (m/signal
-   (cont 
-   (m/ap
-    (let [conn-a (atom nil)]
-      (try
-        (loop [conn (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label))]
-          (let [consumer-t (:consumer-task conn)]
-            (reset! conn-a conn)
-            (m/amb conn (recur (m/? (reconnect! flow-sender-in flow-sender-out opts ping label consumer-t))))))
-        (catch Cancelled _
-          (info "shutting down..")
+   (cont
+    (m/ap
+     (let [conn-a (atom nil)]
+       (try
+         (loop [conn (m/? (connect-impl! flow-sender-in flow-sender-out opts ping label))]
+           (let [consumer-t (:consumer-task conn)]
+             (reset! conn-a conn)
+             (m/amb conn (recur (m/? (reconnect! flow-sender-in flow-sender-out opts ping label consumer-t))))))
+         (catch Cancelled _
+           (info "shutting down..")
           ;(m/?  (disconnect! @conn-a ping label))
-          :stop)))))))
-
+           :stop)))))))
 
 (defrecord bybit-websocket2 [conn-f flow-sender-in flow-sender-out label]
   p/connection
@@ -112,7 +109,6 @@
     (:flow flow-sender-in))
   (msg-out-flow [this]
     (:flow flow-sender-out)))
-
 
 (defn create-websocket2
   [opts label]

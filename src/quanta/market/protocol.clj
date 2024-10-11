@@ -2,8 +2,7 @@
 
 (defprotocol manage-connection
   (start! [this])
-  (stop! [this])
-  )
+  (stop! [this]))
 
 ;; CONNECTION
 
@@ -13,16 +12,16 @@
   (msg-out-flow [this]))
 
 (defprotocol connection-subscriber
-    "data-feeds that have a connection (websocket/socket),
+  "data-feeds that have a connection (websocket/socket),
      need to start start and stop subscription for a topic on
      an established connection, and need to do this again in 
      case the connection gets reconnected. 
      They also need to filter data fore a topic from the 
      connection inbound msg flow."
-   (get-conn [this])
-   (subscription-start! [this conn topic]) 
-   (subscription-stop! [this conn topic]) 
-   (topic-view [this topic]))
+  (get-conn [this])
+  (subscription-start! [this conn topic])
+  (subscription-stop! [this conn topic])
+  (topic-view [this topic]))
 
 ;; QUOTE
 
@@ -35,7 +34,6 @@
    get-feed gets the underlying feed impl, in case one needs more."
   (get-feed [this])
   (get-topic [this sub]))
-
 
 (defmulti create-quotefeed
   "a quotefeed must implement this method to create it.

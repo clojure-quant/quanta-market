@@ -7,12 +7,12 @@
    [quanta.market.precision :refer [round-asset]]))
 
 (defn price-off-market [price side diff]
-  (let [diff (/ diff 100.0 )]
-  (case side
-    :buy (* price (- 1.0 diff))
-    :sell (* price (+ 1.0 diff)))))
+  (let [diff (/ diff 100.0)]
+    (case side
+      :buy (* price (- 1.0 diff))
+      :sell (* price (+ 1.0 diff)))))
 
-(defn limit-near-market 
+(defn limit-near-market
   "returns a missionary task that returns the limit-price 
    diff percentage better than the 
    last trade trade price 
@@ -30,32 +30,30 @@
            off-price-precision (round-asset asset off-price)]
        off-price-precision))))
 
-
-(defn limit-order-near-market 
-   "returns a missionary task that returns a limit-order
+(defn limit-order-near-market
+  "returns a missionary task that returns a limit-order
     whose limit is diff percentage better than the last 
     trade trade price received using feed :feed
     for order :asset :side"
   [qm {:keys [asset side account qty feed diff]
-                                   :as order}]
+       :as order}]
   (let [limit-price-t (limit-near-market qm order)]
-  (m/sp
-   (let [limit-price (m/? limit-price-t)]
-     {:account account
-      :asset (str asset ".S")
-      :side side
-      :qty qty
-      :ordertype :limit
-      :limit limit-price}))))
+    (m/sp
+     (let [limit-price (m/? limit-price-t)]
+       {:account account
+        :asset (str asset ".S")
+        :side side
+        :qty qty
+        :ordertype :limit
+        :limit limit-price}))))
 
-
-(defn place-order-near-market 
-     "returns a missionary task that returns a places
+(defn place-order-near-market
+  "returns a missionary task that returns a places
       a limit-order near the last trade 
       whose limit is diff percentage better than the last 
       trade trade price received using feed :feed
       for order :asset :side"
-   [{:keys [qm pm]} order-feed-diff]
+  [{:keys [qm pm]} order-feed-diff]
   (let [order-create-t (limit-order-near-market qm order-feed-diff)
         ; order-place-t  ; cannot use the let trick here. 
         ]
@@ -63,7 +61,6 @@
      (let [order (m/? order-create-t)]
        (warn "will place order: " order)
        (m/? (p/order-create! pm order))))))
-
 
 (comment
 

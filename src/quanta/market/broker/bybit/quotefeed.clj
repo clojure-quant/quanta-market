@@ -5,7 +5,6 @@
    [quanta.market.broker.bybit.quote.quotefeed-category] ; side effects
    [quanta.market.broker.bybit.asset :refer [asset-category]]))
 
-
 (defrecord bybit-feed [feeds]
   p/subscription-topic
   (get-topic [this sub]
@@ -32,7 +31,6 @@
    :option {:mode :main
             :segment :options}})
 
-
 (defn make-feed [[kw opts]]
   [kw (p/create-quotefeed (assoc opts :type :bybit-category))])
 
@@ -45,7 +43,6 @@
   [opts]
   (info "creating bybit quotefeed ..")
   (bybit-feed. (make-feeds)))
-
 
 (comment
 

@@ -1,18 +1,18 @@
 (ns quanta.market.broker.bybit.order.create-response)
 
 (def order-response-success-example
-{:retCode 0
- :retMsg "OK"
- :connId "cpv85t788smd5eps8ncg-3bbo"
- :op "order.create"
- :header {:Timenow 1722550611004
-          :X-Bapi-Limit-Status 19
-          :X-Bapi-Limit-Reset-Timestamp "1722550611003"
-          :Traceid "329a6c89ee3055c26d775c785b80d175"
-          :X-Bapi-Limit 20}
- :reqId "A5PYbicF"
- :data {:orderLinkId "ZNMid1vM"
-        :orderId 1743275308385396736}})
+  {:retCode 0
+   :retMsg "OK"
+   :connId "cpv85t788smd5eps8ncg-3bbo"
+   :op "order.create"
+   :header {:Timenow 1722550611004
+            :X-Bapi-Limit-Status 19
+            :X-Bapi-Limit-Reset-Timestamp "1722550611003"
+            :Traceid "329a6c89ee3055c26d775c785b80d175"
+            :X-Bapi-Limit 20}
+   :reqId "A5PYbicF"
+   :data {:orderLinkId "ZNMid1vM"
+          :orderId 1743275308385396736}})
 
 (def order-response-failed-example
   {:retCode 110007,

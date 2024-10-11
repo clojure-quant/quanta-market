@@ -1,7 +1,7 @@
 (ns quanta.market.broker.bybit.topic.bars
-   (:require
-    [missionary.core :as m]
-    [quanta.market.util :refer [split-seq-flow]]))
+  (:require
+   [missionary.core :as m]
+   [quanta.market.util :refer [split-seq-flow]]))
 
 (def test-msg-asset-bars
   {:type "snapshot",
@@ -18,12 +18,11 @@
            :low "53345.94"
            :close "65080.85"
            :volume "271788.26813"
-           :turnover "16187728730.4876258"
-           }]})
+           :turnover "16187728730.4876258"}]})
 
 (defn normalize-bybit-bars [{:keys [_interval
-                                     start end timestamp confirm
-                                     open high low close volume turnover]}]
+                                    start end timestamp confirm
+                                    open high low close volume turnover]}]
   {:open (parse-double open)
    :high (parse-double high)
    :low (parse-double low)
@@ -42,21 +41,18 @@
          bar (m/?> (split-seq-flow data))]
      (if bar ; bug of split-seq-flow returns also nil.
        (normalize-bybit-bars bar)
-        (m/amb) ; this does not return anything, and therefore fixes split-seq-flow
+       (m/amb) ; this does not return anything, and therefore fixes split-seq-flow
        ))))
 
 (defn confirmed? [{:keys [confirm]}]
   confirm)
 
-
 (defn transform-bars-flow [topic-data-flow only-finished?]
   (if only-finished?
-     (m/eduction 
-       (filter confirmed?)
-       (transform-bars-flow-raw topic-data-flow))
-     (transform-bars-flow-raw topic-data-flow)))
-
-
+    (m/eduction
+     (filter confirmed?)
+     (transform-bars-flow-raw topic-data-flow))
+    (transform-bars-flow-raw topic-data-flow)))
 
 (comment
 

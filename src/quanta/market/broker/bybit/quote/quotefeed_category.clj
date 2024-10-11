@@ -6,9 +6,7 @@
    [quanta.market.broker.bybit.websocket2 :refer [create-websocket2]]
    [quanta.market.broker.bybit.quote.subscription :refer [subscription-start-msg subscription-stop-msg]]
    [quanta.market.broker.bybit.topic :refer [format-topic-sub topic-data-flow topic-transformed-flow]]
-   [quanta.market.broker.bybit.rpc :refer [rpc-req!]]
-   ))
-
+   [quanta.market.broker.bybit.rpc :refer [rpc-req!]]))
 
 (defrecord bybit-subscriber [websocket]
   p/connection-subscriber
@@ -43,8 +41,6 @@
         websocket (create-websocket2 opts label)
         subscriber (bybit-subscriber. websocket)]
     (create-topic-subscriber subscriber)))
-
-
 
 (comment
   (try

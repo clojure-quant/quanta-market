@@ -6,7 +6,6 @@
    [quanta.market.broker.bybit.connection :as c]
    [quanta.market.precision :refer [format-price format-qty]]))
 
-
 (defn order-create-msg [bybit-order]
   (wrap-header bybit-order))
 
@@ -17,14 +16,12 @@
          response (m/? (c/rpc-req! conn msg))]
      response)))
 
-
 (defn order-create! [conn order]
   (m/sp
    (info "order-create: " order " ..")
    (let [bybit-order (order->bybit-format order)
          response (m/? (order-create-raw! conn bybit-order))]
      (parse-order-response order response))))
-
 
 (defn order-cancel! [conn order]
   (m/sp

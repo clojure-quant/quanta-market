@@ -9,7 +9,7 @@
    [tablecloth.api :as tc]
    [ta.import.provider.bybit.raw :as bybit]
    [ta.calendar.validate :as cal-type]
-   [ta.calendar.core :refer [prior-close]]
+   [ta.calendar.core :refer [prior-open]]
    [ta.db.bars.protocol :refer [barsource]]))
 
 ;; RESPONSE CONVERSION
@@ -65,10 +65,18 @@
 (def bybit-frequencies
   ; Kline interval. 1,3,5,15,30,60,120,240,360,720,D,M,W
   {:m "1"
+   :m3 "3"
+   :m5 "5"
    :m15 "15"
    :m30 "30"
    :h "60"
-   :d "D"})
+   :h2 "120"
+   :h4 "240"
+   :h6 "360"
+   :h12 "720"
+   :d "D"
+   :W "W"
+   :M "M"})
 
 (defn bybit-frequency [frequency]
   (get bybit-frequencies frequency))
@@ -83,7 +91,10 @@
          :start (instant->epoch-millisecond (:start window))
          :end (instant->epoch-millisecond (:end window))))
 
-(defn get-bars-req [{:keys [asset calendar] :as opts} window]
+(defn get-bars-req
+  "requests a window and returns a dataset with the bars.
+   bybit window works with open candle time."
+  [{:keys [asset calendar] :as opts} window]
   (tm/log! :debug
            (str
             "get-bars-req: " (select-keys opts [:task-id :asset :calendar :import])
@@ -150,8 +161,7 @@
             (str "next-request window: " window))
   (when-not (nom/anomaly? bar-ds)
     (let [earliest-received-dt (-> bar-ds tc/first :date first)
-          [calendar-kw interval-kw] calendar
-          end (prior-close calendar-kw interval-kw earliest-received-dt)
+          end (prior-open calendar earliest-received-dt)
           end-instant (t/instant end)
           {:keys [start limit]} window]
       (when (more? start limit bar-ds)
@@ -163,28 +173,11 @@
          (reduce or-fn false)
          not)))
 
-(defn set-close-time [dt]
-  (-> dt
-      (t/date)
-      (t/at (t/time "23:59:59"))
-      (t/in "UTC")
-      (t/instant)))
-
-(defn set-close-time-vec [dt-vec]
-  (map set-close-time dt-vec))
-
-(defn set-daily-time [{:keys [asset calendar] :as opts} ds]
-  (let [frequency (second calendar)]
-    (if (= frequency :d)
-      (tc/update-columns ds {:date set-close-time-vec})
-      ds)))
-
 (defn consolidate-datasets [opts window datasets]
   (if (all-ds-valid datasets)
     (->> datasets
          (apply tc/concat)
-         (sort-ds)
-         (set-daily-time opts))
+         (sort-ds))
     (nom/fail ::consolidate-datasets {:message "paged request failed!"
                                       :opts opts
                                       :range window})))
@@ -204,13 +197,28 @@
       (tm/log! :info
        ;info 
                (str "initial-page start: " start " end: " end))
-      (->> (iteration (fn [window]
-                        (tm/log! :info
-                                 ;info 
-                                 (str "new page window: " (select-keys window [:start :end])))
-                        (get-bars-req opts window))
-                      :initk window
-                      :kf  (partial next-request calendar window))
+
+      ; NOTE: this code makes more requests than needed.
+      ;       for 1 day (1440 minute candles) 2 requests would be needed, but 4 are done
+      ;(->> (iteration (fn [window]
+      ;                  (tm/log! :info
+      ;                           ;info
+      ;                           (str "new page window: " (select-keys window [:start :end])))
+      ;                  (get-bars-req opts window))
+      ;                :initk window
+      ;                :kf  (partial next-request calendar window))
+      ;     (consolidate-datasets opts window))
+
+      (->> (loop [w window
+                  res []]
+             (if w
+               (do
+                 (tm/log! :info
+                          (str "new page window: " (select-keys w [:start :end])))
+                 (let [bar-ds (get-bars-req opts w)]
+                   (recur (next-request calendar w bar-ds)
+                          (conj res bar-ds))))
+               res))
            (consolidate-datasets opts window)))
     (catch AssertionError ex
       (tm/log! :error
@@ -263,6 +271,11 @@
       ;count
       )
      ; 2024-03-05T21:26:00Z
+
+  (get-bars {:asset "BTCUSDT"
+             :calendar [:crypto :m]}
+            {:start (t/instant "2024-10-01T00:00:00Z")
+             :end (t/instant "2024-10-02T23:59:00Z")})
 
   (all-ds-valid [1 2 3 4 5])
   (all-ds-valid [1 2 3 (nom/fail ::asdf {}) 4 5])

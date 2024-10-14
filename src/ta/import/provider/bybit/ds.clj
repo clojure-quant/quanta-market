@@ -8,8 +8,9 @@
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
    [ta.import.provider.bybit.raw :as bybit]
+   [ta.import.helper :refer [expected-bars calendar-seq-prior-open]]
    [ta.calendar.validate :as cal-type]
-   [ta.calendar.core :refer [prior-open]]
+   [quanta.calendar.core :refer [prior-open]]
    [ta.db.bars.protocol :refer [barsource]]))
 
 ;; RESPONSE CONVERSION
@@ -215,7 +216,13 @@
                (do
                  (tm/log! :info
                           (str "new page window: " (select-keys w [:start :end])))
-                 (let [bar-ds (get-bars-req opts w)]
+                 (let [bar-ds (get-bars-req opts w)
+                       received-c (tc/row-count bar-ds)
+                       expected-c (expected-bars calendar w page-size)]
+                     (tm/log! (if (= received-c expected-c) :info :warn)
+                            (str "page result: " (select-keys w [:start :end])
+                                 ", expected bars: " expected-c
+                                 ", received bars: " received-c))
                    (recur (next-request calendar w bar-ds)
                           (conj res bar-ds))))
                res))
@@ -275,7 +282,7 @@
   (get-bars {:asset "BTCUSDT"
              :calendar [:crypto :m]}
             {:start (t/instant "2024-10-01T00:00:00Z")
-             :end (t/instant "2024-10-02T23:59:00Z")})
+             :end (t/instant "2024-10-01T23:59:00Z")})
 
   (all-ds-valid [1 2 3 4 5])
   (all-ds-valid [1 2 3 (nom/fail ::asdf {}) 4 5])

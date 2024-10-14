@@ -14,35 +14,35 @@
               order))))
 
 (def demo-order-action-flow
-  (create-simulated-order-action-flow 
-    [0 {:type :new-order
-        :order-id 1
-        :asset :BTC
-        :side :buy
-        :limit 100.0
-        :qty 0.001}
-     2 {:type :new-order
-        :order-id 2
-        :asset :ETH
-        :side :sell
-        :limit 100.0
-        :qty 0.001}
-     3 {:type :cancel-order
-        :order-id 2}
-     5 {:type :new-order
-         :order-id 3
-         :asset :ETH
-         :side :sell
-         :limit 100.0
-         :qty 0.001}
-     7 {:type :new-order
-         :order-id 4
-         :asset :ETH
-         :side :sell
-         :limit 100.0
-         :qty 0.001}]))
+  (create-simulated-order-action-flow
+   [0 {:type :new-order
+       :order-id 1
+       :asset :BTC
+       :side :buy
+       :limit 100.0
+       :qty 0.001}
+    2 {:type :new-order
+       :order-id 2
+       :asset :ETH
+       :side :sell
+       :limit 100.0
+       :qty 0.001}
+    3 {:type :cancel-order
+       :order-id 2}
+    5 {:type :new-order
+       :order-id 3
+       :asset :ETH
+       :side :sell
+       :limit 100.0
+       :qty 0.001}
+    7 {:type :new-order
+       :order-id 4
+       :asset :ETH
+       :side :sell
+       :limit 100.0
+       :qty 0.001}]))
 
-  (comment 
+(comment
 
   (m/? (m/reduce println nil demo-order-action-flow))
 
@@ -58,5 +58,5 @@
 
 
 
-  
+
 

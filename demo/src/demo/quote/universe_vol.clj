@@ -6,11 +6,10 @@
    [demo.env :refer [qm]]
    [demo.quote.universe :refer [asset-symbols-both]]))
 
-
 (defn stats-t [asset]
-   (topic-snapshot qm {:feed :bybit
-                       :topic :asset/stats
-                       :asset asset}))
+  (topic-snapshot qm {:feed :bybit
+                      :topic :asset/stats
+                      :asset asset}))
 
 (m/? (stats-t "BTCUSDT"))
 
@@ -52,14 +51,12 @@
 ;; does not work for linear
 ;; linear gives back this: {:ask1Size 0.832, :symbol BTCUSDT, :ask1Price 69766.10}
 
-
-
 (defn volume-t [asset]
   (let [stats (stats-t asset)]
     (m/sp (let [s (m/? stats)]
-       {:asset asset
-        :value (:value s)
-        :close (:close s)}))))
+            {:asset asset
+             :value (:value s)
+             :close (:close s)}))))
 
 (m/? (volume-t "BTCUSDT"))
 ;; => {:asset "BTCUSDT", :value 9.548235889833379E8, :close 69756.01}
@@ -73,10 +70,7 @@
         tasks (map wrap-blk tasks)]
     (apply m/join vector tasks)))
 
-
-
-(m/? (overview-t ["BTCUSDT" "ETHUSDT" ]))
-
+(m/? (overview-t ["BTCUSDT" "ETHUSDT"]))
 
 ;; => [{:value 9.55591496414747E8, :asset "BTCUSDT", :close 69884.27}
 ;;     {:value 3.12556045574484E8, :asset "ETHUSDT", :close 3378.26}]
@@ -98,13 +92,11 @@ overview
 
 (print-table (reverse (sort-by :value overview)))
 
-(def our-universe 
+(def our-universe
   (filter #(> (:value %) 15000000.0) overview))
-
 
 (print-table (reverse (sort-by :value our-universe)))
 ;; => nil
-
 
 ; |   :close |              :value |   :asset |
 ; |----------+---------------------+----------|
@@ -131,7 +123,6 @@ overview
 ;|  2.15595684564817E7 | ONDOUSDT |  1.01321 |
 ;|   2.1079925735354E7 |  TONUSDT |   6.7539 |
 ;|   1.7429997814938E7 |  WIFUSDT |   2.5353 |
-
 
 ; tuesday 8am
 ;|     :asset |               :value |   :close |

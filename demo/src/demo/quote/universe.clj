@@ -18,7 +18,7 @@
 (defn linear-perp? [{:keys [contractType]}]
   (= contractType "LinearPerpetual"))
 
-(def usdt-perpetuals 
+(def usdt-perpetuals
   (->> (load-category "linear")
        (filter linear-perp?)
        (filter usdt?)))
@@ -44,18 +44,16 @@
   (->> assets
        (map (juxt :symbol identity))
        (into {})))
-  
 
 (-> usdt-spot ->dict keys)
 (-> usdt-perpetuals ->dict keys)
 
 (def usdt-spot-with-perpetual
   (let [d-perm (-> usdt-perpetuals ->dict)
-        spot-perp (map (fn [{:keys [symbol ] :as spot}]
+        spot-perp (map (fn [{:keys [symbol] :as spot}]
                          (if-let [perp (get d-perm symbol)]
                            (assoc spot :perp? true)
-                           (assoc spot :perp? false)
-                           )) usdt-spot)]
+                           (assoc spot :perp? false))) usdt-spot)]
     (filter :perp? spot-perp)))
 
 usdt-spot-with-perpetual
@@ -68,10 +66,8 @@ usdt-spot-with-perpetual
 
 (print-spot usdt-spot-with-perpetual)
 
-
 (def asset-symbols-both
-  (map :symbol usdt-spot-with-perpetual)
-  )
+  (map :symbol usdt-spot-with-perpetual))
 
 asset-symbols-both
 

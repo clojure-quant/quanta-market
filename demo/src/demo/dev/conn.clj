@@ -6,8 +6,7 @@
    [quanta.market.broker.bybit.task.order :refer [order-create-raw! order->bybit-format]]
    [demo.accounts :refer [accounts-trade]]
     ; bring default implementations into scope:
-   [quanta.market.broker.bybit.tradeaccount]
-   ))
+   [quanta.market.broker.bybit.tradeaccount]))
 
 (def account (get accounts-trade :rene/test4))
 
@@ -15,11 +14,10 @@ account
 
 (def ta (p/create-tradeaccount account))
 
-
 (p/start-trade ta)
 
 (p/stop-trade ta)
- 
+
 (start-logging ".data/test-account-msg6.txt"
                (p/msg-flow ta))
 
@@ -51,7 +49,6 @@ account
 ;;       "orderType" "Market", 
 ;;       "qty" "0.001"}
 
-
 (order->bybit-format order-spot-limit)
 ;; => {"price" "68750.000", 
 ;;       "symbol" "BTCUSDT", 
@@ -64,17 +61,16 @@ account
 
 (m/? (p/order-create! ta order-spot-limit))
 
-
 (m/? (p/order-cancel! ta {:order-id "234"}))
-(m/? (order-create-raw! 
-        (p/connection-flow (:websocket-order ta))
-        {"price" "68750.00",
-         "symbol" "BTCUSDT",
-         "side" "Buy",
-         "orderType" "Limit",
-         "qty" "0.0001",
-         "category" "spot",
-         "timeInForce" "PostOnly"}))
+(m/? (order-create-raw!
+      (p/connection-flow (:websocket-order ta))
+      {"price" "68750.00",
+       "symbol" "BTCUSDT",
+       "side" "Buy",
+       "orderType" "Limit",
+       "qty" "0.0001",
+       "category" "spot",
+       "timeInForce" "PostOnly"}))
 ;; => {:retCode 170136,
 ;;     :retMsg "Order quantity exceeded lower limit.",
 ;;     :connId "cpv85t788smd5eps8ncg-30va",
@@ -102,7 +98,6 @@ account
 ;;     :data {:orderLinkId "1735944774881732609", :orderId "1735944774881732608"}}
 
 order-create-raw!
-
 
 {:message nil,
  :msg

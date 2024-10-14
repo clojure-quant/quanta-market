@@ -7,7 +7,6 @@
    [demo.env :refer [qm]]
    [demo.quote.universe :refer [asset-symbols-both]]))
 
-
 (defn future-premium-f [asset]
   (let [asset-perpetual (str asset ".P")
         spot (p/trade qm {:feed :bybit
@@ -28,7 +27,6 @@
                      :prct prct}))]
     (m/latest premium spot perpetual)))
 
-
 (start-flow-logger!
  ".data/spot-future-btc7.txt"
  :spot-future-btc
@@ -39,7 +37,6 @@
 (defn future-premiums [assets]
   (apply mix (map future-premium-f assets)))
 
-
 (start-flow-logger!
  ".data/spot-future-multiple9.txt"
  :spot-future
@@ -48,7 +45,6 @@
 ; started 14:06
 
 (stop! :spot-future)
-
 
 (defn valid-spread [flow]
     ; same as current-v .. need to verify.
@@ -63,8 +59,6 @@
 
 (m/? (spread-t "BTCUSDT"))
 
-
-
 (defn premium-list [assets]
   (let [tasks (map spread-t assets)
         spreads (m/? (apply m/join vector tasks))]
@@ -77,7 +71,6 @@
 ; this can take up to 60 seconds.
 (def spreads
   (premium-list (take 10 asset-symbols-both)))
-
 
 spreads
 
@@ -92,7 +85,6 @@ spreads
     (fn [{:keys [prct]}]
       (or (> prct min-prct)
           (< prct neg-min-prct)))))
-
 
 (->> spreads-all
      (filter error?)

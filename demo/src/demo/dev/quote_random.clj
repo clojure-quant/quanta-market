@@ -18,4 +18,3 @@
 
 ; prints entire quote-table whenever one of the quotes updates.
 ; note that EURUSD is subscribed twice and has the same value.
-  

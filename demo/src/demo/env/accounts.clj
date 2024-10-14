@@ -1,6 +1,5 @@
 (ns demo.env.accounts)
 
-
 (defn get-creds [account-id]
   (-> (System/getenv "MYVAULT")
       (str "/goldly/quanta.edn")
@@ -8,7 +7,7 @@
       read-string
       account-id))
 
-(def accounts-quote 
+(def accounts-quote
   {; quote connections
    :random {:type :random}
    :bybit {:type :bybit}})
@@ -23,15 +22,13 @@
    ;:rene/test2 {:type :bybit
    ;             :mode :test
    ;             :creds (get-creds :bybit/rene2)}
-   
+
    ;:rene/test3 {:type :bybit
    ;             :mode :test
    ;             :creds (get-creds :bybit/rene3)}
    :rene/test4 {:type :bybit
                 :mode :test
-                :creds (get-creds :bybit/rene4)}
-   })
-
+                :creds (get-creds :bybit/rene4)}})
 
 accounts-trade
 

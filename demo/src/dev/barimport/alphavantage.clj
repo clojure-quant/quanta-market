@@ -5,9 +5,7 @@
    [ta.import.provider.alphavantage.ds :as avds]
    [ta.import.provider.alphavantage.raw :as av]
    [ta.db.bars.protocol :refer [get-bars]]
-    [dev.env :refer [secrets]]
-
-   ))
+   [dev.env :refer [secrets]]))
 
 (def api-key (:alphavantage secrets))
 
@@ -16,10 +14,9 @@
 (def dt (parse-date "2024-02-01"))
 
 (get-bars avp {:asset "EURUSD"
-                   :calendar [:fx :d]}
-              {:start (parse-date "2023-09-01")
-               :mode :append}
-              )
+               :calendar [:fx :d]}
+          {:start (parse-date "2023-09-01")
+           :mode :append})
 ;; => _unnamed [100 6]:
 ;;    
 ;;    |  :open |  :high |   :low | :close | :volume |            :date |
@@ -47,10 +44,8 @@
 ;;    | 1.0939 | 1.0940 | 1.0935 | 1.0937 |     0.0 | 2024-10-10T00:00 |
 ;;    | 1.0934 | 1.0936 | 1.0932 | 1.0934 |     0.0 | 2024-10-11T00:00 |
 
-
-
 (get-bars avp {:asset "FMCDX"
-           :calendar [:us :d]}
+               :calendar [:us :d]}
           {:start dt
            :mode :append})
 ;; => _unnamed [100 6]:
@@ -79,8 +74,6 @@
 ;;    | 42.77 | 42.77 | 42.77 |  42.77 |     0.0 | 2024-10-07T00:00 |
 ;;    | 42.76 | 42.76 | 42.76 |  42.76 |     0.0 | 2024-10-08T00:00 |
 ;;    | 43.03 | 43.03 | 43.03 |  43.03 |     0.0 | 2024-10-09T00:00 |
-
-
 
 ; select search
 (av/search "S&P 500")

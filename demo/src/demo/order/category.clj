@@ -3,8 +3,7 @@
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [demo.env :refer [tm pm]]
-   [quanta.market.portfolio :refer [get-working-orders]]
-   ))
+   [quanta.market.portfolio :refer [get-working-orders]]))
 
 (def assets
   [; spot
@@ -25,7 +24,6 @@
    "BTCUSDU24.I"
    "BTCUSDZ24.I"])
 
-
 (def order-spot-limit
   {:account :rene/test4
    :asset "BTCUSDT.S"
@@ -33,7 +31,6 @@
    :qty 0.001
    :ordertype :limit
    :limit 66800.0})
-
 
 (def order-spot-market-buy
   {:account :rene/test4
@@ -49,7 +46,6 @@
    :qty 0.002
    :ordertype :market})
 
-
 (m/? (p/order-create! tm order-spot-limit))
 (m/? (p/order-create! tm order-spot-market-buy))
 (m/? (p/order-create! tm order-spot-market-sell))
@@ -58,7 +54,6 @@
 (m/? (p/order-create! pm order-spot-market-buy))
 
 (m/? (p/order-create! pm order-spot-market-sell))
-
 
 (m/?
  (p/order-create!
@@ -69,8 +64,6 @@
    :qty 0.001
    :ordertype :limit
    :limit 66330.0}))
-
-
 
 (def order-linear
   (assoc order-spot-market :asset "BTC-27SEP24.L"))
@@ -89,10 +82,7 @@
    :asset "BTCUSDT"
    :order-id "mBDN7iIP"})
 
-
 (m/? (p/order-cancel! pm cancel))
-
-
 
 (get-working-orders pm)
 
@@ -104,8 +94,6 @@
      (sort-by :date-created)
      print-table)
 
-
-
 (comment
 
   (format "%f" 3.4)
@@ -113,11 +101,8 @@
   (format "%f" (:qty order-spot))
   (format "%f" (:limit  order-spot))
 
-
-
   (def order-inverse
     (assoc order-spot :asset "BTCUSD.I"))
-
 
 ; 
   )

@@ -8,7 +8,6 @@
 
 ;; one quote
 
-
 (defn add-timestamp [f]
   (m/ap  (let [msg (m/?> f)]
            (assoc msg :timestamp (t/instant)))))
@@ -20,7 +19,6 @@
                                  :asset "ETHUSDT"
                                  :topic :asset/trade})))
 
-
 (stop! :quote/one)
 
 ;; multiple quotes
@@ -29,17 +27,15 @@
 
 (let [assets ["BTCUSDT" "ETHUSDT"]
       qsubs (map (fn [asset]
-                   {:asset asset 
+                   {:asset asset
                     :feed :bybit
-                    :topic :asset/trade
-                    }) assets)
+                    :topic :asset/trade}) assets)
       quotes (map #(p/get-topic qm %) qsubs)
       last-quotes (apply m/latest vector quotes)]
   (start-flow-logger!
    ".data/quotes-multi7.txt"
    :multi-quote
    last-quotes))
-
 
 (stop! :multi-quote)
 
@@ -58,6 +54,5 @@
    ".data/quotes-mixed.txt"
    :quotes-mixed
    multiple-mixed))
-
 
 (stop! :quotes-mixed)

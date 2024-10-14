@@ -8,8 +8,6 @@
    [demo.env.accounts :refer [accounts-quote accounts-trade]]
    [demo.env.logging] ; for side effects
    ))
-
-
 (def qm (quote-manager-start accounts-quote))
 
 (defn setup-trade-manager []
@@ -23,9 +21,7 @@
 
     tm))
 
-
 (def tm (setup-trade-manager))
-
 
 ;(def db (trade-db-start ".data/trade-db"))
 

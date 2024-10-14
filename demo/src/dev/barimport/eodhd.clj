@@ -7,18 +7,17 @@
    [dev.env :refer [secrets]]))
 
 (:eodhd secrets)
-  
+
 ;; RAW
 
 (def d (raw/get-bars (:eodhd secrets)
-         "MCD.US" "2024-01-01" "2024-03-15"))
+                     "MCD.US" "2024-01-01" "2024-03-15"))
 
-  d
+d
 (->> (raw/get-bars (:eodhd secrets)
-        "MCD.US" "2020-01-01" "2024-03-15")
-       raw/warning)
+                   "MCD.US" "2020-01-01" "2024-03-15")
+     raw/warning)
 ;; => "Data is limited by one year as you have free subscription"
-
 
 ;; DS
 

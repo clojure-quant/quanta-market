@@ -28,6 +28,5 @@
   (send-signal {:asset "BTCUSDT"
                 :side :sell})
 
-
- ; 
+; 
   )

@@ -1,13 +1,12 @@
 (ns demo.dev.order-bybit-trade
-  (:require 
+  (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
    [nano-id.core :refer [nano-id]]
    [quanta.market.util :refer [start-flow-logger! stop!]]
    [quanta.market.broker.bybit.trade] ; side effect
    [demo.logging] ; side effect
-   [demo.accounts :refer [accounts-trade]]
-   ))
+   [demo.accounts :refer [accounts-trade]]))
 
 accounts-trade
 

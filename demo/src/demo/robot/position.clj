@@ -16,13 +16,11 @@
                         :entry-price 1000.0
                         :entry-date (t/instant)}))
 
-
 (start-flow-logger!
  ".data/working-position2.txt"
  :wp wp)
 
 (stop! :wp)
-
 
 (def positions [{:asset "BTCUSDT"
                  :feed :bybit
@@ -49,18 +47,16 @@
                  :entry-price 3000.0
                  :entry-date (t/instant)}])
 
-
 (defn print-positions [& positions]
-  (with-out-str 
-     (print-table [:asset :side
-                 :exit-price
-                 :ret-prct
-                 :win?] positions)))
-  
-(def table-print-f 
-   (let [flows (map #(working-position qm %) positions)]  
-     (apply m/latest print-positions flows)))
+  (with-out-str
+    (print-table [:asset :side
+                  :exit-price
+                  :ret-prct
+                  :win?] positions)))
 
+(def table-print-f
+  (let [flows (map #(working-position qm %) positions)]
+    (apply m/latest print-positions flows)))
 
 (start-flow-logger!
  ".data/working-positions2.txt"

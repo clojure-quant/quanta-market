@@ -4,12 +4,10 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-flow-logger! stop! flow-sender current-v]]
    [quanta.market.broker.bybit.connection :as c]
-   [quanta.market.broker.bybit.websocket2 :refer [create-websocket2 create-conn-f ]]
+   [quanta.market.broker.bybit.websocket2 :refer [create-websocket2 create-conn-f]]
    [quanta.market.broker.bybit.quote.subscription :refer [subscription-start-msg]]
    [quanta.market.broker.bybit.rpc :refer [rpc-req!]]
-   [quanta.market.broker.bybit.topic :refer [format-topic-sub topic-data-flow topic-transformed-flow]]
-   ))
-
+   [quanta.market.broker.bybit.topic :refer [format-topic-sub topic-data-flow topic-transformed-flow]]))
 
 ;; test for the establishment of websocket stream
 (def conn
@@ -20,41 +18,30 @@
 conn
 ;; test for connection-start!
 
-(m/? 
-(c/connection-start!
- (flow-sender)
- (flow-sender)
- {:mode :main
-  :segment :spot}
- :test123) 
- )
-
-
+(m/?
+ (c/connection-start!
+  (flow-sender)
+  (flow-sender)
+  {:mode :main
+   :segment :spot}
+  :test123))
 
 current-v
 
-(m/? (current-v 
-(m/stream (m/seed [nil nil nil 1 2 3]))        
-      ))
-
-
-
+(m/? (current-v
+      (m/stream (m/seed [nil nil nil 1 2 3]))))
 
 ;; test for create-conn-f
 
-(def conn-f 
-(create-conn-f {:mode :main
-                :segment :spot}
-               (flow-sender)
-               (flow-sender)
-               (atom nil)
-               :demo5))
-
+(def conn-f
+  (create-conn-f {:mode :main
+                  :segment :spot}
+                 (flow-sender)
+                 (flow-sender)
+                 (atom nil)
+                 :demo5))
 
 (m/? (current-v conn-f))
-
- 
- 
 
 conn
 
@@ -66,7 +53,6 @@ conn
  ".data/test-msg-in2.txt"
  :msg-in
  (p/msg-in-flow ws))
-
 
 (start-flow-logger!
  ".data/test-msg-out2.txt"
@@ -83,7 +69,6 @@ topic
 msg
 
 (m/? (rpc-req! ws msg identity))
-
 
 (stop! :msg-in)
 (stop! :msg-out)

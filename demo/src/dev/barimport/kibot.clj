@@ -14,7 +14,6 @@ kibot
   {:start (t/instant "2019-12-01T00:00:00Z")
    :end (t/instant "2021-01-11T00:00:00Z")})
 
-
 (b/get-bars kibot {:asset "EUR/USD"
                    :calendar [:forex :d]}
             w)

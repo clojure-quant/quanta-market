@@ -7,23 +7,18 @@
    [quanta.market.broker.bybit.quote.quotefeed-category] ; for side effects
    [quanta.market.broker.bybit.quotefeed] ; side effects
    [demo.logging] ; for side effects
-  ))
+   ))
 
 ;; test the different kind of subscriptions that bybit supports
 
 (def bb-quote (p/create-quotefeed {:type :bybit-category}))
 
-
-
- ; log all messages (for testing)
+; log all messages (for testing)
 (start-flow-logger!
  ".data/bybit-trade91.txt"
  :trade/msg2
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "ETHUSDT"}))
-
-
-
 
 (start-flow-logger!
  ".data/bybit-trade7-perp.txt"
@@ -31,15 +26,11 @@
  (p/get-topic bb-quote {:topic :asset/trade
                         :asset "BTCUSDT.P"}))
 
-
-
-
 (start-flow-logger!
  ".data/bybit-stats7.txt"
  :stats/msg
  (p/get-topic bb-quote {:topic :asset/stats
                         :asset "BTCUSDT"}))
-
 
 (start-flow-logger!
  ".data/bybit-liquidation5.txt"
@@ -76,24 +67,19 @@
 (stop! :bars-unfinished/msg)
 (stop! :orderbook/msg)
 
-
 (start-flow-logger!
  ".data/quotes91.txt"
  :quote/msg2
  (p/get-quote bb-quote {:account :bybit
                         :asset "ETHUSDT"}))
 
-
 (stop! :quote/msg2)
 
-
-(def ws2 
-   (create-websocket2 {:type :bybit2
+(def ws2
+  (create-websocket2 {:type :bybit2
                       :mode :main
                       :segment :spot}
-                      [:bybit-test]
-                      )
-  )
+                     [:bybit-test]))
 
 (def conn-f (p/connection-flow ws2))
 
@@ -103,11 +89,9 @@
 
 (stop! :quote/conn)
 
-
 (start-flow-printer!
-  (m/seed [1 2 3 4 5])
- :test
- )
+ (m/seed [1 2 3 4 5])
+ :test)
 
 
 

@@ -1,12 +1,10 @@
 (ns demo.order.risk
   (:require
-    [missionary.core :as m]
-    [quanta.market.protocol :as p]
-    [demo.env :refer [pm]]
-   ))
+   [missionary.core :as m]
+   [quanta.market.protocol :as p]
+   [demo.env :refer [pm]]))
 
-
- (p/snapshot pm)
+(p/snapshot pm)
  ;; => {:working-orders
  ;;     ({:open-order
  ;;       {:account :rene/test4,
@@ -20,16 +18,13 @@
  ;;       :order-id "NfEZrKaF"}),
  ;;     :open-positions {[:rene/test4 "BTCUSDT.S"] 0.002}}
 
-
-
 (defn working-order-snapshot [{:keys [open-order order-status order-id]}]
   (assoc open-order
          :fill-qty (:fill-qty order-status)
          :fill-value (:fill-value order-status)))
- 
+
 (defn working-orders-snapshot [working-orders]
   (map working-order-snapshot working-orders))
-
 
 (defn open-positions-snapshot [working-orders]
   (map (fn [[[account asset] net-qty]]
@@ -38,9 +33,7 @@
           :net-qty net-qty}) working-orders))
 
 (open-positions-snapshot
- {[:rene/test4 "BTCUSDT.S"] 0.002}
- )
+ {[:rene/test4 "BTCUSDT.S"] 0.002})
 
 
- 
-  
+

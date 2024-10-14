@@ -4,7 +4,8 @@
    [tick.core :as t]
    [tech.v3.dataset :as tds]
    [clj-http.client :as http]
-   [de.otto.nom.core :as nom]))
+   [de.otto.nom.core :as nom]
+   [quanta.calendar.core :refer [prior-open current-open]]))
 
 (defn http-get
   "same as clj-http/get, but:
@@ -53,6 +54,19 @@
                     (= last-dt date-first))]
     (debug "first date: " date-first "last date:" last-dt " eq:" eq?)
     (if eq? (take (-> series count dec) series) series)))
+
+(defn calendar-seq-prior-open [[calendar-kw interval-kw] dt]
+  (let [cur-dt (current-open [calendar-kw interval-kw] dt)
+        prior-fn (partial prior-open [calendar-kw interval-kw])]
+    (iterate prior-fn cur-dt)))
+
+(defn expected-bars [[calendar-kw interval-kw] window page-size]
+  (let [{:keys [start end]} window
+        after-start? (fn [dt] (t/>= dt start))]
+    (->> (calendar-seq-prior-open [calendar-kw interval-kw] end)
+         (take page-size)
+         (take-while after-start?)
+         (count))))
 
 (comment
   (-> "15.123" str->float type)

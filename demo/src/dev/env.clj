@@ -4,9 +4,15 @@
    [ta.db.asset.db :as asset-db]))
 
 (def secrets
-  (-> "/home/florian/repo/myLinux/myvault/goldly/quanta.edn"
+  (-> (str (System/getenv "MYVAULT") "/quanta.edn")
+      ;"/home/florian/repo/myLinux/myvault/quanta.edn"
       (slurp)
       (edn/read-string)))
+
+secrets
+
+;:secrets {:start (clojure.edn/read-string
+;                  (slurp #envf ["%s/goldly/trateg.edn" "MYVAULT"]))}
 
 (def assets
   [; kibot

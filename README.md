@@ -10,8 +10,13 @@ Quanta-Market is a library that allows to iteract with the market.
 
 # demo
 
-The demo folder contains various .clj files that can be evaluated in 
-the repl. 
+ start a nrepl-connection to the demo project.
+ in demo folder you will find plenty of namespaces to play with
+ in the repl.
+
+For parts of the code you need secrets from secrets.edn, which 
+is sourced from "$MYVAULT/quanta.edn"
+
 
 # unit tests
 

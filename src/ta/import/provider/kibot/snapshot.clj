@@ -23,11 +23,11 @@
       ;(tc/convert-types :date [[:local-date-time date->localdate]])
       ))
 
-(defn get-snapshot [symbol]
+(defn get-snapshot [api-key symbol]
   (let [symbols-kibot (->> symbol
                            (map symbol->provider)
                            (map :symbol))
-        result (kibot/snapshot {:symbol (symbols->str symbols-kibot)})]
+        result (kibot/snapshot api-key {:symbol (symbols->str symbols-kibot)})]
     (if-let [error? (:error result)]
       (do (error "kibot request error: " error?)
           nil)

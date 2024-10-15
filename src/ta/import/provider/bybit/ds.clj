@@ -219,7 +219,7 @@
                  (let [bar-ds (get-bars-req opts w)
                        received-c (tc/row-count bar-ds)
                        expected-c (expected-bars calendar w page-size)]
-                     (tm/log! (if (= received-c expected-c) :info :warn)
+                   (tm/log! (if (= received-c expected-c) :info :warn)
                             (str "page result: " (select-keys w [:start :end])
                                  ", expected bars: " expected-c
                                  ", received bars: " received-c))

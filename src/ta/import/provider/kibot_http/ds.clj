@@ -46,28 +46,27 @@
       date-time-adjust
       (tc/drop-columns [:time])))
 
-(defn get-csv [{:keys [asset calendar] :as opts} range]
+(defn get-csv [api-key {:keys [asset calendar] :as opts} range]
   (info "get-bars kibot-http " asset " " calendar " " range " ..")
   (let [{:keys [kibot-http]} (db/instrument-details asset)]
     (if kibot-http
-      (do (login)
+      (do (login api-key)
           (raw/download-link-csv kibot-http))
       (nom/fail ::get-bars-kibot {:message (str "no kibot-http link in asset db for asset: " asset)
                                   :opts opts
                                   :window range}))))
 
-(defn get-bars [opts range]
-  (nom/let-nom> [csv (get-csv opts range)]
+(defn get-bars [api-key opts range]
+  (nom/let-nom> [csv (get-csv api-key opts range)]
                 (info "parsing csv...")
                 (kibot-result->dataset csv)))
 
 (defrecord import-kibot-http [api-key]
   barsource
   (get-bars [this opts window]
-    (get-bars opts window)))
+    (get-bars api-key opts window)))
 
 (defn create-import-kibot-http [api-key]
-  (kibot/set-key! api-key)
   (import-kibot-http. api-key))
 
 (comment

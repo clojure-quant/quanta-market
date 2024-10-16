@@ -13,12 +13,19 @@
   {:start (-> seq last t/instant)
    :end (-> seq first t/instant)})
 
+;; BE CAREFUL WHITH PARTITION.
+;; partition a list of 22 items into 5 (20/4) lists of 4 items 
+;; the last two items do not make a complete partition and are dropped.
+;; (partition 4 (range 22))
+;;=> ((0 1 2 3) (4 5 6 7) (8 9 10 11) (12 13 14 15) (16 17 18 19))
+
 (defn partition-requests [calendar window]
   ; bybit has 1000 items limit, to be certain of no failure
   ; we only request 900 per request
   (->> (fixed-window calendar window)
-       (partition 900)
-       (map req-window)))
+       (partition 900 900 nil) ; this is important, so we get partial partitions
+       (map req-window)
+       (into [])))
 
 (defn create-req-task [opts window]
   ; needs to throw so it can fail.
@@ -67,37 +74,8 @@
 (defrecord import-bybit-parallel []
   barsource
   (get-bars [this {:keys [asset calendar] :as opts} window]
-    (let [{:keys [blocks ds]} (parallel-requests asset calendar window)]
+    (let [{:keys [blocks ds]} (parallel-requests opts window)]
       ds)))
 
 (defn create-import-bybit-parallel []
   (import-bybit-parallel.))
-
-(comment
-  (require '[tick.core :as t])
-  (require '[clojure.pprint :refer [print-table]])
-
-  (def window {:start (-> "2024-01-01T00:00:00Z" t/instant)
-               :end (-> "2024-07-07T00:00:00Z" t/instant)})
-
-  (->> (partition-requests [:crypto :m] window)
-      ;(print-table)
-       count)
-
-  ; test making ONE request
-
-  (def x (create-req-task "BTCUSDT" [:crypto :m] window))
-  x
-  (m/? x)
-
-  ; test making PARALLEL requests
-
-  (def z (parallel-requests "BTCUSDT" [:crypto :m] window))
-
-  (:ds z)
-
-  (require '[tech.v3.dataset.print :refer [print-range]])
-  (print-range (:ds z) :all)
-
-; 
-  )

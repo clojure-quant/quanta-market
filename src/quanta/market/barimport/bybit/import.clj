@@ -1,4 +1,4 @@
-(ns quanta.market.barimport.bybit.ds
+(ns quanta.market.barimport.bybit.import
   (:require
    [clojure.string :as str]
    [taoensso.telemere :as tm]
@@ -8,7 +8,6 @@
    [tablecloth.api :as tc]
    [ta.import.provider.bybit.raw :as bybit]
    [ta.import.helper :refer [expected-bars calendar-seq-prior-open]]
-
    [quanta.calendar.core :refer [prior-open]]
    [ta.db.bars.protocol :refer [barsource]]))
 

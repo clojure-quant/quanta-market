@@ -8,7 +8,8 @@
    [manifold.stream :as s] ; websocket to bybit
    ;[manifold.stream :as ms]
    [manifold.deferred :as d]
-   [quanta.market.util :refer [first-match]]))
+   [quanta.market.util :refer [first-match]]
+   [quanta.market.util.aleph :refer [deferred->task]]))
 
 ;; https://bybit-exchange.github.io/docs/v5/ws/connect
 
@@ -47,20 +48,6 @@
 
 (defn get-ws-url [mode destination]
   (get-in websocket-destination-urls [mode destination]))
-
-(defn deferred->task
-  "Returns a task completing with the result of given manifold-deferred."
-  [df]
-  ; see: https://github.com/leonoel/missionary/wiki/Task-interop#futures-promises
-  (let [v (m/dfv)]
-    (d/on-realized df
-                   (fn [x]
-                     ;(info "deferred success: " x)
-                     (v (fn [] x)))
-                   (fn [x]
-                     (info  "deferred error: " x)
-                     (v (fn [] (throw x)))))
-    (m/absolve v)))
 
 (defn- websocket-client-task [url]
   (m/sp

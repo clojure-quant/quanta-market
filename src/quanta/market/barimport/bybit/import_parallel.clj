@@ -64,12 +64,11 @@
   (let [sem (m/sem 10)
         requests (partition-requests calendar window)
         tasks (map #(create-req-task opts %) requests)
-        ;tasks-limited (map #(limit-task sem %) tasks)
-        ]
+        tasks-limited (map #(limit-task sem %) tasks)]
     (tm/log! (str "requesting " asset " " calendar " " window
                   "in parallel via " (count tasks) "requests .."))
     (m/?
-     (apply m/join consolidate tasks))))
+     (apply m/join consolidate tasks-limited))))
 
 (defrecord import-bybit-parallel []
   barsource

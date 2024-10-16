@@ -7,7 +7,8 @@
    [ta.import.helper :refer [str->double]]
    [clojure.string :as str]
    [tech.v3.dataset :as tds]
-   [tablecloth.api :as tc]))
+   [tablecloth.api :as tc]
+   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]))
 
 ;; # Bybit api
 ;; The query api does NOT need credentials. The trading api does.
@@ -89,3 +90,14 @@
        (tds/->dataset)
        (sort-ds) ; bybit returns last date in first row.
        (tc/select-columns [:date :open :high :low :close :volume]))))
+
+(defn get-bars-ds-normalized
+  "our query format
+   returns a missionary task with the result as a dataset"
+  [opts window]
+  (m/sp
+   (let [query-params  (bybit-bar-params opts window)]
+     (m/? (get-bars-ds query-params)))))
+
+
+

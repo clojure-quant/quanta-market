@@ -77,4 +77,17 @@
 ; last row is the FIRST date
 ; if result is more than limit, then it will return LAST values first.
 
-
+(m/? (bb/get-bars-ds
+      {:symbol "BTCUSDT"
+       :start (-> "2024-03-05T00:00:00Z" t/instant t/long (* 1000))
+       :end (-> "2024-03-06T00:05:00Z" t/instant t/long (* 1000))
+       :interval "1"
+       :category "spot"   ; default linear
+       :limit 3}))
+;; => _unnamed [3 6]:
+;;    
+;;    |                :date |    :open |    :high |     :low |   :close |   :volume |
+;;    |----------------------|---------:|---------:|---------:|---------:|----------:|
+;;    | 2024-03-06T00:03:00Z | 63756.72 | 63756.72 | 63625.59 | 63652.01 | 37.997742 |
+;;    | 2024-03-06T00:04:00Z | 63652.01 | 63694.01 | 63557.71 | 63594.55 | 70.183865 |
+;;    | 2024-03-06T00:05:00Z | 63594.55 | 63626.04 | 63510.55 | 63583.52 | 37.853568 |

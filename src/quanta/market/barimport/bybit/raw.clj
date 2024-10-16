@@ -5,7 +5,9 @@
    [tick.core :as t]
    [quanta.market.util.aleph :as a]
    [ta.import.helper :refer [str->double]]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [tech.v3.dataset :as tds]
+   [tablecloth.api :as tc]))
 
 ;; # Bybit api
 ;; The query api does NOT need credentials. The trading api does.
@@ -69,3 +71,21 @@
    (->> (m/? (bybit-http-get "kline" query-params))
         (:list)
         (map convert-bar))))
+
+(defn- sort-ds [ds]
+  (tc/order-by ds [:date] [:asc]))
+
+(defn get-bars-ds
+  "query-params keys:
+     symbol: BTC, ....
+     interval: #{ 1 3 5 15 30 60 120 240 360 720 \"D\" \"M\" \"W\" \"Y\"}  
+     start: epoch-millisecond
+     start: epoch-millisecond
+     limit: between 1 and 200 (maximum)
+   returns a missionary task with the result as a dataset"
+  [query-params]
+  (m/sp
+   (-> (m/? (get-bars query-params))
+       (tds/->dataset)
+       (sort-ds) ; bybit returns last date in first row.
+       (tc/select-columns [:date :open :high :low :close :volume]))))

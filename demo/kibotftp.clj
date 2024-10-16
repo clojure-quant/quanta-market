@@ -5,8 +5,8 @@
 
 ;(:body 
  (curl/get "ftp://ftp.kibot.com/Updates/" 
-          {:basic-auth ["hoertlehner@gmail.com" 
-                        "282m2fhgh"]})
+          {:basic-auth ["" 
+                        ""]})
  
  ;)
 ;; => "{\"authenticated\":true}"

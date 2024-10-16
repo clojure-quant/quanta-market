@@ -3,7 +3,8 @@
    [clojure.string :as str]
    [tick.core :as t]
    [missionary.core :as m]
-   [quanta.market.barimport.bybit.raw :as bb]))
+   [quanta.market.barimport.bybit.raw :as bb]
+   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]))
 
 (def start-date-daily (t/instant "2018-11-01T00:00:00Z"))
 
@@ -91,3 +92,12 @@
 ;;    | 2024-03-06T00:03:00Z | 63756.72 | 63756.72 | 63625.59 | 63652.01 | 37.997742 |
 ;;    | 2024-03-06T00:04:00Z | 63652.01 | 63694.01 | 63557.71 | 63594.55 | 70.183865 |
 ;;    | 2024-03-06T00:05:00Z | 63594.55 | 63626.04 | 63510.55 | 63583.52 | 37.853568 |
+
+(bybit-bar-params
+ {:asset "BTCUSDT"
+  :calendar [:crypto :m]}
+ {:start (-> "2024-03-05T00:00:00Z" t/instant)
+  :end (-> "2024-03-06T00:00:00Z" t/instant)})
+;; => {:symbol "BTCUSDT", :interval "1",  :category "spot", 
+;;     :start 1709596800000, :end 1709683200000}
+

@@ -1,4 +1,4 @@
-(ns dev.barimport.retries
+(ns dev.rest.retries
   (:require
    [missionary.core :as m]
    [quanta.market.util.missionary :refer [backoff]]))

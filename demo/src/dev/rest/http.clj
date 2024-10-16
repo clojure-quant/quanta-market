@@ -1,4 +1,4 @@
-(ns dev.barimport.http
+(ns dev.rest.http
   (:require
    [taoensso.telemere :as tm]
    [missionary.core :as m]

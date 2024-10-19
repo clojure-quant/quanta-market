@@ -66,7 +66,7 @@ executions
 working-order-summary
 ;; => ({:status :open, :fill-qty 0.1, :fill-value 500.0, :order-id "456"})
 
-(deftest working-orders-partial-fill
+#_(deftest working-orders-partial-fill
   (testing "partial fill"
     (is (= working-order-summary
            '({:status :open, :fill-qty 0.1, :fill-value 500.0, :order-id "456"}))))

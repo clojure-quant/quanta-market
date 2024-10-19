@@ -99,6 +99,14 @@
            :calendar calendar}
           window10))
     :ds)
+
+(-> (m/? (bb/parallel-requests
+          {:asset "BTCUSDT"
+           :calendar [:crypto :d]}
+          {:start (-> "2020-01-01T00:00:00Z" t/instant)
+           :end (-> "2024-10-10T00:00:00Z" t/instant)}))
+    :ds)
+
 ;=> _unnamed [12961 6]:
 ;
 ;|                :date |    :open |    :high |     :low |   :close |   :volume |

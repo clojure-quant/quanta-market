@@ -1,4 +1,4 @@
-(ns quanta.notebook.asset-bybit
+(ns dev.asset.asset-bybit
   (:require
    [ta.import.provider.bybit.raw :refer [get-assets-spot]]))
 

@@ -1,5 +1,6 @@
 (ns dev.rest.bybit-asset
   (:require
+   [tick.core :as t]
    [clojure.string :as str]
    [missionary.core :as m]
    [quanta.market.barimport.bybit.raw :as bb]))
@@ -25,6 +26,58 @@
   ;;     "BTCPERP"
   ;;     "BTCUSDT")
 
+(->> (m/? (bb/get-assets "linear"))
+     :list
+     (map :symbol)
+     (filter #(str/starts-with? %  "BTC")))
+
+(->> (m/? (bb/get-assets "linear"))
+     :list
+     (filter #(= "BTCUSDT" (:symbol %))))
+;; => ({:priceScale "2",
+;;      :deliveryFeeRate "",
+;;      :deliveryTime "0",
+;;      :lotSizeFilter
+;;      {:postOnlyMaxOrderQty "1190.000",
+;;       :maxOrderQty "1190.000",
+;;       :maxMktOrderQty "119.000",
+;;       :qtyStep "0.001",
+;;       :minNotionalValue "5",
+;;       :minOrderQty "0.001"},
+;;      :launchTime "1584230400000",
+;;      :symbol "BTCUSDT",
+;;      :quoteCoin "USDT",
+;;      :unifiedMarginTrade true,
+;;      :fundingInterval 480,
+;;      :isPreListing false,
+;;      :priceFilter {:maxPrice "199999.80", :tickSize "0.10", :minPrice "0.10"},
+;;      :lowerFundingRate "-0.00375",
+;;      :baseCoin "BTC",
+;;      :status "Trading",
+;;      :preListingInfo nil,
+;;      :upperFundingRate "0.00375",
+;;      :leverageFilter {:maxLeverage "100.00", :minLeverage "1", :leverageStep "0.01"},
+;;      :settleCoin "USDT",
+;;      :copyTrading "both",
+;;      :contractType "LinearPerpetual"})
+
+(->> (m/? (bb/get-assets "linear"))
+     :list
+     (filter #(= "BTCUSDT" (:symbol %)))
+     first
+     :launchTime
+     parse-long
+     t/instant)
+;; => #time/instant "2020-03-15T00:00:00Z"
+
+(->> (m/? (bb/get-assets "spot"))
+     :list
+     ;(filter #(= "BTCUSDT" (:symbol %)))
+     first
+     ;:launchTime
+     ;parse-long
+     ;t/instant
+     )
 (->> (m/? (bb/get-assets "inverse"))
      :list
      (map :symbol)

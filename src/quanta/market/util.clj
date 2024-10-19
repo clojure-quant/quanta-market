@@ -149,7 +149,9 @@
     (start! log-task id)))
 
 (defn wrap-blk [t]
-  (m/via m/blk (m/? t)))
+  ; TODO make this work with a task.
+  ;(m/via m/blk (m/? t))
+  t)
 
 ;; lock
 

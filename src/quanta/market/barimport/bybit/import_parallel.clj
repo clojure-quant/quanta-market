@@ -31,13 +31,9 @@
        (into [])))
 
 (defn create-req-task [opts window]
-  ; needs to throw so it can fail.
-  ; returned tasks will not be cpu intensive, so m/blk.
-  (m/via m/blk
-         (tm/log! (str "request-block " window))
-         (let [query-params  (bybit-bar-params opts window)
-               query-params (assoc query-params :limit 1000)]
-           (m/? (bb/get-bars-ds query-params)))))
+  (let [query-params  (bybit-bar-params opts window)
+        query-params (assoc query-params :limit 1000)]
+    (bb/get-bars-ds query-params)))
 
 (defn summarize-block [b]
   {:start (-> b :date (tc/first) first)
@@ -72,16 +68,16 @@
         tasks-limited (map #(limit-task sem %) tasks)]
     (tm/log! (str "requesting " asset " " calendar " " window
                   "in parallel via " (count tasks) "requests .."))
-    (m/?
-     (apply m/join consolidate tasks-limited))))
+    (apply m/join consolidate tasks-limited)))
 
 (defrecord import-bybit-parallel []
   barsource
   (get-bars [this {:keys [asset calendar] :as opts} window]
-    (let [window (window->open-time window calendar)
-          {:keys [blocks ds]} (parallel-requests opts window)]
-      (when ds
-        (tc/map-columns ds :date [:date] #(to-close-time % calendar))))))
+    (m/sp
+     (let [window (window->open-time window calendar)
+           {:keys [blocks ds]} (m/? (parallel-requests opts window))]
+       (when ds
+         (tc/map-columns ds :date [:date] #(to-close-time % calendar)))))))
 
 (defn create-import-bybit-parallel []
   (import-bybit-parallel.))

@@ -1,6 +1,7 @@
 (ns dev.barimport.bybit-parallel
   (:require
    [tick.core :as t]
+   [missionary.core :as m]
    [clojure.pprint :refer [print-table]]
    [tech.v3.dataset.print :refer [print-range]]
    [quanta.market.barimport.bybit.import-parallel :as bb]
@@ -54,10 +55,11 @@
 (-> (fixed-window-open calendar window)
     first)
 
-(bb/parallel-requests
- {:asset "BTCUSDT"
-  :calendar calendar}
- window)
+(m/?
+ (bb/parallel-requests
+  {:asset "BTCUSDT"
+   :calendar calendar}
+  window))
 
 (-> (bb/partition-requests calendar window)
     print-table)
@@ -92,10 +94,10 @@
 ;| 2024-05-01T06:01:00Z | 2024-05-01T21:00:00Z |
 ;| 2024-05-01T00:00:00Z | 2024-05-01T06:00:00Z |
 
-(-> (bb/parallel-requests
-     {:asset "BTCUSDT"
-      :calendar calendar}
-     window10)
+(-> (m/? (bb/parallel-requests
+          {:asset "BTCUSDT"
+           :calendar calendar}
+          window10))
     :ds)
 ;=> _unnamed [12961 6]:
 ;
@@ -126,10 +128,12 @@
 
 (def bbi (bb/create-import-bybit-parallel))
 
-(get-bars bbi
-          {:asset "BTCUSDT"
-           :calendar calendar}
-          window10)
+(m/?
+ (get-bars bbi
+           {:asset "BTCUSDT"
+            :calendar calendar}
+           window10))
+
 ;=> _unnamed [12961 6]:
 ;
 ;|                       :date |    :open |    :high |     :low |   :close |   :volume |
@@ -157,10 +161,12 @@
 ;|        2024-05-09T23:59:00Z | 63023.90 | 63074.98 | 63023.90 | 63049.50 |  6.116506 |
 ;| 2024-05-09T23:59:59.999999Z | 63049.50 | 63080.50 | 63049.50 | 63072.51 |  3.137508 |
 
-(get-bars bbi
-          {:asset "BTCUSDT"
-           :calendar calendar}
-          window)
+(m/?
+ (get-bars bbi
+           {:asset "BTCUSDT"
+            :calendar calendar}
+           window))
+
 ;=> _unnamed [1441 6]:
 ;
 ;|                       :date |    :open |    :high |     :low |   :close |   :volume |
@@ -189,11 +195,13 @@
 ;| 2024-05-01T23:59:59.999999Z | 58315.37 | 58389.95 | 58298.51 | 58341.10 | 29.102771 |
 
 ; a full day with 1440 bars (close date times)
-(get-bars bbi
-          {:asset "BTCUSDT"
-           :calendar calendar}
-          {:start (-> "2024-05-01T00:01:00Z" t/instant)
-           :end (-> "2024-05-01T23:59:59.999999999Z" t/instant)})
+(m/?
+ (get-bars bbi
+           {:asset "BTCUSDT"
+            :calendar calendar}
+           {:start (-> "2024-05-01T00:01:00Z" t/instant)
+            :end (-> "2024-05-01T23:59:59.999999999Z" t/instant)}))
+
 ;=> _unnamed [1440 6]:
 ;
 ;|                       :date |    :open |    :high |     :low |   :close |   :volume |
@@ -221,17 +229,19 @@
 ;|        2024-05-01T23:59:00Z | 58375.97 | 58388.01 | 58311.96 | 58315.37 | 15.220031 |
 ;| 2024-05-01T23:59:59.999999Z | 58315.37 | 58389.95 | 58298.51 | 58341.10 | 29.102771 |
 
-(-> (get-bars bbi
-              {:asset "BTCUSDT"
-               :calendar calendar}
-              window)
+(-> (m/? (get-bars bbi
+                   {:asset "BTCUSDT"
+                    :calendar calendar}
+                   window))
     (print-range :all))
 
-(get-bars bbi
-          {:asset "BTCUSDT"
-           :calendar [:crypto :d]}
-          {:start (t/instant "2000-01-01T00:00:00Z")
-           :end (t/instant "2024-09-10T00:00:00Z")})
+(m/?
+ (get-bars bbi
+           {:asset "BTCUSDT"
+            :calendar [:crypto :d]}
+           {:start (t/instant "2000-01-01T00:00:00Z")
+            :end (t/instant "2024-09-10T00:00:00Z")}))
+
 
 
 

@@ -145,21 +145,23 @@
               working-order-dict-flow))
 
 (defn order-status->working-order-flow [order-status-flow]
-  (let [last-status (m/? (m/reduce (fn [_r v] v) {} order-status-flow))]
-    (map (fn [[order-id working-order]]
+  ; TODO: make this work with a m/sp
+  #_(let [last-status (m/? (m/reduce (fn [_r v] v) {} order-status-flow))]
+      (map (fn [[order-id working-order]]
            ;  working-order
-           (assoc working-order :order-id order-id)) last-status)))
+             (assoc working-order :order-id order-id)) last-status)))
 
 (defn current-working-orders
   "snapshot of current workign orders.
    used in tests - DO NOT USE IN REALTIME!"
   [order-orderupdate-flow]
-  (let [order-changes (order-change-flow order-orderupdate-flow)
-        order-status (working-orders-flow order-changes)
-        last-status (m/? (m/reduce (fn [_r v] v) {} order-status))]
-    (map (fn [[order-id working-order]]
+  ; TODO: make this working with a m/sp
+  #_(let [order-changes (order-change-flow order-orderupdate-flow)
+          order-status (working-orders-flow order-changes)
+          last-status (m/? (m/reduce (fn [_r v] v) {} order-status))]
+      (map (fn [[order-id working-order]]
            ;  working-order
-           (assoc working-order :order-id order-id)) last-status)))
+             (assoc working-order :order-id order-id)) last-status)))
 
 (defn- new-trade?
   "predicate if a order-update msg has a new trade"

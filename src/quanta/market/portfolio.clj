@@ -120,9 +120,11 @@
   ;
   )
 (defn get-working-orders [{:keys [transactor]}]
+  ; TODO: make this working with a sp
   (let [working-order-f (:working-order-f transactor)
         cv (current-v working-order-f)]
-    (m/? cv)))
+    ;(m/? cv)
+    cv))
 
 
 

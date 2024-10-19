@@ -55,13 +55,14 @@
   [{:keys [asset calendar] :as opts} {:keys [start end] :as window}]
   (tm/log! :info (str "get-bars: " (select-keys opts [:task-id :asset :calendar :import])
                       "window: " (select-keys window [:start :end])))
-  (try
-    (let [page-size 1000 ; 200
+  (m/sp
+   (try
+     (let [page-size 1000 ; 200
           ; dates need to be instant, because only instant can be converted to unix-epoch-ms
-          start (if (t/instant? start) start (t/instant start))
-          end (if (t/instant? end) end (t/instant end))
-          window (assoc window :limit page-size :start start :end end)]
-      (tm/log! :info (str "initial-page start: " start " end: " end))
+           start (if (t/instant? start) start (t/instant start))
+           end (if (t/instant? end) end (t/instant end))
+           window (assoc window :limit page-size :start start :end end)]
+       (tm/log! :info (str "initial-page start: " start " end: " end))
 
       ; NOTE: this code makes more requests than needed.
       ;       for 1 day (1440 minute candles) 2 requests would be needed, but 4 are done
@@ -74,26 +75,27 @@
       ;                :kf  (partial next-request calendar window))
       ;     (consolidate-datasets opts window))
 
-      (loop [w window
-             res []]
-        (tm/log! :info (str "new page window: " (select-keys w [:start :end])))
-        (if w
-          (let [bar-ds (m/? (get-bars-ds-normalized opts w))]
-            (recur (next-request calendar w bar-ds)
-                   (conj res bar-ds)))
-          (consolidate-datasets res))))
-    (catch AssertionError ex
-      (tm/log! :error (str   "get-bars: " calendar " assert-error: " ex)))
-    (catch Exception ex
-      (tm/log! :error (str "get-bars calendar: " calendar " exception: " ex)))))
+       (loop [w window
+              res []]
+         (tm/log! :info (str "new page window: " (select-keys w [:start :end])))
+         (if w
+           (let [bar-ds (m/? (get-bars-ds-normalized opts w))]
+             (recur (next-request calendar w bar-ds)
+                    (conj res bar-ds)))
+           (consolidate-datasets res))))
+     (catch AssertionError ex
+       (tm/log! :error (str   "get-bars: " calendar " assert-error: " ex)))
+     (catch Exception ex
+       (tm/log! :error (str "get-bars calendar: " calendar " exception: " ex))))))
 
 (defn get-bars
   "expects a window with bar close time instants"
   [{:keys [calendar] :as opts} window]
-  (let [window (window->open-time window calendar)
-        ds (get-bars-serial opts window)]
-    (when ds
-      (tc/map-columns ds :date [:date] #(to-close-time % calendar)))))
+  (m/sp
+   (let [window (window->open-time window calendar)
+         ds (m/? (get-bars-serial opts window))]
+     (when ds
+       (tc/map-columns ds :date [:date] #(to-close-time % calendar))))))
 
 (defrecord import-bybit []
   barsource

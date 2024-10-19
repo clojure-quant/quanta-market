@@ -136,10 +136,10 @@
 
 ; window in open time
 (m/? (bb/get-bars-ds-normalized
-       {:asset "BTCUSDT"
-        :calendar [:crypto :m]}
-       {:start (-> "2024-03-01T00:00:00Z" t/instant)
-        :end (-> "2024-03-01T03:00:00Z" t/instant)}))
+      {:asset "BTCUSDT"
+       :calendar [:crypto :m]}
+      {:start (-> "2024-03-01T00:00:00Z" t/instant)
+       :end (-> "2024-03-01T03:00:00Z" t/instant)}))
 ;=> _unnamed [181 6]:
 ;
 ;|                :date |    :open |    :high |     :low |   :close |   :volume |
@@ -169,10 +169,10 @@
 
 ; window in close time
 (m/? (bb/get-bars-ds-close-time
-       {:asset "BTCUSDT"
-        :calendar [:crypto :m]}
-       {:start (-> "2024-03-01T00:01:00Z" t/instant)
-        :end (-> "2024-03-01T03:00:00Z" t/instant)}))
+      {:asset "BTCUSDT"
+       :calendar [:crypto :m]}
+      {:start (-> "2024-03-01T00:01:00Z" t/instant)
+       :end (-> "2024-03-01T03:00:00Z" t/instant)}))
 
 ;=> _unnamed [180 6]:
 ;

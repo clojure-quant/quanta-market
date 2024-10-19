@@ -74,14 +74,14 @@
       ;                :kf  (partial next-request calendar window))
       ;     (consolidate-datasets opts window))
 
-        (loop [w window
-               res []]
-          (tm/log! :info (str "new page window: " (select-keys w [:start :end])))
-          (if w
-            (let [bar-ds (m/? (get-bars-ds-normalized opts w))]
-              (recur (next-request calendar w bar-ds)
-                     (conj res bar-ds)))
-            (consolidate-datasets res))))
+      (loop [w window
+             res []]
+        (tm/log! :info (str "new page window: " (select-keys w [:start :end])))
+        (if w
+          (let [bar-ds (m/? (get-bars-ds-normalized opts w))]
+            (recur (next-request calendar w bar-ds)
+                   (conj res bar-ds)))
+          (consolidate-datasets res))))
     (catch AssertionError ex
       (tm/log! :error (str   "get-bars: " calendar " assert-error: " ex)))
     (catch Exception ex

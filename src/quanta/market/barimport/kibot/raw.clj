@@ -11,7 +11,7 @@
     asset))
 
 (defn get-asset [headers]
-  (-> headers 
+  (-> headers
       (get "content-disposition")
       extract-asset))
 
@@ -19,7 +19,7 @@
   (tm/log! (str "downloading link: " url))
   (m/sp
    (let [response (m/? (a/http-get url {:socket-timeout 90000
-                                       :connection-timeout 90000}))
+                                        :connection-timeout 90000}))
          _ (tm/log! (str "link download finished!"))
          {:keys [headers body]} response
          asset (get-asset headers)]

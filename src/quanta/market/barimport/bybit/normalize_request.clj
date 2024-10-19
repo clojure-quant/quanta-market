@@ -7,7 +7,7 @@
    [ta.calendar.calendars :refer [calendars]]
    [quanta.calendar.core :refer [open->close-dt close->open-dt]])
   (:import
-    [java.time Instant ZonedDateTime]))
+   [java.time Instant ZonedDateTime]))
 
 ;; REQUEST CONVERSION
 
@@ -91,8 +91,8 @@
 
 (defn window->open-time [window calendar]
   (assoc window
-    :start (to-open-time (:start window) calendar)
-    :end (to-open-time (:end window) calendar)))
+         :start (to-open-time (:start window) calendar)
+         :end (to-open-time (:end window) calendar)))
 
 (defn range->parameter [window]
   (assoc window

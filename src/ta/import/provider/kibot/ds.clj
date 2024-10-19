@@ -30,6 +30,7 @@
                           "column-4" :close
                           "column-5" :volume})
       (date-col-to-exchange-close exchange-kw)))
+; TODO: open->close-dt
 
 (def category-mapping
   {:equity "stocks"

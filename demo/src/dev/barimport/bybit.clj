@@ -1,8 +1,8 @@
 (ns dev.barimport.bybit
   (:require
-    [tick.core :as t]
-    [quanta.market.barimport.bybit.import :refer [create-import-bybit]]
-    [ta.db.bars.protocol :refer [get-bars]]))
+   [tick.core :as t]
+   [quanta.market.barimport.bybit.import :refer [create-import-bybit]]
+   [ta.db.bars.protocol :refer [get-bars]]))
 
 (def b (create-import-bybit))
 
@@ -44,7 +44,6 @@
 ;| 2024-10-05T23:59:59.999999Z | 62090.14 | 62382.03 | 61680.63 | 62059.37 |  8936.861444 |
 ;| 2024-10-06T23:59:59.999999Z | 62059.37 | 62983.78 | 61814.96 | 62824.80 |  9037.917928 |
 
-
 (t/instant)
 ;; => #time/instant "2024-10-05T19:48:12.209448677Z"
 
@@ -64,7 +63,6 @@
 ;| 2024-10-05T17:00:00Z | 62161.02 | 62184.91 | 61953.41 | 61961.45 | 536.452534 |
 ;| 2024-10-05T18:00:00Z | 61961.45 | 62040.87 | 61900.78 | 62019.38 | 456.604311 |
 ;| 2024-10-05T19:00:00Z | 62019.38 | 62056.00 | 61833.42 | 61861.23 | 447.538215 |
-
 
 ; (tc/write-csv! "/clojure-quant/quanta/lib/indicator/test/ta/indicator/csv/BYBIT_SPOT_BTCUSDT_1D.csv")
 

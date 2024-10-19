@@ -107,9 +107,9 @@
    NOTE: be careful with the window. only 1000 bars can be requested at once"
   [{:keys [calendar] :as opts} window]
   (m/sp
-    (let [w (window->open-time window calendar)]
-      (-> (m/? (get-bars-ds-normalized opts w))
-          (tc/map-columns :date [:date] #(to-close-time % calendar))))))
+   (let [w (window->open-time window calendar)]
+     (-> (m/? (get-bars-ds-normalized opts w))
+         (tc/map-columns :date [:date] #(to-close-time % calendar))))))
 
 
 

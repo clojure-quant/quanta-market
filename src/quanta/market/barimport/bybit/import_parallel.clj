@@ -4,10 +4,10 @@
    [taoensso.telemere :as tm]
    [tablecloth.api :as tc]
    [missionary.core :as m]
-   [ta.calendar.core :refer [fixed-window]]
+   [quanta.calendar.core :refer [fixed-window-open]]
    [ta.db.bars.protocol :as b :refer [barsource]]
    [quanta.market.barimport.bybit.raw :as bb]
-   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]))
+   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params window->open-time to-close-time]]))
 
 (defn req-window [seq]
   {:start (-> seq last t/instant)
@@ -19,10 +19,13 @@
 ;; (partition 4 (range 22))
 ;;=> ((0 1 2 3) (4 5 6 7) (8 9 10 11) (12 13 14 15) (16 17 18 19))
 
-(defn partition-requests [calendar window]
+(defn partition-requests
+  "expects a window with bar open times
+   returns window partitions with bar open times"
+  [calendar window]
   ; bybit has 1000 items limit, to be certain of no failure
   ; we only request 900 per request
-  (->> (fixed-window calendar window)
+  (->> (fixed-window-open calendar window)
        (partition 900 900 nil) ; this is important, so we get partial partitions
        (map req-window)
        (into [])))
@@ -56,7 +59,9 @@
   (m/sp
    (m/holding sem (m/? blocking-task))))
 
-(defn parallel-requests [{:keys [asset calendar] :as opts} window]
+(defn parallel-requests
+  "returns the concatenated dataset of each original bybit response (with bar open time)"
+  [{:keys [asset calendar] :as opts} window]
   ; from: https://github.com/leonoel/missionary/wiki/Rate-limiting#bounded-blocking-execution
   ; When using (via blk ,,,) It's important to remember that the blocking thread pool 
   ; is unbounded, which can potentially lead to out-of-memory exceptions. 
@@ -73,8 +78,10 @@
 (defrecord import-bybit-parallel []
   barsource
   (get-bars [this {:keys [asset calendar] :as opts} window]
-    (let [{:keys [blocks ds]} (parallel-requests opts window)]
-      ds)))
+    (let [window (window->open-time window calendar)
+          {:keys [blocks ds]} (parallel-requests opts window)]
+      (when ds
+        (tc/map-columns ds :date [:date] #(to-close-time % calendar))))))
 
 (defn create-import-bybit-parallel []
   (import-bybit-parallel.))

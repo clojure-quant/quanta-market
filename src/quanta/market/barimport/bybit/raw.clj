@@ -5,10 +5,9 @@
    [tick.core :as t]
    [quanta.market.util.aleph :as a]
    [ta.import.helper :refer [str->double]]
-   [clojure.string :as str]
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
-   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]))
+   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params window->open-time to-close-time]]))
 
 ;; # Bybit api
 ;; The query api does NOT need credentials. The trading api does.
@@ -83,7 +82,7 @@
      start: epoch-millisecond
      start: epoch-millisecond
      limit: between 1 and 200 (maximum)
-   returns a missionary task with the result as a dataset"
+   returns a missionary task with the result (origin bybit) as a dataset"
   [query-params]
   (m/sp
    (-> (m/? (get-bars query-params))
@@ -92,12 +91,25 @@
        (tc/select-columns [:date :open :high :low :close :volume]))))
 
 (defn get-bars-ds-normalized
-  "our query format
-   returns a missionary task with the result as a dataset"
+  "our query format.
+   expecting window with bar OPEN instants
+   returns a missionary task with the result as a dataset
+   NOTE: be careful with the window. only 1000 bars can be requested at once"
   [opts window]
   (m/sp
-   (let [query-params  (bybit-bar-params opts window)]
+   (let [query-params (bybit-bar-params opts window)]
      (m/? (get-bars-ds query-params)))))
+
+(defn get-bars-ds-close-time
+  "our query format.
+   expecting window with bar CLOSE instants
+   returns a missionary task with the result (open to close time converted) as a dataset
+   NOTE: be careful with the window. only 1000 bars can be requested at once"
+  [{:keys [calendar] :as opts} window]
+  (m/sp
+    (let [w (window->open-time window calendar)]
+      (-> (m/? (get-bars-ds-normalized opts w))
+          (tc/map-columns :date [:date] #(to-close-time % calendar))))))
 
 
 

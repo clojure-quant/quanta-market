@@ -13,6 +13,7 @@
    :end (-> "2024-02-29T00:07:00Z" t/instant)})
 
 (bb/partition-requests calendar window-feb-29)
+;; ERROR this should be a full day
 ;=> [{:start #time/instant"2024-02-29T00:00:00Z",
 ;     :end #time/instant"2024-02-29T00:07:00Z"}]
 
@@ -226,7 +227,11 @@
               window)
     (print-range :all))
 
-
+(get-bars bbi
+          {:asset "BTCUSDT"
+           :calendar [:crypto :d]}
+          {:start (t/instant "2000-01-01T00:00:00Z")
+           :end (t/instant "2024-09-10T00:00:00Z")})
 
 
 

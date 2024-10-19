@@ -5,14 +5,10 @@
 
 (def secrets
   (-> (str (System/getenv "MYVAULT") "/quanta.edn")
-      ;"/home/florian/repo/myLinux/myvault/quanta.edn"
       (slurp)
       (edn/read-string)))
 
 secrets
-
-;:secrets {:start (clojure.edn/read-string
-;                  (slurp #envf ["%s/goldly/trateg.edn" "MYVAULT"]))}
 
 (def assets
   [; kibot
@@ -21,6 +17,8 @@ secrets
 
 (doall
  (map asset-db/add assets))
+
+(asset-db/instrument-details "EUR/USD")
 
 
 

@@ -6,6 +6,8 @@
  ; all linters see here: https://github.com/clj-kondo/clj-kondo/blob/master/doc/linters.md#type-mismatch
  ; awb99. the meta info replace should allow us not to disable all linters 
  ; one by one; however I couldnt get it to work.
+ :config-paths ["../resources/clj-kondo/"]
+
  :config-in-comment
  ^:replace
  {:linters

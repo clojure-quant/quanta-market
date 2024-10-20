@@ -1,4 +1,4 @@
-(ns ta.import.provider.kibot-http.assets
+(ns quanta.market.barimport.kibot.asset.bad.assets
   (:require
    [clojure.string :as str]
    [hickory.core :as hc]
@@ -52,7 +52,7 @@
 ;
 
 (defn assets-for [path category]
-  (let [assets (-> (str path  category ".html")
+  (let [assets (-> (str path  category ".htm")
                    slurp
                    parse
                    rest)
@@ -93,6 +93,13 @@
   (import-kibot-links   "../resources/kibot-http/" "forex")
 
   (db/instrument-details "EUR/USD")
+
+; forex 1m
+  ; https://www.kibot.com/downloadtext.aspx?product=5,All_Forex_Pairs_1min
+
+; https://www.kibot.com/download.aspx?product=5,All_Forex_Pairs_1min
+
+; https://www.kibot.com/download.aspx?product=7,All_Futures_Contracts_1min
 
  ; 
   )

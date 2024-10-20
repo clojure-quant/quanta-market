@@ -1,4 +1,4 @@
-(ns ta.import.provider.kibot.list
+(ns quanta.market.barimport.kibot.asset.bad.list
   (:require
    [tech.v3.dataset :as tds]
    [tech.v3.datatype.argops :as argops]

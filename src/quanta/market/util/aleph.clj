@@ -57,3 +57,13 @@
    (m/sp
     (let [body (m/? (http-get-body url opts))]
       (parse-json body)))))
+
+(defn http-post
+  " http-post using Aleph, which is modelled after clj-http.
+    difference: we return a missionary task."
+  ([url]
+   (let [get-d (http/post url)]
+     (deferred->task get-d)))
+  ([url opts]
+   (let [get-d (http/post url opts)]
+     (deferred->task get-d))))

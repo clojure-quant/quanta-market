@@ -22,8 +22,8 @@
     asset))
 
 (defn download-link-info [link]
-  (let [qp {:action "download"
-            :link link}]
+  (let [qp {:action "download" ; qps need to be defined outside the sp. this is because inside the qps get reordered.
+            :link link}]       ; action needs to be first, otherwise kibot api fails.
     (m/sp
      (let [response (m/? (kibot/make-request-raw qp))
            {:keys [headers body]} response
@@ -35,6 +35,7 @@
          (throw (ex-info "missing-content-disposition-header"
                          {:url link
                           :body (bs/to-string body)})))))))
+
 
 (def prefix "http://api.kibot.com/?action=download&link=")
 (def prefix-size (count prefix))

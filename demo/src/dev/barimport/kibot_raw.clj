@@ -7,7 +7,6 @@
 (def k (:kibot secrets))
 
 k
-;; => {:user "hoertlehner@gmail.com", :password "282m2fhgh"}
 
 (m/?
  (kb/login k))

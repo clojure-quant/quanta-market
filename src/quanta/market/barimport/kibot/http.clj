@@ -10,7 +10,7 @@
    [tech.v3.datatype :as dtype]
    [clj-commons.byte-streams :as bs]
    [quanta.market.util.aleph :as a]
-   [ta.db.asset.db :as db]
+   [quanta.market.asset.db :as db]
    [ta.db.bars.protocol :refer [barsource]]
    [quanta.market.barimport.kibot.raw :as kibot]
    [quanta.market.util.clj-http :refer [http-head]]))
@@ -96,15 +96,15 @@
      (let [{:keys [asset calendar]} opts
            [exchange f] calendar
            asset (db/instrument-details asset)
-           {:keys [kibot-http]} (case f
-                                  :d (:kibot-http-d asset)
-                                  :m (:kibot-http-m asset))]
-       (if kibot-http
+           kibot-link (case f
+                        :d (:kibot-link-d asset)
+                        :m (:kibot-link-m asset))]
+       (if kibot-link
          (let [_ (m/? (kibot/login api-key))  ; http downlaods needs login first.
-               csv  (m/? (download-link kibot-http))]
+               csv  (m/? (download-link kibot-link))]
            (kibot-result->dataset csv))
          (throw (ex-info "kibot-http link not in asset-db" {:asset asset
-                                                            :f f})))))))
+                                                            :f f}))))))) 4
 
 (defn create-import-kibot-http [api-key]
   (import-kibot-http. api-key))

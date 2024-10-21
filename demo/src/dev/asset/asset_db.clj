@@ -1,6 +1,6 @@
 (ns quanta.notebook.asset-db
   (:require
-   [ta.db.asset.db :as db]
+   [quanta.market.asset.db :as db]
    [clojure.pprint :refer [print-table]]))
 
 (db/search "P")

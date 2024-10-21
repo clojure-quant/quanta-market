@@ -10,7 +10,7 @@
    [tablecloth.api :as tc]
    [de.otto.nom.core :as nom]
    [ta.calendar.validate :as cal-type]
-   [ta.db.asset.db :as db]
+   [quanta.market.asset.db :as db]
    [ta.db.bars.protocol :refer [barsource]]
    [ta.import.helper :refer [p-or-fail]]
    [ta.import.helper.daily :refer [date-col-to-exchange-close]]

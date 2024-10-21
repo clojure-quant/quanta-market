@@ -3,7 +3,7 @@
    [tick.core :as t]
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
-   [ta.db.asset.db :as db]
+   [quanta.market.asset.db :as db]
    [ta.db.bars.protocol :refer [barsource]]
    [ta.import.provider.alphavantage.raw :as av]))
 

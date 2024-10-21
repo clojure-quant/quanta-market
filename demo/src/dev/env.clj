@@ -1,7 +1,8 @@
 (ns dev.env
   (:require
    [clojure.edn :as edn]
-   [ta.db.asset.db :as asset-db]))
+   [quanta.market.asset.db :as asset-db]
+   [quanta.market.asset.load :refer [add-lists-to-db]]))
 
 (def secrets
   (-> (str (System/getenv "MYVAULT") "/quanta.edn")
@@ -12,13 +13,15 @@ secrets
 
 (def assets
   [; kibot
-   {:name "EURUSD" :symbol "EUR/USD" :kibot "EURUSD" :category :fx}
-   {:name "Microsoft" :symbol "MSFT" :kibot "MSFT" :category :equity}])
+   {:name "EURUSD" :asset "EUR/USD" :kibot "EURUSD" :category :fx}
+   {:name "Microsoft" :asset "MSFT" :kibot "MSFT" :category :equity}])
 
-(doall
- (map asset-db/add assets))
+#_(doall
+   (map asset-db/add assets))
 
-(asset-db/instrument-details "EUR/USD")
+(add-lists-to-db)
+
+;(asset-db/instrument-details "EUR/USD")
 
 
 

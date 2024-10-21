@@ -3,7 +3,7 @@
    [clojure.string :as str]
    [hickory.core :as hc]
    [hickory.select :as s]
-   [ta.db.asset.db :as db]))
+   [quanta.market.asset.db :as db]))
 
 (defn select-tables [htree]
   (-> (s/select (s/child

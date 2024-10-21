@@ -1,6 +1,6 @@
 (ns ta.db.asset.defaults
   (:require
-   [ta.db.asset.db :as db]))
+   [quanta.market.asset.db :as db]))
 
 (defn default-exchange [asset]
   (let [{:keys [symbol name category]} (db/instrument-details asset)]

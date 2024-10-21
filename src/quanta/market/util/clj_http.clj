@@ -28,3 +28,8 @@
   ([url opts]
    (req chttp/head url opts)))
 
+(defn http-get
+  ([url]
+   (req chttp/get url {}))
+  ([url opts]
+   (req chttp/get url opts)))

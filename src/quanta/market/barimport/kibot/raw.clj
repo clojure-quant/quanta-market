@@ -3,7 +3,8 @@
    [taoensso.telemere :as tm]
    [missionary.core :as m]
    [clj-commons.byte-streams :as bs]
-   [quanta.market.util.aleph :as a]))
+   [quanta.market.util.aleph :as a]
+   [quanta.market.util.clj-http :as ch]))
 
 ; dividends/splits:
 ; Request URL
@@ -52,9 +53,10 @@
   (m/sp
    (let [opts {:query-params query-params}
          _ (tm/log! (str "kibot get url: " base-url " opts: " opts))
-         response (m/? (a/http-get base-url opts))
+         ;response (m/? (a/http-get base-url opts))
+         response (m/? (ch/http-get base-url opts))
          {:keys [headers body]} response
-         _ (tm/log! (str "kibot api headers: " headers))
+         ;_ (tm/log! (str "kibot api headers: " headers))
          body-str (bs/to-string body)
          kibot-error (extract-error body-str)]
      (if kibot-error

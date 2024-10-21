@@ -19,10 +19,8 @@
 ;;     :exchange :us}
 
 (def s (:kibot secrets))
-;; => #'dev.barimport.kibot-http/s
 
 s
-;; => {:user "hoertlehner@gmail.com", :password "282m2fhgh"}
 
 (def k (kibot-http/create-import-kibot-http (:kibot secrets)))
 k

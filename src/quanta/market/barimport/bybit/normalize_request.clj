@@ -111,6 +111,8 @@
         range-bybit (range->parameter window)
         f (cal-type/interval calendar)
         frequency-bybit (bybit-frequency f)]
+    (assert symbol-bybit "unsupported bybit symbol")
+    (assert category "unsupported bybit category")
     (assert frequency-bybit "unsupported bybit frequency")
     (merge
      {:symbol symbol-bybit

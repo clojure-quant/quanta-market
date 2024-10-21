@@ -83,19 +83,3 @@
      (map :symbol)
      (filter #(str/starts-with? %  "BTC")))
 ;; => ("BTCUSD" "BTCUSDH25" "BTCUSDZ24")
-
-;; todo fixme starting from here
-
-(defn get-save [category]
-  (->> category
-       get-assets
-       (spit (str "/home/florian/repo/clojure-quant/quanta-market/resources/bybit-" category ".edn"))))
-
-(get-save "spot")
-(get-save "linear")
-(get-save "inverse")
-
-(count (get-assets "spot"))    ;; => 596
-(count (get-assets "linear"))  ;; => 432
-(count (get-assets "inverse")) ;; => 13
-(count (get-assets "option"))  ;; => 500

@@ -94,12 +94,17 @@
   (get-bars [this opts window]
     (m/sp
      (let [{:keys [asset calendar]} opts
-           {:keys [kibot-http]} (db/instrument-details asset)]
+           [exchange f] calendar
+           asset (db/instrument-details asset)
+           {:keys [kibot-http]} (case f
+                                  :d (:kibot-http-d asset)
+                                  :m (:kibot-http-m asset))]
        (if kibot-http
-         (let [; (login api-key) ; not sure if http needs login first.
+         (let [_ (m/? (kibot/login api-key))  ; http downlaods needs login first.
                csv  (m/? (download-link kibot-http))]
            (kibot-result->dataset csv))
-         (throw (ex-info "kibot-http-url not in asset-db" {:asset asset})))))))
+         (throw (ex-info "kibot-http link not in asset-db" {:asset asset
+                                                            :f f})))))))
 
 (defn create-import-kibot-http [api-key]
   (import-kibot-http. api-key))

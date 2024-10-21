@@ -1,8 +1,8 @@
-(ns dev.asset.kibot
+(ns dev.asset.raw.kibot-import
   (:require
    [missionary.core :as m]
    [clj-commons.byte-streams :as bs]
-   [quanta.market.barimport.kibot.http :refer [download-link download-link-info download-link-info2 remove-prefix]]
+   [quanta.market.barimport.kibot.http :refer [download-link download-link-info remove-prefix]]
    [quanta.market.barimport.kibot.raw :as raw]
    [quanta.market.barimport.kibot.asset.scraper :refer [login download-calendars download-calendar]]
    [quanta.market.barimport.kibot.asset.db :as db]

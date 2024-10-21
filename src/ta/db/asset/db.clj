@@ -2,7 +2,7 @@
   (:require
    [clojure.string :refer [includes? lower-case blank?]]
    [taoensso.timbre :refer [trace debug info warnf error]]
-   [ta.db.asset.futures :refer [is-future? future-symbol]]))
+   [quanta.market.asset.futures :refer [is-future? future-symbol]]))
 
 (defonce db (atom {}))
 
@@ -36,33 +36,33 @@
       (future-symbol f data))
     (get @db s)))
 
-(defn add [{:keys [symbol] :as instrument}]
+(defn add [{:keys [asset] :as instrument}]
   (let [instrument (-> instrument
                        sanitize-name
                        sanitize-category
                        sanitize-exchange)]
-    (swap! db assoc symbol instrument)))
+    (swap! db assoc asset instrument)))
 
-(defn modify [{:keys [symbol] :as instrument}]
-  (let [old (instrument-details symbol)
+(defn modify [{:keys [asset] :as instrument}]
+  (let [old (instrument-details asset)
         merged (merge old instrument)]
-    (swap! db assoc symbol merged)))
+    (swap! db assoc asset merged)))
 
 (defn get-instruments []
   (-> @db vals))
 
 (defn get-symbols []
-  (->> @db vals (map :symbol)))
+  (->> @db vals (map :asset)))
 
 (defn symbols-available [category]
   (->> (get-instruments)
        (filter #(= category (:category %)))
-       (map :symbol)))
+       (map :asset)))
 
 (defn q? [q]
-  (fn [{:keys [name symbol]}]
+  (fn [{:keys [name asset]}]
     (or (includes? (lower-case name) q)
-        (includes? (lower-case symbol) q))))
+        (includes? (lower-case asset) q))))
 
 (defn =exchange? [e]
   (fn [{:keys [exchange]}]

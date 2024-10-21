@@ -19,9 +19,9 @@
 ;; limit:      less than or equal 200
 
  ; interesting headers:
-{"Timenow" "1709397001926",
- "Ret_code" "0",
- "Traceid" "2b76140e45e0b2211bd94bf1b63c2a45"}
+; {"Timenow" "1709397001926",
+; "Ret_code" "0",
+; "Traceid" "2b76140e45e0b2211bd94bf1b63c2a45"}
 
 (defn- bybit-http-get
   "the idea is to have one http-get fn that takes care of 

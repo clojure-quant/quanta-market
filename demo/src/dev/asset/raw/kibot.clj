@@ -33,7 +33,11 @@
 
 ;; test transform calendar
 
-(transform-calendar [:etf :d])
+(-> (transform-calendar [:etf :d])
+    first)
+;; => Syntax error compiling at (src/dev/asset/raw/kibot.clj:36:5).
+;;    Unable to resolve symbol: transform-calendar in this context
+
 (transform-calendar [:etf :m])
 
 ;; transform data

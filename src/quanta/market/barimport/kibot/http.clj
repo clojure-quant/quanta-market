@@ -72,7 +72,7 @@
 (defn string->stream [s]
   (io/input-stream (.getBytes s "UTF-8")))
 
-(defn kibot-result->dataset [csv]
+(defn kibot-result-m->dataset [csv]
   (-> (tds/->dataset (string->stream csv)
                      {:file-type :csv
                       :header-row? false
@@ -89,6 +89,35 @@
       date-time-adjust
       (tc/drop-columns [:time])))
 
+(def us-close-time
+  (t/time "16:30:00"))
+
+(defn date->zoned [dt]
+  (-> (t/at dt us-close-time)
+      (t/in "America/New_York")))
+
+(defn date-adjust [bar-ds]
+  (let [date-vec (:date bar-ds)
+        date-time-vec  (dtype/emap date->zoned
+                                   :zoned-date-time
+                                   date-vec)]
+    (tc/add-or-replace-column bar-ds :date date-time-vec)))
+
+(defn kibot-result-d->dataset [csv]
+  (-> (tds/->dataset (string->stream csv)
+                     {:file-type :csv
+                      :header-row? false
+                      :dataset-name "kibot-bars"})
+        ; 12/28/2009,0.30652,0.30694,0.30612,0.30694,19
+      (tc/rename-columns {"column-0" :date
+                          "column-1" :open
+                          "column-2" :high
+                          "column-3" :low
+                          "column-4" :close
+                          "column-5" :volume})
+        ;(tc/convert-types :date [[:local-date-time date->localdate]])
+      date-adjust))
+
 (defrecord import-kibot-http [api-key]
   barsource
   (get-bars [this opts window]
@@ -102,9 +131,11 @@
        (if kibot-link
          (let [_ (m/? (kibot/login api-key))  ; http downlaods needs login first.
                csv  (m/? (download-link kibot-link))]
-           (kibot-result->dataset csv))
+           (case f
+             :m (kibot-result-m->dataset csv)
+             :d (kibot-result-d->dataset csv)))
          (throw (ex-info "kibot-http link not in asset-db" {:asset asset
-                                                            :f f}))))))) 4
+                                                            :f f})))))))
 
 (defn create-import-kibot-http [api-key]
   (import-kibot-http. api-key))

@@ -12,12 +12,13 @@
 ;; get/post with cookies
 
 (defn get-with-cookies [cs url opts]
-  (m/sp
-   (let [response (m/? (a/http-get url (merge {:cookie-store cs}
-                                              opts)))
-         {:keys [headers body]} response
-         body-str (bs/to-string body)]
-     body-str)))
+  (let [opts (merge {:cookie-store cs}
+                    opts)]
+    (m/sp
+     (let [response (m/? (a/http-get url opts))
+           {:keys [headers body]} response
+           body-str (bs/to-string body)]
+       body-str))))
 
 (defn post-with-cookies [cs url opts]
   (m/sp
@@ -89,7 +90,10 @@
    [:futures :m]   "https://www.kibot.com/downloadtext.aspx?product=7,All_Futures_Contracts_1min"
    [:futures :d]   "https://www.kibot.com/downloadtext.aspx?product=6,All_Futures_Contracts_daily"
    [:etf :m]   "https://www.kibot.com/downloadtext.aspx?product=3,All_ETFs_1min"
-   [:etf :d] "https://www.kibot.com/downloadtext.aspx?product=2,All_ETFs_daily"})
+   [:etf :d] "https://www.kibot.com/downloadtext.aspx?product=2,All_ETFs_daily"
+
+   ;[:forex-htm :m] 
+   [:stocks-htm :m] "https://www.kibot.com/download.aspx?product=1,All_Stocks_1min"})
 
 (defn get-url [calendar]
   (get calendars calendar))
@@ -103,10 +107,14 @@
   (let [url (get-url cal-vec)
         [category f] cal-vec]
     (m/sp
-     (let [body (m/? (get-with-cookies (:cs lp) url {}))]
+     (let [url "https://www.kibot.com/download.aspx"
+           url "https://www.kibot.com/download.aspx?product=0,All_Stocks_unadjusted_daily"
+           ;opts {:query-params {:product "1,All_Stocks_1min"}}
+           opts {}
+           body (m/? (get-with-cookies (:cs lp) url opts))]
        (spit (calendar-filename cal-vec) body)))))
 
-(defn download-calendars-impl [lp]
+(defn download-calendars-impl2 [lp]
   (m/sp
    (let [cal-vecs (keys calendars)]
      (for [cal-vec cal-vecs]

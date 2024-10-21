@@ -22,7 +22,19 @@
        :type error-type
        :message error-message})))
 
-(def base-url "http://api.kibot.com")
+(def base-url "http://api.kibot.com/")
+
+(defn head-request
+  [opts]
+  (m/sp
+   (let [base-url "http://api.kibot.com/"
+
+         _ (tm/log! (str "kibot head url: " base-url " opts: " opts))
+         response (m/? (a/http-head base-url opts))
+         ;{:keys [headers body]} response
+         ;_ (tm/log! (str "kibot head headers: " headers))
+         ]
+     response)))
 
 (defn make-request-raw
   [query-params]
@@ -54,9 +66,12 @@
 ; http://api.kibot.com?action=login&user=guest&password=guest
 
 (defn login [{:keys [user password] :as api-key}]
-  (make-request  {:action "login"
-                  :user user
-                  :password password}))
+  (m/sp
+   (let [result (m/? (make-request {:action "login"
+                                    :user user
+                                    :password password}))]
+     (tm/log! (str "kibot login result: \r\n" result))
+     result)))
 
 (defn status []
   (make-request {:action "status"}))
@@ -64,10 +79,10 @@
 (defn history [api-key opts]
   (let [{:keys [user password]} api-key]
     (make-request (merge
+                   opts
                    {:action "history"
                     :user user
-                    :password password}
-                   opts))))
+                    :password password}))))
 
 (defn splits
   [{:keys [user password]} opts]

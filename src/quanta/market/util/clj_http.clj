@@ -1,39 +1,32 @@
-(ns quanta.market.util.aleph
+(ns quanta.market.util.clj-http
   (:require
    [missionary.core :as m]
-   [manifold.deferred :as d]
-   [aleph.http :as http]
-   [clj-commons.byte-streams :as bs]
+   [taoensso.telemere :as tm]
+   [clj-http.conn-mgr :as conn]
+   [clj-http.client :as chttp]
    [jsonista.core :as j] ; json read/write
    ))
 
-(defn deferred->task
-  "Returns a missionary task completing with the result of given manifold-deferred."
-  [df]
-  ; see: https://github.com/leonoel/missionary/wiki/Task-interop#futures-promises
-  (let [v (m/dfv)]
-    (d/on-realized df
-                   (fn [r]
-                     ;(println "deferred success: " r)
-                     (v (fn [] r))
-                     ;(println "deferred success delivered!")
-                     )
-                   (fn [e]
-                     ;(println "deferred error: " e)
-                     (v (fn [] (throw e)))
-                     ;(println "deferred error delivered!")
-                     ))
-    (m/absolve v)))
+(def opts
+  {:timeout 5 :threads 4 :insecure? false :default-per-route 5})
+
+(def cm (conn/make-reusable-conn-manager opts))
+
+(defn make-request [req-fn url opts]
+  (binding [conn/*connection-manager* cm]
+    (req-fn url opts)))
+
+(defn req
+  [req-fn url opts]
+  (m/via m/blk
+         (tm/log! (str "req  " url " opts: " opts))
+         (make-request req-fn url opts)))
 
 (defn http-head
-  " http-get using Aleph, which is modelled after clj-http.
-    difference: we return a missionary task."
   ([url]
-   (let [get-d (http/head url)]
-     (deferred->task get-d)))
+   (req chttp/head url {}))
   ([url opts]
-   (let [get-d (http/head url opts)]
-     (deferred->task get-d))))
+   (req chttp/head url opts)))
 
 (defn http-get
   " http-get using Aleph, which is modelled after clj-http.

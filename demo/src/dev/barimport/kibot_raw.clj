@@ -6,6 +6,15 @@
 
 (def k (:kibot secrets))
 
+k
+;; => {:user "hoertlehner@gmail.com", :password "282m2fhgh"}
+
+(m/?
+ (kb/login k))
+
+(m/?
+ (kb/status))
+
 (m/?
  (kb/history k {:symbol "AAPL"
                 :interval "daily"
@@ -31,10 +40,11 @@
   k
   {:symbol "SIL" ; SIL - ETF
    :interval "daily"
-   :period 1
+   :period 4
    :type "ETF" ; Can be stocks, ETFs forex, futures.
    :timezone "UTC"
    :splitadjusted 1}))
+
 ;; => "10/09/2024,34.8,35.07,34.4201,34.99,411814\r\n"
 
 ; futures
@@ -46,7 +56,7 @@
   {:symbol "SIL" ; SIL - FUTURE
    :type "futures" ; Can be stocks, ETFs forex, futures.
    :interval "daily"
-   :period 1
+   :period 5
    :timezone "UTC"
    :splitadjusted 1}))
 ;; => "10/09/2024,30.88,31.005,30.44,30.67,17294\r\n"

@@ -12,7 +12,8 @@
    [quanta.market.util.aleph :as a]
    [ta.db.asset.db :as db]
    [ta.db.bars.protocol :refer [barsource]]
-   [quanta.market.barimport.kibot.raw :as kibot]))
+   [quanta.market.barimport.kibot.raw :as kibot]
+   [quanta.market.util.clj-http :refer [http-head]]))
 
 ;; LINK INFO
 
@@ -22,33 +23,31 @@
     asset))
 
 (defn download-link-info [link]
-  (let [qp {:action "download" ; qps need to be defined outside the sp. this is because inside the qps get reordered.
-            :link link}]       ; action needs to be first, otherwise kibot api fails.
+  (let [; opts need to be defined outside the sp. this is because inside the qps get reordered.
+        opts {:query-params {:action "download" ; action needs to be first, otherwise kibot api fails.
+                             :link link}}]
     (m/sp
-     (let [response (m/? (kibot/make-request-raw qp))
+     (let [base-url "http://api.kibot.com/"
+           response (m/? (http-head base-url opts))
            {:keys [headers body]} response
-           _ (println " headers: " (keys headers))
+           ;_ (println " headers: " (keys headers))
            cd (get headers "content-disposition")]
        (if cd
-         {:kibot-asset (extract-asset cd)
-          :link link}
-         (throw (ex-info "missing-content-disposition-header"
-                         {:url link
-                          :body (bs/to-string body)})))))))
-
+         (let [result {:kibot-asset (extract-asset cd)
+                       :link link}]
+           (tm/log! (str "kibot asset: " (:kibot-asset result)))
+           result)
+         (do (tm/log! (str "missing content-disposition-header body: \r\n" body))
+             #_(throw (ex-info "missing-content-disposition-header"
+                               {:url link
+                                :body body}))
+             {:error "missing-content-disposition-header"}))))))
 
 (def prefix "http://api.kibot.com/?action=download&link=")
 (def prefix-size (count prefix))
 
 (defn remove-prefix [link-with-url]
   (subs link-with-url prefix-size))
-
-(defn download-link-info2 [link-with-url]
-  (m/sp
-   (let [link (remove-prefix link-with-url)
-         r (m/? (download-link-info link))]
-     (tm/log! (str "kibot asset: " r))
-     r)))
 
 ;; download csv file
 

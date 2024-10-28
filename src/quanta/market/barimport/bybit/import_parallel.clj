@@ -67,7 +67,7 @@
         tasks (map #(create-req-task opts %) requests)
         tasks-limited (map #(limit-task sem %) tasks)]
     (tm/log! (str "requesting " asset " " calendar " " window
-                  "in parallel via " (count tasks) "requests .."))
+                  " in parallel via " (count tasks) " requests .."))
     (apply m/join consolidate tasks-limited)))
 
 (defrecord import-bybit-parallel []

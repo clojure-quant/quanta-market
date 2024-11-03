@@ -33,3 +33,35 @@
    (req chttp/get url {}))
   ([url opts]
    (req chttp/get url opts)))
+
+#_(defn http-get-body
+    ([url]
+     (m/sp
+      (let [{:keys [body]} (m/? (http-get url))]
+        (bs/to-string body))))
+    ([url opts]
+     (m/sp
+      (let [{:keys [body]} (m/? (http-get url opts))]
+        (bs/to-string body)))))
+
+(defn parse-json [json]
+  (j/read-value json j/keyword-keys-object-mapper))
+
+(defn http-get-body-json
+  ([url]
+   (m/sp
+    (let [body (:body (m/? (http-get url)))]
+      (parse-json body))))
+  ([url opts]
+   (m/sp
+    (let [body (:body (m/? (http-get url opts)))]
+      (parse-json body)))))
+
+(comment
+
+  (-> (m/?
+       (http-get "http://google.com"))
+      :body)
+
+;
+  )

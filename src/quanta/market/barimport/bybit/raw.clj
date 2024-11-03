@@ -3,7 +3,8 @@
    [taoensso.telemere :as tm]
    [missionary.core :as m]
    [tick.core :as t]
-   [quanta.market.util.aleph :as a]
+   ;[quanta.market.util.aleph :as a]
+   [quanta.market.util.clj-http :refer [http-get-body-json]]
    [ta.import.helper :refer [str->double]]
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
@@ -28,7 +29,7 @@
    errors and result parsing"
   [segment query-params]
   (m/sp
-   (let [r (m/? (a/http-get-body-json
+   (let [r (m/? (http-get-body-json
                  (str "https://api.bybit.com/v5/market/" segment)
                  {:accept :json
                   :socket-timeout 5000

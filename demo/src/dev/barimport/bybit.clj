@@ -1,16 +1,18 @@
 (ns dev.barimport.bybit
   (:require
+   [missionary.core :as m]
    [tick.core :as t]
    [quanta.market.barimport.bybit.import :refer [create-import-bybit]]
    [ta.db.bars.protocol :refer [get-bars]]))
 
 (def b (create-import-bybit))
 
-(get-bars b
-          {:asset "BTCUSDT"
-           :calendar [:crypto :m]}
-          {:start (-> "2024-02-29T00:00:00Z" t/instant)
-           :end (-> "2024-02-29T00:07:00Z" t/instant)})
+(m/?
+ (get-bars b
+           {:asset "BTCUSDT"
+            :calendar [:crypto :m]}
+           {:start (-> "2024-02-29T00:00:00Z" t/instant)
+            :end (-> "2024-02-29T00:07:00Z" t/instant)}))
 
 ;=> _unnamed [8 6]:
 ;

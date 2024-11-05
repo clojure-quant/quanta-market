@@ -1,4 +1,4 @@
-(ns quanta.notebook.asset-symbollist
+(ns dev.asset.asset-symbollist
   (:require
    [ta.db.asset.symbollist :as sl]))
 

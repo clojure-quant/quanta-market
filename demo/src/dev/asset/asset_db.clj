@@ -1,4 +1,4 @@
-(ns quanta.notebook.asset-db
+(ns dev.asset.asset-db
   (:require
    [quanta.market.asset.db :as db]
    [clojure.pprint :refer [print-table]]))

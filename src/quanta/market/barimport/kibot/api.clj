@@ -13,7 +13,8 @@
    [quanta.market.asset.db :as db]
    [ta.db.bars.protocol :refer [barsource]]
    [ta.import.helper :refer [p-or-fail]]
-   [ta.import.helper.daily :refer [date-col-to-exchange-close]]
+   [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
+   [quanta.market.barimport.time-helper :refer [window->open-time]]
    [quanta.market.barimport.kibot.raw :as kb]))
 
 (defn string->stream [s]
@@ -30,8 +31,7 @@
                           "column-3" :low
                           "column-4" :close
                           "column-5" :volume})
-      (date-col-to-exchange-close exchange-kw)))
-; TODO: open->close-dt
+      (adjust-time-to-exchange-close exchange-kw)))
 
 (def category-mapping
   {:equity "stocks"
@@ -75,7 +75,8 @@
 
 (defn get-bars [api-key {:keys [asset calendar] :as opts} window]
   (m/sp
-   (let [window (select-keys window [:start :end])
+   (let [window (-> (select-keys window [:start :end])
+                    (window->open-time calendar))
          _ (info "get-bars kibot " asset " " calendar " " window " ..")
          symbol-map (symbol->provider asset)
          _ (assert symbol-map (str "kibot symbol not found: " asset))

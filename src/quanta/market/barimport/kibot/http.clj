@@ -1,19 +1,22 @@
 (ns quanta.market.barimport.kibot.http
   (:require
-   [taoensso.timbre :refer [info warn error]]
-   [taoensso.telemere :as tm]
-   [missionary.core :as m]
-   [clojure.java.io :as io]
-   [tick.core :as t]
-   [tech.v3.dataset :as tds]
-   [tablecloth.api :as tc]
-   [tech.v3.datatype :as dtype]
-   [clj-commons.byte-streams :as bs]
-   [quanta.market.util.aleph :as a]
-   [quanta.market.asset.db :as db]
-   [ta.db.bars.protocol :refer [barsource]]
-   [quanta.market.barimport.kibot.raw :as kibot]
-   [quanta.market.util.clj-http :refer [http-head]]))
+    [taoensso.timbre :refer [info warn error]]
+    [taoensso.telemere :as tm]
+    [missionary.core :as m]
+    [clojure.java.io :as io]
+    [tick.core :as t]
+    [tech.v3.dataset :as tds]
+    [tablecloth.api :as tc]
+    [tech.v3.datatype :as dtype]
+    [clj-commons.byte-streams :as bs]
+    [ta.db.bars.protocol :refer [barsource]]
+    [ta.calendar.calendars :refer [calendars]]
+    [quanta.market.barimport.time-helper :refer [to-bar-close]]
+    [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
+    [quanta.market.util.aleph :as a]
+    [quanta.market.asset.db :as db]
+    [quanta.market.barimport.kibot.raw :as kibot]
+    [quanta.market.util.clj-http :refer [http-head]]))
 
 ;; LINK INFO
 
@@ -55,17 +58,21 @@
   ; download request does not support login!
   (kibot/make-request {:action "download" :link link}))
 
-;; kibot intraday times are in EST.
+;; kibot intraday times are in EST and bar open time.
 
-(defn date-time->zoned [dt time]
+(defn date-time->zoned
+  "returns the date as instant set to the bar close in EST"
+  [dt time]
   (-> (t/at dt time)
-      (t/in "America/New_York")))
+      (t/in "America/New_York")
+      (to-bar-close 1 :minutes)   ; kibot can have more bars than the quanta calendar expects. so no alignment to quanta calendar day close here.
+      (t/instant)))
 
 (defn date-time-adjust [bar-ds]
   (let [date-vec (:date bar-ds)
         time-vec (:time bar-ds)
         date-time-vec  (dtype/emap date-time->zoned
-                                   :zoned-date-time
+                                   :instant
                                    date-vec time-vec)]
     (tc/add-or-replace-column bar-ds :date date-time-vec)))
 
@@ -89,21 +96,9 @@
       date-time-adjust
       (tc/drop-columns [:time])))
 
-(def us-close-time
-  (t/time "16:30:00"))
+;; DAY
 
-(defn date->zoned [dt]
-  (-> (t/at dt us-close-time)
-      (t/in "America/New_York")))
-
-(defn date-adjust [bar-ds]
-  (let [date-vec (:date bar-ds)
-        date-time-vec  (dtype/emap date->zoned
-                                   :zoned-date-time
-                                   date-vec)]
-    (tc/add-or-replace-column bar-ds :date date-time-vec)))
-
-(defn kibot-result-d->dataset [csv]
+(defn kibot-result-d->dataset [csv exchange]
   (-> (tds/->dataset (string->stream csv)
                      {:file-type :csv
                       :header-row? false
@@ -115,12 +110,12 @@
                           "column-3" :low
                           "column-4" :close
                           "column-5" :volume})
-        ;(tc/convert-types :date [[:local-date-time date->localdate]])
-      date-adjust))
+      (adjust-time-to-exchange-close exchange)))
 
 (defrecord import-kibot-http [api-key]
   barsource
   (get-bars [this opts window]
+    ; no need to call window->open-time here
     (m/sp
      (let [{:keys [asset calendar]} opts
            [exchange f] calendar
@@ -133,7 +128,7 @@
                csv  (m/? (download-link kibot-link))]
            (case f
              :m (kibot-result-m->dataset csv)
-             :d (kibot-result-d->dataset csv)))
+             :d (kibot-result-d->dataset csv exchange)))
          (throw (ex-info "kibot-http link not in asset-db" {:asset asset
                                                             :f f})))))))
 

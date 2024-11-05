@@ -4,10 +4,7 @@
    [tick.core :as t] ; tick uses cljc.java-time
    [ta.calendar.validate :as cal-type]
    [ta.helper.date :refer []]
-   [ta.calendar.calendars :refer [calendars]]
-   [quanta.calendar.core :refer [open->close-dt close->open-dt]])
-  (:import
-   [java.time Instant ZonedDateTime]))
+   [quanta.market.barimport.time-helper :refer [instant->epoch-millisecond]]))
 
 ;; REQUEST CONVERSION
 
@@ -64,35 +61,6 @@
 
 (defn bybit-frequency [frequency]
   (get bybit-frequencies frequency))
-
-(defn instant->epoch-millisecond [dt]
-  (-> dt
-      (t/long)
-      (* 1000)))
-
-(defn to-zoned-date-time [dt tz]
-  (cond
-    (instance? Instant dt) (t/in dt tz)
-    (instance? ZonedDateTime dt) dt))
-
-(defn to-open-time [dt [calendar-kw interval-kw]]
-  (let [timezone (-> calendars calendar-kw :timezone)
-        zdt (to-zoned-date-time dt timezone)]
-    (->> zdt
-         (close->open-dt [calendar-kw interval-kw])
-         t/instant)))
-
-(defn to-close-time [dt [calendar-kw interval-kw]]
-  (let [timezone (-> calendars calendar-kw :timezone)
-        zdt (to-zoned-date-time dt timezone)]
-    (->> zdt
-         (open->close-dt [calendar-kw interval-kw])
-         t/instant)))
-
-(defn window->open-time [window calendar]
-  (assoc window
-         :start (to-open-time (:start window) calendar)
-         :end (to-open-time (:end window) calendar)))
 
 (defn range->parameter [window]
   (assoc window

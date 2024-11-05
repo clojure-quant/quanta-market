@@ -6,7 +6,7 @@
    [tick.core :as t]
    [tablecloth.api :as tc]
    [quanta.market.barimport.bybit.raw :refer [get-bars-ds-normalized]]
-   [quanta.market.barimport.bybit.normalize-request :refer [window->open-time to-close-time]]
+   [quanta.market.barimport.time-helper :refer [window->open-time to-calendar-close-time]]
    [quanta.calendar.core :refer [prior-open]]
    [ta.db.bars.protocol :refer [barsource]]))
 
@@ -92,10 +92,10 @@
   "expects a window with bar close time instants"
   [{:keys [calendar] :as opts} window]
   (m/sp
-   (let [window (window->open-time window calendar)
+    (let [window (window->open-time window calendar)
          ds (m/? (get-bars-serial opts window))]
-     (when ds
-       (tc/map-columns ds :date [:date] #(to-close-time % calendar))))))
+      (when ds
+        (tc/map-columns ds :date [:date] #(to-calendar-close-time % calendar))))))
 
 (defrecord import-bybit []
   barsource

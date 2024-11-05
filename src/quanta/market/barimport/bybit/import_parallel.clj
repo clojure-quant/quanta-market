@@ -1,13 +1,14 @@
 (ns quanta.market.barimport.bybit.import-parallel
   (:require
-   [tick.core :as t]
-   [taoensso.telemere :as tm]
-   [tablecloth.api :as tc]
-   [missionary.core :as m]
-   [quanta.calendar.core :refer [fixed-window-open]]
-   [ta.db.bars.protocol :as b :refer [barsource]]
-   [quanta.market.barimport.bybit.raw :as bb]
-   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params window->open-time to-close-time]]))
+    [tick.core :as t]
+    [taoensso.telemere :as tm]
+    [tablecloth.api :as tc]
+    [missionary.core :as m]
+    [quanta.calendar.core :refer [fixed-window-open]]
+    [ta.db.bars.protocol :as b :refer [barsource]]
+    [quanta.market.barimport.bybit.raw :as bb]
+    [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]
+    [quanta.market.barimport.time-helper :refer [window->open-time to-calendar-close-time]]))
 
 (defn req-window [seq]
   {:start (-> seq last t/instant)
@@ -74,10 +75,10 @@
   barsource
   (get-bars [this {:keys [asset calendar] :as opts} window]
     (m/sp
-     (let [window (window->open-time window calendar)
+      (let [window (window->open-time window calendar)
            {:keys [blocks ds]} (m/? (parallel-requests opts window))]
-       (when ds
-         (tc/map-columns ds :date [:date] #(to-close-time % calendar)))))))
+        (when ds
+          (tc/map-columns ds :date [:date] #(to-calendar-close-time % calendar)))))))
 
 (defn create-import-bybit-parallel []
   (import-bybit-parallel.))

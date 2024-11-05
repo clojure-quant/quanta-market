@@ -1,22 +1,22 @@
 (ns quanta.market.barimport.kibot.http
   (:require
-    [taoensso.timbre :refer [info warn error]]
-    [taoensso.telemere :as tm]
-    [missionary.core :as m]
-    [clojure.java.io :as io]
-    [tick.core :as t]
-    [tech.v3.dataset :as tds]
-    [tablecloth.api :as tc]
-    [tech.v3.datatype :as dtype]
-    [clj-commons.byte-streams :as bs]
-    [ta.db.bars.protocol :refer [barsource]]
-    [ta.calendar.calendars :refer [calendars]]
-    [quanta.market.barimport.time-helper :refer [to-bar-close]]
-    [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
-    [quanta.market.util.aleph :as a]
-    [quanta.market.asset.db :as db]
-    [quanta.market.barimport.kibot.raw :as kibot]
-    [quanta.market.util.clj-http :refer [http-head]]))
+   [taoensso.timbre :refer [info warn error]]
+   [taoensso.telemere :as tm]
+   [missionary.core :as m]
+   [clojure.java.io :as io]
+   [tick.core :as t]
+   [tech.v3.dataset :as tds]
+   [tablecloth.api :as tc]
+   [tech.v3.datatype :as dtype]
+   [clj-commons.byte-streams :as bs]
+   [ta.db.bars.protocol :refer [barsource]]
+   [ta.calendar.calendars :refer [calendars]]
+   [quanta.market.barimport.time-helper :refer [to-bar-close]]
+   [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
+   [quanta.market.util.aleph :as a]
+   [quanta.market.asset.db :as db]
+   [quanta.market.barimport.kibot.raw :as kibot]
+   [quanta.market.util.clj-http :refer [http-head]]))
 
 ;; LINK INFO
 

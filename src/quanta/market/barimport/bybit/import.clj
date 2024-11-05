@@ -92,10 +92,10 @@
   "expects a window with bar close time instants"
   [{:keys [calendar] :as opts} window]
   (m/sp
-    (let [window (window->open-time window calendar)
+   (let [window (window->open-time window calendar)
          ds (m/? (get-bars-serial opts window))]
-      (when ds
-        (tc/map-columns ds :date [:date] #(to-calendar-close-time % calendar))))))
+     (when ds
+       (tc/map-columns ds :date [:date] #(to-calendar-close-time % calendar))))))
 
 (defrecord import-bybit []
   barsource

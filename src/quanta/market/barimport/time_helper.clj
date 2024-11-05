@@ -39,8 +39,8 @@
 
 (defn window->open-time [window calendar]
   (assoc window
-    :start (to-calendar-open-time (:start window) calendar)
-    :end (to-calendar-open-time (:end window) calendar)))
+         :start (to-calendar-open-time (:start window) calendar)
+         :end (to-calendar-open-time (:end window) calendar)))
 
 (defn to-bar-close [open-dt n unit]
   (t/>> open-dt (t/new-duration n unit)))

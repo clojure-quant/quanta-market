@@ -1,15 +1,15 @@
 (ns quanta.market.barimport.bybit.raw
   (:require
-    [taoensso.telemere :as tm]
-    [missionary.core :as m]
-    [tick.core :as t]
+   [taoensso.telemere :as tm]
+   [missionary.core :as m]
+   [tick.core :as t]
    ;[quanta.market.util.aleph :as a]
-    [quanta.market.util.clj-http :refer [http-get-body-json]]
-    [ta.import.helper :refer [str->double]]
-    [tech.v3.dataset :as tds]
-    [tablecloth.api :as tc]
-    [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]
-    [quanta.market.barimport.time-helper :refer [window->open-time to-calendar-close-time]]))
+   [quanta.market.util.clj-http :refer [http-get-body-json]]
+   [ta.import.helper :refer [str->double]]
+   [tech.v3.dataset :as tds]
+   [tablecloth.api :as tc]
+   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]
+   [quanta.market.barimport.time-helper :refer [window->open-time to-calendar-close-time]]))
 
 ;; # Bybit api
 ;; The query api does NOT need credentials. The trading api does.
@@ -109,9 +109,9 @@
    NOTE: be careful with the window. only 1000 bars can be requested at once"
   [{:keys [calendar] :as opts} window]
   (m/sp
-    (let [w (window->open-time window calendar)]
-      (-> (m/? (get-bars-ds-normalized opts w))
-          (tc/map-columns :date [:date] #(to-calendar-close-time % calendar))))))
+   (let [w (window->open-time window calendar)]
+     (-> (m/? (get-bars-ds-normalized opts w))
+         (tc/map-columns :date [:date] #(to-calendar-close-time % calendar))))))
 
 
 

@@ -138,7 +138,7 @@
   (symbols->str ["MSFT" "ORCL"])
   (symbols->str ["ES"])
 
-  (require '[ta.helper.date :refer [parse-date]])
+  (require '[quanta.calendar.util :refer [parse-date]])
   (def dt (parse-date "2024-02-26"))
   (class dt)
   dt

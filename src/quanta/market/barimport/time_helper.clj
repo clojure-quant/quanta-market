@@ -1,7 +1,6 @@
 (ns quanta.market.barimport.time-helper
   (:require
    [tick.core :as t] ; tick uses cljc.java-time
-   [ta.helper.date :refer []]
    [ta.calendar.calendars :refer [calendars]]
    [quanta.calendar.core :refer [open->close-dt close->open-dt]])
   (:import

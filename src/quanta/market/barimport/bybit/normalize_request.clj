@@ -3,7 +3,6 @@
    [clojure.string :as str]
    [tick.core :as t] ; tick uses cljc.java-time
    [ta.calendar.validate :as cal-type]
-   [ta.helper.date :refer []]
    [quanta.market.barimport.time-helper :refer [instant->epoch-millisecond]]))
 
 ;; REQUEST CONVERSION

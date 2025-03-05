@@ -1,7 +1,7 @@
 (ns dev.barimport.alphavantage
   (:require
    [clojure.pprint :refer [print-table]]
-   [ta.helper.date :refer [parse-date]]
+   [quanta.calendar.util :refer [parse-date]]
    [ta.import.provider.alphavantage.ds :as avds]
    [ta.import.provider.alphavantage.raw :as av]
    [ta.db.bars.protocol :refer [get-bars]]

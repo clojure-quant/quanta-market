@@ -4,7 +4,7 @@
    [clj-http.client :as client]
    [cheshire.core] ; JSON Encoding
    [throttler.core]
-   [ta.helper.date :refer [parse-date]]
+   [quanta.calendar.util :refer [parse-date]]
    [ta.import.helper :refer [str->float]]))
 
 ;; https://www.alphavantage.co/documentation/#

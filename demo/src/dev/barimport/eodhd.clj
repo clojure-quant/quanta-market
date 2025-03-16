@@ -11,7 +11,7 @@
 ;; RAW
 
 (def d (raw/get-bars (:eodhd secrets)
-                     "MCD.US" "2024-01-01" "2024-03-15"))
+                     "MCD.US" "2025-01-01" "2025-03-15"))
 
 d
 (->> (raw/get-bars (:eodhd secrets)
@@ -26,8 +26,8 @@ d
 (b/get-bars eodhd
             {:asset "RPM.AU"
              :calendar [:us :d]}
-            {:start (t/zoned-date-time "2024-01-01T00:00:00Z")
-             :end (t/zoned-date-time "2024-03-20T00:00:00Z")})
+            {:start (t/zoned-date-time "2025-01-01T00:00:00Z")
+             :end (t/zoned-date-time "2025-03-20T00:00:00Z")})
 ;; => _unnamed [56 7]:
 ;;    
 ;;    |                :date | :open | :high |  :low | :close | :adjusted_close | :volume |

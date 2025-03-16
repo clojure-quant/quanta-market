@@ -61,21 +61,20 @@
 (defn bybit-frequency [frequency]
   (get bybit-frequencies frequency))
 
-(defn range->parameter [window]
-  (assoc window
-         :start (instant->epoch-millisecond (:start window))
-         :end (instant->epoch-millisecond (:end window))))
+(defn window->bybit-window [intervals]
+  {:start (-> intervals last :open instant->epoch-millisecond)
+   :end (-> intervals first :open instant->epoch-millisecond)})
 
 (defn bybit-bar-params
   "requests a window and returns a dataset with the bars.
    bybit window works with open candle time."
-  [{:keys [asset calendar] :as opts} window]
+  [{:keys [asset calendar window] :as opts}]
   (assert asset "bybit get-bars needs asset parameter")
   (assert calendar "bybit get-bars needs calendar parameter")
   (assert window "bybit get-bars needs window parameter")
   (let [symbol-bybit (symbol->provider asset)
         category (symbol->provider-category asset)
-        range-bybit (range->parameter window)
+        range-bybit (window->bybit-window window)
         f (cal-type/interval calendar)
         frequency-bybit (bybit-frequency f)]
     (assert symbol-bybit "unsupported bybit symbol")

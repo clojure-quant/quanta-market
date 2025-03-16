@@ -5,9 +5,10 @@
    [quanta.market.asset.load :refer [add-lists-to-db]]))
 
 (def secrets
-  (-> (str (System/getenv "MYVAULT") "/quanta.edn")
-      (slurp)
-      (edn/read-string)))
+  (-> ;(str (System/getenv "MYVAULT") "/quanta.edn")
+   "/home/florian/repo/myLinux/myvault/quanta.edn"
+   (slurp)
+   (edn/read-string)))
 
 secrets
 

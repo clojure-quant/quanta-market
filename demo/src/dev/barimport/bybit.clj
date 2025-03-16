@@ -3,7 +3,24 @@
    [missionary.core :as m]
    [tick.core :as t]
    [quanta.market.barimport.bybit.import :refer [create-import-bybit]]
-   [ta.db.bars.protocol :refer [get-bars]]))
+   [ta.db.bars.protocol :refer [get-bars]]
+   [quanta.market.barimport.bybit.raw :as raw]
+   [quanta.market.barimport.bybit.import-parallel :refer [get-bars-parallel]]
+   [quanta.calendar.window :refer [trailing-window]]))
+
+(def w
+  (trailing-window [:crypto :m5] 9 (-> "2025-02-01T00:00:00Z" t/instant)))
+
+w
+
+(m/? (raw/get-bars {:asset "BTCUSDT" :calendar [:crypto :m5]
+                    :window w}))
+
+(m/? (get-bars-parallel {:asset "BTCUSDT" :calendar [:crypto :m5]
+                         :window (trailing-window [:crypto :m5]
+                                                  10000 (-> "2025-02-01T00:00:00Z" t/instant))}))
+
+w
 
 (def b (create-import-bybit))
 

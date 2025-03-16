@@ -5,7 +5,7 @@
    [tick.core :as t] ; tick uses cljc.java-time
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
-   [quanta.calendar.util :refer [parse-date-only]]
+   [quanta.market.util.date :refer [parse-date-only]]
    [ta.import.provider.eodhd.raw :as eodhd]
    [ta.db.bars.protocol :refer [barsource] :as b]))
 

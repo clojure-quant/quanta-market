@@ -1,7 +1,6 @@
 (ns quanta.position.backtest.entry
   (:require
    [missionary.core :as m]
-   [ta.calendar.core :refer [calendar-seq]]
    [quanta.position.entry.size :refer [positionsize]]
    ;[quanta.trade.position.order :refer [Order]]
    [quanta.trade.position.exit.time :refer [get-exit-time time-trigger]]))

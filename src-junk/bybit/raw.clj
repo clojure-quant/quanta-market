@@ -14,25 +14,7 @@
 ;; https://www.bybit.com/
 ;; https://bybit-exchange.github.io/docs/spot/#t-introduction
 ;; https://bybit-exchange.github.io/bybit-official-api-docs/en/index.html#operation/query_symbol
-;; Intervals:  1 3 5 15 30 60 120 240 360 720 "D" "M" "W" "Y"
-;; limit:      less than or equal 200
 
-(defn- convert-bar [bar]
-  ;; => ["1693180800000" "26075" "26075.5" "25972.5" "25992" "6419373" "246.72884245"]
-  (let [[open-time open high low close volume turnover] bar]
-    {:date (-> open-time Long/parseLong t/instant)
-     :open (str->double open)
-     :high (str->double high)
-     :low (str->double low)
-     :close (str->double close)
-     :volume (str->double volume)
-     :turnover (str->double turnover)}))
-
-(defn- parse-history [result]
-  (->> result
-       (:result)
-       (:list)
-       (map convert-bar)))
 
 (defn http-get-json [url query-params]
   (nom/let-nom> [res (http-get url query-params)
@@ -42,39 +24,6 @@
                          (str "status:" status "headers: " headers))
                 (cheshire/parse-string body true)))
 
-(defn get-history-request
-  "makes rest-call to binance to return bar-seq or nom-anomaly
-   on error. 
-   query-params keys:
-   symbol: BTC, ....
-   interval: #{ 1 3 5 15 30 60 120 240 360 720 \"D\" \"M\" \"W\" \"Y\"}  
-   start: epoch-millisecond
-   start: epoch-millisecond
-   limit: between 1 and 200 (maximum)"
-  [query-params]
-  (tm/log! :info
-           ;info 
-           (str "get-history: " query-params))
-  (nom/let-nom>
-   [res (http-get "https://api.bybit.com/v5/market/kline" query-params)
-    {:keys [status headers body]} res
-    result (cheshire/parse-string body true)]
-   ;(info "status: " status "headers: " headers)
-   (if (= (:retCode result) 0)
-     (let [bar-seq (parse-history result)]
-       (when (= (count bar-seq) 0)
-         (tm/log! :warn
-          ;warn 
-                  (str "no bybit data for params: " query-params)))
-       bar-seq
-       #_(if (> (count bar-seq) 0)
-           bar-seq
-           (nom/fail ::bybit-get-history {:message "bar-seq has count 0"
-                                          :query-params query-params
-                                          :result result})))
-     (nom/fail ::bybit-get-history {:message "returnCode is not 0"
-                                    :ret-code (:retCode result)
-                                    :query-params query-params}))))
 
 (defn get-assets [category]
   (->> (http-get-json "https://api.bybit.com/v5/market/instruments-info"
@@ -134,23 +83,6 @@
   ;; => java.time.Instant
   (-> (t/inst) type)
   ;; => java.util.Date    WE DO NOT WANT THIS ONE!
-
-  (-> (get-history-request
-       {:symbol "BTCUSD"
-        :start 1669852800000
-        :interval "D"
-        :category "inverse"
-        :limit 3})
-      (count))
-
-  (-> (get-history-request
-       {:symbol "BTCUSDT"
-        :start (-> "2024-03-05T00:00:00Z" t/instant t/long (* 1000))
-        :end (-> "2024-03-06T00:05:00Z" t/instant t/long (* 1000))
-        :interval "1"
-        :category "spot"                                  ; default linear
-        :limit 3})
-      count)
 
   ; first row is the LAST date.
   ; last row is the FIRST date

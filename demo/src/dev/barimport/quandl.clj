@@ -4,7 +4,7 @@
    [ta.warehouse :as wh]
    [ta.warehouse.since-importer :as since-importer]
    [ta.data.quandl :as quandl]
-   [quanta.calendar.util :refer [parse-date]]))
+   [quanta.market.util.date :refer [parse-date]]))
 
 (defn quandl-result->ds [{:keys [data columns]}]
   (-> (tc/dataset data {:column-names columns})

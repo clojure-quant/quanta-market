@@ -11,6 +11,7 @@
  :config-in-comment
  ^:replace
  {:linters
+  ;; THIS ONLY APPLIES TO COMMENTS!!
   {:unresolved-symbol {:level :off}
    :unused-namespace {:level :off}
    :unused-binding {:level :off}
@@ -41,24 +42,26 @@
 ; namespaces in this list are those we get for side-effects.
   ; it is also possible to do regex search here:
   ; https://github.com/borkdude/clj-kondo/blob/master/doc/config.md
-  :unused-namespace {:level :off
-                     :exclude [clojure.core.async
-                               cljs.core.async
-                               cljs.core.async.macros]}
+  :unused-namespace {:level :warn
+                     :exclude [;clojure.core.async
+                               ;cljs.core.async
+                               ;cljs.core.async.macros
+                               ]}
 
-  :unused-binding {:level :off}
+  :unused-binding {:level :warn}
   ; warning: #'taoensso.timbre/warn is referred but never used
 
-  :unused-referred-var {:level :off
+  :unused-referred-var {:level :warn
                         :exclude {taoensso.timbre [trace tracef ; dont be strict in referring to logging functions 
                                                    debug debugf
                                                    info infof
                                                    warn warnf
                                                    error errorf]
-                                  clojure.core.async [<! <!! >! >!! put! chan go go-loop]
-                                  cljs.core.async  [<! <!! >! >!! put! chan go go-loop]
-                                  cljs.core.async.macros [go go-loop]
-                                  re-frame.core [reg-event-db dispatch]}}
+                                  ;clojure.core.async [<! <!! >! >!! put! chan go go-loop]
+                                  ;cljs.core.async  [<! <!! >! >!! put! chan go go-loop]
+                                  ;cljs.core.async.macros [go go-loop]
+                                  ;re-frame.core [reg-event-db dispatch]
+                                  }}
 
   :unused-private-var {:level :info}
 
@@ -88,8 +91,6 @@
           :include-files [] #_["^src" "^test"]
           :exclude-files [;".*cljs"
                           "./lib/indicator/src/ta/indicator/trade.*"
-                          "./lib/viz/src/ta/viz/notebook.*"
-                          ;"src/demo/goldly.*" 
                           ;"^cljs/core"
                          ; "profiles/test/src/demo/cljs.*"
                           ]

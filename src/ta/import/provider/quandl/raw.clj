@@ -8,7 +8,7 @@
    [clj-http.client :as http]
    [cheshire.core :as cheshire] ; JSON Encoding
    [throttler.core]
-   [quanta.calendar.util :refer [parse-date]]
+   [quanta.market.util.date :refer [parse-date]]
    [ta.import.helper :refer [str->float]]))
 
 ; quandl has been purchased by nasdaq

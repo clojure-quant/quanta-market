@@ -9,13 +9,12 @@
    [tablecloth.api :as tc]
    [tech.v3.datatype :as dtype]
    [clj-commons.byte-streams :as bs]
-   [ta.db.bars.protocol :refer [barsource]]
    [ta.calendar.calendars :refer [calendars]]
-   [quanta.market.barimport.time-helper :refer [to-bar-close]]
-   [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
-   [quanta.market.util.aleph :as a]
    [quanta.market.asset.db :as db]
+   [ta.db.bars.protocol :refer [barsource]]
+   [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
    [quanta.market.barimport.kibot.raw :as kibot]
+   [quanta.market.util.aleph :as a]
    [quanta.market.util.clj-http :refer [http-head]]))
 
 ;; LINK INFO
@@ -65,7 +64,7 @@
   [dt time]
   (-> (t/at dt time)
       (t/in "America/New_York")
-      (to-bar-close 1 :minutes)   ; kibot can have more bars than the quanta calendar expects. so no alignment to quanta calendar day close here.
+      ;(to-bar-close 1 :minutes)   ; kibot can have more bars than the quanta calendar expects. so no alignment to quanta calendar day close here.
       (t/instant)))
 
 (defn date-time-adjust [bar-ds]

@@ -3,7 +3,7 @@
    [quanta.market.protocol :as p]
    ; default quotefeed implementations
    [quanta.market.broker.bybit.quotefeed] ; side effects
-   [quanta.market.broker.paper.quote] ; side effects
+   ;[quanta.market.broker.paper.quote] ; side effects
    ))
 
 (defrecord quote-manager [feeds]

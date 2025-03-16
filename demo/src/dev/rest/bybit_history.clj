@@ -95,9 +95,10 @@
 
 (bybit-bar-params
  {:asset "BTCUSDT"
-  :calendar [:crypto :m]}
- {:start (-> "2024-03-05T00:00:00Z" t/instant)
-  :end (-> "2024-03-06T00:00:00Z" t/instant)})
+  :calendar [:crypto :m]
+  :window {:start (-> "2024-03-05T00:00:00Z" t/instant)
+           :end (-> "2024-03-06T00:00:00Z" t/instant)}})
+
 ;; => {:symbol "BTCUSDT", :interval "1",  :category "spot", 
 ;;     :start 1709596800000, :end 1709683200000}
 

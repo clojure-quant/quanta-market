@@ -34,7 +34,8 @@
 (defn make-request [query-params]
   (nom/let-nom> [result (http-get base-url query-params)
                  body (:body result)
-                 kibot-error (extract-error body)]
+                 ;kibot-error (extract-error body)
+                 ]
      ;(info "kibot response status: " (:status result))           
                 body))
 

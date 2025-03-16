@@ -5,8 +5,7 @@
    [nano-id.core :refer [nano-id]]
    [quanta.market.util :refer [start-flow-logger! stop!]]
    [quanta.market.broker.bybit.trade] ; side effect
-   [demo.logging] ; side effect
-   [demo.accounts :refer [accounts-trade]]))
+   [demo.env.accounts :refer [accounts-trade]]))
 
 accounts-trade
 

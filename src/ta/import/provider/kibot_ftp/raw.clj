@@ -3,8 +3,7 @@
    [clojure.set :as set]
    [babashka.fs :as fs]
    [miner.ftp :as ftp]
-   [babashka.process :refer [shell process exec]]
-   [ta.import.provider.kibot.raw :refer [api-key]]))
+   [babashka.process :refer [shell process exec]]))
 
 ;; KIBOT FTP:
 ;; ftp.kibot.com   (same user+password as for api)
@@ -19,6 +18,8 @@
 
 (def config
   {:local-dir "/home/florian/repo/clojure-quant/trateg/output/kibot-incremental/"})
+
+(def client nil)
 
 ;; categories and intervals 
 ;; reflect how ftp://ftp.kibot.com is organized
@@ -47,11 +48,11 @@
 (defn ftp-path-category [category interval]
   (str "/Updates/All%20" (category categories) "/" (interval intervals)))
 
-(defn download-overview [category interval]
+(defn download-overview [api-key category interval]
   (ftp/with-ftp [client ;(str "ftp://ftp.kibot.com/Updates/All%20Stocks/Daily")
                  (str "ftp://ftp.kibot.com" (ftp-path-category category interval))
-                 :username (:user config)
-                 :password (:password config)
+                 :username (:user api-key)
+                 :password (:password api-key)
                  :local-data-connection-mode :active
                  :control-keep-alive-reply-timeout-ms 7000
                  :default-timeout-ms 30000]
@@ -60,11 +61,11 @@
       (println "remote files for " category ": " file-names)
       file-names)))
 
-(defn download-file [category interval file-remote]
+(defn download-file [api-key category interval file-remote]
   (ftp/with-ftp [client ;(str "ftp://ftp.kibot.com/Updates/All%20Stocks/Daily")
                  (str "ftp://ftp.kibot.com" (ftp-path-category category interval))
-                 :username (:user @api-key)
-                 :password (:password @api-key)
+                 :username (:user api-key)
+                 :password (:password api-key)
                  :local-data-connection-mode :active
                  :file-type :binary
                  :default-timeout-ms 30000]
@@ -74,11 +75,11 @@
       (println "rar download result: " download-result)
       download-result)))
 
-(defn download-day [category interval day]
-  (download-file category interval (str day ".exe")))
+(defn download-day [api-key category interval day]
+  (download-file api-key category interval (str day ".exe")))
 
-(defn files-missing-locally [category interval]
-  (let [remote (->> (download-overview category interval)  (into #{}))
+(defn files-missing-locally [api-key category interval]
+  (let [remote (->> (download-overview api-key category interval)  (into #{}))
         local (->> (existing-rar-files category interval) (into #{}))
         missing (set/difference remote local)
         missing (into [] missing)]

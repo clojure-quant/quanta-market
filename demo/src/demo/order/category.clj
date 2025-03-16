@@ -66,7 +66,7 @@
    :limit 66330.0}))
 
 (def order-linear
-  (assoc order-spot-market :asset "BTC-27SEP24.L"))
+  (assoc order-spot-market-buy :asset "BTC-27SEP24.L"))
 
 (def order-linear-sell-limit
   (assoc order-spot-limit

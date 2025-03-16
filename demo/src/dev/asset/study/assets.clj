@@ -1,4 +1,4 @@
-(ns demo.dev.assets
+(ns dev.asset.study.assets
   (:require
    [clojure.edn :as edn]
    [clojure.string :as str]

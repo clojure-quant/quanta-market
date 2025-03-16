@@ -13,7 +13,7 @@
 (def conn {:msg-flow (m/seed [1 2 3])})
 
 (def dispose!
-  (create-logger! db :florian/test1 conn))
+  (create-logger! db :florian/test1 :in conn))
 
 dispose!
 

@@ -1,4 +1,4 @@
-(ns demo.dev.order.individual
+(ns demo.dev.order-bybit-individual
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
@@ -6,9 +6,7 @@
    [quanta.market.util :refer [start-flow-logger! stop!]]
    [quanta.market.broker.bybit.trade-update :refer [create-trade-update-feed]]
    [quanta.market.broker.bybit.trade-action :refer [create-trade-action]]
-   [demo.accounts :refer [accounts-trade]]
-   [demo.logging] ; side effect
-   ))
+   [demo.env.accounts :refer [accounts-trade]]))
 
 accounts-trade
 

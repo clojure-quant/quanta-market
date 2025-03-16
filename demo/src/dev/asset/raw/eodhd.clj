@@ -1,4 +1,4 @@
-(ns quanta.notebook.asset-eodhd
+(ns dev.asset.raw.eodhd
   (:require
    [ta.import.provider.eodhd.raw :refer [get-exchanges get-exchange-tickers]]))
 

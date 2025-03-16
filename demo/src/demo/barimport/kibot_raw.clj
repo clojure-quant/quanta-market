@@ -1,8 +1,8 @@
-(ns dev.barimport.kibot-raw
+(ns demo.barimport.kibot-raw
   (:require
    [missionary.core :as m]
    [quanta.market.barimport.kibot.raw :as kb]
-   [dev.env :refer [secrets]]))
+   [demo.env-bar :refer [secrets]]))
 
 (def k (:kibot secrets))
 

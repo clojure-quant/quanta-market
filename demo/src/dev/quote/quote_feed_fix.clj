@@ -1,4 +1,4 @@
-(ns quanta.notebook.quote-feed-fix
+(ns dev.quote.quote-feed-fix
   (:require
    [taoensso.timbre :as timbre :refer [info warn error]]
    [manifold.stream :as s]

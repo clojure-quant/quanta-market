@@ -6,7 +6,6 @@
    [quanta.market.broker.bybit.websocket2 :refer [create-websocket2]]
    [quanta.market.broker.bybit.quote.quotefeed-category] ; for side effects
    [quanta.market.broker.bybit.quotefeed] ; side effects
-   [demo.logging] ; for side effects
    ))
 
 ;; test the different kind of subscriptions that bybit supports

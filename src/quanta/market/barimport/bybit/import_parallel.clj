@@ -55,9 +55,7 @@
   barsource
   (get-bars [this {:keys [asset calendar] :as opts} window]
     (m/sp
-     (let [{:keys [blocks ds]} (m/? (parallel-requests opts window))]
-       (when ds
-         (tc/map-columns ds :date [:date] #(to-calendar-close-time % calendar)))))))
+     (m/? (get-bars-parallel (assoc opts :window window))))))
 
 (defn create-import-bybit-parallel []
   (import-bybit-parallel.))

@@ -1,11 +1,11 @@
-(ns dev.barimport.alphavantage
+(ns demo.barimport.alphavantage
   (:require
    [clojure.pprint :refer [print-table]]
    [quanta.market.util.date :refer [parse-date]]
    [ta.import.provider.alphavantage.ds :as avds]
    [ta.import.provider.alphavantage.raw :as av]
    [ta.db.bars.protocol :refer [get-bars]]
-   [dev.env :refer [secrets]]))
+   [demo.env-bar :refer [secrets]]))
 
 (def api-key (:alphavantage secrets))
 
@@ -76,42 +76,42 @@
 ;;    | 43.03 | 43.03 | 43.03 |  43.03 |     0.0 | 2024-10-09T00:00 |
 
 ; select search
-(av/search "S&P 500")
-(print-table [:symbol :type :name] (av/search "BA"))
-(print-table (av/search "Fidelity MSCI"))
+(av/search avp "S&P 500")
+(print-table [:symbol :type :name] (av/search avp "BA"))
+(print-table (av/search avp "Fidelity MSCI"))
 
-(av/search "gld")
+(av/search avp "gld")
 
 ;; # stock series
-(av/get-daily :compact "QQQ")
-(print-table (->> (av/get-daily :full "MSFT")
+(av/get-daily avp :compact "QQQ")
+(print-table (->> (av/get-daily avp :full "MSFT")
                   :series
                   ;reverse
                   (take 5)))
 
 (->
- (av/get-daily-adjusted :compact "QQQ")
+ (av/get-daily-adjusted avp :compact "QQQ")
  :series
  ;first
  last)
 
-(print-table (->> (av/get-daily-adjusted :full "MSFT")
+(print-table (->> (av/get-daily-adjusted avp :full "MSFT")
                   :series
                   ;reverse
                   (take 5)))
 
 ;; # fx series
-(print-table (take 5 (reverse (av/get-daily-fx :compact "EURUSD"))))
+(print-table (take 5 (reverse (av/get-daily-fx avp :compact "EURUSD"))))
 
 ;; # crypto series
-(print-table (take 5 (reverse (av/get-daily-crypto :compact "BTC"))))
+(print-table (take 5 (reverse (av/get-daily-crypto avp :compact "BTC"))))
 
 ; crypto rating
-(av/get-crypto-rating "BTC")
+(av/get-crypto-rating avp "BTC")
 
 (print-table
- (map av/get-crypto-rating ["BTC" "ETH" "LTC" "DASH"
-                            "NANO" "EOS" "XLM"]))
+ (map #(av/get-crypto-rating avp %) ["BTC" "ETH" "LTC" "DASH"
+                                     "NANO" "EOS" "XLM"]))
 
 
 

@@ -1,10 +1,10 @@
-(ns dev.barimport.kibot-http
+(ns demo.barimport.kibot-http
   (:require
    [missionary.core :as m]
    [quanta.market.asset.db :as db]
    [ta.db.bars.protocol :refer [get-bars]]
    [quanta.market.barimport.kibot.http :as kibot-http]
-   [dev.env :refer [secrets]]))
+   [demo.env-bar :refer [secrets]]))
 
 ; test if EURUSD has kibot-http
 (db/instrument-details "EUR/USD")

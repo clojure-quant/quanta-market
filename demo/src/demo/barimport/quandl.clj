@@ -1,4 +1,4 @@
-(ns quanta.notebook.import-quandl
+(ns demo.barimport.quandl
   (:require
    [tablecloth.api :as tc]
    [ta.warehouse :as wh]
@@ -34,13 +34,6 @@
 
 ; WTI spot
 (quandl/quandl-metadata "EIA/PET_RWTC_D" {})
-
-gold-2023
-
-quandl-result
-quandl-result-2023
-
-(quandl-result->ds quandl-result)
 
 ;(quandl-get-since-ds "D" "2021-01-01" "FDAX")
 

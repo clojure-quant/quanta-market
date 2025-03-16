@@ -1,6 +1,11 @@
 {:paths ["src" "resources"]
- :deps {io.github.clojure-quant/quanta-market {:local/root "../" :deps/manifest :deps}
-       }
+ :deps {io.github.clojure-quant/quanta-market {:local/root "../" :deps/manifest :deps}}
 
-}
+ :aliases
+ {:eastwood
+  {:main-opts ["-m"
+               "eastwood.lint"
+                     ;; Any Eastwood options can be passed here as edn:
+               {}]
+   :extra-deps {jonase/eastwood {:mvn/version "1.4.3"}}}}}
 

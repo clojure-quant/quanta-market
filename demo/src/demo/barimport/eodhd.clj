@@ -1,10 +1,10 @@
-(ns dev.barimport.eodhd
+(ns demo.barimport.eodhd
   (:require
    [tick.core :as t]
    [ta.import.provider.eodhd.ds :refer [create-import-eodhd]]
    [ta.import.provider.eodhd.raw :as raw]
    [ta.db.bars.protocol :as b]
-   [dev.env :refer [secrets]]))
+   [demo.env-bar :refer [secrets]]))
 
 (:eodhd secrets)
 

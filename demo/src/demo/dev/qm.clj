@@ -4,9 +4,8 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-flow-logger! stop!]]
    [quanta.market.quote :refer [quote-manager-start]]
-   [demo.accounts :refer [accounts-quote]]
-   [demo.logging] ; for side effects
-   ))
+   [demo.accounts :refer [accounts-quote]]))
+
 (def qm (quote-manager-start accounts-quote))
 
 (comment

@@ -2,8 +2,7 @@
   "random quote feed
    useful because always open, and limited potential for strange errors"
   (:require
-   [taoensso.timbre :as timbre :refer [info warn error]]
-   [ta.quote.core :refer [quotefeed create-stream! publish! get-stream]]))
+   [taoensso.timbre :as timbre :refer [info warn error]]))
 
 (defn zero-mean-random-value []
   (* (- (rand 0.005) 0.0025) 10.0))
@@ -41,10 +40,8 @@
 
 (defn feed-publish-quotes! [{:keys [state] :as this}]
   (let [symbols (:symbols @state)
-        quote-messages (map symbol->quote symbols)
-        publish-msg! (partial publish! this)]
-    (doall
-     (map publish-msg! quote-messages))))
+        quote-messages (map symbol->quote symbols)]
+    quote-messages))
 
 (defn add-asset [state asset]
   (swap! state update-in [:symbols] assoc asset 100.0))
@@ -63,33 +60,28 @@
     (feed-publish-quotes! this)
     ;(info "publishing quotes.. done!")
     ))
-(defrecord quotefeed-random [opts state]
-  quotefeed
-  (connect [this]
-    (info "random connect: " (:opts this))
-    (let [f (set-interval (gen-change-prices this) 500)]
-      (swap! (:state this) assoc :f f)))
-  (disconnect [this]
-    (info "random disconnect: " (:opts this))
-    (info "state: " @(:state this))
-    (future-cancel (:f @(:state this)))
-    (swap! (:state this) assoc :symbols {})
-    (swap! (:state this) dissoc :f))
-  (subscribe [this asset]
-    (info "random subscribe: " asset)
-    (add-asset (:state this) asset))
-  (unsubscribe [this asset]
-    (info "random unsubscribe: " asset)
-    (swap! (:state this) update-in [:symbols] dissoc asset 100.0))
-  (quote-stream [this]
-    (get-stream this)))
 
-(defn create-quotefeed-random [opts]
-  (let [feed (quotefeed-random. opts (atom {:symbols {}}))]
-    (create-stream! feed)
-    feed))
+;; quotefeed
 
-;; in demo see: notebook.live.random-quotes
+(defn connect [this]
+  (info "random connect: " (:opts this))
+  (let [f (set-interval (gen-change-prices this) 500)]
+    (swap! (:state this) assoc :f f)))
+
+(defn disconnect [this]
+  (info "random disconnect: " (:opts this))
+  (info "state: " @(:state this))
+  (future-cancel (:f @(:state this)))
+  (swap! (:state this) assoc :symbols {})
+  (swap! (:state this) dissoc :f))
+
+(defn subscribe [this asset]
+  (info "random subscribe: " asset)
+  (add-asset (:state this) asset))
+
+(defn unsubscribe [this asset]
+  (info "random unsubscribe: " asset)
+  (swap! (:state this) update-in [:symbols] dissoc asset 100.0))
 
 
 

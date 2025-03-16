@@ -1,1 +1,5 @@
-{:hooks {:analyze-call {missionary.core/? hooks.mawait/?}}}
+{:hooks {:analyze-call {;missionary.core/? hooks.mawait/?
+                        
+                        }}
+ 
+ }

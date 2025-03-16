@@ -2,7 +2,6 @@
   (:require
    [missionary.core :as m]
    [quanta.market.protocol :as p]
-   [demo.logging] ; for side effects
    [clojure.pprint :refer [print-table]]))
 
 (def f (p/create-quotefeed {:type :random}))

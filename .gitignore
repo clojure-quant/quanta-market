@@ -4,3 +4,4 @@
 .calva
 .data
 .clj-kondo/*/**
+.eastwood

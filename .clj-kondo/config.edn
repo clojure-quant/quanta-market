@@ -34,7 +34,11 @@
            de.otto.nom.core/let-nom> clojure.core/let
            ta.indicator.helper/indicator clojure.core/let}
  :linters
- {:consistent-alias {:aliases {tick.core t
+ {:unresolved-namespace {:level :error
+                         :report-duplicates true
+                         }
+    
+  :consistent-alias {:aliases {tick.core t
                                tablecloth.api tc
                                tech.v3.dataset tds
                                tech.v3.datatype.functional dfn}}
@@ -50,22 +54,19 @@
 
   :unused-binding {:level :warn}
   ; warning: #'taoensso.timbre/warn is referred but never used
-
+  
   :unused-referred-var {:level :warn
                         :exclude {taoensso.timbre [trace tracef ; dont be strict in referring to logging functions 
                                                    debug debugf
                                                    info infof
                                                    warn warnf
                                                    error errorf]
-                                  ;clojure.core.async [<! <!! >! >!! put! chan go go-loop]
-                                  ;cljs.core.async  [<! <!! >! >!! put! chan go go-loop]
-                                  ;cljs.core.async.macros [go go-loop]
-                                  ;re-frame.core [reg-event-db dispatch]
                                   }}
 
   :unused-private-var {:level :info}
 
-  :unresolved-symbol {:level :info
+  :unresolved-symbol {;:level :info
+                      :level :error
                       :exclude-patterns ["idx"]
                        ;:creates-vars {org.httpkit.server/with-channel [con]}
                       }
@@ -73,7 +74,7 @@
   ;:redundant-let
   ;{:level :info
   ; :exclude [pinkgorilla.events/kernel [kernel]]}
-
+  
   :redundant-do {:level :info ; because the line below does not work, at least make them not ci breaking
                  :exclude [pinkgorilla.nrepl.ws.relay/process-message-mem] ; TODO: this does not work 
                  }

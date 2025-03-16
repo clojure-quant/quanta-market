@@ -46,6 +46,13 @@
                "./demo/src"
                ]}
 
+  :eastwood
+  {:main-opts ["-m"
+               "eastwood.lint"
+                   ;; Any Eastwood options can be passed here as edn:
+               {}]
+   :extra-deps {jonase/eastwood {:mvn/version "1.4.3"}}}
+
   :cljfmt
   {:extra-deps {cljfmt/cljfmt {:mvn/version "0.8.0"}}
    :main-opts ["-m" "cljfmt.main"

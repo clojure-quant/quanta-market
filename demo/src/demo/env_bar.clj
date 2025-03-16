@@ -1,4 +1,4 @@
-(ns dev.env
+(ns demo.env-bar
   (:require
    [clojure.edn :as edn]
    [quanta.market.asset.db :as asset-db]

@@ -6,7 +6,7 @@
    [quanta.market.barimport.kibot.raw :as raw]
    [quanta.market.barimport.kibot.asset.scraper :refer [login download-calendars download-calendar]]
    [quanta.market.barimport.kibot.asset.db :as db]
-   ;[quanta.market.barimport.kibot.asset.assets :refer [assets-for]]
+   [quanta.market.barimport.kibot.asset.assets :refer [assets-for]]
    [dev.env :refer [secrets]]))
 
 (def s (:kibot secrets))

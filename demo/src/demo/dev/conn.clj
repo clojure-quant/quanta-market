@@ -4,9 +4,9 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-logging start-printing]]
    [quanta.market.broker.bybit.task.order :refer [order-create-raw! order->bybit-format]]
-   [demo.accounts :refer [accounts-trade]]
     ; bring default implementations into scope:
-   [quanta.market.broker.bybit.tradeaccount]))
+   [quanta.market.broker.bybit.tradeaccount]
+   [demo.env.accounts :refer [accounts-trade]]))
 
 (def account (get accounts-trade :rene/test4))
 

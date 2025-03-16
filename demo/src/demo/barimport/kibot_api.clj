@@ -1,11 +1,11 @@
-(ns dev.barimport.kibot-api
+(ns demo.barimport.kibot-api
   (:require
    [tick.core :as t]
    [missionary.core :as m]
    [tablecloth.api :as tc]
    [ta.db.bars.protocol :as b]
    [quanta.market.barimport.kibot.api :as k]
-   [dev.env :refer [secrets]]))
+   [demo.env-bar :refer [secrets]]))
 
 (def kibot (k/create-import-kibot (:kibot secrets)))
 

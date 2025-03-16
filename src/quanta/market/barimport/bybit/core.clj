@@ -1,4 +1,4 @@
-(ns quanta.market.barimport.bybit.import-parallel
+(ns quanta.market.barimport.bybit.core
   (:require
    [tick.core :as t]
    [taoensso.telemere :as tm]
@@ -51,11 +51,13 @@
                   " in parallel via " (count tasks) " requests .."))
     (apply m/join consolidate tasks-limited)))
 
-(defrecord import-bybit-parallel []
+(defrecord import-bybit []
   barsource
   (get-bars [this {:keys [asset calendar] :as opts} window]
     (m/sp
-     (m/? (get-bars-parallel (assoc opts :window window))))))
+     (let [{:keys [missing excess ok]} (m/? (get-bars-parallel (assoc opts :window window)))]
+       (tm/log! (str "bybit imported ok:" (tc/row-count ok) "missing: " (tc/row-count missing) " excess: " (tc/row-count excess)))
+       ok))))
 
-(defn create-import-bybit-parallel []
-  (import-bybit-parallel.))
+(defn create-import-bybit []
+  (import-bybit.))

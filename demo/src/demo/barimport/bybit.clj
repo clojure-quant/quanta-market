@@ -2,10 +2,9 @@
   (:require
    [missionary.core :as m]
    [tick.core :as t]
-   [quanta.market.barimport.bybit.import :refer [create-import-bybit]]
    [ta.db.bars.protocol :refer [get-bars]]
    [quanta.market.barimport.bybit.raw :as raw]
-   [quanta.market.barimport.bybit.import-parallel :refer [get-bars-parallel]]
+   [quanta.market.barimport.bybit.core :refer [get-bars-parallel create-import-bybit]]
    [quanta.calendar.window :refer [trailing-window]]))
 
 (def w
@@ -28,8 +27,8 @@ w
  (get-bars b
            {:asset "BTCUSDT"
             :calendar [:crypto :m]}
-           {:start (-> "2024-02-29T00:00:00Z" t/instant)
-            :end (-> "2024-02-29T00:07:00Z" t/instant)}))
+           (trailing-window [:crypto :m]
+                            2000 (-> "2025-02-01T00:00:00Z" t/instant))))
 
 ;=> _unnamed [8 6]:
 ;

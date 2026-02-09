@@ -4,7 +4,7 @@
    [quanta.market.util.date :refer [parse-date]]
    [ta.import.provider.alphavantage.ds :as avds]
    [ta.import.provider.alphavantage.raw :as av]
-   [ta.db.bars.protocol :refer [get-bars]]
+   [quanta.bar.protocol :refer [get-bars]]
    [demo.env-bar :refer [secrets]]))
 
 (def api-key (:alphavantage secrets))

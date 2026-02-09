@@ -11,7 +11,7 @@
    [de.otto.nom.core :as nom]
    [ta.calendar.validate :as cal-type]
    [quanta.market.asset.db :as db]
-   [ta.db.bars.protocol :refer [barsource]]
+   [quanta.bar.protocol :refer [barsource]]
    [ta.import.helper :refer [p-or-fail]]
    [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
    [quanta.market.barimport.kibot.raw :as kb]))

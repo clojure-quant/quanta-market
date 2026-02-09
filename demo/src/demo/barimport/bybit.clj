@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [tick.core :as t]
-   [ta.db.bars.protocol :refer [get-bars]]
+   [quanta.bar.protocol :refer [get-bars]]
    [quanta.market.barimport.bybit.raw :as raw]
    [quanta.market.barimport.bybit.core :refer [get-bars-parallel create-import-bybit]]
    [quanta.calendar.window :refer [trailing-window]]))

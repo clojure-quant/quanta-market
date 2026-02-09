@@ -4,7 +4,7 @@
    [taoensso.telemere :as tm]
    [tablecloth.api :as tc]
    [missionary.core :as m]
-   [ta.db.bars.protocol :as b :refer [barsource]]
+   [quanta.bar.protocol :as b :refer [barsource]]
    [quanta.market.barimport.bybit.raw :as raw]))
 
 ;; BE CAREFUL WHITH PARTITION.

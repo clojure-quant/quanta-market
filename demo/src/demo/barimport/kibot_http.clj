@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [quanta.market.asset.db :as db]
-   [ta.db.bars.protocol :refer [get-bars]]
+   [quanta.bar.protocol :refer [get-bars]]
    [quanta.market.barimport.kibot.http :as kibot-http]
    [demo.env-bar :refer [secrets]]))
 

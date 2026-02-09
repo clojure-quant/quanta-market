@@ -10,7 +10,7 @@
    [de.otto.nom.core :as nom]
    [ta.calendar.validate :as cal-type]
    [quanta.market.asset.db :as db]
-   [ta.db.bars.protocol :refer [barsource]]
+   [quanta.bar.protocol :refer [barsource]]
    [ta.import.helper :refer [p-or-fail]]
    [ta.import.helper.daily :refer [date-col-to-exchange-close]]
    [ta.import.provider.kibot.raw :as kibot]))

@@ -4,7 +4,7 @@
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
    [quanta.market.asset.db :as db]
-   [ta.db.bars.protocol :refer [barsource]]
+   [quanta.bar.protocol :refer [barsource]]
    [ta.import.provider.alphavantage.raw :as av]))
 
 (defn alphavantage-result->dataset [response]

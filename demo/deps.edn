@@ -1,5 +1,6 @@
 {:paths ["src" "resources"]
- :deps {io.github.clojure-quant/quanta-market {:local/root "../" :deps/manifest :deps}}
+ :deps {org.pinkgorilla/modular {:mvn/version "0.2.69"}  ; modular.writer
+        io.github.clojure-quant/quanta-market {:local/root "../" :deps/manifest :deps}}
 
  :aliases
  {:eastwood
@@ -7,5 +8,11 @@
                "eastwood.lint"
                      ;; Any Eastwood options can be passed here as edn:
                {}]
-   :extra-deps {jonase/eastwood {:mvn/version "1.4.3"}}}}}
+   :extra-deps {jonase/eastwood {:mvn/version "1.4.3"}}}
+  
+  :nrepl {:main-opts  ["-m" "nrepl.cmdline" "--port" "7888"]
+          :extra-deps {nrepl/nrepl {:mvn/version,"1.5.1"}
+                       cider/cider-nrepl {:mvn/version,"0.58.0"}}}
+  
+  }}
 

@@ -5,7 +5,7 @@
    [tick.core :as t]
    [tablecloth.api :as tc]
    [ta.calendar.align :as align]
-   [ta.db.bars.protocol :as b]))
+   [quanta.bar.protocol :as b]))
 
 (defn calendar-seq->window [calendar-seq]
   {:start (-> (last calendar-seq) t/instant)
@@ -17,17 +17,11 @@
 (defn- align-to-calendar2 [ds-bars ds-cal]
   (align/align-to-calendar ds-cal ds-bars))
 
-(defn- debug-ds [ds]
-  (info "aligned ds: " ds)
-  ds)
-
 (defn load-aligned [bardb {:keys [asset] :as opts} window ds-cal]
   (nom/let-nom> [ds-bars (b/get-bars bardb opts window)]
                 (-> ds-bars
                     (tc/set-dataset-name asset)
-                    ;debug-ds
                     (align-to-calendar2 ds-cal)
-                    ;debug-ds
                     (align/fill-missing-close)
                     (tc/add-column :asset asset))))
 

@@ -1,17 +1,15 @@
 {; see here for all options 
   ;https://github.com/clj-kondo/clj-kondo/blob/master/src/clj_kondo/impl/config.clj
-
- ; config for linitng inside of comments
- ; we deactivate all linting.
- ; all linters see here: https://github.com/clj-kondo/clj-kondo/blob/master/doc/linters.md#type-mismatch
- ; awb99. the meta info replace should allow us not to disable all linters 
- ; one by one; however I couldnt get it to work.
+  ; all linters see here: https://github.com/clj-kondo/clj-kondo/blob/master/doc/linters.md#type-mismatch
  :config-paths ["../resources/clj-kondo/"]
 
  :config-in-comment
  ^:replace
  {:linters
   ;; THIS ONLY APPLIES TO COMMENTS!!
+  ;; INSIDE COMMENTS DEACTIVATE ALL LINTING
+  ; awb99. the meta info replace should allow us not to disable all linters 
+  ; one by one; however I couldnt get it to work.
   {:unresolved-symbol {:level :off}
    :unused-namespace {:level :off}
    :unused-binding {:level :off}
@@ -70,6 +68,11 @@
                       :exclude-patterns ["idx"]
                        ;:creates-vars {org.httpkit.server/with-channel [con]}
                       }
+  
+  ; this setting should be in .lsp/config.edn
+  ; but the .lsp/congif.edn does not work.
+  :clojure-lsp/unused-public-var {:exclude [quanta.bar.db.duck]
+                                  :level :off}
 
   ;:redundant-let
   ;{:level :info

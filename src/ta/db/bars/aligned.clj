@@ -5,7 +5,7 @@
    [tablecloth.api :as tc]
    [ta.calendar.core :as cal]
    [ta.calendar.align :as align]
-   [ta.db.bars.protocol :as b]))
+   [quanta.bar.protocol :as b]))
 
 ;; TODO: remove this. 
 ;; it is only used in algo-env.

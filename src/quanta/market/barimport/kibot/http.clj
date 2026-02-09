@@ -11,7 +11,7 @@
    [clj-commons.byte-streams :as bs]
    [ta.calendar.calendars :refer [calendars]]
    [quanta.market.asset.db :as db]
-   [ta.db.bars.protocol :refer [barsource]]
+   [quanta.bar.protocol :refer [barsource]]
    [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
    [quanta.market.barimport.kibot.raw :as kibot]
    [quanta.market.util.aleph :as a]

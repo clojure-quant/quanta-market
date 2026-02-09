@@ -8,7 +8,7 @@
    [tablecloth.api :as tc]
    [tech.v3.datatype :as dtype]
    [ta.db.asset.db :as db]
-   [ta.db.bars.protocol :refer [barsource]]
+   [quanta.bar.protocol :refer [barsource]]
    [ta.import.provider.kibot.raw :refer [login] :as kibot]
    [ta.import.provider.kibot-http.raw :as raw]))
 

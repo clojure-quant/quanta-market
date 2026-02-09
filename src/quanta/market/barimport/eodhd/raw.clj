@@ -3,8 +3,7 @@
    [clojure.set]
    [taoensso.timbre :refer [info warn error]]
    [missionary.core :as m]
-   [cheshire.core :as cheshire] ; JSON Encoding
-   [quanta.market.util.clj-http :refer [http-get-body-json]]
+   [quanta.market.util.clj-http :refer [http-get parse-json]]
    [ta.import.helper :refer [str->float]]))
 
 ;; https://eodhd.com/pricing all world EOD 20 USD/month.
@@ -20,6 +19,8 @@
 ;; And non-US stock exchanges we cover mostly from Jan 3, 2000.
 ;; FREE SUBSCRIPTIONS HAVE ACCESS TO 1 YEAR OF EOD DATA.
 
+;; 100’000/day 1000/minute
+
 (def base-url "https://eodhd.com/api/")
 
 (defn eodhd-http-get
@@ -27,28 +28,31 @@
    errors and result parsing"
   [api-token endpoint query-params]
   (m/sp
-   (let [r (try (m/? (http-get-body-json
-                      (str base-url endpoint)
-                      {:accept :json
-                       :socket-timeout 5000
-                       :connection-timeout 5000
-                       :query-params (assoc query-params
-                                            :api_token api-token
-                                            :fmt "json")}))
-                (catch Exception ex
-                  (let [data (ex-data ex)]
-                    (println "EX: " data)
-                    (when (= (:status data) 423)
-                      (throw (ex-info (:body data) data)))
-                    (when (= (:status data) 403)
-                      (throw (ex-info (:body data) data)))
+   (try (let [response (m/? (http-get
+                             (str base-url endpoint)
+                             {:accept :json
+                              :socket-timeout 5000
+                              :connection-timeout 5000
+                              :query-params (assoc query-params
+                                                   :api_token api-token
+                                                   :fmt "json")}))
+              body (parse-json (:body response))
+              
+              limit (get-in response [:headers "X-RateLimit-Limit"])
+              remaining (get-in response [:headers "X-RateLimit-Remaining"])
+              ]
+          ;(println "headers: " (:headers response))
+          (println "limit: " limit " remaining: " remaining)
+          body)
+        (catch Exception ex
+          (let [data (ex-data ex)]
+            (println "EX: " data)
+            (when (= (:status data) 423)
+              (throw (ex-info (:body data) data)))
+            (when (= (:status data) 403)
+              (throw (ex-info (:body data) data)))
                     ; re-throw
-                    (throw ex))))]
-     #_(if (= retCode 0) ; the assumption is that for all requests bybit returns 0 on success
-         result
-         (throw (ex-info "bybit-error " ;r 
-                         (select-keys r [:retCode :retMsg :retExtInfo :time]))))
-     r)))
+            (throw ex))))))
 
 (defn get-bars [api-token asset start-str end-str]
   (warn "getting bars asset: " asset "from: " start-str " to: " end-str)
@@ -70,7 +74,7 @@
 (defn get-day-bulk
   "returns bulk data for all assets of an exchange for a day 
    date is either 2010-09-21 or not included as a key which means current day
-   type is either splits or dividends"
+   type is either splits or dividends or nil for EOD Bars"
   [api-token {:keys [exchange type date] :as opts}]
   ; https://eodhd.com/api/eod-bulk-last-day/US?api_token={YOUR_API_TOKEN}&type=dividends
   (eodhd-http-get api-token (str "eod-bulk-last-day/" exchange)

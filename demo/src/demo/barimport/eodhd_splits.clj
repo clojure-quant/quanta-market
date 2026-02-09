@@ -3,16 +3,18 @@
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]
    [missionary.core :as m]
+   [tablecloth.api :as tc]
    [modular.persist.edn] ; side effects to load edn files
    [modular.persist.protocol :refer [save loadr]]
-   [quanta.bar.protocol :as b]
+   [quanta.bar.protocol :as b :refer [bardb barsource]]
    [quanta.calendar.window :refer [date-range->window
                                    window->close-range
                                    window->open-range
                                    window->intervals]]
    [quanta.market.barimport.eodhd.ds :refer [create-import-eodhd]]
    [quanta.market.barimport.eodhd.raw :as raw]
-   [demo.env-bar :refer [secrets]]))
+   [demo.env-bar :refer [secrets eodhd bardb-nippy]]
+   [tablecloth.api :as tc]))
 
 (def eodhd-token  (:eodhd secrets))
 
@@ -45,20 +47,52 @@ stock-dict
 (defn in-million [n]
   (/ n 1000000.0))
 
-(->> market-eod 
-     (map #(assoc % :turnover (* (:close %) (:volume %))))
-     (filter #(> (:turnover %) 1000000.0))
-     (map add-exchange-name)
-     (map #(update % :name short))
-     (map #(update % :turnover in-million))
-     (map #(update % :turnover Math/floor))
-     (map #(update % :turnover long))
-     (map #(select-keys % [:code :name :exchange :close :turnover]))
-     print-table
-     
-     )
-6110
+(def stocks-big 
+  (->> market-eod
+       (map #(assoc % :turnover (* (:close %) (:volume %))))
+       (filter #(> (:turnover %) 1000000.0))
+       (map add-exchange-name)
+       (map #(update % :name short))
+       (map #(update % :turnover in-million))
+       (map #(update % :turnover Math/floor))
+       (map #(update % :turnover long))
+       (map #(select-keys % [:code :name :exchange :close :turnover]))
+       (sort-by :turnover)
+       (reverse)
+       ))
 
+(count stocks-big)
+; 6110
+(first stocks-big)
+;{:code "A", :name "Agilent Technologies", :exchange "NYSE", :close 127.5, :turnover 240}
+(print-table stocks-big)
+print-table
+
+(defn import-asset [asset]
+  (m/sp 
+   (let [bar-ds (m/? (b/get-bars eodhd
+                                 {:asset "RPM.AU"
+                                  :calendar [:us :d]}
+                                 {:start (t/zoned-date-time "2000-01-01T00:00:00Z")
+                                  :end (t/zoned-date-time "2026-03-20T00:00:00Z")}))]
+     (m/? (b/append-bars bardb-nippy {:asset asset
+                                      :calendar [:us :d]} bar-ds))
+     (println "imported " asset " bars: " (tc/row-count bar-ds))
+     {:asset asset :n (tc/row-count bar-ds)})))
+
+(m/? (import-asset "MO.US"))
+
+(defn blocking-import [asset]
+(m/? (import-asset asset))  )
+
+
+(->> stocks-big 
+     (take 1500)
+     (map :code)
+     (map #(str % ".US"))
+     (map blocking-import)
+     doall
+     )
 
 
 (def splits

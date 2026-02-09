@@ -1,8 +1,11 @@
 (ns demo.env-bar
   (:require
    [clojure.edn :as edn]
+   [quanta.bar.db.nippy :refer [start-bardb-nippy]]
    [quanta.market.asset.db :as asset-db]
-   [quanta.market.asset.load :refer [add-lists-to-db]]))
+   [quanta.market.asset.load :refer [add-lists-to-db]]
+   [quanta.market.barimport.eodhd.ds :refer [create-import-eodhd]]
+   ))
 
 (def secrets
   (-> ;(str (System/getenv "MYVAULT") "/quanta.edn")
@@ -23,6 +26,7 @@ secrets
 (add-lists-to-db)
 
 ;(asset-db/instrument-details "EUR/USD")
+(def bardb-nippy
+  (start-bardb-nippy "./data/nippy/"))
 
-
-
+(def eodhd (create-import-eodhd (:eodhd secrets)))

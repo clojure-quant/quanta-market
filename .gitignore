@@ -5,3 +5,4 @@
 .data
 .clj-kondo/*/**
 .eastwood
+demo/data/nippy

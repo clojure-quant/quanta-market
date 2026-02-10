@@ -4,7 +4,7 @@
    [quanta.bar.db.nippy :refer [start-bardb-nippy]]
    [quanta.market.asset.db :as asset-db]
    [quanta.market.asset.load :refer [add-lists-to-db]]
-   [quanta.market.barimport.eodhd.ds :refer [create-import-eodhd]]
+   [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd]]
    ))
 
 (def secrets

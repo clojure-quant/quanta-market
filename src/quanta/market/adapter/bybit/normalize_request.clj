@@ -1,4 +1,4 @@
-(ns quanta.market.barimport.bybit.normalize-request
+(ns quanta.market.adapter.bybit.normalize-request
   (:require
    [clojure.string :as str]
    [tick.core :as t] ; tick uses cljc.java-time

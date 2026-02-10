@@ -1,11 +1,11 @@
-(ns demo.barimport.eodhd-requests
+(ns demo.adapter.eodhd-requests
   (:require
    [tick.core :as t]
    [missionary.core :as m]
    [modular.persist.edn] ; side effects to load edn files
    [modular.persist.protocol :refer [save]]
    [quanta.bar.protocol :as b]
-   [quanta.market.barimport.eodhd.raw :as raw]
+   [quanta.market.adapter.eodhd.raw :as raw]
    [demo.env-bar :refer [eodhd-token eodhd]]))
 
 ;; RAW

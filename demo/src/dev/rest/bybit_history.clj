@@ -3,8 +3,8 @@
    [clojure.string :as str]
    [tick.core :as t]
    [missionary.core :as m]
-   [quanta.market.barimport.bybit.raw :as bb]
-   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]))
+   [quanta.market.adapter.bybit.raw :as bb]
+   [quanta.market.adapter.bybit.normalize-request :refer [bybit-bar-params]]))
 
 (def start-date-daily (t/instant "2018-11-01T00:00:00Z"))
 

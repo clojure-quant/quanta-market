@@ -1,4 +1,4 @@
-(ns quanta.market.barimport.bybit.raw
+(ns quanta.market.adapter.bybit.raw
   (:require
    [taoensso.telemere :as tm]
    [missionary.core :as m]
@@ -8,7 +8,7 @@
    [ta.import.helper :refer [str->double]]
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
-   [quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]
+   [quanta.market.adapter.bybit.normalize-request :refer [bybit-bar-params]]
    [quanta.market.barimport.bar-matcher :refer [match-window]]))
 
 ;; # Bybit api

@@ -11,7 +11,7 @@
                                    window->close-range
                                    window->open-range
                                    window->intervals]]
-   [quanta.market.barimport.eodhd.raw :as raw]
+   [quanta.market.adapter.eodhd.raw :as raw]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy]]))
 
 (def market-eod

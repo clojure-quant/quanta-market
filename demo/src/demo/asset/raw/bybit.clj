@@ -3,7 +3,7 @@
    [tick.core :as t]
    [clojure.string :as str]
    [missionary.core :as m]
-   [quanta.market.barimport.bybit.raw :as bb]))
+   [quanta.market.adapter.bybit.raw :as bb]))
 
 (defn download-save [category]
   (m/sp

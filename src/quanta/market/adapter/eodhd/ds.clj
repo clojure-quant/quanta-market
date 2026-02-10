@@ -1,4 +1,4 @@
-(ns quanta.market.barimport.eodhd.ds
+(ns quanta.market.adapter.eodhd.ds
   (:require
    [clojure.string :as str]
    [missionary.core :as m] 
@@ -8,7 +8,7 @@
    [ta.import.helper :refer [str->double]]
    [quanta.bar.protocol :refer [barsource] :as b]
    [quanta.market.util.date :refer [parse-date-only]]
-   [quanta.market.barimport.eodhd.raw :as eodhd]))
+   [quanta.market.adapter.eodhd.raw :as eodhd]))
 
 (def eodhd-frequencies
   {:m "1"
@@ -40,7 +40,7 @@
   (-> result
       (tds/->dataset)
       (ds-fix-date)
-      ;(sort-ds) ; bybit returns last date in first row.
+      ;(sort-ds) ; 
       ;(tc/select-columns [:date :open :high :low :close :volume])
       ))
 
@@ -67,14 +67,11 @@
 (defn create-import-eodhd [api-token]
   (import-eodhd. api-token))
 
-
-
-; {:date "1987-06-16", :split "2.000000/1.000000"}
-
 (defn split-str->factor [s]
   (let [[left right] (str/split s #"/")]
        (/ (str->double left) (str->double right))))
 
+; {:date "1987-06-16", :split "2.000000/1.000000"}
 ;(split-str->factor "2.000000/1.000000")
 
 (defn get-splits [api-token {:keys [asset calendar]} {:keys [start end] :as window}]
@@ -83,8 +80,9 @@
          end-opts (if end {:to (fmt-yyyymmdd end)} {})
          opts (merge {:asset asset} start-opts end-opts)
          splits (m/? (eodhd/get-splits api-token opts))]
-     (->> splits
-          (map #(assoc % :factor (split-str->factor (:split %))))
-          (map #(update % :date t/date)) 
-          tc/dataset
-          )))) 
+     (-> (->> splits
+              (map #(assoc % :factor (split-str->factor (:split %))))
+              (map #(update % :date convert-date))
+              tc/dataset)
+         (tc/drop-columns [:split])
+         )))) 

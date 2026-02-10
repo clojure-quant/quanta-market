@@ -1,11 +1,11 @@
-(ns quanta.market.barimport.bybit.core
+(ns quanta.market.adapter.bybit.ds
   (:require
    [tick.core :as t]
    [taoensso.telemere :as tm]
    [tablecloth.api :as tc]
    [missionary.core :as m]
    [quanta.bar.protocol :as b :refer [barsource]]
-   [quanta.market.barimport.bybit.raw :as raw]))
+   [quanta.market.adapter.bybit.raw :as raw]))
 
 ;; BE CAREFUL WHITH PARTITION.
 ;; partition a list of 22 items into 5 (20/4) lists of 4 items 

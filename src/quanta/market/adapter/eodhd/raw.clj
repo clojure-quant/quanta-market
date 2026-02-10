@@ -1,4 +1,4 @@
-(ns quanta.market.barimport.eodhd.raw
+(ns quanta.market.adapter.eodhd.raw
   (:require
    [clojure.set]
    [taoensso.timbre :refer [info warn error]]

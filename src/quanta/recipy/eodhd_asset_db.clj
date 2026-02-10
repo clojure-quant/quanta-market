@@ -3,7 +3,7 @@
    [missionary.core :as m]
    [modular.persist.edn] ; side effects to load edn files
    [modular.persist.protocol :refer [save]]
-   [quanta.market.barimport.eodhd.raw :as raw]))
+   [quanta.market.adapter.eodhd.raw :as raw]))
 
 (defn asset-stats [assets]
   {:exchanges (->> assets

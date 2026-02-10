@@ -5,7 +5,7 @@
    [tick.core :as t]
    [missionary.core :as m]
    [quanta.market.barimport.kibot.raw :as kb]
-   ;[quanta.market.barimport.bybit.normalize-request :refer [bybit-bar-params]]
+   ;[quanta.market.adapter.bybit.normalize-request :refer [bybit-bar-params]]
    ))
 
 (def header  "attachment; filename=ZARUSD.txt")

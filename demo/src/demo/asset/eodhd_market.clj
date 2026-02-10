@@ -1,4 +1,4 @@
-(ns demo.barimport.eodhd-market
+(ns demo.asset.eodhd-market
   (:require
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]
@@ -11,14 +11,8 @@
                                    window->close-range
                                    window->open-range
                                    window->intervals]]
-   [quanta.market.barimport.eodhd.ds :refer [create-import-eodhd]]
    [quanta.market.barimport.eodhd.raw :as raw]
-   [demo.env-bar :refer [secrets eodhd bardb-nippy]]
-   [tablecloth.api :as tc]))
-
-(def eodhd-token  (:eodhd secrets))
-
-
+   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy]]))
 
 (def market-eod
   (m/? (raw/get-day-bulk eodhd-token
@@ -28,7 +22,7 @@ market-eod
 
 (count market-eod) ; 12215
 
-(def stock-dict 
+(def stock-dict
   (->> (loadr :edn "./data/stocks.edn")
        (map (juxt :Code identity))
        (into {})))
@@ -40,15 +34,13 @@ stock-dict
     row))
 
 (defn short [s]
-  (when s 
+  (when s
     (subs s 0 (min 20 (dec (count s))))))
-
-(short "asdfadsf adsf asdf afds adsf adsfasdf")
 
 (defn in-million [n]
   (/ n 1000000.0))
 
-(def stocks-big 
+(def stocks-big
   (->> market-eod
        (map #(assoc % :turnover (* (:close %) (:volume %))))
        (filter #(> (:turnover %) 1000000.0))
@@ -59,8 +51,7 @@ stock-dict
        (map #(update % :turnover long))
        (map #(select-keys % [:code :name :exchange :close :turnover]))
        (sort-by :turnover)
-       (reverse)
-       ))
+       (reverse)))
 
 (count stocks-big)
 ; 6110
@@ -70,7 +61,7 @@ stock-dict
 print-table
 
 (defn import-asset [asset]
-  (m/sp 
+  (m/sp
    (let [bar-ds (m/? (b/get-bars eodhd
                                  {:asset asset
                                   :calendar [:us :d]}
@@ -84,17 +75,14 @@ print-table
 (m/? (import-asset "MO.US"))
 
 (defn blocking-import [asset]
-(m/? (import-asset asset))  )
+  (m/? (import-asset asset)))
 
-
-(->> stocks-big 
+(->> stocks-big
      (take 1500)
      (map :code)
      (map #(str % ".US"))
      (map blocking-import)
-     doall
-     )
-
+     doall)
 
 (def splits
   (m/? (raw/get-day-bulk eodhd-token
@@ -162,20 +150,18 @@ splits
                                   :end (t/instant "2026-12-31T22:00:00Z")})
     window->date-string-vector)
 
-
-(def splits-2026 
-(let [window  (date-range->window [:us :d] {:start (t/instant "2026-01-01T22:00:00Z")
-                                            :end (t/instant "2026-02-10T22:00:00Z")})]
+(def splits-2026
+  (let [window  (date-range->window [:us :d] {:start (t/instant "2026-01-01T22:00:00Z")
+                                              :end (t/instant "2026-02-10T22:00:00Z")})]
     ;window->date-string-vector
-  (m/? (get-splits-window eodhd-token "US" window)))
-  
-  )
+    (m/? (get-splits-window eodhd-token "US" window))))
+
 (save :edn "./data/splits-2026.edn" splits-2026)
 
 splits-2026
 (count splits-2026)
 
-(t/date )
+(t/date)
 
 (def splits-2025
   (let [window  (date-range->window [:us :d] {:start (t/instant "2025-01-01T22:00:00Z")
@@ -191,6 +177,5 @@ splits-2026
 ;260 2025
 ;30 2026
 ;290 * 100 = 29000
-
 
 get-day-bulk

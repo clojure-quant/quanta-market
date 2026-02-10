@@ -28,16 +28,18 @@
    errors and result parsing"
   [api-token endpoint query-params]
   (m/sp
-   (try (let [response (m/? (http-get
+   (try (let [socket-timeout (or (:socket-timeout query-params) 5000)
+              connection-timeout (or (:connection-timeout query-params) 5000)
+              query-params (dissoc query-params :connection-timeout :socket-timeout)
+              response (m/? (http-get
                              (str base-url endpoint)
                              {:accept :json
-                              :socket-timeout 5000
-                              :connection-timeout 5000
+                              :socket-timeout socket-timeout
+                              :connection-timeout connection-timeout
                               :query-params (assoc query-params
                                                    :api_token api-token
                                                    :fmt "json")}))
               body (parse-json (:body response))
-              
               limit (get-in response [:headers "X-RateLimit-Limit"])
               remaining (get-in response [:headers "X-RateLimit-Remaining"])
               ]
@@ -46,12 +48,14 @@
           body)
         (catch Exception ex
           (let [data (ex-data ex)]
-            (println "EX: " data)
+            ;(println "EX: " data)
+            (when (= (:status data) 401) ; unauthenticated
+              (throw (ex-info (:body data) data)))
             (when (= (:status data) 423)
               (throw (ex-info (:body data) data)))
             (when (= (:status data) 403)
               (throw (ex-info (:body data) data)))
-                    ; re-throw
+            ; re-throw
             (throw ex))))))
 
 (defn get-bars [api-token asset start-str end-str]
@@ -69,7 +73,10 @@
 
 (defn get-exchange-assets [api-token exchange-code]
   ;https://eodhd.com/api/exchange-symbol-list/{EXCHANGE_CODE}?api_token={YOUR_API_TOKEN}&fmt=json
-  (eodhd-http-get api-token (str "exchange-symbol-list/" exchange-code) {}))
+  (eodhd-http-get api-token (str "exchange-symbol-list/" exchange-code) 
+                  {:socket-timeout 15000
+                   :connection-timeout 15000
+                   }))
 
 (defn get-day-bulk
   "returns bulk data for all assets of an exchange for a day 

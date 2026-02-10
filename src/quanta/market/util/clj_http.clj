@@ -1,7 +1,6 @@
 (ns quanta.market.util.clj-http
   (:require
    [missionary.core :as m]
-   [taoensso.telemere :as tm]
    [clj-http.conn-mgr :as conn]
    [clj-http.client :as chttp]
    [jsonista.core :as j] ; json read/write
@@ -19,8 +18,7 @@
 (defn req
   [req-fn url opts]
   (m/via m/blk
-         (tm/log! (str "req  " url " opts: " opts))
-         (make-request req-fn url opts)))
+     (make-request req-fn url opts)))
 
 (defn http-head
   ([url]

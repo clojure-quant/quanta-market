@@ -1,4 +1,4 @@
-(ns dev.asset.overview
+(ns demo.asset.overview
   (:require
    [quanta.market.asset.load :as l]))
 

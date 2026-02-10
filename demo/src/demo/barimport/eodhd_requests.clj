@@ -1,25 +1,20 @@
-(ns demo.barimport.eodhd
+(ns demo.barimport.eodhd-requests
   (:require
    [tick.core :as t]
    [missionary.core :as m]
    [modular.persist.edn] ; side effects to load edn files
-   [modular.persist.protocol :refer [save loadr]]
+   [modular.persist.protocol :refer [save]]
    [quanta.bar.protocol :as b]
-   [quanta.market.barimport.eodhd.ds :refer [create-import-eodhd]]
    [quanta.market.barimport.eodhd.raw :as raw]
-   [demo.env-bar :refer [secrets]]))
-
-(:eodhd secrets)
+   [demo.env-bar :refer [eodhd-token eodhd]]))
 
 ;; RAW
-
-(def eodhd-token  (:eodhd secrets))
 
 (def d (m/? (raw/get-bars eodhd-token
                           "MCD.US" "2026-01-01" "2026-02-01")))
 
 d
-(->> (m/? (raw/get-bars (:eodhd secrets)
+(->> (m/? (raw/get-bars eodhd-token
                         "MCD.US" "2020-01-01" "2024-03-15"))
      raw/warning)
 ;; => "Data is limited by one year as you have free subscription"
@@ -36,57 +31,8 @@ d
        (println "ex data:" (ex-data ex))
        (println "ex cause:" (ex-cause ex))))
 
-(def exchanges
-  (m/? (raw/get-exchanges eodhd-token)))
 
-(count exchanges)
 
-(save :edn "./data/exchanges.edn" exchanges)
-
-(def assets
-  (m/? (raw/get-exchange-assets eodhd-token "US")))
-
-(->> assets
-     first)
-{:Currency "USD",
- :Exchange "US",
- :Code "^TNX",
- :Name "CBOE Interest Rate 10 Year T No",
- :Isin nil,
- :Type "INDEX",
- :Country "USA"}
-
-(->> assets
-     (map :Type)
-     (into #{}))
-;; #{"Unit" "Common Stock" "FUND" "INDEX" "ETF" "BOND" 
-;;   "Mutual Fund" "Preferred Stock" "ETC" "Warrant" "Notes"}
-
-(->> assets
-     (filter #(= "Common Stock" (:Type %)))
-     (group-by :Exchange)
-     (map (fn [[k v]] [k (count v)]))
-     (into {}))
-{"NASDAQ" 3968,
- "NYSE" 2303,
- "AMEX" 16,
- "BATS" 7,
- "PINK" 8943,
- "OTCQX" 556,
- "OTCBB" 3,
- "OTCGREY" 556,
- "NYSE ARCA" 37,
- "OTCQB" 1060,
- "NYSE MKT" 250,
- "OTCMKTS" 51,
- "US" 9,
- "OTCCE" 536}
-
-(->> assets
-     (filter #(= "Common Stock" (:Type %)))
-     (filter #(contains? #{"NYSE" "NASDAQ"} (:Exchange %)))
-     (into [])
-     (save :edn "./data/stocks.edn"))
 
 (m/? (raw/get-splits
       "demo"
@@ -97,8 +43,6 @@ d
 ; {:date "2005-02-28", :split "2.000000/1.000000"}
 ; {:date "2014-06-09", :split "7.000000/1.000000"}
 ; {:date "2020-08-31", :split "4.000000/1.000000"}]
-
-(def eodhd (create-import-eodhd eodhd-token))
 
 (m/? (b/get-bars eodhd
                  {:asset "RPM.AU"

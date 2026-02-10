@@ -5,7 +5,7 @@
    [quanta.market.protocol :as p]
    [quanta.market.util :refer [start-flow-logger! stop! mix wrap-blk first-match]]
    [demo.env :refer [qm]]
-   [demo.quote.universe :refer [asset-symbols-both]]))
+   [demo.quote.bybit-universe :refer [asset-symbols-both]]))
 
 (defn future-premium-f [asset]
   (let [asset-perpetual (str asset ".P")

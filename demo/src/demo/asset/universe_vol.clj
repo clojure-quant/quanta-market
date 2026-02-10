@@ -1,10 +1,10 @@
-(ns demo.quote.universe-vol
+(ns demo.asset.universe-vol
   (:require
    [clojure.pprint :refer [print-table]]
    [missionary.core :as m]
    [quanta.market.quote.core :refer [topic-snapshot]]
    [demo.env :refer [qm]]
-   [demo.quote.universe :refer [asset-symbols-both]]))
+   [demo.asset.bybit-universeiverse :refer [asset-symbols-both]]))
 
 (defn stats-t [asset]
   (topic-snapshot qm {:feed :bybit

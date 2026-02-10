@@ -1,4 +1,5 @@
-; saved on 2026-02-09 16:39:12
+; saved on 2026-02-10 16:43:34
+^{:tag clojure.lang.PersistentVector}
 [{:OperatingMIC "XNAS, XNYS, OTCM",
   :Currency "USD",
   :CountryISO3 "USA",

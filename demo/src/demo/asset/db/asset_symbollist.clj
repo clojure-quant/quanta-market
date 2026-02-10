@@ -1,4 +1,4 @@
-(ns dev.asset.asset-symbollist
+(ns demo.asset.db.asset-symbollist
   (:require
    [ta.db.asset.symbollist :as sl]))
 

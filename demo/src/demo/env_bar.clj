@@ -33,3 +33,8 @@ secrets
 (def eodhd-token  (:eodhd secrets))
 
 (def eodhd (create-import-eodhd (:eodhd secrets)))
+
+(def ctx {:eodhd-token eodhd-token 
+          :eodhd eodhd
+          :bardb bardb-nippy
+          })

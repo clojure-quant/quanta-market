@@ -53,8 +53,11 @@
   (if q
     (let [r (re-pattern (str "(?i)" q))]
       (-> query
-          (conj  `[~'?id :asset/name ~'?name])
-          (conj  `[(re-find ~r ~'?name)])))
+          (conj `[~'?id :asset/name ~'?n])
+          (conj `[(re-find ~r ~'?n)])
+          ;(conj  `[~'?id :asset/symbol ~'?s])
+          ;(conj  `[(or (re-find ~r ~'?n) (re-find ~r ~'?s))])))
+          ))
     query))
 
 (java.util.regex.Pattern/ "asdfg")
@@ -79,8 +82,8 @@
     ;(println "query: " query)
     ))
 
-(re-find #"(?i)foo" "Foobar")
-(re-find #"foo" "barbar")
+(re-find #"(?i)FOO" "Foobar")
+(re-find #"FOO" "barbar")
 
 [(clojure.string/lower-case ?name) ?lname]
 
@@ -91,8 +94,9 @@
 (query-assets dbc {:exchange :NYSE :type :etf})
 (query-assets dbc {:type :etf})
 (query-assets dbc {:type :stock})
+(query-assets dbc {})
 
-(query-assets dbc {:exchange :NYSE :type :etf :q "S"})
+(query-assets dbc {:exchange :NYSE :type :etf :q "MO"})
 
-(query-assets dbc {:q "S"})
+(query-assets dbc {:q "Tr"})
 

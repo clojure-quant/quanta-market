@@ -1,4 +1,4 @@
-(ns demo.barimport.eodhd-splits
+(ns demo.barimport.eodhd-market
   (:require
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]
@@ -17,6 +17,7 @@
    [tablecloth.api :as tc]))
 
 (def eodhd-token  (:eodhd secrets))
+
 
 
 (def market-eod
@@ -71,7 +72,7 @@ print-table
 (defn import-asset [asset]
   (m/sp 
    (let [bar-ds (m/? (b/get-bars eodhd
-                                 {:asset "RPM.AU"
+                                 {:asset asset
                                   :calendar [:us :d]}
                                  {:start (t/zoned-date-time "2000-01-01T00:00:00Z")
                                   :end (t/zoned-date-time "2026-03-20T00:00:00Z")}))]

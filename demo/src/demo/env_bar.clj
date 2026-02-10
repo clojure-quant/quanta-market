@@ -29,4 +29,7 @@ secrets
 (def bardb-nippy
   (start-bardb-nippy "./data/nippy/"))
 
+
+(def eodhd-token  (:eodhd secrets))
+
 (def eodhd (create-import-eodhd (:eodhd secrets)))

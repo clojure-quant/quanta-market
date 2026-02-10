@@ -1,10 +1,11 @@
 (ns quanta.market.barimport.eodhd.ds
   (:require
-   [missionary.core :as m]
-   [taoensso.timbre :refer [info warn]]
+   [clojure.string :as str]
+   [missionary.core :as m] 
    [tick.core :as t] ; tick uses cljc.java-time
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
+   [ta.import.helper :refer [str->double]]
    [quanta.bar.protocol :refer [barsource] :as b]
    [quanta.market.util.date :refer [parse-date-only]]
    [quanta.market.barimport.eodhd.raw :as eodhd]))
@@ -46,12 +47,12 @@
 (defn error? [body]
   (-> body last :warning))
 
-(defn get-bars-eodhd [api-token {:keys [asset calendar] :as opts} {:keys [start end] :as window}]
+(defn get-bars-eodhd [api-token {:keys [asset _calendar] :as opts} {:keys [start end] :as window}]
   (m/sp
    (let [start-str (fmt-yyyymmdd start)
          end-str (fmt-yyyymmdd end)
          r (m/? (eodhd/get-bars api-token asset start-str end-str))]
-     (warn "r: " r)
+     ;(warn "r: " r)
      (if-let [e (error? r)]
        (throw (ex-info "get-bars-eodhd failed" {:message e
                                                 :opts opts
@@ -65,3 +66,25 @@
 
 (defn create-import-eodhd [api-token]
   (import-eodhd. api-token))
+
+
+
+; {:date "1987-06-16", :split "2.000000/1.000000"}
+
+(defn split-str->factor [s]
+  (let [[left right] (str/split s #"/")]
+       (/ (str->double left) (str->double right))))
+
+;(split-str->factor "2.000000/1.000000")
+
+(defn get-splits [api-token {:keys [asset calendar]} {:keys [start end] :as window}]
+  (m/sp
+   (let [start-opts (if start {:from (fmt-yyyymmdd start)} {})
+         end-opts (if end {:to (fmt-yyyymmdd end)} {})
+         opts (merge {:asset asset} start-opts end-opts)
+         splits (m/? (eodhd/get-splits api-token opts))]
+     (->> splits
+          (map #(assoc % :factor (split-str->factor (:split %))))
+          (map #(update % :date t/date)) 
+          tc/dataset
+          )))) 

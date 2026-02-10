@@ -7,7 +7,7 @@
 ;; the world's top exchanges including NASDAQ, NYSE, AMEX, TSX, OTCBB, 
 ;; FTSE, SGX, HKEX, and FOREX.
 
-## eodhistoricaldata
+## eodhd.com (formerly eodhistoricaldata)
 ;; https://eodhistoricaldata.com/
 
 # tiingo

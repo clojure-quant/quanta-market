@@ -3,7 +3,9 @@
    [missionary.core :as m]
    [modular.persist.edn] ; side effects to load edn files
    [modular.persist.protocol :refer [save]]
-   [quanta.market.adapter.eodhd.raw :as raw]))
+   [quanta.market.adapter.eodhd.raw :as raw]
+   [quanta.market.adapter.eodhd.ds :refer [convert-asset]]
+   [quanta.market.asset.datahike :refer [add-update-asset query-assets]]))
 
 (defn asset-stats [assets]
   {:exchanges (->> assets
@@ -48,12 +50,24 @@
           (into [])
           (save :edn filename)))))
 
+(defn build-asset-edn-normalized [{:keys [eodhd-token dbc]}
+                                  {:keys [market exchanges types
+                                          filename] :as opts}]
+  (m/sp
+   (let [assets  (->> (m/? (raw/get-exchange-assets eodhd-token market))
+                      (filter-assets opts)
+                      (map convert-asset)
+                      (into []))]
+     (save :edn filename assets)
+     (when dbc
+       (add-update-asset dbc assets))
+     assets)))
+
 (defn build-exchange-edn [{:keys [eodhd-token]} {:keys [filename] :as opts}]
   (m/sp
-   (let [exchanges (m/? (raw/get-exchanges eodhd-token))]
-     (->> exchanges
-          (into [])
-          (save :edn filename)))))
+   (let [exchanges (->> (m/? (raw/get-exchanges eodhd-token))
+                        (into []))]
+     (save :edn filename exchanges))))
 
 
 

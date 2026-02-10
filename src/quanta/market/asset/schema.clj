@@ -29,7 +29,7 @@
     :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one}
    {:db/ident :asset/exchange
-    :db/valueType :db.type/keyword
+    :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
    ])
 

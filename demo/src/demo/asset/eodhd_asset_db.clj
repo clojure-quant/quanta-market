@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [quanta.recipy.eodhd-asset-db :refer [get-exchange-assets asset-summary asset-stats filter-assets 
-                                         build-asset-edn build-exchange-edn]]
+                                         build-asset-edn build-asset-edn-normalized build-exchange-edn]]
    [demo.env-bar :refer [ctx bardb-nippy]]))
 
 (m/? (asset-summary ctx {:market "US"}))
@@ -43,7 +43,11 @@
      ;(filter-assets {:types #{"Common Stock"}})
      (asset-stats))
 
-;; BUILD DB
+;; RAW ASSET LISTS
+
+(m/? (build-asset-edn ctx {:market "US"
+                           :types #{"ETF"}
+                           :filename "./data/raw/eodhd-etf.edn"}))
 
 (m/? (build-asset-edn ctx {:market "US" 
                            :types #{"Common Stock"}
@@ -51,9 +55,20 @@
                            :filename "./data/raw/eodhd-stocks.edn"
                            }))
 
-(m/? (build-asset-edn ctx {:market "US"
-                           :types #{"ETF"}
-                           :filename "./data/raw/eodhd-etf.edn"}))
 
 
 (m/? (build-exchange-edn ctx {:filename "./data/raw/eodhd-exchanges.edn"}))
+
+
+;; NORMALIZED ASSETS AND DB ACCESS
+
+(m/? (build-asset-edn-normalized ctx {:market "US"
+                           :types #{"ETF"}
+                           :filename "./data/eodhd-etf.edn"}))
+
+(m/? (build-asset-edn-normalized ctx {:market "US"
+                                      :types #{"Common Stock"}
+                                      :exchanges #{"NYSE" "NASDAQ" "AMEX" "NYSE MKT"}
+                                      :filename  "./data/eodhd-stocks.edn"}))
+
+

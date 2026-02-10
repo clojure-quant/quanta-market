@@ -5,7 +5,7 @@
    [quanta.market.asset.db :as asset-db]
    [quanta.market.asset.load :refer [add-lists-to-db]]
    [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd]]
-   ))
+   [quanta.market.asset.datahike :refer [start-asset-db]]))
 
 (def secrets
   (-> ;(str (System/getenv "MYVAULT") "/quanta.edn")
@@ -14,7 +14,6 @@
    (edn/read-string)))
 
 secrets
-
 (def assets
   [; kibot
    {:name "EURUSD" :asset "EUR/USD" :kibot "EURUSD" :category :fx}
@@ -34,7 +33,11 @@ secrets
 
 (def eodhd (create-import-eodhd (:eodhd secrets)))
 
+(def dbc (start-asset-db "./data/datahike"))
+
+
 (def ctx {:eodhd-token eodhd-token 
           :eodhd eodhd
           :bardb bardb-nippy
+          :dbc dbc
           })

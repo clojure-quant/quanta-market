@@ -1,5 +1,10 @@
 # assets
 
+
+:type 
+:equity :etf :fx :future :crypto
+:bond :fund :index
+
 ## bybit
 
 - spot 30 paare symbol btcusdt sollte eindeutig sein.

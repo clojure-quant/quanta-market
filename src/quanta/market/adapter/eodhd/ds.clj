@@ -1,7 +1,7 @@
 (ns quanta.market.adapter.eodhd.ds
   (:require
    [clojure.string :as str]
-   [missionary.core :as m] 
+   [missionary.core :as m]
    [tick.core :as t] ; tick uses cljc.java-time
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
@@ -69,7 +69,7 @@
 
 (defn split-str->factor [s]
   (let [[left right] (str/split s #"/")]
-       (/ (str->double left) (str->double right))))
+    (/ (str->double left) (str->double right))))
 
 ; {:date "1987-06-16", :split "2.000000/1.000000"}
 ;(split-str->factor "2.000000/1.000000")
@@ -84,5 +84,28 @@
               (map #(assoc % :factor (split-str->factor (:split %))))
               (map #(update % :date convert-date))
               tc/dataset)
-         (tc/drop-columns [:split])
-         )))) 
+         (tc/drop-columns [:split])))))
+
+(def eod-type-dict
+  {"Common Stock" :equity
+   "Preferred Stock" :equity
+   "ETF" :etf
+   "Mutual Fund" :fund
+   "FUND" :fund
+   "INDEX" :index
+   "BOND" :bond
+   "Unit" :other
+   "ETC" :other
+   "Warrant" :other
+   "Notes" :other})
+
+(defn convert-asset [{:keys [Code Name Type Country Exchange Currency Isin]}]
+  {:asset/symbol Code 
+   :asset/name Name
+   :asset/type (get eod-type-dict Type)
+   :asset/exchange Exchange
+   ; Currency 
+   ; Country
+   ; Isin
+   })
+

@@ -31,3 +31,42 @@
 (defn add-asset-details [dbconn asset]
   (d/transact dbconn [(merge {:db/id [:asset/symbol (:asset/symbol asset)]}
                              asset)]))
+
+
+(defn- conj-key-when [query k v]
+  (if v
+    (conj query `[~'?id ~k ~v])
+    query))
+
+(defn- conj-q-when [query q]
+  (if q
+    (let [r (re-pattern (str "(?i)" q))]
+      (-> query
+          (conj `[~'?id :asset/name ~'?n])
+          (conj `[(re-find ~r ~'?n)])
+          ;(conj  `[~'?id :asset/symbol ~'?s])
+          ;(conj  `[(or (re-find ~r ~'?n) (re-find ~r ~'?s))])))
+          ))
+    query))
+
+(defn query-assets [dbconn {:keys [q exchange type]}]
+  (-> '[:find [(pull ?id [*]) ...]
+        :in $
+        :where
+        [?id :asset/symbol _]]
+      (conj-key-when :asset/type type)
+      (conj-key-when :asset/exchange exchange)
+      (conj-q-when q)
+      (d/q @dbconn)))
+
+
+(defn add-update-asset 
+  "[{:asset/symbol \"SPY\"
+                  :asset/name \"Spiders S&P 500 ETF\"
+                  :asset/exchange :NYSE
+                  :asset/type :etf}]"
+  [dbconn asset]
+  (if (map? asset)
+    (d/transact dbconn [asset])
+    (d/transact dbconn asset)))
+

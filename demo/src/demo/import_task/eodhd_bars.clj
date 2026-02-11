@@ -30,3 +30,5 @@
         :calendar [:us :d]
         :start (t/zoned-date-time "1980-01-01T00:00:00Z")
         :end (t/zoned-date-time "2026-03-20T00:00:00Z")})))
+; "Elapsed time: 115999.964061 msecs"
+{:success 1000, :error 0, :error-details []}

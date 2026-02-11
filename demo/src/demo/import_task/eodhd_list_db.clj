@@ -24,3 +24,13 @@
                                                      :type :equity
                                                      :list-name "equity-10mio"})))
 
+(->> equities
+    :tx-data
+    reverse
+    (take 3)
+;    count
+ [2419 "ALG"]
+ )
+
+
+

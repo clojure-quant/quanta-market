@@ -83,4 +83,12 @@
 
 (get-list dbc "etf-10mio")
 
-(get-list dbc "equity-10mio")
+(-> (get-list dbc "equity-10mio")
+    :lists/asset
+    count)
+ 
+
+(-> (get-list dbc "etf-10mio")
+    :lists/asset
+    count)
+

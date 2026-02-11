@@ -44,7 +44,6 @@
                   (m/? (backoff request delays)))
               (throw e)))))
     request))
-
 (defn connect!
   "tries to connect up to 5 times with exponential backoff strategy.
    returns a missionary task"

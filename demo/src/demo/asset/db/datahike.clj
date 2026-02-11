@@ -80,3 +80,7 @@
 (add-update-list dbc {:lists/name "flo" :lists/asset ["MSFT" "SPY"]})
 
 (get-list dbc "flo")
+
+(get-list dbc "etf-10mio")
+
+(get-list dbc "equity-10mio")

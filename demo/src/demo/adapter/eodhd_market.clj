@@ -17,16 +17,18 @@
 
 (def assets (m/? (high-volume-assets ctx {:exchange "US"})))
 (count assets)
-; 6481 
+; 6481 , 6513  changes day by day
+
 (def assets (m/? (high-volume-assets ctx {:exchange "US"
-                                          :turnover-min 10000000.0})))
-(count assets)
-; 3418
+                                          :turnover-min 10000000.0
+                                          :add-name true
+                                          :remove-no-name true
+                                          :type :etf
+                                          })))
+(count assets) ; 947 high-volume etfs
 (print-table assets)
+assets
 
-(def assets-ext (add-name-exchange-type ctx assets))
-
-(print-table assets-ext)
 
 (defn import-asset [asset]
   (m/sp

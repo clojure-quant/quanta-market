@@ -1,7 +1,7 @@
 (ns demo.asset.db.datahike
   (:require
    [datahike.api :as d]
-   [quanta.market.asset.datahike :refer [add-update-asset query-assets
+   [quanta.market.asset.datahike :refer [add-update-asset query-assets get-asset
                                          add-update-list get-list
                                          ]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy dbc]]
@@ -72,6 +72,8 @@
 
 (query-assets dbc {:q "Tr"})
 
+(get-asset dbc "MSFT")
+(get-asset dbc "000")
 
 ;; lists 
 

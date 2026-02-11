@@ -12,53 +12,21 @@
                                    window->open-range
                                    window->intervals]]
    [quanta.market.adapter.eodhd.raw :as raw]
-   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy]]))
+   [quanta.recipy.eodhd-list-volume :refer [high-volume-assets add-name-exchange-type]]
+   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy ctx]]))
 
-(def market-eod
-  (m/? (raw/get-day-bulk eodhd-token
-                         {:exchange "US"})))
+(def assets (m/? (high-volume-assets ctx {:exchange "US"})))
+(count assets)
+; 6481 
+(def assets (m/? (high-volume-assets ctx {:exchange "US"
+                                          :turnover-min 10000000.0})))
+(count assets)
+; 3418
+(print-table assets)
 
-market-eod
+(def assets-ext (add-name-exchange-type ctx assets))
 
-(count market-eod) ; 12215
-
-(def stock-dict
-  (->> (loadr :edn "./data/stocks.edn")
-       (map (juxt :Code identity))
-       (into {})))
-
-stock-dict
-(defn add-exchange-name [{:keys [code] :as row}]
-  (if-let [data (get stock-dict code)]
-    (assoc row :name (:Name data) :exchange (:Exchange data))
-    row))
-
-(defn short [s]
-  (when s
-    (subs s 0 (min 20 (dec (count s))))))
-
-(defn in-million [n]
-  (/ n 1000000.0))
-
-(def stocks-big
-  (->> market-eod
-       (map #(assoc % :turnover (* (:close %) (:volume %))))
-       (filter #(> (:turnover %) 1000000.0))
-       (map add-exchange-name)
-       (map #(update % :name short))
-       (map #(update % :turnover in-million))
-       (map #(update % :turnover Math/floor))
-       (map #(update % :turnover long))
-       (map #(select-keys % [:code :name :exchange :close :turnover]))
-       (sort-by :turnover)
-       (reverse)))
-
-(count stocks-big)
-; 6110
-(first stocks-big)
-;{:code "A", :name "Agilent Technologies", :exchange "NYSE", :close 127.5, :turnover 240}
-(print-table stocks-big)
-print-table
+(print-table assets-ext)
 
 (defn import-asset [asset]
   (m/sp

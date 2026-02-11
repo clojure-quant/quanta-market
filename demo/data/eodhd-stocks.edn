@@ -1,4 +1,4 @@
-; saved on 2026-02-11 04:58:21
+; saved on 2026-02-11 05:47:50
 ^{:tag clojure.lang.PersistentVector}
 [{:asset/symbol "A",
   :asset/name "Agilent Technologies Inc",
@@ -152,6 +152,30 @@
   :asset/name "Arbor Realty Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "ABR-P-D",
+  :asset/name "Arbor Realty Trust Inc | 6.375% Series D Cumulative",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ABR-P-E",
+  :asset/name "Arbor Realty Trust Inc | 6.25% Series E Cumulative",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ABR-P-F",
+  :asset/name "Arbor Realty Trust Inc | 6.25% Series F Cumulative",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ABR-PD",
+  :asset/name "Arbor Realty Trust Inc | 6.375% Series D Cumulative",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ABR-PE",
+  :asset/name "Arbor Realty Trust Inc | 6.25% Series E Cumulative",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ABR-PF",
+  :asset/name "Arbor Realty Trust Inc | 6.25% Series F Cumulative",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ABSI",
   :asset/name "Absci Corp",
   :asset/type :equity,
@@ -236,6 +260,14 @@
   :asset/name "Arch Capital Group Ltd",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "ACGLN",
+  :asset/name "Arch Capital Group Ltd",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "ACGLO",
+  :asset/name "Arch Capital Group Ltd",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "ACH",
   :asset/name "Accendra Health Inc",
   :asset/type :equity,
@@ -312,8 +344,32 @@
   :asset/name "Aclarion Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "ACP-P-A",
+  :asset/name "ACP-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ACP-PA",
+  :asset/name "Aberdeen Income Credit Strategies Fund",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ACR",
   :asset/name "Acres Commercial Realty Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ACR-P-C",
+  :asset/name "ACR-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ACR-P-D",
+  :asset/name "ACR-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ACR-PC",
+  :asset/name "ACRES Commercial Realty Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ACR-PD",
+  :asset/name "ACRES Commercial Realty Corp.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "ACRE",
@@ -400,6 +456,14 @@
   :asset/name "Agree Realty Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "ADC-P-A",
+  :asset/name "ADC-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ADC-PA",
+  :asset/name "Agree Realty Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "ADCT",
   :asset/name "ADC Therapeutics SA",
   :asset/type :equity,
@@ -600,6 +664,18 @@
   :asset/name "American Financial Group Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "AFGB",
+  :asset/name "American Financial Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AFGC",
+  :asset/name "American Financial Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AFGD",
+  :asset/name "American Financial Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "AFGE",
   :asset/name "American Financial Group, Inc.",
   :asset/type :equity,
@@ -684,8 +760,40 @@
   :asset/name "Federal Agricultural Mortgage Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-P-D",
+  :asset/name "AGM-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-P-E",
+  :asset/name "AGM-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-P-F",
+  :asset/name "AGM-P-F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-P-G",
+  :asset/name "AGM-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "AGM-P-H",
   :asset/name "AGM-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-PD",
+  :asset/name "Federal Agricultural Mortgage Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-PE",
+  :asset/name "Federal Agricultural Mortgage Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-PF",
+  :asset/name "Federal Agricultural Mortgage Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AGM-PG",
+  :asset/name "Federal Agricultural Mortgage Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "AGMB",
@@ -702,6 +810,22 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "AGNCL",
   :asset/name "AGNC Investment Corp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "AGNCM",
+  :asset/name "AGNC Investment Corp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "AGNCN",
+  :asset/name "AGNC Investment Corp.",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "AGNCO",
+  :asset/name "AGNC Investment Corp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "AGNCP",
+  :asset/name "AGNC Investment Corp.",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "AGNCZ",
@@ -748,7 +872,31 @@
   :asset/name "Armada Hflr Pr",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "AHH-P-A",
+  :asset/name "Armada Hoffler Properties Inc 675 Series A Cumulative Redeemable Perpetual Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHH-PA",
+  :asset/name "Armada Hoffler Properties Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "AHL",
+  :asset/name "Aspen Insurance Holdings Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHL-P-D",
+  :asset/name "Aspen Insurance Holdings Limited 5.625% Perpetual Non-Cumulative Preference Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHL-P-E",
+  :asset/name "AHL-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHL-PD",
+  :asset/name "Aspen Insurance Holdings Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHL-PE",
   :asset/name "Aspen Insurance Holdings Limited",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -765,6 +913,46 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "AHT",
+  :asset/name "Ashford Hospitality Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-P-D",
+  :asset/name "Ashford Hospitality Trust Inc 8.45% Series D Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-P-F",
+  :asset/name "Ashford Hospitality Trust Inc 7.375% Series F Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-P-G",
+  :asset/name "Ashford Hospitality Trust Inc 7.375% Series G Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-P-H",
+  :asset/name "Ashford Hospitality Trust Inc 7.50% Series H Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-P-I",
+  :asset/name "Ashford Hospitality Trust Inc 7.50% Series I Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-PD",
+  :asset/name "Ashford Hospitality Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-PF",
+  :asset/name "Ashford Hospitality Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-PG",
+  :asset/name "Ashford Hospitality Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-PH",
+  :asset/name "Ashford Hospitality Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AHT-PI",
   :asset/name "Ashford Hospitality Trust Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -870,6 +1058,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "AIRT",
   :asset/name "Air T Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "AIRTP",
+  :asset/name "Air T Inc PR",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "AISP",
@@ -1072,8 +1264,40 @@
   :asset/name "The Allstate Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-P-B",
+  :asset/name "Allstate Corporation (The) 5.100% Fixed-to-Floating Rate Subordinated Debentures due 2053",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-P-H",
+  :asset/name "ALL-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-P-I",
+  :asset/name "ALL-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ALL-P-J",
   :asset/name "ALL-P-J",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-PB",
+  :asset/name "The Allstate Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-PH",
+  :asset/name "The Allstate Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-PI",
+  :asset/name "The Allstate Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-PJ",
+  :asset/name "The Allstate Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALL-PRI",
+  :asset/name "Allstate Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "ALLE",
@@ -1142,6 +1366,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "ALTG",
   :asset/name "Alta Equipment Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALTG-P-A",
+  :asset/name "ALTG-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ALTG-PA",
+  :asset/name "Alta Equipment Group Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "ALTI",
@@ -1269,6 +1501,22 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "AMH",
+  :asset/name "American Homes 4 Rent",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AMH-P-G",
+  :asset/name "AMH-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AMH-P-H",
+  :asset/name "AMH-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AMH-PG",
+  :asset/name "American Homes 4 Rent Series G cumulative redeemable perpetual preferred shares of beneficial interest",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AMH-PH",
   :asset/name "American Homes 4 Rent",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -1632,6 +1880,14 @@
   :asset/name "Apollo Global Management LLC Class A",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "APO-P-A",
+  :asset/name "Apollo Global Management LLC 6.375% Series A Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "APO-PA",
+  :asset/name "Apollo Global Management Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "APOG",
   :asset/name "Apogee Enterprises Inc",
   :asset/type :equity,
@@ -1868,6 +2124,14 @@
   :asset/name "ARMOUR Residential REIT Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "ARR-P-C",
+  :asset/name "ARR-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ARR-PC",
+  :asset/name "ARMOUR Residential REIT Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ARRY",
   :asset/name "Array Technologies Inc",
   :asset/type :equity,
@@ -1921,6 +2185,22 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "ASB",
+  :asset/name "Associated Banc-Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ASB-P-E",
+  :asset/name "Associated Banc-Corp Depositary Shares Series E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ASB-P-F",
+  :asset/name "ASB-P-F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ASB-PE",
+  :asset/name "Associated Banc-Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ASB-PF",
   :asset/name "Associated Banc-Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -2108,6 +2388,34 @@
   :asset/name "Alpha Technology Group Limited Ordinary Shares",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "ATH-P-A",
+  :asset/name "ATH-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ATH-P-D",
+  :asset/name "ATH-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ATH-P-E",
+  :asset/name "ATH-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ATH-PA",
+  :asset/name "Athene Holding Ltd",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ATH-PB",
+  :asset/name "Athene Holding Ltd",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ATH-PD",
+  :asset/name "Athene Holding Ltd.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ATH-PE",
+  :asset/name "Athene Holding Ltd.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ATHA",
   :asset/name "Athira Pharma Inc",
   :asset/type :equity,
@@ -2146,6 +2454,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "ATLC",
   :asset/name "Atlanticus Holdings Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "ATLCP",
+  :asset/name "Atlanticus Holdings Corp Preferred",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "ATLN",
@@ -2234,6 +2546,14 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "AUB",
   :asset/name "Atlantic Union Bankshares Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AUB-P-A",
+  :asset/name "AUB-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AUB-PA",
+  :asset/name "Atlantic Union Bankshares Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "AUBN",
@@ -2456,6 +2776,14 @@
   :asset/name "AXIS Capital Holdings Ltd",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "AXS-P-E",
+  :asset/name "Axis Capital Holdings Limited Depositary Shares Series E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "AXS-PE",
+  :asset/name "AXIS Capital Holdings Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "AXSM",
   :asset/name "Axsome Therapeutics Inc",
   :asset/type :equity,
@@ -2524,6 +2852,78 @@
   :asset/name "Bank of America Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-B",
+  :asset/name "Bank of America Corporation Depositary Shares Series G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-E",
+  :asset/name "Bank of America Corporation Depositary Sh repstg 1/1000th Perp Pfd Ser E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-K",
+  :asset/name "Bank of America Corporation Depositary Shares Series H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-L",
+  :asset/name "Bank of America Corporation Non Cumulative Perpetual Conv Pfd Ser L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-M",
+  :asset/name "BAC-P-M",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-N",
+  :asset/name "BAC-P-N",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-O",
+  :asset/name "BAC-P-O",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-P-S",
+  :asset/name "BAC-P-S",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PB",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PE",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PK",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PL",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PM",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PN",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PO",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PP",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BAC-PQ",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BAC-PS",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "BACC",
   :asset/name "Blue Acquisition Corp. Class A Ordinary Shares",
   :asset/type :equity,
@@ -2586,6 +2986,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BANF",
   :asset/name "BancFirst Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BANFP",
+  :asset/name "BFC Capital Trust II Pref",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BANL",
@@ -2748,6 +3152,10 @@
   :asset/name "Brunswick Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "BC-PC",
+  :asset/name "Brunswick Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "BCAB",
   :asset/name "Bioatla Inc",
   :asset/type :equity,
@@ -2852,6 +3260,14 @@
   :asset/name "Bancroft Fund Limited",
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
+ {:asset/symbol "BCV-P-A",
+  :asset/name "Bancroft Fund Limited 5.375% Series A Cumulative Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "BCV-PA",
+  :asset/name "Bancroft Fund Ltd",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
  {:asset/symbol "BCYC",
   :asset/name "Bicycle Therapeutics Ltd",
   :asset/type :equity,
@@ -2952,6 +3368,14 @@
   :asset/name "Brookfield Renewable Partners LP",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "BEP-P-A",
+  :asset/name "BEP-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BEP-PA",
+  :asset/name "Brookfield Renewable Partners L.P",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "BEPC",
   :asset/name "Brookfield Renewable Corp",
   :asset/type :equity,
@@ -3025,6 +3449,22 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BFS",
+  :asset/name "Saul Centers Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BFS-P-D",
+  :asset/name "Saul Centers Inc. Depositary Shares Series D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BFS-P-E",
+  :asset/name "BFS-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BFS-PD",
+  :asset/name "Saul Centers Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BFS-PE",
   :asset/name "Saul Centers Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -3116,6 +3556,22 @@
   :asset/name "Brighthouse Financial Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "BHFAM",
+  :asset/name "Brighthouse Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BHFAN",
+  :asset/name "Brighthouse Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BHFAO",
+  :asset/name "Brighthouse Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BHFAP",
+  :asset/name "Brighthouse Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "BHM",
   :asset/name "Bluerock Homes Trust Inc.",
   :asset/type :equity,
@@ -3126,6 +3582,22 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "BHR",
   :asset/name "Braemar Hotel & Resorts Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BHR-P-B",
+  :asset/name "Braemar Hotels & Resorts Inc. 5.50% Series B Cumulative Convertible Preferred Stock par value $0.01 per share",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BHR-P-D",
+  :asset/name "Braemar Hotels  Resorts Inc  825 PRF PERPETUAL USD 25  Ser D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BHR-PB",
+  :asset/name "Braemar Hotels & Resorts Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BHR-PD",
+  :asset/name "Braemar Hotels & Resorts Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "BHRB",
@@ -3208,6 +3680,22 @@
   :asset/name "Brookfield Infrastructure Partners LP",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "BIP-P-A",
+  :asset/name "BIP-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BIP-P-B",
+  :asset/name "BIP-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BIP-PA",
+  :asset/name "Brookfield Infrastructure Partners L.P.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BIP-PB",
+  :asset/name "Brookfield Infrastructure Partners L.P.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "BIPC",
   :asset/name "Brookfield Infrastructure Corp",
   :asset/type :equity,
@@ -3265,6 +3753,10 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BK",
+  :asset/name "The Bank of New York Mellon Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BK-PK",
   :asset/name "The Bank of New York Mellon Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -3496,6 +3988,38 @@
   :asset/name "Badger Meter Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "BML-P-G",
+  :asset/name "Bank of America Corporation Depositary Shares Series 1",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BML-P-H",
+  :asset/name "Bank of America Corporation Depositary Shares Series 2",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BML-P-J",
+  :asset/name "Bank of America Corporation Depositary Shares Series 4",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BML-P-L",
+  :asset/name "Bank of America Corporation Depositary Shares Series 5",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BML-PG",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BML-PH",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BML-PJ",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BML-PL",
+  :asset/name "Bank of America Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "BMNR",
   :asset/name "Bitmine Immersion Technologies, Inc.",
   :asset/type :equity,
@@ -3554,6 +4078,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BNH",
   :asset/name "NASDAQ DM Ex US Industrials Ind",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BNJ",
+  :asset/name "Brookfield Finance Inc. 4.50% P",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "BNKK",
@@ -3624,6 +4152,14 @@
   :asset/name "Bank of Hawaii Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "BOH-P-A",
+  :asset/name "BOH-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BOH-PA",
+  :asset/name "Bank of Hawaii Corporation Depo",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "BOH-PB",
   :asset/name "Bank of Hawaii Corp",
   :asset/type :equity,
@@ -3688,8 +4224,28 @@
   :asset/name "Popular Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "BPOPM",
+  :asset/name "Popular Capital Trust II Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "BPRN",
   :asset/name "Bank Of Princeton",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BPYPM",
+  :asset/name "Brookfield Property Preferred LP",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BPYPN",
+  :asset/name "Brookfield Property Partners LP PR",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BPYPO",
+  :asset/name "Brookfield Property Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BPYPP",
+  :asset/name "Brookfield Property Partners LP",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BQ",
@@ -4040,6 +4596,14 @@
   :asset/name "Babcock & Wilcox Enterprises Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "BW-P-A",
+  :asset/name "BW-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "BW-PA",
+  :asset/name "Babcock & Wilcox Enterprises Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "BWA",
   :asset/name "BorgWarner Inc",
   :asset/type :equity,
@@ -4050,6 +4614,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BWB",
   :asset/name "Bridgewater Bancshares Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "BWBBP",
+  :asset/name "Bridgewater Bancshares Inc. Depositary Shares Each Representing a 1/100th Interest in a Share of 5.875% Non-Cumulative Perpetual Preferred Stock Series A",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "BWEN",
@@ -4168,6 +4736,14 @@
   :asset/name "Citigroup Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "C-P-N",
+  :asset/name "Citigroup Capital VIII 7.875% Fixed rate Floating Rate trust Preferred Securities (TruPS)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "C-PN",
+  :asset/name "Citigroup Capital XIII TR PFD SECS",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CAAP",
   :asset/name "Corporacion America Airports",
   :asset/type :equity,
@@ -4204,6 +4780,14 @@
   :asset/name "Cadence Bancorp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CADE-P-A",
+  :asset/name "CADE-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CADE-PA",
+  :asset/name "Cadence Bank",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "CADL",
   :asset/name "Candel Therapeutics Inc",
   :asset/type :equity,
@@ -4564,6 +5148,10 @@
   :asset/name "CNB Financial Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "CCNEP",
+  :asset/name "CNB Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "CCO",
   :asset/name "Clear Channel Outdoor Holdings Inc",
   :asset/type :equity,
@@ -4632,6 +5220,22 @@
   :asset/name "COPT Defense Properties",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CDR-P-B",
+  :asset/name "Cedar Realty Trust Inc. 7.25% Series B Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CDR-P-C",
+  :asset/name "Cedar Realty Trust Inc. 6.50% Series C Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CDR-PB",
+  :asset/name "Cedar Realty Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CDR-PC",
+  :asset/name "Cedar Realty Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CDRE",
   :asset/name "Cadre Holdings Inc",
   :asset/type :equity,
@@ -4662,6 +5266,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "CDZI",
   :asset/name "Cadiz Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "CDZIP",
+  :asset/name "Cadiz Inc. Depositary Shares",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "CE",
@@ -4768,6 +5376,10 @@
   :asset/name "Cemtrex Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "CETXP",
+  :asset/name "Cemtrex Inc Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "CETY",
   :asset/name "Clean Energy Technologies, Inc. Common Stock",
   :asset/type :equity,
@@ -4800,8 +5412,16 @@
   :asset/name "Citizens Financial Group, Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CFG-P-E",
+  :asset/name "Citizens Financial Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CFG-P-I",
   :asset/name "CFG-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CFG-PE",
+  :asset/name "Citizens Financial Group Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "CFG-PH",
@@ -4814,6 +5434,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "CFR",
   :asset/name "Cullen/Frost Bankers Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CFR-P-B",
+  :asset/name "CFR-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CFR-PB",
+  :asset/name "Cullen/Frost Bankers Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "CG",
@@ -4952,6 +5580,18 @@
   :asset/name "CHMI-P-A",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CHMI-P-B",
+  :asset/name "Cherry Hill Mortgage Investment Corporation 8250 Series B FixedtoFloating Rate Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CHMI-PA",
+  :asset/name "Cherry Hill Mortgage Investment Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CHMI-PB",
+  :asset/name "Cherry Hill Mortgage Investment Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CHNR",
   :asset/name "China Natural Resources Inc",
   :asset/type :equity,
@@ -4986,6 +5626,26 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "CHRW",
   :asset/name "CH Robinson Worldwide Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "CHSCL",
+  :asset/name "CHS Inc CL Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "CHSCM",
+  :asset/name "CHS Inc CM Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "CHSCN",
+  :asset/name "CHS Inc CN Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "CHSCO",
+  :asset/name "CHS Inc CO Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "CHSCP",
+  :asset/name "CHS Inc CP Pref",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "CHSN",
@@ -5054,6 +5714,34 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "CIM-P-A",
   :asset/name "CIM-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CIM-P-B",
+  :asset/name "Chimera Investment Corporation 8.00% Series B Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CIM-P-C",
+  :asset/name "Chimera Investment Corporation 7.75% Series C Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CIM-P-D",
+  :asset/name "Chimera Investment Corporation 800 Series D FixedtoFloating Rate Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CIM-PA",
+  :asset/name "Chimera Investment Corporation 8.00% Series A Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CIM-PB",
+  :asset/name "Chimera Investment Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CIM-PC",
+  :asset/name "Chimera Investment Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CIM-PD",
+  :asset/name "Chimera Investment Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "CIMN",
@@ -5158,6 +5846,14 @@
   :asset/exchange "NYSE MKT"}
  {:asset/symbol "CLDT",
   :asset/name "Chatham Lodging Trust REIT",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CLDT-P-A",
+  :asset/name "CLDT-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CLDT-PA",
+  :asset/name "Chatham Lodging Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "CLDX",
@@ -5276,6 +5972,10 @@
   :asset/name "Comerica Incorporated",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CMA-PB",
+  :asset/name "Comerica Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CMBM",
   :asset/name "Cambium Networks Corp",
   :asset/type :equity,
@@ -5360,7 +6060,35 @@
   :asset/name "Costamare Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CMRE-PB",
+  :asset/name "Costamare Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CMRE-PC",
+  :asset/name "Costamare Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CMRE-PD",
+  :asset/name "Costamare Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CMS",
+  :asset/name "CMS Energy Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CMS-P-B",
+  :asset/name "CMS Energy Corporation Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CMS-P-C",
+  :asset/name "CMS-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CMS-PB",
+  :asset/name "Consumers Energy Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CMS-PC",
   :asset/name "CMS Energy Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -5456,7 +6184,19 @@
   :asset/name "CNO Financial Group Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CNO-P-A",
+  :asset/name "CNO-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CNO-PA",
+  :asset/name "CNO Financial Group Inc. 5.125",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CNOB",
+  :asset/name "ConnectOne Bancorp Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "CNOBP",
   :asset/name "ConnectOne Bancorp Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -5540,6 +6280,30 @@
   :asset/name "Compass Diversified Holdings",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "CODI-P-A",
+  :asset/name "Compass Diversified Holdings 7.250% Series A Preferred Shares representing beneficial interest in",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CODI-P-B",
+  :asset/name "Compass Diversified Holdings 7.875% Series B Fixed-to-Floating Rate Cumulative Preferred Shares representing beneficial interests in",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CODI-P-C",
+  :asset/name "CODI-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CODI-PA",
+  :asset/name "Compass Diversified",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CODI-PB",
+  :asset/name "Compass Diversified",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CODI-PC",
+  :asset/name "Compass Diversified",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CODX",
   :asset/name "Co-Diagnostics Inc",
   :asset/type :equity,
@@ -5560,6 +6324,46 @@
   :asset/name "Capital One Financial Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "COF-P-I",
+  :asset/name "COF-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-P-J",
+  :asset/name "COF-P-J",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-P-K",
+  :asset/name "COF-P-K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-P-L",
+  :asset/name "COF-P-L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-P-N",
+  :asset/name "COF-P-N",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-PI",
+  :asset/name "Capital One Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-PJ",
+  :asset/name "Capital One Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-PK",
+  :asset/name "Capital One Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-PL",
+  :asset/name "Capital One Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "COF-PN",
+  :asset/name "Capital One Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "COFS",
   :asset/name "ChoiceOne Financial Services Inc",
   :asset/type :equity,
@@ -6084,6 +6888,22 @@
   :asset/name "CSX Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "CTA-P-A",
+  :asset/name "EI du Pont de Nemours and Company Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CTA-P-B",
+  :asset/name "CTA-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CTA-PA",
+  :asset/name "E. I. du Pont de Nemours and Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CTA-PB",
+  :asset/name "E. I. du Pont de Nemours and Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "CTAS",
   :asset/name "Cintas Corporation",
   :asset/type :equity,
@@ -6134,6 +6954,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "CTO",
   :asset/name "CTO Realty Growth Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CTO-P-A",
+  :asset/name "CTO-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "CTO-PA",
+  :asset/name "CTO Realty Growth Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "CTOR",
@@ -6572,6 +7400,30 @@
   :asset/name "Digitalbridge Group Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "DBRG-P-H",
+  :asset/name "DBRG-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DBRG-P-I",
+  :asset/name "DBRG-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DBRG-P-J",
+  :asset/name "DBRG-P-J",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DBRG-PH",
+  :asset/name "DigitalBridge Group Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DBRG-PI",
+  :asset/name "DigitalBridge Group Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DBRG-PJ",
+  :asset/name "DigitalBridge Group Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "DBVT",
   :asset/name "DBV Technologies",
   :asset/type :equity,
@@ -6610,6 +7462,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "DCOMG",
   :asset/name "Dime Community Bancshares, Inc. 9.000% Fixed-to-Floating Rate Subordinated Notes due 2034",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "DCOMP",
+  :asset/name "Dime Community Bancshares Inc PR",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "DCOY",
@@ -6880,6 +7736,14 @@
   :asset/name "Dynagas LNG Partners LP",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "DLNG-P-A",
+  :asset/name "Dynagas LNG Partners LP 9.00% Series A Cumulative Redeemable Preferred Units",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DLNG-PA",
+  :asset/name "Dynagas LNG Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "DLO",
   :asset/name "Dlocal Ltd",
   :asset/type :equity,
@@ -6889,6 +7753,30 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "DLR",
+  :asset/name "Digital Realty Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DLR-P-J",
+  :asset/name "Digital Realty Trust Inc. 5.250% Series J Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DLR-P-K",
+  :asset/name "Digital Realty Trust Inc 5850 Series K Cumulative Redeemable Preferred Stock par value 001 per share",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DLR-P-L",
+  :asset/name "DLR-P-L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DLR-PJ",
+  :asset/name "Digital Realty Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DLR-PK",
+  :asset/name "Digital Realty Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DLR-PL",
   :asset/name "Digital Realty Trust Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -7124,6 +8012,14 @@
   :asset/name "Diana Shipping Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "DSX-P-B",
+  :asset/name "Diana Shipping Inc. Perpetual Preferred Shares Series B (Marshall Islands)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DSX-PB",
+  :asset/name "Diana Shipping Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "DSX-WT",
   :asset/name "Diana Shipping Inc. WT",
   :asset/type :equity,
@@ -7216,6 +8112,14 @@
   :asset/name "Duke Energy Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "DUK-P-A",
+  :asset/name "Duke Energy Corporation Depositary Shares Series A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DUK-PA",
+  :asset/name "Duke Energy Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "DUKB",
   :asset/name "Duke Energy Corp",
   :asset/type :equity,
@@ -7265,6 +8169,14 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "DX",
+  :asset/name "Dynex Capital Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DX-P-C",
+  :asset/name "DX-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "DX-PC",
   :asset/name "Dynex Capital Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -7400,6 +8312,14 @@
   :asset/name "Eagle Point Credit Company Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "ECC-P-D",
+  :asset/name "ECC-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ECC-PD",
+  :asset/name "Eagle Point Credit Company Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ECCC",
   :asset/name "Eagle Point Credit Company Inc Preferred",
   :asset/type :equity,
@@ -7434,6 +8354,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "ECF",
   :asset/name "Ellsworth Convertible Growth & IF",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "ECF-P-A",
+  :asset/name "Ellsworth Fund Ltd",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "ECF-PA",
+  :asset/name "Ellsworth Growth and Income Fund Ltd",
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
  {:asset/symbol "ECG",
@@ -7536,8 +8464,32 @@
   :asset/name "Ellington Financial Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "EFC-P-A",
+  :asset/name "EFC-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EFC-P-B",
+  :asset/name "EFC-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EFC-P-C",
+  :asset/name "EFC-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "EFC-P-D",
   :asset/name "EFC-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EFC-PA",
+  :asset/name "Ellington Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EFC-PB",
+  :asset/name "Ellington Financial Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EFC-PC",
+  :asset/name "Ellington Financial Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "EFC-PD",
@@ -7554,6 +8506,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "EFSC",
   :asset/name "Enterprise Financial Services",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "EFSCP",
+  :asset/name "Enterprise Financial Services Corporation Depositary Shares Each Representing a 1/40th Interest in a Share of 5% Fixed Rate Non-Cumulative Perpetual Preferred Stock Series A",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "EFT",
@@ -7940,6 +8896,14 @@
   :asset/name "Empire Petroleum Corp",
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
+ {:asset/symbol "EP-P-C",
+  :asset/name "El Paso Corporation Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EP-PC",
+  :asset/name "El Paso Energy Capital Trust I PFD CV TR SECS",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "EPAC",
   :asset/name "Enerpac Tool Group Corp",
   :asset/type :equity,
@@ -7968,8 +8932,28 @@
   :asset/name "EPR Properties",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "EPR-P-C",
+  :asset/name "EPR Properties 5.75% Series C Cumulative Convertible Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "EPR-P-E",
   :asset/name "EPR-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EPR-P-G",
+  :asset/name "EPR Properties 5.750% Series G Cumulative Redeemable Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EPR-PC",
+  :asset/name "EPR Properties",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EPR-PE",
+  :asset/name "EPR Properties Series E Cumulative Conv Pfd Shs Ser E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EPR-PG",
+  :asset/name "EPR Properties",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "EPRT",
@@ -8002,6 +8986,22 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "EQH",
   :asset/name "Axa Equitable Holdings Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EQH-P-A",
+  :asset/name "EQH-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EQH-P-C",
+  :asset/name "EQH-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EQH-PA",
+  :asset/name "Equitable Holdings Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "EQH-PC",
+  :asset/name "Equitable Holdings Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "EQIX",
@@ -8184,6 +9184,10 @@
   :asset/name "ETHZilla Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "ETI-P",
+  :asset/name "Entergy Texas Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ETN",
   :asset/name "Eaton Corporation PLC",
   :asset/type :equity,
@@ -8456,6 +9460,30 @@
   :asset/name "Ford Motor Company",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "F-P-B",
+  :asset/name "F-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "F-P-C",
+  :asset/name "F-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "F-P-D",
+  :asset/name "F-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "F-PB",
+  :asset/name "Ford Motor Company 6.20% Notes due June 1 2059",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "F-PC",
+  :asset/name "Ford Motor Company 6% Notes due December 1 2059",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "F-PD",
+  :asset/name "F-PD",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "FA",
   :asset/name "First Advantage Corp",
   :asset/type :equity,
@@ -8500,6 +9528,10 @@
   :asset/name "FAT Brands Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "FATBP",
+  :asset/name "FAT Brands Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "FATE",
   :asset/name "Fate Therapeutics Inc",
   :asset/type :equity,
@@ -8518,6 +9550,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "FBIO",
   :asset/name "Fortress Biotech Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "FBIOP",
+  :asset/name "Fortress Biotech Inc Pref Series A",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "FBIZ",
@@ -8548,6 +9584,14 @@
   :asset/name "Franklin BSP Realty Trust Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "FBRT-P-E",
+  :asset/name "FBRT-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "FBRT-PE",
+  :asset/name "Franklin BSP Realty Trust Inc.",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "FBRX",
   :asset/name "Forte Biosciences Inc",
   :asset/type :equity,
@@ -8597,6 +9641,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "FCNCA",
+  :asset/name "First Citizens BancShares Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "FCNCO",
+  :asset/name "CIT Group Inc Preferred Series C",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "FCNCP",
   :asset/name "First Citizens BancShares Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -8760,6 +9812,10 @@
   :asset/name "First Guaranty Bancshares Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "FGBIP",
+  :asset/name "First Guaranty Bancshares Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "FGI",
   :asset/name "FGI Industries Ltd",
   :asset/type :equity,
@@ -8812,6 +9868,30 @@
   :asset/name "First Horizon National Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "FHN-P-C",
+  :asset/name "FHN-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "FHN-P-E",
+  :asset/name "FHN-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "FHN-P-F",
+  :asset/name "FHN-P-F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "FHN-PC",
+  :asset/name "First Horizon Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "FHN-PE",
+  :asset/name "First Horizon Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "FHN-PF",
+  :asset/name "First Horizon Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "FHTX",
   :asset/name "Foghorn Therapeutics Inc",
   :asset/type :equity,
@@ -8880,8 +9960,20 @@
   :asset/name "Fifth Third Bancorp",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "FITBI",
+  :asset/name "Fifth Third Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "FITBM",
   :asset/name "Fifth Third Bancorp Depositary Shares Representing a 1/40th Ownership Interest in a Share of 6.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series M",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "FITBO",
+  :asset/name "Fifth Third Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "FITBP",
+  :asset/name "Fifth Third Bancorp",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "FIVE",
@@ -9260,6 +10352,14 @@
   :asset/name "Federal Realty Investment Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "FRT-P-C",
+  :asset/name "Federal Realty Investment Trust Depositary Shares Series C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "FRT-PC",
+  :asset/name "Federal Realty Investment Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "FSBC",
   :asset/name "Five Star Bancorp",
   :asset/type :equity,
@@ -9334,6 +10434,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "FTAI",
   :asset/name "FTAI Aviation Ltd.",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "FTAIM",
+  :asset/name "FTAI Aviation Ltd. 9.500% Fixed-Rate Reset Series D Cumulative Perpetual Redeemable Preferred Shares",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "FTAIN",
@@ -9436,6 +10540,10 @@
   :asset/name "Fulton Financial Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "FULTP",
+  :asset/name "Fulton Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "FUN",
   :asset/name "Six Flags Entertainment Corporation",
   :asset/type :equity,
@@ -9516,6 +10624,30 @@
   :asset/name "Genpact Limited",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GAB-P-G",
+  :asset/name "Gabelli Equity Trust Inc. (The) Series G Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GAB-P-H",
+  :asset/name "Gabelli Equity Trust Inc. (The) Pfd Ser H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GAB-P-K",
+  :asset/name "GAB-P-K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GAB-PG",
+  :asset/name "The Gabelli Equity Trust Inc. PFD-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GAB-PH",
+  :asset/name "The Gabelli Equity Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GAB-PK",
+  :asset/name "The Gabelli Equity Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GABC",
   :asset/name "German American Bancorp Inc",
   :asset/type :equity,
@@ -9542,6 +10674,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "GAM",
   :asset/name "General American Investors Closed Fund",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GAM-P-B",
+  :asset/name "General American Investors Company Inc. Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GAM-PB",
+  :asset/name "General American Investors Company Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "GAMB",
@@ -9700,6 +10840,22 @@
   :asset/name "CytoMed Therapeutics Limited Ordinary Shares",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "GDV-P-H",
+  :asset/name "The Gabelli Dividend Income Trust 5375 Series H Cumulative Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GDV-P-K",
+  :asset/name "GDV-P-K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GDV-PH",
+  :asset/name "The Gabelli Dividend & Income Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GDV-PK",
+  :asset/name "The Gabelli Dividend & Income Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GDYN",
   :asset/name "Grid Dynamics Holdings Inc",
   :asset/type :equity,
@@ -9836,6 +10992,14 @@
   :asset/name "Graco Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GGN-P-B",
+  :asset/name "GAMCO Global Gold Natural Reources & Income Trust 5.00% Series B Cumulative 25.00 Liquidation Preference",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "GGN-PB",
+  :asset/name "GAMCO Global Gold Natural Resources & Income Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
  {:asset/symbol "GGR",
   :asset/name "Gogoro Inc",
   :asset/type :equity,
@@ -9846,6 +11010,22 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "GGT",
   :asset/name "Gabelli MultiMedia Mutual Fund",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GGT-P-E",
+  :asset/name "Gabelli Multi-Media Trust Inc. (The) 5.125% Series E Cumulative Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GGT-P-G",
+  :asset/name "GGT-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GGT-PE",
+  :asset/name "The Gabelli Multimedia Trust Inc. 5.125% PFD SER E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GGT-PG",
+  :asset/name "The Gabelli Multimedia Trust Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "GGZ",
@@ -9980,6 +11160,14 @@
   :asset/name "Globe Life Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GL-P-D",
+  :asset/name "GL-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GL-PD",
+  :asset/name "Globe Life Inc. 4.25% Junior Su",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GLAD",
   :asset/name "Gladstone Capital Corporation",
   :asset/type :equity,
@@ -10032,7 +11220,39 @@
   :asset/name "Gloo Holdings, Inc. Class A Common Stock",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "GLOP-P-A",
+  :asset/name "GasLog Partners LP 8.625% Series A Cumulative Redeemable Perpetual Fixed to Floating Rate Preference Units",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GLOP-P-B",
+  :asset/name "GasLog Partners LP 8.200% Series B Cumulative Redeemable Perpetual Fixed to Floating Rate Preference Units",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GLOP-P-C",
+  :asset/name "GasLog Partners LP Perp Pref Unit Ser C Fixed/Fltg",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GLOP-PA",
+  :asset/name "GasLog Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GLOP-PB",
+  :asset/name "GasLog Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GLOP-PC",
+  :asset/name "GasLog Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GLP",
+  :asset/name "Global Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GLP-P-B",
+  :asset/name "GLP-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GLP-PB",
   :asset/name "Global Partners LP",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -10062,6 +11282,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "GLU",
   :asset/name "Gabelli Global Utility & Income Tr",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "GLU-P-B",
+  :asset/name "The Gabelli Global Utility and Income Trust Series B Cumulative Puttable and Callable Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "GLU-PB",
+  :asset/name "The Gabelli Global Utility & Income Trust",
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
  {:asset/symbol "GLUE",
@@ -10120,6 +11348,14 @@
   :asset/name "Global Medical REIT Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GMRE-P-A",
+  :asset/name "Global Medical REIT Inc. Series A Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GMRE-PA",
+  :asset/name "Global Medical REIT Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GNE",
   :asset/name "Genie Energy Ltd",
   :asset/type :equity,
@@ -10140,12 +11376,28 @@
   :asset/name "Global Net Lease, Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GNL-P-A",
+  :asset/name "Global Net Lease Inc. 7.25% Series A Cumulative Redeemable Preferred Stock $0.01 par value per share",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GNL-P-B",
+  :asset/name "GNL-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GNL-P-D",
   :asset/name "GNL-P-D",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "GNL-P-E",
   :asset/name "GNL-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GNL-PA",
+  :asset/name "Global Net Lease Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GNL-PB",
+  :asset/name "Global Net Lease Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "GNL-PD",
@@ -10184,6 +11436,14 @@
   :asset/name "GAMCO Natural Resources Gold and Income Closed Fund",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GNT-P-A",
+  :asset/name "GAMCO Natural Resources Gold & Income Tust 5.20% Series A Cumulative Preferred Shares (Liquidation Preference $25.00 per share)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GNT-PA",
+  :asset/name "GAMCO Natural Resources Gold & Income Trust 5.20% Series A Cumulative Preferred Shares ",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GNTA",
   :asset/name "Genenta Science SpA ADR",
   :asset/type :equity,
@@ -10218,6 +11478,14 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "GOOD",
   :asset/name "Gladstone Commercial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "GOODN",
+  :asset/name "Gladstone Commercial Corp Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "GOODO",
+  :asset/name "Gladstone Commercial Corp Preferred Series G",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "GOOG",
@@ -10292,6 +11560,14 @@
   :asset/name "Granite Point Mortgage Trust Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GPMT-P-A",
+  :asset/name "GPMT-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GPMT-PA",
+  :asset/name "Granite Point Mortgage Trust Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GPN",
   :asset/name "Global Payments Inc",
   :asset/type :equity,
@@ -10354,6 +11630,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "GRBK",
   :asset/name "Green Brick Partners Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GRBK-P-A",
+  :asset/name "GRBK-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GRBK-PA",
+  :asset/name "Green Brick Partners Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "GRC",
@@ -10480,6 +11764,30 @@
   :asset/name "Goldman Sachs Group Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "GS-P-A",
+  :asset/name "Goldman Sachs Group Inc. (The) Depositary Shares Series A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GS-P-C",
+  :asset/name "Goldman Sachs Group Inc. (The) Depositary Share repstg 1/1000th Preferred Series C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GS-P-D",
+  :asset/name "Goldman Sachs Group Inc. (The) Dep Shs repstg 1/1000 Pfd Ser D Fltg",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GS-PA",
+  :asset/name "The Goldman Sachs Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GS-PC",
+  :asset/name "The Goldman Sachs Group Inc. PFD 1/1000 C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GS-PD",
+  :asset/name "The Goldman Sachs Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GSAT",
   :asset/name "Globalstar, Inc. Common Stock",
   :asset/type :equity,
@@ -10521,6 +11829,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "GSL",
+  :asset/name "Global Ship Lease Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GSL-P-B",
+  :asset/name "Global Ship Lease Inc. Depository Shares Series B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GSL-PB",
   :asset/name "Global Ship Lease Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -10612,6 +11928,14 @@
   :asset/name "Gulf Resources, Inc. (NV) Common Stock",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "GUT-P-C",
+  :asset/name "Gabelli Utility Trust (The) 5.375% Series C Cumulative Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "GUT-PC",
+  :asset/name "The Gabelli Utility Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "GUTS",
   :asset/name "Fractyl Health, Inc. Common Stock",
   :asset/type :equity,
@@ -10721,6 +12045,14 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "HBANL",
+  :asset/name "Huntington Bancshares Incorporated",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "HBANM",
+  :asset/name "Huntington Bancshares Incorporated",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "HBANP",
   :asset/name "Huntington Bancshares Incorporated",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -10872,8 +12204,16 @@
   :asset/name "Hf Foods Group Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "HFRO-P-A",
+  :asset/name "HFRO-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "HFRO-P-B",
   :asset/name "HFRO-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "HFRO-PA",
+  :asset/name "Highland Funds I - Highland Income Fund",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "HFWA",
@@ -10918,6 +12258,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "HIG",
   :asset/name "Hartford Financial Services Group",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "HIG-P-G",
+  :asset/name "HIG-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "HIG-PG",
+  :asset/name "The Hartford Financial Services Group Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "HIHO",
@@ -10973,6 +12321,14 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "HL",
+  :asset/name "Hecla Mining Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "HL-P-B",
+  :asset/name "Hecla Mining Company Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "HL-PB",
   :asset/name "Hecla Mining Company",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -11128,6 +12484,10 @@
   :asset/name "Hovnanian Enterprises Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "HOVNP",
+  :asset/name "Hovnanian Enterprises Inc. PFD DEP1/1000A",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "HOVR",
   :asset/name "New Horizon Aircraft Ltd",
   :asset/type :equity,
@@ -11169,6 +12529,10 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "HPP",
+  :asset/name "Hudson Pacific Properties Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "HPP-PC",
   :asset/name "Hudson Pacific Properties Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -11636,6 +13000,14 @@
   :asset/name "Icon Energy Corp.",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "ICR-P-A",
+  :asset/name "ICR-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "ICR-PA",
+  :asset/name "Inpoint Commercial Real Estate Income Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "ICU",
   :asset/name "SeaStar Medical Holding Corporation",
   :asset/type :equity,
@@ -11776,6 +13148,14 @@
   :asset/name "Innovative Industrial Properties Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "IIPR-P-A",
+  :asset/name "Innovative Industrial Properties Inc. 9.00% Series A Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "IIPR-PA",
+  :asset/name "Innovative Industrial Properties Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "IKT",
   :asset/name "Inhibikase Therapeutics Inc",
   :asset/type :equity,
@@ -11862,6 +13242,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "IMPP",
   :asset/name "Imperial Petroleum Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "IMPPP",
+  :asset/name "Imperial Petroleum Inc Preferred Series A",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "IMPTV",
@@ -12012,6 +13396,22 @@
   :asset/name "Summit Hotel Properties Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "INN-P-E",
+  :asset/name "Summit Hotel Properties Inc. 6.250% Series E Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "INN-P-F",
+  :asset/name "INN-P-F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "INN-PE",
+  :asset/name "Summit Hotel Properties Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "INN-PF",
+  :asset/name "Summit Hotel Properties Inc.",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "INNV",
   :asset/name "InnovAge Holding Corp",
   :asset/type :equity,
@@ -12432,6 +13832,14 @@
   :asset/name "Invesco Mortgage Capital Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "IVR-P-C",
+  :asset/name "INVESCO MORTGAGE CAPITAL INC 7.5% Fixed-to-Floating Series C Cumulative Redeemable Preferred Stock Liquation Preference $25.00 per Share",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "IVR-PC",
+  :asset/name "Invesco Mortgage Capital Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "IVT",
   :asset/name "Inventrust Properties Corp",
   :asset/type :equity,
@@ -12708,6 +14116,54 @@
   :asset/name "JPMorgan Chase & Co",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-P-C",
+  :asset/name "JPM-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-P-D",
+  :asset/name "JPMorgan Chase Bank N A London Branch Depositary Shs Repstg 1400th Pfd Ser O",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-P-J",
+  :asset/name "JPM-P-J",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-P-K",
+  :asset/name "JPM-P-K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-P-L",
+  :asset/name "JPM-P-L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-P-M",
+  :asset/name "JPM-P-M",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-PC",
+  :asset/name "JPMorgan Chase & Co",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-PD",
+  :asset/name "JPMorgan Chase & Co",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-PJ",
+  :asset/name "JPMorgan Chase & Co",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-PK",
+  :asset/name "JPMorgan Chase & Co.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-PL",
+  :asset/name "JPMorgan Chase & Co.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JPM-PM",
+  :asset/name "JPMorgan Chase & Co.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "JRSH",
   :asset/name "Jerash Holdings US Inc",
   :asset/type :equity,
@@ -12750,6 +14206,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "JXN-P-A",
   :asset/name "JXN-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "JXN-PA",
+  :asset/name "Jackson Financial Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "JYD",
@@ -12888,6 +14348,38 @@
   :asset/name "KeyCorp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-P-I",
+  :asset/name "KeyCorp Depositary Shares Series E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-P-J",
+  :asset/name "KeyCorp Depositary Shares Series F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-P-K",
+  :asset/name "KEY-P-K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-P-L",
+  :asset/name "KEY-P-L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-PI",
+  :asset/name "KeyCorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-PJ",
+  :asset/name "KeyCorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-PK",
+  :asset/name "KeyCorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KEY-PL",
+  :asset/name "KeyCorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "KEYS",
   :asset/name "Keysight Technologies Inc",
   :asset/type :equity,
@@ -12952,8 +14444,24 @@
   :asset/name "Kimco Realty Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "KIM-P-L",
+  :asset/name "Kimco Realty Corporation Class L Depositary Shares each of which represents a one-one thousandth fractional interest in a share of 5.125% Class L Cumulative Red",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KIM-P-M",
+  :asset/name "Kimco Realty Corporation Class M Depositary Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "KIM-P-N",
   :asset/name "KIM-P-N",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KIM-PL",
+  :asset/name "Kimco Realty Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KIM-PM",
+  :asset/name "Kimco Realty Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "KIM-PN",
@@ -13170,6 +14678,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "KREF-P-A",
   :asset/name "KREF-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "KREF-PA",
+  :asset/name "KKR Real Estate Finance Trust Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "KRG",
@@ -13408,6 +14920,18 @@
   :asset/name "Gladstone Land Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "LANDM",
+  :asset/name "Gladstone Land Corp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "LANDO",
+  :asset/name "Gladstone Land Corp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "LANDP",
+  :asset/name "Gladstone Land Corporation 6.00% Series C Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "LANV",
   :asset/name "Lanvin Group Holdings Limited",
   :asset/type :equity,
@@ -13470,6 +14994,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "LBRDK",
   :asset/name "Liberty Broadband Srs C",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "LBRDP",
+  :asset/name "Liberty Broadband Corp",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "LBRT",
@@ -13624,6 +15152,10 @@
   :asset/name "LifeMD Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "LFMDP",
+  :asset/name "LifeMD Inc Preferred Series A",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "LFS",
   :asset/name "LEIFRAS Co., Ltd. American Depositary Shares",
   :asset/type :equity,
@@ -13634,6 +15166,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "LFT",
   :asset/name "Lument Finance Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "LFT-P-A",
+  :asset/name "LFT-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "LFT-PA",
+  :asset/name "Lument Finance Trust Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "LFUS",
@@ -13869,6 +15409,14 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "LNC",
+  :asset/name "Lincoln National Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "LNC-P-D",
+  :asset/name "LNC-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "LNC-PD",
   :asset/name "Lincoln National Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -14260,6 +15808,14 @@
   :asset/name "LXP Industrial Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "LXP-P-C",
+  :asset/name "Lexington Realty Trust Preferred Conv. Series C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "LXP-PC",
+  :asset/name "Lexington Realty Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "LXRX",
   :asset/name "Lexicon Pharmaceuticals Inc",
   :asset/type :equity,
@@ -14325,6 +15881,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "MAA",
+  :asset/name "Mid-America Apartment Communities Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MAA-P-I",
+  :asset/name "Mid-America Apartment Communities Inc. 8.50% Series I Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MAA-PI",
   :asset/name "Mid-America Apartment Communities Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -14505,6 +16069,10 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "MBINM",
+  :asset/name "Merchants Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "MBINN",
   :asset/name "Merchants Bancorp",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -14700,6 +16268,14 @@
   :asset/name "Modiv Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "MDV-P-A",
+  :asset/name "MDV-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MDV-PA",
+  :asset/name "Modiv Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "MDWD",
   :asset/name "Mediwound Ltd",
   :asset/type :equity,
@@ -14756,6 +16332,14 @@
   :asset/name "Methanex Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "MER-P-K",
+  :asset/name "Merrill Lynch & Company. Inc. 6.45% Trust Preferred Securities",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MER-PK",
+  :asset/name "Merrill Lynch Capital Trust I GTD CAP 6.45%",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "MERC",
   :asset/name "Mercer International Inc",
   :asset/type :equity,
@@ -14774,6 +16358,18 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "MET",
   :asset/name "MetLife Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MET-PA",
+  :asset/name "MetLife Inc Preferred Stock Series A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MET-PE",
+  :asset/name "MetLife Inc. Depositary shares Series E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MET-PF",
+  :asset/name "MetLife Inc Preferred Stock Series F",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "META",
@@ -14801,6 +16397,22 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "MFA",
+  :asset/name "MFA Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MFA-P-B",
+  :asset/name "MFA Financial Inc. Preferred Series B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MFA-P-C",
+  :asset/name "MFA-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MFA-PB",
+  :asset/name "MFA Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MFA-PC",
   :asset/name "MFA Financial Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -15032,6 +16644,30 @@
   :asset/name "AG Mortgage Investment Trust Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "MITT-P-A",
+  :asset/name "AG Mortgage Investment Trust Inc. 8.25% Preferred Series A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MITT-P-B",
+  :asset/name "AG Mortgage Investment Trust Inc. Preferred Series B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MITT-P-C",
+  :asset/name "MITT-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MITT-PA",
+  :asset/name "AG Mortgage Investment Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MITT-PB",
+  :asset/name "AG Mortgage Investment Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MITT-PC",
+  :asset/name "AG Mortgage Investment Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "MKC",
   :asset/name "McCormick & Company Incorporated",
   :asset/type :equity,
@@ -15240,6 +16876,10 @@
   :asset/name "Mainstreet Bank",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "MNSBP",
+  :asset/name "MainStreet Bancshares Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "MNSO",
   :asset/name "Miniso Group Holding Ltd",
   :asset/type :equity,
@@ -15301,6 +16941,10 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "MOG-A",
+  :asset/name "Moog Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MOG-B",
   :asset/name "Moog Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -15480,6 +17124,62 @@
   :asset/name "Morgan Stanley",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "MS-P-A",
+  :asset/name "Morgan Stanley Dep Shs repstg 1/1000 Pfd Ser A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-P-E",
+  :asset/name "Morgan Stanley DEPOSITARY SHARES SERIES E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-P-F",
+  :asset/name "Morgan Stanley Dep Shs Rpstg 1/1000th Int Prd Ser F Fxd to Flag",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-P-I",
+  :asset/name "Morgan Stanley Depository Shares Series 1",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-P-K",
+  :asset/name "Morgan Stanley Depositary Shares Series K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-P-L",
+  :asset/name "MS-P-L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PA",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PE",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PF",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PI",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PK",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PL",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PO",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MS-PP",
+  :asset/name "Morgan Stanley",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "MS-PQ",
   :asset/name "Morgan Stanley",
   :asset/type :equity,
@@ -15597,6 +17297,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
  {:asset/symbol "MTB",
+  :asset/name "M&T Bank Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MTB-P-H",
+  :asset/name "MTB-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "MTB-PH",
   :asset/name "M&T Bank Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -16016,6 +17724,22 @@
   :asset/name "The9 Ltd ADR",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "NCV-P-A",
+  :asset/name "AllianzGI Convertible & Income Fund 5.625% Series A Cumulative Preferred Shares (Liquidation Preference $25.00 per share)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NCV-PA",
+  :asset/name "Virtus AllianzGI Convertible & Income Fund",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NCZ-P-A",
+  :asset/name "AllianzGI Convertible & Income Fund II 5.50% Series A Cumulative Preferred Shares (Liquidation Preference $25.00 per share)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NCZ-PA",
+  :asset/name "Virtus AllianzGI Convertible & Income Fund II",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "NDAQ",
   :asset/name "Nasdaq Inc",
   :asset/type :equity,
@@ -16064,8 +17788,16 @@
   :asset/name "NEE-P-U",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "NEE-PN",
+  :asset/name "Nextera Energy Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "NEE-PS",
   :asset/name "NextEra Energy, Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NEE-PT",
+  :asset/name "NextEra Energy, Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "NEGG",
@@ -16189,6 +17921,22 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "NGL",
+  :asset/name "NGL Energy Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NGL-P-B",
+  :asset/name "NGL ENERGY PARTNERS LP 9.00% Class B Fixed-to-Floating Rate Cumulative Redeemable Perpetual Preferred Units representing limited partnership interests",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NGL-P-C",
+  :asset/name "NGL-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NGL-PB",
+  :asset/name "NGL Energy Partners LP",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NGL-PC",
   :asset/name "NGL Energy Partners LP",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -16330,6 +18078,30 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "NLY",
   :asset/name "Annaly Capital Management, Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NLY-P-F",
+  :asset/name "Annaly Capital Management Inc 6.95% Series F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NLY-P-G",
+  :asset/name "Annaly Capital Management Inc 6.50% Series G Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NLY-P-I",
+  :asset/name "NLY-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NLY-PF",
+  :asset/name "Annaly Capital Management Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NLY-PG",
+  :asset/name "Annaly Capital Management Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NLY-PI",
+  :asset/name "Annaly Capital Management Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "NLY-PJ",
@@ -16572,6 +18344,14 @@
   :asset/name "Nexpoint Real Estate Finance Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "NREF-P-A",
+  :asset/name "NREF-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NREF-PA",
+  :asset/name "NexPoint Real Estate Finance Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "NRG",
   :asset/name "NRG Energy Inc.",
   :asset/type :equity,
@@ -16625,6 +18405,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
  {:asset/symbol "NSA",
+  :asset/name "National Storage Affiliates Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NSA-P-A",
+  :asset/name "National Storage Affiliates Trust 6.000% Series A Cumulative Redeemable Preferred Shares of Beneficial Interest (Liquidation Preference $25.00 per share)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NSA-PA",
   :asset/name "National Storage Affiliates Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -16745,6 +18533,10 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "NTRS",
+  :asset/name "Northern Trust Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "NTRSO",
   :asset/name "Northern Trust Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -16996,6 +18788,14 @@
   :asset/name "NexPoint Strategic Opportunities Fund",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "NXDT-P-A",
+  :asset/name "NXDT-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "NXDT-PA",
+  :asset/name "NexPoint Diversified Real Estate Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "NXE",
   :asset/name "NexGen Energy Ltd.",
   :asset/type :equity,
@@ -17060,6 +18860,10 @@
   :asset/name "New York City REIT Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "NYMTZ",
+  :asset/name "New York Mortgage Trust Inc Preferred Series G",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "NYT",
   :asset/name "New York Times Company",
   :asset/type :equity,
@@ -17088,6 +18892,22 @@
   :asset/name "Oaktree Acquisition Corp. III Life Sciences Warrant",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "OAK-P-A",
+  :asset/name "Oaktree Capital Group LLC 6.625% Series A Preferred units",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "OAK-P-B",
+  :asset/name "Oaktree Capital Group LLC 6.550% Series B Preferred Units",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "OAK-PA",
+  :asset/name "Oaktree Capital Group LLC 6.625% PFD UT A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "OAK-PB",
+  :asset/name "Oaktree Capital Group LLC",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "OAKU",
   :asset/name "Oak Woods Acquisition Corporation Class A Ordinary Shares",
   :asset/type :equity,
@@ -17138,6 +18958,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "OCCI",
   :asset/name "OFS Credit Company Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "OCCIN",
+  :asset/name "OFS Credit Company Inc Preferred Series E",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "OCCIO",
+  :asset/name "OFS Credit Company Inc Preferred",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "OCFC",
@@ -17376,6 +19204,14 @@
   :asset/name "Old National Bancorp",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "ONBPO",
+  :asset/name "Old National Bancorp Depositary Shares Each Representing a 1/40th Interest in a Share of Series C Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "ONBPP",
+  :asset/name "Old National Bancorp Depositary Shares Each Representing a 1/40th Interest in a Share of Series A Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "ONC",
   :asset/name "BeiGene, Ltd.",
   :asset/type :equity,
@@ -17494,6 +19330,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "OPLN",
   :asset/name "OPENLANE, Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "OPP-PA",
+  :asset/name "RiverNorth/DoubleLine Strategic",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "OPP-PB",
+  :asset/name "RiverNorth/DoubleLine Strategic",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "OPP-PC",
@@ -17772,6 +19616,14 @@
   :asset/name "Oxford Lane Capital Corp. 7.125% Series 2029 Term Preferred Stock",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "OXLCO",
+  :asset/name "Oxford Lane Capital Corp Corp Pref 9",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "OXLCP",
+  :asset/name "Oxford Lane Capital Series",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "OXM",
   :asset/name "Oxford Industries Inc",
   :asset/type :equity,
@@ -17802,6 +19654,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "OZK",
   :asset/name "Bank Ozk",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "OZKAP",
+  :asset/name "Bank Ozk Preferred Series A",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "PAA",
@@ -17988,6 +19844,14 @@
   :asset/name "Pitney Bowes Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "PBI-P-B",
+  :asset/name "Pitney Bowes Inc 6.70% Notes Due 2043",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PBI-PB",
+  :asset/name "Pitney Bowes Inc. NT 43",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "PBM",
   :asset/name "Psyence Biomedical Ltd. Common Shares",
   :asset/type :equity,
@@ -17998,6 +19862,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "PBR",
   :asset/name "Petroleo Brasileiro Petrobras SA ADR",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PBR-A",
+  :asset/name "Petróleo Brasileiro S.A. - Petrobras",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "PBT",
@@ -18032,6 +19900,70 @@
   :asset/name "PG&E Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "PCG-P-A",
+  :asset/name "Pacific Gas & Electric Company. 6% Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-P-B",
+  :asset/name "Pacific Gas & Electric Company. 5 1/2% Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-P-C",
+  :asset/name "Pacific Gas & Electric Company. 5% 1st Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-P-D",
+  :asset/name "Pacific Gas & Electric Company. 5% 1st Red. Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-P-E",
+  :asset/name "Pacific Gas & Electric Company. 5% 1st A Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-P-G",
+  :asset/name "Pacific Gas & Electric Company. 4.80% 1st Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-P-H",
+  :asset/name "Pacific Gas & Electric Company. 4.50% 1st Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-P-I",
+  :asset/name "Pacific Gas & Electric Company. 4.36% 1st Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PA",
+  :asset/name "Pacific Gas and Electric Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PB",
+  :asset/name "Pacific Gas and Electric Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PC",
+  :asset/name "Pacific Gas and Electric Company PFD 1ST 5%",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PD",
+  :asset/name "Pacific Gas and Electric Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PE",
+  :asset/name "Pacific Gas and Electric Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PG",
+  :asset/name "Pacific Gas and Electric Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PH",
+  :asset/name "Pacific Gas and Electric Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PCG-PI",
+  :asset/name "Pacific Gas and Electric Company PFD 1ST 4.36%",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
  {:asset/symbol "PCH",
   :asset/name "PotlatchDeltic Corp",
   :asset/type :equity,
@@ -18128,6 +20060,38 @@
   :asset/name "Pebblebrook Hotel Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-P-E",
+  :asset/name "Pebblebrook Hotel Trust - 6.375% PRF PERPETUAL USD - Ser E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-P-F",
+  :asset/name "Pebblebrook Hotel Trust - 6.30% PRF PERPETUAL USD - Ser F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-P-G",
+  :asset/name "PEB-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-P-H",
+  :asset/name "PEB-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-PE",
+  :asset/name "Pebblebrook Hotel Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-PF",
+  :asset/name "Pebblebrook Hotel Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-PG",
+  :asset/name "Pebblebrook Hotel Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PEB-PH",
+  :asset/name "Pebblebrook Hotel Trust",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "PEBK",
   :asset/name "Peoples Bancorp of North Carolina",
   :asset/type :equity,
@@ -18588,10 +20552,30 @@
   :asset/name "PennyMac Mortgage Investment Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "PMT-P-A",
+  :asset/name "PennyMac Mortgage Investment Trust 8.125% Series A Fixed-to-Floating Rate Cumulative Redeemable Preferred Shares of Beneficial Interest",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PMT-P-B",
+  :asset/name "PennyMac Mortgage Investment Trust 8.00% Series B Fixed-to-Floating Rate Cumulative Redeemable Preferred Shares of Beneficial Interest",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "PMT-P-C",
   :asset/name "PMT-P-C",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "PMT-PA",
+  :asset/name "PennyMac Mortgage Investment Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PMT-PB",
+  :asset/name "PennyMac Mortgage Investment Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PMT-PC",
+  :asset/name "PennyMac Mortgage Investment Trust",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "PMTR",
   :asset/name "Perimeter Acquisition Corp. I Class A Ordinary Shares",
   :asset/type :equity,
@@ -18660,6 +20644,10 @@
   :asset/name "PINNACLE FINANCIAL PARTNERS DEPOSI",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "PNFPP",
+  :asset/name "Pinnacle Financial Partners Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "PNNT",
   :asset/name "PennantPark Investment Corporation",
   :asset/type :equity,
@@ -18746,6 +20734,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "POWW",
   :asset/name "Ammo Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "POWWP",
+  :asset/name "Ammo Inc Preferred",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "PPBT",
@@ -18850,6 +20842,42 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "PRI",
   :asset/name "Primerica Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-P-D",
+  :asset/name "PRIF-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-P-J",
+  :asset/name "PRIF-P-J",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-P-K",
+  :asset/name "PRIF-P-K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-P-L",
+  :asset/name "PRIF-P-L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-PD",
+  :asset/name "Priority Income Fund Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-PG",
+  :asset/name "Priority Income Fund Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-PJ",
+  :asset/name "Priority Income Fund Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-PK",
+  :asset/name "Priority Income Fund Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PRIF-PL",
+  :asset/name "Priority Income Fund Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "PRIM",
@@ -18960,8 +20988,112 @@
   :asset/name "Public Storage",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-F",
+  :asset/name "Public Storage Depositary Shares Series F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-G",
+  :asset/name "Public Storage Depositary Shares Series G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-H",
+  :asset/name "PSA-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-I",
+  :asset/name "PSA-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-J",
+  :asset/name "PSA-P-J",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-K",
+  :asset/name "PSA-P-K",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-L",
+  :asset/name "PSA-P-L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-M",
+  :asset/name "PSA-P-M",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-N",
+  :asset/name "PSA-P-N",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-O",
+  :asset/name "PSA-P-O",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-Q",
+  :asset/name "PSA-P-Q",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "PSA-P-R",
   :asset/name "PSA-P-R",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-P-S",
+  :asset/name "Public Storage DEP SH REPSTG PFD SH BEN INT SER S",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PF",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PG",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PH",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PI",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PJ",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PK",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PL",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PM",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PN",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PO",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PP",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PQ",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PR",
+  :asset/name "Public Storage",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSA-PS",
+  :asset/name "Public Storage",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "PSBD",
@@ -18972,6 +21104,14 @@
   :asset/name "Prospect Capital Corporation",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "PSEC-P-A",
+  :asset/name "PSEC-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "PSEC-PA",
+  :asset/name "Prospect Capital Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "PSFE",
   :asset/name "Paysafe Ltd",
   :asset/type :equity,
@@ -19142,6 +21282,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "PW",
   :asset/name "Power REIT",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PW-P-A",
+  :asset/name "Power REIT 7.75% Series A Cumulative Perpetual Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "PW-PA",
+  :asset/name "Power REIT PFD SER A 7.75%",
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
  {:asset/symbol "PWM",
@@ -19512,6 +21660,22 @@
   :asset/name "Ready Capital Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "RC-P-C",
+  :asset/name "RC-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RC-P-E",
+  :asset/name "RC-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RC-PC",
+  :asset/name "Ready Capital Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RC-PE",
+  :asset/name "Ready Capital Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "RCAT",
   :asset/name "Red Cat Holdings Inc",
   :asset/type :equity,
@@ -19772,6 +21936,22 @@
   :asset/name "Rexford Industrial Realty Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "REXR-P-B",
+  :asset/name "Rexford Industrial Realty Inc. 5.875% Series B Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "REXR-P-C",
+  :asset/name "REXR-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "REXR-PB",
+  :asset/name "Rexford Industrial Realty Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "REXR-PC",
+  :asset/name "Rexford Industrial Realty Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "REYN",
   :asset/name "Reynolds Consumer Products Inc",
   :asset/type :equity,
@@ -19781,6 +21961,22 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "RF",
+  :asset/name "Regions Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RF-P-C",
+  :asset/name "RF-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RF-P-E",
+  :asset/name "RF-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RF-PC",
+  :asset/name "Regions Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RF-PE",
   :asset/name "Regions Financial Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -19904,7 +22100,15 @@
   :asset/name "B. Riley Financial Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "RILYL",
+  :asset/name "B. Riley Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "RILYN",
+  :asset/name "B. Riley Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "RILYP",
   :asset/name "B. Riley Financial Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -19924,8 +22128,40 @@
   :asset/name "Rithm Capital Corp.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-P-A",
+  :asset/name "RITM-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-P-B",
+  :asset/name "RITM-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-P-C",
+  :asset/name "RITM-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-P-D",
+  :asset/name "RITM-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "RITM-P-F",
   :asset/name "RITM-P-F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-PA",
+  :asset/name "Rithm Capital Corp.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-PB",
+  :asset/name "Rithm Capital Corp.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-PC",
+  :asset/name "Rithm Capital Corp.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RITM-PD",
+  :asset/name "Rithm Capital Corp.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "RITM-PE",
@@ -19936,6 +22172,14 @@
   :asset/name "Reitar Logtech Holdings Limited Ordinary shares",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "RIV-P-A",
+  :asset/name "RIV-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RIV-PA",
+  :asset/name "RiverNorth Opportunities Fund Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "RIVN",
   :asset/name "Rivian Automotive Inc",
   :asset/type :equity,
@@ -19977,6 +22221,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "RLJ",
+  :asset/name "RLJ Lodging Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RLJ-P-A",
+  :asset/name "RLJ Lodging Trust $1.95 Series A Cumulative Convertible Preferred Shares",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RLJ-PA",
   :asset/name "RLJ Lodging Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -20078,6 +22330,22 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "RNR",
   :asset/name "Renaissancere Holdings Ltd",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RNR-P-F",
+  :asset/name "RenaissanceRe Holdings Ltd. Depositary Shares Series F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RNR-P-G",
+  :asset/name "RNR-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RNR-PF",
+  :asset/name "RenaissanceRe Holdings Ltd",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RNR-PG",
+  :asset/name "RenaissanceRe Holdings Ltd.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "RNST",
@@ -20336,6 +22604,14 @@
   :asset/name "Redwood Trust Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "RWT-P-A",
+  :asset/name "RWT-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "RWT-PA",
+  :asset/name "Redwood Trust Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "RWTN",
   :asset/name "Redwood Trust, Inc. 9.125%",
   :asset/type :equity,
@@ -20460,6 +22736,14 @@
   :asset/name "Sachem Capital Corp",
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
+ {:asset/symbol "SACH-P-A",
+  :asset/name "SACH-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE MKT"}
+ {:asset/symbol "SACH-PA",
+  :asset/name "Sachem Capital Corp.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "SAFE",
   :asset/name "Safehold Inc",
   :asset/type :equity,
@@ -20577,6 +22861,22 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "SB",
+  :asset/name "Safe Bulkers Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SB-P-C",
+  :asset/name "Safe Bulkers Inc Cumulative Redeemable Perpetual Preferred Series C (Marshall Islands)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SB-P-D",
+  :asset/name "Safe Bulkers Inc Perpetual Preferred Series D (Marshall Islands)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SB-PC",
+  :asset/name "Safe Bulkers Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SB-PD",
   :asset/name "Safe Bulkers Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -20712,6 +23012,30 @@
   :asset/name "Southern Copper Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "SCE-P-G",
+  :asset/name "SCE Trust II Trust Preferred Securities",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCE-P-K",
+  :asset/name "Southern California Edison Company 5.45% Fixed-to-Floating Rate Trust Preference Securities",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCE-P-L",
+  :asset/name "SCE TRUST VI",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCE-PG",
+  :asset/name "SCE Trust II TR PFD SECS 5.1%",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCE-PK",
+  :asset/name "SCE Trust V PFD SEC",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCE-PL",
+  :asset/name "SCE Trust VI 5% TR PREF SECS",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "SCE-PM",
   :asset/name "SCE Trust VII",
   :asset/type :equity,
@@ -20722,6 +23046,22 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "SCHW",
   :asset/name "Charles Schwab Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCHW-P-D",
+  :asset/name "The Charles Schwab Corporation Depositary Shares Series D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCHW-P-J",
+  :asset/name "SCHW-P-J",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCHW-PD",
+  :asset/name "The Charles Schwab Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SCHW-PJ",
+  :asset/name "The Charles Schwab Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "SCI",
@@ -20844,8 +23184,20 @@
   :asset/name "Sea Ltd",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "SEAL-P-A",
+  :asset/name "SEAL-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "SEAL-P-B",
   :asset/name "SEAL-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SEAL-PA",
+  :asset/name "Seapeak LLC",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SEAL-PB",
+  :asset/name "Seapeak LLC",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "SEAT",
@@ -20966,6 +23318,26 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "SF",
   :asset/name "Stifel Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SF-P-C",
+  :asset/name "SF-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SF-P-D",
+  :asset/name "SF-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SF-PB",
+  :asset/name "Stifel Financial Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SF-PC",
+  :asset/name "Stifel Financial Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SF-PD",
+  :asset/name "Stifel Financial Corp.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "SFBC",
@@ -21144,6 +23516,22 @@
   :asset/name "Sunstone Hotel Investors Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "SHO-P-H",
+  :asset/name "SHO-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SHO-P-I",
+  :asset/name "SHO-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SHO-PH",
+  :asset/name "Sunstone Hotel Investors Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SHO-PI",
+  :asset/name "Sunstone Hotel Investors Inc.",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "SHOO",
   :asset/name "Steven Madden Ltd",
   :asset/type :equity,
@@ -21201,6 +23589,10 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "SIGI",
+  :asset/name "Selective Insurance Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "SIGIP",
   :asset/name "Selective Insurance Group Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -21384,6 +23776,14 @@
   :asset/name "SL Green Realty Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "SLG-P-I",
+  :asset/name "SL Green Realty Corporation Preferred Series I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SLG-PI",
+  :asset/name "SL Green Realty Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "SLGB",
   :asset/name "Smart Logistics Global Limited Ordinary Shares",
   :asset/type :equity,
@@ -21402,6 +23802,10 @@
   :asset/exchange "NYSE MKT"}
  {:asset/symbol "SLM",
   :asset/name "SLM Corp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "SLMBP",
+  :asset/name "SLM Corp Pb Pref",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "SLMT",
@@ -21430,6 +23834,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "SLNH",
   :asset/name "Soluna Holdings Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "SLNHP",
+  :asset/name "Soluna Holdings Inc Preferred Series A",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "SLNO",
@@ -21724,10 +24132,22 @@
   :asset/name "Sotherly Hotels Inc Series B Pref",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "SOHON",
+  :asset/name "Sotherly Hotels Inc PR",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "SOHOO",
+  :asset/name "Sotherly Hotels Inc Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "SOHU",
   :asset/name "Sohu.Com Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "SOJC",
+  :asset/name "Southern Co",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "SOJD",
   :asset/name "Southern Co",
   :asset/type :equity,
@@ -21828,6 +24248,14 @@
   :asset/name "Virgin Galactic Holdings Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "SPE-P-C",
+  :asset/name "SPE-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SPE-PC",
+  :asset/name "Special Opportunities Fund Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "SPEG",
   :asset/name "Silver Pegasus Acquisition Corp.",
   :asset/type :equity,
@@ -21837,6 +24265,14 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "SPG",
+  :asset/name "Simon Property Group Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SPG-P-J",
+  :asset/name "Simon Property Group Inc. Group 8 3/8% Series J Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SPG-PJ",
   :asset/name "Simon Property Group Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -21878,6 +24314,14 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "SPNT",
   :asset/name "Siriuspoint Ltd",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SPNT-P-B",
+  :asset/name "SPNT-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SPNT-PB",
+  :asset/name "SiriusPoint Ltd.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "SPOK",
@@ -21940,6 +24384,10 @@
   :asset/name "Presidio Property Trust",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "SQFTP",
+  :asset/name "Presidio Property Trust Inc Preferred Series D",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "SQM",
   :asset/name "Sociedad Quimica y Minera de Chile SA ADR B",
   :asset/type :equity,
@@ -21949,6 +24397,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "SR",
+  :asset/name "Spire Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SR-P-A",
+  :asset/name "SR-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SR-PA",
   :asset/name "Spire Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -21977,6 +24433,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "SRG",
+  :asset/name "Seritage Growth Properties",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SRG-P-A",
+  :asset/name "Seritage Growth Properties 7.00% Series A Cumulative Redeemable Preferred Shares of Beneficial Interest",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SRG-PA",
   :asset/name "Seritage Growth Properties",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -22232,6 +24696,10 @@
   :asset/name "Star Equity Holdings Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "STRRP",
+  :asset/name "Star Equity Holdings Prf",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "STRS",
   :asset/name "Stratus Properties Inc",
   :asset/type :equity,
@@ -22254,6 +24722,14 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "STT",
   :asset/name "State Street Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "STT-P-G",
+  :asset/name "State Street Corporation Depositary shares each representing a 1/4000th ownership interest in a share of Fixed-to-Floating Rate Non-Cumulative",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "STT-PG",
+  :asset/name "State Street Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "STTK",
@@ -22484,6 +24960,14 @@
   :asset/name "Synchrony Financial",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "SYF-P-A",
+  :asset/name "SYF-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "SYF-PA",
+  :asset/name "Synchrony Financial",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "SYF-PB",
   :asset/name "Synchrony Financial",
   :asset/type :equity,
@@ -22533,6 +25017,22 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "T",
+  :asset/name "AT&T Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "T-P-A",
+  :asset/name "T-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "T-P-C",
+  :asset/name "T-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "T-PA",
+  :asset/name "AT&T Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "T-PC",
   :asset/name "AT&T Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -22716,6 +25216,10 @@
   :asset/name "Texas Capital Bancshares Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "TCBIO",
+  :asset/name "Texas Capital Bancshares Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "TCBK",
   :asset/name "TriCo Bancshares",
   :asset/type :equity,
@@ -22800,6 +25304,22 @@
   :asset/name "Telephone and Data Systems Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "TDS-P-U",
+  :asset/name "TDS-P-U",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TDS-P-V",
+  :asset/name "TDS-P-V",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TDS-PU",
+  :asset/name "Telephone and Data Systems Inc.",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TDS-PV",
+  :asset/name "Telephone and Data Systems Inc.",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "TDTH",
   :asset/name "Trident Digital Tech Holdings Ltd American Depository Shares",
   :asset/type :equity,
@@ -22840,6 +25360,10 @@
   :asset/name "Teck Resources Ltd Class B",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "TECTP",
+  :asset/name "Tectonic Financial Inc PR",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "TECX",
   :asset/name "Tectonic Therapeutic, Inc.",
   :asset/type :equity,
@@ -22874,6 +25398,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "TEN-P-F",
   :asset/name "TEN-P-F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TEN-PE",
+  :asset/name "Tsakos Energy Navigation Limited",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "TEN-PF",
@@ -22916,6 +25444,30 @@
   :asset/name "Truist Financial Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "TFC-P-I",
+  :asset/name "TFC-P-I",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TFC-P-O",
+  :asset/name "TFC-P-O",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TFC-P-R",
+  :asset/name "TFC-P-R",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TFC-PI",
+  :asset/name "Truist Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TFC-PO",
+  :asset/name "Truist Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "TFC-PR",
+  :asset/name "Truist Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "TFII",
   :asset/name "TFI International Inc",
   :asset/type :equity,
@@ -23492,8 +26044,56 @@
   :asset/name "Trio-Tech International",
   :asset/type :equity,
   :asset/exchange "NYSE MKT"}
+ {:asset/symbol "TRTN-P-A",
+  :asset/name "TRTN-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-P-B",
+  :asset/name "TRTN-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-P-C",
+  :asset/name "TRTN-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-P-D",
+  :asset/name "TRTN-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-P-E",
+  :asset/name "TRTN-P-E",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-PA",
+  :asset/name "Triton International Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-PB",
+  :asset/name "Triton International Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-PC",
+  :asset/name "Triton International Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-PD",
+  :asset/name "Triton International Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTN-PE",
+  :asset/name "Triton International Limited",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "TRTX",
   :asset/name "TPG RE Finance Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTX-P-C",
+  :asset/name "TRTX-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TRTX-PC",
+  :asset/name "TPG RE Finance Trust Inc.",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "TRU",
@@ -23684,6 +26284,10 @@
   :asset/name "Thayer Ventures Acquisition Corporation II",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "TVC",
+  :asset/name "Tennessee Valley Authority Pref",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "TVE",
   :asset/name "Tennessee Valley Authority",
   :asset/type :equity,
@@ -23740,6 +26344,30 @@
   :asset/name "Two Harbors Investments Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "TWO-P-A",
+  :asset/name "Two Harbors Investments Corp 8.125% Series A Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock ($25.00 liquidation preference per share)",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TWO-P-B",
+  :asset/name "Two Harbors Investments Corp 7.625% Series B Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TWO-P-C",
+  :asset/name "Two Harbors Investments Corp 7.25% Series C Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TWO-PA",
+  :asset/name "Two Harbors Investment Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TWO-PB",
+  :asset/name "Two Harbors Investment Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TWO-PC",
+  :asset/name "Two Harbors Investment Corp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "TWOD",
   :asset/name "Two Harbors Investment Corp.",
   :asset/type :equity,
@@ -23782,6 +26410,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "TY",
   :asset/name "Tri Continental Closed Fund",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "TY-P",
+  :asset/name "Tri-Continental Corporation PFD $2.50",
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "TYG",
@@ -24016,6 +26648,14 @@
   :asset/name "UMH Properties Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "UMH-P-D",
+  :asset/name "UMH Properties Inc. 6.375% Series D Cumulative Redeemable Preferred Stock Liquidation Preference $25 per share",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "UMH-PD",
+  :asset/name "UMH Properties Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "UNB",
   :asset/name "Union Bankshares Inc",
   :asset/type :equity,
@@ -24145,6 +26785,50 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "USB",
+  :asset/name "U.S. Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-P-A",
+  :asset/name "U.S. Bancorp Depositary Shares Series A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-P-H",
+  :asset/name "U.S. Bancorp Depositary Shares repstg 1/1000th Pfd Ser B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-P-Q",
+  :asset/name "USB-P-Q",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-P-R",
+  :asset/name "USB-P-R",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-P-S",
+  :asset/name "USB-P-S",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-PA",
+  :asset/name "U.S. Bancorp PERP PFD SER A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-PH",
+  :asset/name "U.S. Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-PP",
+  :asset/name "U.S. Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-PQ",
+  :asset/name "U.S. Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-PR",
+  :asset/name "U.S. Bancorp",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "USB-PS",
   :asset/name "U.S. Bancorp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -24496,6 +27180,10 @@
   :asset/name "Via Transportation, Inc.",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "VIASP",
+  :asset/name "Via Renewables Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "VIAV",
   :asset/name "Viavi Solutions Inc",
   :asset/type :equity,
@@ -24608,6 +27296,14 @@
   :asset/name "Valley National Bancorp",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "VLYPO",
+  :asset/name "Valley National Bancorp B Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "VLYPP",
+  :asset/name "Valley National Bancorp A Pref",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "VMAR",
   :asset/name "Vision Marine Technologies Inc",
   :asset/type :equity,
@@ -24648,6 +27344,38 @@
   :asset/name "Vornado Realty Trust",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-P-L",
+  :asset/name "Vornado Realty Trust Pfd Ser L %",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-P-M",
+  :asset/name "Vornado Realty Trust 5.25% Series M Cumulative Redeemable Preferred Shares of Beneficial Interest liquidation preference $25.00 per share no par value per share",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-P-N",
+  :asset/name "VNO-P-N",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-P-O",
+  :asset/name "VNO-P-O",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-PL",
+  :asset/name "Vornado Realty Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-PM",
+  :asset/name "Vornado Realty Trust",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-PN",
+  :asset/name "Vornado Realty Trust 5.25% Series",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VNO-PO",
+  :asset/name "Vornado Realty Trust",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "VNOM",
   :asset/name "Viper Energy Ut",
   :asset/type :equity,
@@ -24685,6 +27413,14 @@
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "VOYA",
+  :asset/name "Voya Financial Inc",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VOYA-P-B",
+  :asset/name "VOYA-P-B",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "VOYA-PB",
   :asset/name "Voya Financial Inc",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -24948,6 +27684,10 @@
   :asset/name "Washington Federal Inc",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
+ {:asset/symbol "WAFDP",
+  :asset/name "Washington Federal Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "WAFU",
   :asset/name "Wah Fu Education Group Ltd",
   :asset/type :equity,
@@ -24960,6 +27700,14 @@
   :asset/name "Western Alliance Bancorporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "WAL-P-A",
+  :asset/name "WAL-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WAL-PA",
+  :asset/name "Western Alliance Bancorporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
  {:asset/symbol "WALD",
   :asset/name "Waldencast Acquisition Corp",
   :asset/type :equity,
@@ -25001,6 +27749,22 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "WBS",
+  :asset/name "Webster Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WBS-P-F",
+  :asset/name "Webster Financial Corporation Depositary Shares Series F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WBS-P-G",
+  :asset/name "WBS-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WBS-PF",
+  :asset/name "Webster Financial Corporation",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WBS-PG",
   :asset/name "Webster Financial Corporation",
   :asset/type :equity,
   :asset/exchange "NYSE"}
@@ -25116,6 +27880,54 @@
   :asset/name "Wells Fargo & Company",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-P-A",
+  :asset/name "WFC-P-A",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-P-C",
+  :asset/name "WFC-P-C",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-P-D",
+  :asset/name "WFC-P-D",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-P-L",
+  :asset/name "Wells Fargo & Company 7.50% Non-Cumulative Perpetual Convertible Class A Preferred Stock Series L",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-P-Y",
+  :asset/name "Wells Fargo & Company Depositary Shares Series Y",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-P-Z",
+  :asset/name "WFC-P-Z",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-PA",
+  :asset/name "Wells Fargo & Company Depositar",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-PC",
+  :asset/name "Wells Fargo & Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-PD",
+  :asset/name "Wells Fargo & Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-PL",
+  :asset/name "Wells Fargo & Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-PY",
+  :asset/name "Wells Fargo & Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WFC-PZ",
+  :asset/name "Wells Fargo & Company",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "WFCF",
   :asset/name "Where Food Comes From Inc",
   :asset/type :equity,
@@ -25166,6 +27978,14 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "WHLR",
   :asset/name "Wheeler Real Estate Investment Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "WHLRD",
+  :asset/name "Wheeler Real Estate Investment Trust Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "WHLRP",
+  :asset/name "Wheeler Real Estate Investment Trust Inc Pref",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "WHR",
@@ -25352,6 +28172,38 @@
   :asset/name "W. R. Berkley Corp",
   :asset/type :equity,
   :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-P-E",
+  :asset/name "W.R. Berkley Corporation 5.70% Subordinated Debentures due 2058",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-P-F",
+  :asset/name "WRB-P-F",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-P-G",
+  :asset/name "WRB-P-G",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-P-H",
+  :asset/name "WRB-P-H",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-PE",
+  :asset/name "W. R. Berkley Corporation 5.70% SB DB 2058",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-PF",
+  :asset/name "W.R. Berkley Corporation 5.10% Subordinated Debentures due 2059",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-PG",
+  :asset/name "W.R. Berkley Corporation 4.25%",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
+ {:asset/symbol "WRB-PH",
+  :asset/name "W.R. Berkley Corporation 4.125%",
+  :asset/type :equity,
+  :asset/exchange "NYSE"}
  {:asset/symbol "WRBY",
   :asset/name "Warby Parker Inc",
   :asset/type :equity,
@@ -25486,6 +28338,10 @@
   :asset/exchange "NASDAQ"}
  {:asset/symbol "WVVI",
   :asset/name "Willamette Valley Vineyards Inc",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "WVVIP",
+  :asset/name "Willamette Valley Vineyards Inc PR",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "WW",
@@ -25637,6 +28493,14 @@
   :asset/type :equity,
   :asset/exchange "NYSE"}
  {:asset/symbol "XOMA",
+  :asset/name "XOMA Corp",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "XOMAO",
+  :asset/name "XOMA Corporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "XOMAP",
   :asset/name "XOMA Corp",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
@@ -26010,6 +28874,10 @@
   :asset/exchange "NYSE"}
  {:asset/symbol "ZION",
   :asset/name "Zions Bancorporation",
+  :asset/type :equity,
+  :asset/exchange "NASDAQ"}
+ {:asset/symbol "ZIONP",
+  :asset/name "Zions Bancorporation National Association",
   :asset/type :equity,
   :asset/exchange "NASDAQ"}
  {:asset/symbol "ZIP",

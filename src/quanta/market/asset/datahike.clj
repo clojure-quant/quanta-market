@@ -68,6 +68,16 @@
     (d/transact dbconn [asset])
     (d/transact dbconn asset)))
 
+(defn get-asset [dbconn asset-symbol]
+  (-> '[:find [(pull ?id [*]) ...]
+        :in $ ?asset-symbol
+        :where
+        [?id :asset/symbol ?asset-symbol]]
+      (d/q @dbconn asset-symbol)
+      first))
+
+;; LISTS
+
 (defn tupelize-list [data]
   (update data :lists/asset #(into []
                                    (map-indexed (fn [idx asset]

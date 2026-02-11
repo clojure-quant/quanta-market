@@ -1,7 +1,9 @@
 (ns demo.asset.db.datahike
   (:require
    [datahike.api :as d]
-   [quanta.market.asset.datahike :refer [add-update-asset query-assets]]
+   [quanta.market.asset.datahike :refer [add-update-asset query-assets
+                                         add-update-list get-list
+                                         ]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy dbc]]
    ))
 
@@ -57,16 +59,22 @@
 
 [(clojure.string/lower-case ?name) ?lname]
 
-(query-assets dbc {:exchange :NASDAQ})
-(query-assets dbc {:exchange :NYSE})
+(query-assets dbc {:exchange "NASDAQ"})
+(query-assets dbc {:exchange "NYSE"})
 
-(query-assets dbc {:exchange :NYSE :type :stock})
-(query-assets dbc {:exchange :NYSE :type :etf})
+(query-assets dbc {:exchange "NYSE" :type :stock})
+(query-assets dbc {:exchange "NYSE" :type :etf})
 (query-assets dbc {:type :etf})
 (query-assets dbc {:type :stock})
 (query-assets dbc {})
 
-(query-assets dbc {:exchange :NYSE :type :etf :q "MO"})
+(query-assets dbc {:exchange "NYSE" :type :etf :q "MO"})
 
 (query-assets dbc {:q "Tr"})
 
+
+;; lists 
+
+(add-update-list dbc {:lists/name "flo" :lists/asset ["MSFT" "SPY"]})
+
+(get-list dbc "flo")

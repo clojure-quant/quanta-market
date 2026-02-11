@@ -3,7 +3,7 @@
    [clj-http.client :as client]
    [cheshire.core] ; JSON Encoding
    ;[cljc.java-time.local-date :as ld]
-   [throttler.core]))
+   ))
 
 ;; ApiKey Management
 
@@ -52,7 +52,3 @@
 
 (defn observations [id] ;GNPCA
   (sget "series/observations" {:series_id id}))
-
-#_(def get-av-throttled
-    (throttler.core/throttle-fn get-av-raw 5 :minute))
-

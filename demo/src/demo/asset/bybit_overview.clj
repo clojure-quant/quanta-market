@@ -1,4 +1,4 @@
-(ns demo.asset.overview
+(ns demo.asset.bybit-overview
   (:require
    [quanta.market.asset.load :as l]))
 

@@ -6,8 +6,7 @@
    [charred.api :as charred]
    [clojure.edn :as edn]
    [clj-http.client :as http]
-   [cheshire.core :as cheshire] ; JSON Encoding
-   [throttler.core]
+   [cheshire.core :as cheshire] ; JSON Encoding 
    [quanta.market.util.date :refer [parse-date]]
    [ta.import.helper :refer [str->float]]))
 

@@ -71,4 +71,3 @@
                                       :exchanges #{"NYSE" "NASDAQ" "AMEX" "NYSE MKT"}
                                       :filename  "./data/eodhd-stocks.edn"}))
 
-

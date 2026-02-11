@@ -2,8 +2,7 @@
   (:require
    [taoensso.timbre :refer [info warn error]]
    [clj-http.client :as client]
-   [cheshire.core] ; JSON Encoding
-   [throttler.core]
+   [cheshire.core] ; JSON Encoding 
    [quanta.market.util.date :refer [parse-date]]
    [ta.import.helper :refer [str->float]]))
 
@@ -71,9 +70,6 @@
       (:body)
       (cheshire.core/parse-string true)
       (success-if process-success)))
-
-(defonce get-av-throttled
-  (throttler.core/throttle-fn get-av-raw 5 :minute))
 
 (defn get-av [api-key params process-success] ; throtteled version
   (get-av-throttled

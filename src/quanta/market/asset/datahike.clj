@@ -32,7 +32,6 @@
   (d/transact dbconn [(merge {:db/id [:asset/symbol (:asset/symbol asset)]}
                              asset)]))
 
-
 (defn- conj-key-when [query k v]
   (if v
     (conj query `[~'?id ~k ~v])
@@ -59,14 +58,38 @@
       (conj-q-when q)
       (d/q @dbconn)))
 
-
-(defn add-update-asset 
+(defn add-update-asset
   "[{:asset/symbol \"SPY\"
                   :asset/name \"Spiders S&P 500 ETF\"
-                  :asset/exchange :NYSE
+                  :asset/exchange \"NYSE\"
                   :asset/type :etf}]"
   [dbconn asset]
   (if (map? asset)
     (d/transact dbconn [asset])
     (d/transact dbconn asset)))
+
+(defn tupelize-list [data]
+  (update data :lists/asset #(into []
+                                   (map-indexed (fn [idx asset]
+                                                  [idx asset]) %))))
+
+(defn untupelize-list [data]
+  (update data :lists/asset #(into []
+                                   (map (fn [[idx asset]]
+                                          asset) %))))
+
+(defn add-update-list
+  [dbconn data]
+  (if (map? data)
+    (d/transact dbconn [(tupelize-list data)])
+    (d/transact dbconn (tupelize-list data))))
+
+(defn get-list [dbconn list-name]
+  (-> '[:find [(pull ?id [*]) ...]
+        :in $ ?list-name
+        :where
+        [?id :lists/name ?list-name]] 
+      (d/q @dbconn list-name)
+      first
+      untupelize-list))
 

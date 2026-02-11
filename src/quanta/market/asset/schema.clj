@@ -39,7 +39,8 @@
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
    {:db/ident :lists/asset
-    :db/valueType :db.type/string
+    :db/valueType :db.type/tuple
+    :db/tupleTypes [:db.type/long :db.type/string] ;; [idx value]
     :db/cardinality :db.cardinality/many}])
 
 

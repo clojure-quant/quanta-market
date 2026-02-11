@@ -7,8 +7,7 @@
    [clj-http.client :as http]
    [cheshire.core :as cheshire] ; JSON Encoding
    [de.otto.nom.core :as nom]
-   [ta.import.helper :refer [str->float http-get]]
-   [throttler.core]))
+   [ta.import.helper :refer [str->float http-get]]))
 
 ; dividends/splits:
 ; Request URL

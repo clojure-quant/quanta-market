@@ -7,6 +7,8 @@
 
 (m/? (asset-summary ctx {:market "US"}))
 
+(m/? (asset-summary ctx {:market "VI"}))
+
 {:example
  {:Currency "USD" :Exchange "US" :Code "^TNX" :Name "CBOE Interest Rate 10 Year T No"
   :Isin nil :Type "INDEX" :Country  "USA"}

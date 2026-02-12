@@ -59,11 +59,14 @@
          assets (->> assets-raw
                      (map #(normalize category %))
                      (map #(select-keys % [:asset/symbol :asset/name :asset/exchange :asset/category
-                                           :bybit/category
+                                           ;:bybit/category
                                            ]))
                      (into []))
-         filename (str (System/getenv "QUANTASTORE") "/asset/raw/bybit-" category ".edn")]
+         filename-raw (str (System/getenv "QUANTASTORE") "/asset/raw/bybit-" category ".edn")
+         filename (str (System/getenv "QUANTASTORE") "/asset/bybit-" category ".edn")
+         ]
      (println "bybit category " category " asset count: " (count assets-raw))
+     (save :edn filename-raw assets-raw)
      (save :edn filename assets)
      (when assetdb
        (add-update-asset assetdb assets))

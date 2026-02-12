@@ -15,59 +15,6 @@
    [quanta.recipy.eodhd-list-volume :refer [high-volume-assets add-name-exchange-type]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy ctx]]))
 
-(def assets (m/? (high-volume-assets ctx {:exchange "US"})))
-(count assets)
-; 6481 , 6513  changes day by day
-
-(def assets (m/? (high-volume-assets ctx {:exchange "US"
-                                          :turnover-min 10000000.0
-                                          :add-name true
-                                          :remove-no-name true
-                                          :type :etf
-                                          })))
-(count assets) ; 947 high-volume etfs
-(print-table assets)
-assets
-
-
-(defn import-asset [asset]
-  (m/sp
-   (let [bar-ds (m/? (b/get-bars eodhd
-                                 {:asset asset
-                                  :calendar [:us :d]}
-                                 {:start (t/zoned-date-time "2000-01-01T00:00:00Z")
-                                  :end (t/zoned-date-time "2026-03-20T00:00:00Z")}))]
-     (m/? (b/append-bars bardb-nippy {:asset asset
-                                      :calendar [:us :d]} bar-ds))
-     (println "imported " asset " bars: " (tc/row-count bar-ds))
-     {:asset asset :n (tc/row-count bar-ds)})))
-
-(m/? (import-asset "MO.US"))
-
-(defn blocking-import [asset]
-  (m/? (import-asset asset)))
-
-(->> stocks-big
-     (take 1500)
-     (map :code)
-     (map #(str % ".US"))
-     (map blocking-import)
-     doall)
-
-(def splits
-  (m/? (raw/get-day-bulk eodhd-token
-                         {:exchange "US"
-                          :type "splits"})))
-
-splits
-
-[{:date "2026-02-06", :split "1.000000/25.000000", :code "ADIL", :exchange "US"}
- {:date "2026-02-06", :split "1.000000/20.000000", :code "ASST", :exchange "US"}
- {:date "2026-02-06", :split "0.100000/1.000000", :code "HNATD", :exchange "US"}
- {:date "2026-02-06", :split "0.100000/1.000000", :code "HNATF", :exchange "US"}
- {:date "2026-02-06", :split "1.000000/5.000000", :code "PRFX", :exchange "US"}
- {:date "2026-02-06", :split "1.000000/8.000000", :code "RLYB", :exchange "US"}]
-
 (-> (date-range->window [:us :d] {:start (t/instant "2026-01-01T22:00:00Z")
                                   :end (t/instant "2026-12-31T22:00:00Z")})
     ;(window->close-range)
@@ -148,4 +95,3 @@ splits-2026
 ;30 2026
 ;290 * 100 = 29000
 
-get-day-bulk

@@ -16,6 +16,24 @@
    [quanta.market.adapter.eodhd.raw :as raw]
    [demo.env-bar :refer [eodhd bardb-nippy eodhd-token]]))
 
+;; BULK API
+
+(def splits
+  (m/? (raw/get-day-bulk eodhd-token
+                         {:exchange "US"
+                          :type "splits"})))
+
+splits
+
+[{:date "2026-02-06", :split "1.000000/25.000000", :code "ADIL", :exchange "US"}
+ {:date "2026-02-06", :split "1.000000/20.000000", :code "ASST", :exchange "US"}
+ {:date "2026-02-06", :split "0.100000/1.000000", :code "HNATD", :exchange "US"}
+ {:date "2026-02-06", :split "0.100000/1.000000", :code "HNATF", :exchange "US"}
+ {:date "2026-02-06", :split "1.000000/5.000000", :code "PRFX", :exchange "US"}
+ {:date "2026-02-06", :split "1.000000/8.000000", :code "RLYB", :exchange "US"}]
+
+;; SPLIT BY ASSET
+
 (def split-ds
   (m/? (get-splits eodhd-token {:asset "MSFT"} {:from (t/date "1980-01-01")
                                                 :to (t/date "2026-03-20")})))

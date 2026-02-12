@@ -1,6 +1,6 @@
 (ns quanta.market.adapter.eodhd.raw
   (:require
-   [clojure.set]
+   [clojure.set :refer [rename-keys]]
    [taoensso.timbre :refer [info warn error]]
    [missionary.core :as m]
    [quanta.market.util.clj-http :refer [http-get parse-json]]
@@ -41,8 +41,7 @@
                                                    :fmt "json")}))
               body (parse-json (:body response))
               limit (get-in response [:headers "X-RateLimit-Limit"])
-              remaining (get-in response [:headers "X-RateLimit-Remaining"])
-              ]
+              remaining (get-in response [:headers "X-RateLimit-Remaining"])]
           ;(println "headers: " (:headers response))
           (println "limit: " limit " remaining: " remaining)
           body)
@@ -73,10 +72,9 @@
 
 (defn get-exchange-assets [api-token exchange-code]
   ;https://eodhd.com/api/exchange-symbol-list/{EXCHANGE_CODE}?api_token={YOUR_API_TOKEN}&fmt=json
-  (eodhd-http-get api-token (str "exchange-symbol-list/" exchange-code) 
+  (eodhd-http-get api-token (str "exchange-symbol-list/" exchange-code)
                   {:socket-timeout 15000
-                   :connection-timeout 15000
-                   }))
+                   :connection-timeout 15000}))
 
 (defn get-day-bulk
   "returns bulk data for all assets of an exchange for a day 
@@ -99,5 +97,17 @@
 (defn warning [result]
   (-> result last :warning))
 
+;; the search api returns not found. possibly it has been discontinued.
+#_(defn search
+  ":q   Can be a ticker symbol, company name, or ISIN. Example values: AAPL, Apple Inc, US0378331005.
+   :type	all, stock, etf, fund, bond, index, crypto. 
+          Note: when using “all”, bonds are excluded by default. Use “type=bond” to include bonds.
+   :exchange	(e.g., US, PA, FOREX, NYSE, NASDAQ). List of Exchanges API
+   :limit	Default is 15. Maximum value is 500.
+   "
+  [api-token {:keys [q] :as opts}]
+  ; https://eodhd.com/financial-apis/search-api-for-stocks-etfs-mutual-funds
+  (eodhd-http-get api-token "search/"
+                  (-> opts
+                      (rename-keys {:q :query_string}))))
 
-; https://eodhd.com/financial-apis/search-api-for-stocks-etfs-mutual-funds

@@ -43,7 +43,9 @@
 (def query-assets-nasdaq
   (conj
    query-assets-all
-   '[?id :asset/exchange :NASDAQ]))
+   '(or [?id :asset/exchange "NASDAQ"]
+        [?id :asset/exchange "NYSE"])
+   ))
 
 (d/q  query-assets-all @assetdb)
 

@@ -76,7 +76,7 @@
       (d/q @dbconn asset-symbol)
       first))
 
-(name :b)
+;; provider symbol mappings
 
 (defn asset->provider [dbconn provider asset]
   (let [provider-k (keyword (symbol "asset" (name provider)))]
@@ -86,8 +86,7 @@
           [~'?id :asset/symbol ~'?asset-symbol]]
         (d/q @dbconn asset)
         first
-        (get provider-k)
-        )))
+        (get provider-k))))
 
 (defn provider->asset [dbconn provider asset-provider]
   (let [provider-k (keyword (symbol "asset" (name provider)))]
@@ -99,8 +98,26 @@
         first
         :asset/symbol)))
 
+;; summary
 
-(get {:a 1} :a)
+(defn exchanges [dbconn]
+  (let [query-exchanges
+        '[:find [(pull ?id [:asset/exchange]) ...]
+          :in $
+          :where
+          [?id :asset/exchange _]]]
+    (->> (d/q  query-exchanges @dbconn)
+         (map :asset/exchange)
+         (into #{}))))
+
+(defn categories [dbconn]
+  (let [query '[:find [(pull ?id [:asset/category]) ...]
+                :in $
+                :where
+                [?id :asset/exchange _]]]
+    (->> (d/q  query @dbconn)
+         (map :asset/category)
+         (into #{}))))
 
 ;; LISTS
 

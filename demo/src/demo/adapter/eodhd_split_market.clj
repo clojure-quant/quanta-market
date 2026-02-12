@@ -1,4 +1,4 @@
-(ns demo.asset.eodhd-market
+(ns demo.adapter.eodhd-split-market
   (:require
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]

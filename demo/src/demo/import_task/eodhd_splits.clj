@@ -1,4 +1,4 @@
-(ns demo.asset.eodhd-splits
+(ns demo.import-task.eodhd-splits
   (:require
    [tick.core :as t]
    [missionary.core :as m]

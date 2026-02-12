@@ -1,4 +1,4 @@
-(ns dev.asset.normalized.kibot
+(ns demo.asset.normalized.kibot
   (:require
    [clojure.edn :as edn]
    [clojure.string :as str]

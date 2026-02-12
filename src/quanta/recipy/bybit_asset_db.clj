@@ -33,8 +33,7 @@
      :tick-size (:tickSize priceFilter)
      ; bybit specific
      :asset/bybit symbol
-     :asset/bybit-category :spot
-     }))
+     :asset/bybit-category :spot}))
 
 (defn normalize-linear [{:keys [symbol priceFilter] :as row}]
   (let [asset symbol]
@@ -45,11 +44,10 @@
      ;:tick-size (:tickSize priceFilter)
      ; bybit specific
      :asset/bybit symbol
-     :asset/bybit-category :linear
-     }))
+     :asset/bybit-category :linear}))
 
 (defn normalize [category asset]
-  (case category 
+  (case category
     "spot" (normalize-spot asset)
     "linear" (normalize-linear asset)
     asset))
@@ -62,18 +60,15 @@
          assets (->> assets-raw
                      (map #(normalize category %))
                      (map #(select-keys % [:asset/symbol :asset/name :asset/exchange :asset/category
-                                           :asset/bybit :asset/bybit-category 
-                                           ]))
+                                           :asset/bybit :asset/bybit-category]))
                      (into []))
          filename-raw (str (System/getenv "QUANTASTORE") "/asset/raw/bybit-" category ".edn")
-         filename (str (System/getenv "QUANTASTORE") "/asset/bybit-" category ".edn")
-         ]
+         filename (str (System/getenv "QUANTASTORE") "/asset/bybit-" category ".edn")]
      (println "bybit category " category " asset count: " (count assets-raw))
      (save :edn filename-raw assets-raw)
      (save :edn filename assets)
      (when assetdb
        (add-update-asset assetdb assets))
-     assets
-     )))
+     assets)))
 
 

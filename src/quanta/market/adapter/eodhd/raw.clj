@@ -99,15 +99,15 @@
 
 ;; the search api returns not found. possibly it has been discontinued.
 #_(defn search
-  ":q   Can be a ticker symbol, company name, or ISIN. Example values: AAPL, Apple Inc, US0378331005.
+    ":q   Can be a ticker symbol, company name, or ISIN. Example values: AAPL, Apple Inc, US0378331005.
    :type	all, stock, etf, fund, bond, index, crypto. 
           Note: when using “all”, bonds are excluded by default. Use “type=bond” to include bonds.
    :exchange	(e.g., US, PA, FOREX, NYSE, NASDAQ). List of Exchanges API
    :limit	Default is 15. Maximum value is 500.
    "
-  [api-token {:keys [q] :as opts}]
+    [api-token {:keys [q] :as opts}]
   ; https://eodhd.com/financial-apis/search-api-for-stocks-etfs-mutual-funds
-  (eodhd-http-get api-token "search/"
-                  (-> opts
-                      (rename-keys {:q :query_string}))))
+    (eodhd-http-get api-token "search/"
+                    (-> opts
+                        (rename-keys {:q :query_string}))))
 

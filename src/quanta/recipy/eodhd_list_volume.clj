@@ -10,7 +10,6 @@
 (defn floor [d]
   (Math/floor d))
 
-
 (defn short [s]
   (when s
     (subs s 0 (min 20 (dec (count s))))))
@@ -28,7 +27,7 @@
     (map one items)))
 
 (defn remove-when [condition predicate list]
-  (if condition 
+  (if condition
     (remove predicate list)
     list))
 
@@ -42,15 +41,13 @@
     (add-name-exchange-type ctx items)
     items))
 
-
 (defn high-volume-assets [{:keys [eodhd-token] :as ctx}
                           {:keys [turnover-min exchange add-name remove-no-name type]
                            :or {turnover-min 1000000.0
                                 exchange "US"
                                 add-name false
-                                remove-no-name false
-                                }
-                           }]
+                                remove-no-name false}}]
+
   (m/sp
    (->> (m/? (raw/get-day-bulk eodhd-token {:exchange exchange}))
         (map #(assoc % :turnover (* (:close %) (:volume %))))
@@ -65,7 +62,6 @@
         (filter-when (and add-name type) #(= (:type %) type))
         (remove-when remove-no-name #(= (:name %) "-")))))
 
-
 (defn add-list-high-volume-assets [{:keys [eodhd-token assetdb] :as ctx}
                                    {:keys [turnover-min exchange add-name remove-no-name list-name]
                                     :as opts
@@ -78,9 +74,7 @@
          assets (->> table
                      (map :code)
                      (into []))]
-     (add-update-list assetdb {:lists/name list-name :lists/asset assets})
-     
-     )))
+     (add-update-list assetdb {:lists/name list-name :lists/asset assets}))))
 
 
 

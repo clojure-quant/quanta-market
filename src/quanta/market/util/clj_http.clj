@@ -18,7 +18,7 @@
 (defn req
   [req-fn url opts]
   (m/via m/blk
-     (make-request req-fn url opts)))
+         (make-request req-fn url opts)))
 
 (defn http-head
   ([url]

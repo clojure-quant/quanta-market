@@ -17,11 +17,10 @@
                               :end end})))
         download-fn (fn [ctx opts]
                       (m/sp (let [bars (m/? (b/get-bars (:eodhd ctx)
-                                                   (select-keys opts [:asset :calendar])
-                                                   (select-keys opts [:start :end])))]
+                                                        (select-keys opts [:asset :calendar])
+                                                        (select-keys opts [:start :end])))]
                               ;(println "asset: " (:asset opts) " bars: " (tc/row-count bars))
-                              bars
-                              )))
+                              bars)))
         store-fn (fn [ctx opts data]
                    (b/append-bars (:bardb ctx)
                                   (select-keys opts [:asset :calendar])

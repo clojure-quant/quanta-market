@@ -1,4 +1,4 @@
-(ns demo.asset.eodhd-bars
+(ns demo.import-task.eodhd-bars
   (:require
    [tick.core :as t]
    [missionary.core :as m]

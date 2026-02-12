@@ -88,11 +88,11 @@
 
 (require '[clojure.pprint :refer [print-table]])
 
-(->> (get-working-orders pm)
-     (map :order)
-     (map #(select-keys % [:date-created :order-id]))
-     (sort-by :date-created)
-     print-table)
+#_(->> (get-working-orders pm)
+       (map :order)
+       (map #(select-keys % [:date-created :order-id]))
+       (sort-by :date-created)
+       print-table)
 
 (comment
 

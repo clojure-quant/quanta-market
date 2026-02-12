@@ -13,18 +13,17 @@
                    :lists/asset)
         opts-seq (->> assets
                       (map (fn [asset]
-                             {:asset asset 
+                             {:asset asset
                               :start start
                               :end end})))
         download-fn (fn [ctx opts]
                       (m/sp (let [splits (m/? (get-splits (:eodhd-token ctx)
-                                                          (select-keys opts [:asset ])
+                                                          (select-keys opts [:asset])
                                                           (select-keys opts [:start :end])))]
                               ;(println "asset: " (:asset opts) " splits: " (tc/row-count splits))
-                              splits
-                              )))
+                              splits)))
         store-fn (fn [ctx opts data]
-                   (m/sp 
+                   (m/sp
                     (when (and data (not (= 0 (tc/row-count data))))
                       (let [data-asset (tc/add-column data :asset (:asset opts))]
                         (swap! splits-a tc/concat data-asset)))))]

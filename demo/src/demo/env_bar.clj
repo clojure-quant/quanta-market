@@ -2,7 +2,7 @@
   (:require
    [clojure.string :as str]
    [clojure.edn :as edn]
-   [quanta.bar.db.nippy :refer [start-bardb-nippy]] 
+   [quanta.bar.db.nippy :refer [start-bardb-nippy]]
    [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd]]
    [quanta.market.asset.datahike :refer [start-asset-db]]))
 

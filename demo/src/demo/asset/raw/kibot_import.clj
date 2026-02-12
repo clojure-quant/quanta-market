@@ -1,4 +1,4 @@
-(ns dev.asset.raw.kibot-import
+(ns demo.asset.raw.kibot-import
   (:require
    [missionary.core :as m]
    [clj-commons.byte-streams :as bs]

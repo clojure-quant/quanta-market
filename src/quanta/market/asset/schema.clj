@@ -54,7 +54,6 @@
     :db/tupleTypes [:db.type/long :db.type/string] ;; [idx value]
     :db/cardinality :db.cardinality/many}])
 
-
 (def schema
   (->> (concat asset lists)
        (into [])))

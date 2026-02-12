@@ -1,4 +1,4 @@
-(ns demo.asset.universe-vol
+(ns demo.asset.bybit-universe-vol
   (:require
    [clojure.pprint :refer [print-table]]
    [missionary.core :as m]

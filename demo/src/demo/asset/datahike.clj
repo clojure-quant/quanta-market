@@ -3,9 +3,9 @@
    [datahike.api :as d]
    [quanta.market.asset.datahike :refer [add-update-asset query-assets get-asset
                                          add-update-list get-list
-                                         provider->asset asset->provider]]
-   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy assetdb]]
-   ))
+                                         provider->asset asset->provider
+                                         exchanges categories]]
+   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy assetdb]]))
 
 {:symbol "ENSUSDT.BB",
  :name "ENSUSDT",
@@ -19,32 +19,30 @@
 (provider->asset assetdb :bybit "ENSUSDT")
 ;; "ENSUSDT.BB"
 
-
-(add-asset-details assetdb {:asset/symbol "AAPL"
-                        :asset/name "Apple Computer Inc"})
-
-(add-update-asset assetdb [{:asset/symbol "AAPL"
-                  :asset/name "Apple Computer Inc"}])
+(add-update-asset assetdb {:asset/symbol "AAPL"
+                           :asset/name "Apple Computer Inc"})
 
 (add-update-asset assetdb [{:asset/symbol "AAPL"
-                  :asset/exchange "NASDAQ"
-                  :asset/category :equity}])
+                            :asset/name "Apple Computer Inc"}])
+
+(add-update-asset assetdb [{:asset/symbol "AAPL"
+                            :asset/exchange "NASDAQ"
+                            :asset/category :equity}])
 
 (add-update-asset assetdb [{:asset/symbol "MO"
-                        :asset/name "Altria"
-                        :asset/exchange "NYSE"
-                        :asset/category :equity}])
+                            :asset/name "Altria"
+                            :asset/exchange "NYSE"
+                            :asset/category :equity}])
 
 (add-update-asset assetdb [{:asset/symbol "SPY"
-                  :asset/name "Spiders S&P 500 ETF"
-                  :asset/exchange "NYSE"
-                  :asset/category :etf}])
+                            :asset/name "Spiders S&P 500 ETF"
+                            :asset/exchange "NYSE"
+                            :asset/category :etf}])
 
 (add-update-asset assetdb [{:asset/symbol "SPY"
-                  :asset/name "Spiders S&P 500 ETF"
-                  :asset/exchange "NYSE"
-                  :asset/category :etf}])
-
+                            :asset/name "Spiders S&P 500 ETF"
+                            :asset/exchange "NYSE"
+                            :asset/category :etf}])
 
 (def query-assets-all
   '[:find [(pull ?id [*]) ...]
@@ -52,42 +50,38 @@
     :where
     [?id :asset/symbol _]])
 
-(def query-assets-nasdaq
-  (conj
-   query-assets-all
-   '[?id :asset/category :stock]
-   (or [?id :asset/exchange "NASDAQ"]
-       [?id :asset/exchange "NYSE"])
-   ))
-
 (d/q  query-assets-all @assetdb)
 
-(def a 34)
+(def query-exchanges
+  '[:find [(pull ?id [:asset/exchange]) ...]
+    :in $
+    :where
+    [?id :asset/exchange _]])
 
-`[?id :asset/exchange ~a]
+(->> (d/q  query-exchanges @assetdb)
+     (map :asset/exchange)
+     (into #{}))
 
-(d/q  query-assets-nasdaq @assetdb)
+(exchanges assetdb)
+
+(categories assetdb)
 
 (def query-or
   '[:find [(pull ?id [*]) ...]
-    :in $ reg? 
+    :in $ reg?
     :where
     [?id :asset/symbol ?as]
     [?id :asset/category :equity]
-    [?id :asset/name ?an]  
+    [?id :asset/name ?an]
     #_(or-join [?an ?as]
-             [(re-find reg? ?an)]
-             [(re-find reg? ?as)]
-             )
-    ])
+               [(re-find reg? ?an)]
+               [(re-find reg? ?as)])])
 
 (d/q  query-or @assetdb #"(?i)altr")
 (d/q  query-or @assetdb #"(?i)msft")
 
 (re-find #"(?i)FOO" "Foobar")
 (re-find #"FOO" "barbar")
-
-[(clojure.string/lower-case ?name) ?lname]
 
 (defn qc [q]
   (let [r (query-assets assetdb q)]
@@ -109,23 +103,7 @@
          {:exchange "NYSE" :category :etf}
          {:exchange "BYBIT" :category :crypto-future}
          {:q "Tr"}
-         {:exchange "NYSE" :category :etf :q "MO"}
-         ])
-
-(re-pattern (str "(?i)" "tr"))
-
-(query-assets assetdb )
-(query-assets assetdb )
-
-(query-assets assetdb )
-(query-assets assetdb )
-(query-assets assetdb 
-(query-assets assetdb )
-(query-assets assetdb )
-
-(query-assets assetdb )
-
-(query-assets assetdb )
+         {:exchange "NYSE" :category :etf :q "MO"}])
 
 (get-asset assetdb "MSFT")
 (get-asset assetdb "000")
@@ -141,7 +119,6 @@
 (-> (get-list assetdb "equity-10mio")
     :lists/asset
     count)
- 
 
 (-> (get-list assetdb "etf-10mio")
     :lists/asset

@@ -1,4 +1,4 @@
-(ns dev.asset.raw.kibot
+(ns demo.asset.raw.kibot
   (:require
    [missionary.core :as m]
    [quanta.market.barimport.kibot.asset.db :as db]))

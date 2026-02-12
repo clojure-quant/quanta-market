@@ -1,4 +1,4 @@
-(ns demo.asset.bybit-universeiverse
+(ns demo.asset.bybit-universe
   (:require
    [clojure.edn :as edn]
    [clojure.string :as str]

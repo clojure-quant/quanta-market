@@ -1,9 +1,9 @@
-(ns demo.asset.eodhd-list-db
+(ns demo.import-task.eodhd-list-db
   (:require
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]
    [missionary.core :as m]
-   [tablecloth.api :as tc] 
+   [tablecloth.api :as tc]
    [quanta.recipy.eodhd-list-volume :refer [add-list-high-volume-assets]]
    [demo.env-bar :refer [ctx]]))
 
@@ -22,11 +22,11 @@
                                                      :list-name "equity-10mio"})))
 
 (->> equities
-    :tx-data
-    reverse
-    (take 3)
+     :tx-data
+     reverse
+     (take 3)
 ;    count
- )
+     )
  ;[2419 "ALG"]
 
 

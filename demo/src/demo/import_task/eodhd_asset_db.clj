@@ -1,4 +1,4 @@
-(ns demo.asset.eodhd-asset-db
+(ns demo.import-task.eodhd-asset-db
   (:require
    [missionary.core :as m]
    [quanta.recipy.eodhd-asset-db :refer [get-exchange-assets asset-summary asset-stats filter-assets
@@ -65,7 +65,7 @@
 
 (m/? (build-asset-edn-normalized ctx {:market "US"
                                       :types #{"ETF"}
-                                      :filename (str (System/getenv "QUANTASTORE") 
+                                      :filename (str (System/getenv "QUANTASTORE")
                                                      "/asset/eodhd-etf.edn")}))
 
 (m/? (build-asset-edn-normalized ctx {:market "US"

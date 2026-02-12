@@ -31,9 +31,6 @@ d
        (println "ex data:" (ex-data ex))
        (println "ex cause:" (ex-cause ex))))
 
-
-
-
 (m/? (raw/get-splits
       "demo"
       {:asset "AAPL.US" :from "1980-01-01" :to "2026-03-20"}))
@@ -76,13 +73,11 @@ d
 ;;    | 2024-03-19T00:00:00Z | 0.083 | 0.083 | 0.083 |  0.083 |           0.083 |   71606 |
 ;;    | 2024-03-20T00:00:00Z | 0.082 | 0.082 | 0.082 |  0.082 |           0.082 |   50000 |
 
-
 (try (m/? (raw/search eodhd-token {:q "S"
                                    :type "index"}))
      (catch Exception ex
        (println "ex: " ex)
        (println "ex data:" (ex-data ex))
        (println "ex cause:" (ex-cause ex))))
-
 
 "VI"

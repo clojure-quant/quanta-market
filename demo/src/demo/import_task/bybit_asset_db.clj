@@ -1,4 +1,4 @@
-(ns demo.asset.import-task.bybit-asset-db
+(ns demo.import-task.bybit-asset-db
   (:require
    [tick.core :as t]
    [clojure.string :as str]

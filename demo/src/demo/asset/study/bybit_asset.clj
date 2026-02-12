@@ -1,4 +1,4 @@
-(ns dev.asset.study.bybit-asset
+(ns demo.asset.study.bybit-asset
   (:require
    [tick.core :as t]
    [clojure.string :as str]

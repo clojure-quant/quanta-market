@@ -1,4 +1,4 @@
-(ns demo.adapter.eodhd-splits
+(ns demo.adapter.eodhd-split
   (:require
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]
@@ -77,4 +77,3 @@ split-ds
                             (/ a b)) (:close ds) (:adjusted_close ds)))
       (tc/info)))
 
-               

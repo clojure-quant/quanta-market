@@ -3,12 +3,9 @@
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]
    [missionary.core :as m]
-   [tablecloth.api :as tc]
-   [modular.persist.edn] ; side effects to load edn files
-   [modular.persist.protocol :refer [save loadr]]
-   [quanta.market.adapter.eodhd.raw :as raw]
+   [tablecloth.api :as tc] 
    [quanta.recipy.eodhd-list-volume :refer [add-list-high-volume-assets]]
-   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy ctx]]))
+   [demo.env-bar :refer [ctx]]))
 
 (def etfs (m/? (add-list-high-volume-assets ctx {:exchange "US"
                                                  :turnover-min 10000000.0
@@ -29,8 +26,8 @@
     reverse
     (take 3)
 ;    count
- [2419 "ALG"]
  )
+ ;[2419 "ALG"]
 
 
 

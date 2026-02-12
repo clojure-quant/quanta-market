@@ -102,7 +102,7 @@
 (defn convert-asset [{:keys [Code Name Type Country Exchange Currency Isin]}]
   {:asset/symbol Code 
    :asset/name Name
-   :asset/type (get eod-type-dict Type)
+   :asset/category (get eod-type-dict Type)
    :asset/exchange Exchange
    ; Currency 
    ; Country

@@ -21,7 +21,7 @@
                 (if asset
                   (assoc item :name (short (:asset/name asset))
                          :exchange (:asset/exchange asset)
-                         :type (:asset/type asset))
+                         :type (:asset/category asset))
                   (assoc item :name "-"
                          :exchange "-"
                          :type "-"))))]

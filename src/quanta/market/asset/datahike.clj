@@ -7,6 +7,7 @@
 
 (defn start-asset-db [db-dir]
   (let [cfg {:store {:backend :file ; backends: in-memory, file-based, LevelDB, PostgreSQL
+                     :id (java.util.UUID/fromString "04234acd-f191-42f9-9b95-bb4d52723c76")
                      :path db-dir}
              :keep-history? false
              :schema-flexibility :write  ;default - strict value types need to be defined in advance. 
@@ -53,7 +54,7 @@
         :in $
         :where
         [?id :asset/symbol _]]
-      (conj-key-when :asset/type type)
+      (conj-key-when :asset/category type)
       (conj-key-when :asset/exchange exchange)
       (conj-q-when q)
       (d/q @dbconn)))
@@ -62,7 +63,7 @@
   "[{:asset/symbol \"SPY\"
                   :asset/name \"Spiders S&P 500 ETF\"
                   :asset/exchange \"NYSE\"
-                  :asset/type :etf}]"
+                  :asset/category :etf}]"
   [dbconn asset]
   (if (map? asset)
     (d/transact dbconn [asset])

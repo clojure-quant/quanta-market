@@ -19,7 +19,7 @@
                       (m/sp (let [bars (m/? (b/get-bars (:eodhd ctx)
                                                    (select-keys opts [:asset :calendar])
                                                    (select-keys opts [:start :end])))]
-                              (println "asset: " (:asset opts) " bars: " (tc/row-count bars))
+                              ;(println "asset: " (:asset opts) " bars: " (tc/row-count bars))
                               bars
                               )))
         store-fn (fn [ctx opts data]

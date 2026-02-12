@@ -25,11 +25,14 @@
    {:db/ident :asset/name
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
-   {:db/ident :asset/type
+   {:db/ident :asset/category
     :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one}
    {:db/ident :asset/exchange
     :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one}
+   {:db/ident :asset/bybit-category
+    :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one}
    ])
 

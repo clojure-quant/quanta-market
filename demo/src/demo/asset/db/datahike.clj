@@ -16,22 +16,22 @@
 
 (add-update-asset assetdb [{:asset/symbol "AAPL"
                   :asset/exchange "NASDAQ"
-                  :asset/type :equity}])
+                  :asset/category :equity}])
 
 (add-update-asset assetdb [{:asset/symbol "MO"
                         :asset/name "Altria"
                         :asset/exchange "NYSE"
-                        :asset/type :equity}])
+                        :asset/category :equity}])
 
 (add-update-asset assetdb [{:asset/symbol "SPY"
                   :asset/name "Spiders S&P 500 ETF"
                   :asset/exchange "NYSE"
-                  :asset/type :etf}])
+                  :asset/category :etf}])
 
 (add-update-asset assetdb [{:asset/symbol "SPY"
                   :asset/name "Spiders S&P 500 ETF"
                   :asset/exchange "NYSE"
-                  :asset/type :etf}])
+                  :asset/category :etf}])
 
 
 (def query-assets-all

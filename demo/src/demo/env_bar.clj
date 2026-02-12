@@ -21,13 +21,6 @@
       (edn/read-string)))
 
 secrets
-(def assets
-  [; kibot
-   {:name "EURUSD" :asset "EUR/USD" :kibot "EURUSD" :category :fx}
-   {:name "Microsoft" :asset "MSFT" :kibot "MSFT" :category :equity}])
-
-#_(doall
-   (map asset-db/add assets))
 
 ;(asset-db/instrument-details "EUR/USD")
 (def bardb-nippy

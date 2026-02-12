@@ -1,13 +1,12 @@
 (ns quanta.market.adapter.bybit.raw
   (:require
-   [taoensso.telemere :as tm]
    [missionary.core :as m]
    [tick.core :as t]
+   [tech.v3.dataset :as tds]
+   [tablecloth.api :as tc]
    ;[quanta.market.util.aleph :as a]
    [quanta.market.util.clj-http :refer [http-get-body-json]]
    [ta.import.helper :refer [str->double]]
-   [tech.v3.dataset :as tds]
-   [tablecloth.api :as tc]
    [quanta.market.adapter.bybit.normalize-request :refer [bybit-bar-params]]
    [quanta.market.barimport.bar-matcher :refer [match-window]]))
 

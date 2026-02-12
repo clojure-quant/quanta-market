@@ -43,8 +43,9 @@
 (def query-assets-nasdaq
   (conj
    query-assets-all
-   '(or [?id :asset/exchange "NASDAQ"]
-        [?id :asset/exchange "NYSE"])
+   '[?id :asset/category :stock]
+   (or [?id :asset/exchange "NASDAQ"]
+       [?id :asset/exchange "NYSE"])
    ))
 
 (d/q  query-assets-all @assetdb)
@@ -55,24 +56,64 @@
 
 (d/q  query-assets-nasdaq @assetdb)
 
+(def query-or
+  '[:find [(pull ?id [*]) ...]
+    :in $ reg? 
+    :where
+    [?id :asset/symbol ?as]
+    [?id :asset/category :equity]
+    [?id :asset/name ?an]  
+    #_(or-join [?an ?as]
+             [(re-find reg? ?an)]
+             [(re-find reg? ?as)]
+             )
+    ])
+
+(d/q  query-or @assetdb #"(?i)altr")
+(d/q  query-or @assetdb #"(?i)msft")
 
 (re-find #"(?i)FOO" "Foobar")
 (re-find #"FOO" "barbar")
 
 [(clojure.string/lower-case ?name) ?lname]
 
-(query-assets assetdb {:exchange "NASDAQ"})
-(query-assets assetdb {:exchange "NYSE"})
+(defn qc [q]
+  (let [r (query-assets assetdb q)]
+    [q (count r)]))
 
-(query-assets assetdb {:exchange "NYSE" :type :stock})
-(query-assets assetdb {:exchange "NYSE" :type :etf})
-(query-assets assetdb {:type :etf})
-(query-assets assetdb {:type :stock})
-(query-assets assetdb {})
+(qc {:exchange "NASDAQ"})
 
-(query-assets assetdb {:exchange "NYSE" :type :etf :q "MO"})
+(query-assets assetdb {:q "MSFT"})
+(qc {:q "MSFT"})
 
-(query-assets assetdb {:q "Tr"})
+(map qc [{}
+         {:category :etf}
+         {:category :equity}
+         {:category :crypto}
+         {:exchange "NASDAQ"}
+         {:exchange "NYSE"}
+         {:exchange "BYBIT"}
+         {:exchange "NYSE" :category :equity}
+         {:exchange "NYSE" :category :etf}
+         {:exchange "BYBIT" :category :crypto-future}
+         {:q "Tr"}
+         {:exchange "NYSE" :category :etf :q "MO"}
+         ])
+
+(re-pattern (str "(?i)" "tr"))
+
+(query-assets assetdb )
+(query-assets assetdb )
+
+(query-assets assetdb )
+(query-assets assetdb )
+(query-assets assetdb 
+(query-assets assetdb )
+(query-assets assetdb )
+
+(query-assets assetdb )
+
+(query-assets assetdb )
 
 (get-asset assetdb "MSFT")
 (get-asset assetdb "000")

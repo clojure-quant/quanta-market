@@ -40,24 +40,23 @@
 
 (defn- conj-q-when [query q]
   (if q
-    (let [r (re-pattern (str "(?i)" q))]
-      (-> query
-          (conj `[~'?id :asset/name ~'?n])
-          (conj `[(re-find ~r ~'?n)])
-          ;(conj  `[~'?id :asset/symbol ~'?s])
-          ;(conj  `[(or (re-find ~r ~'?n) (re-find ~r ~'?s))])))
-          ))
+    (-> query
+        (conj '[?id :asset/name ?an]
+              (conj `(~'or-join [~'?an ~'?as]
+                                [(re-find ~'qr? ~'?an)]
+                                [(re-find ~'qr? ~'?as)]))))
     query))
 
-(defn query-assets [dbconn {:keys [q exchange type]}]
-  (-> '[:find [(pull ?id [*]) ...]
-        :in $
-        :where
-        [?id :asset/symbol _]]
-      (conj-key-when :asset/category type)
-      (conj-key-when :asset/exchange exchange)
-      (conj-q-when q)
-      (d/q @dbconn)))
+(defn query-assets [dbconn {:keys [q exchange category]}]
+  (let [qr? (when q (re-pattern (str "(?i)" q)))]
+    (-> '[:find [(pull ?id [*]) ...]
+          :in $ qr?
+          :where
+          [?id :asset/symbol ?as]]
+        (conj-key-when :asset/category category)
+        (conj-key-when :asset/exchange exchange)
+        (conj-q-when q)
+        (d/q @dbconn qr?))))
 
 (defn add-update-asset
   "[{:asset/symbol \"SPY\"
@@ -99,7 +98,7 @@
   (-> '[:find [(pull ?id [*]) ...]
         :in $ ?list-name
         :where
-        [?id :lists/name ?list-name]] 
+        [?id :lists/name ?list-name]]
       (d/q @dbconn list-name)
       first
       untupelize-list))

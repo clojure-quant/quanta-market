@@ -99,3 +99,5 @@
 (defn warning [result]
   (-> result last :warning))
 
+
+; https://eodhd.com/financial-apis/search-api-for-stocks-etfs-mutual-funds

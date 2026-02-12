@@ -15,9 +15,9 @@
   (when s
     (subs s 0 (min 20 (dec (count s))))))
 
-(defn add-name-exchange-type [{:keys [eodhd-token dbc] :as _ctx} items]
+(defn add-name-exchange-type [{:keys [eodhd-token assetdb] :as _ctx} items]
   (let [one (fn [item]
-              (let [asset (get-asset dbc (:code item))]
+              (let [asset (get-asset assetdb (:code item))]
                 (if asset
                   (assoc item :name (short (:asset/name asset))
                          :exchange (:asset/exchange asset)
@@ -66,7 +66,7 @@
         (remove-when remove-no-name #(= (:name %) "-")))))
 
 
-(defn add-list-high-volume-assets [{:keys [eodhd-token dbc] :as ctx}
+(defn add-list-high-volume-assets [{:keys [eodhd-token assetdb] :as ctx}
                                    {:keys [turnover-min exchange add-name remove-no-name list-name]
                                     :as opts
                                     :or {turnover-min 1000000.0
@@ -78,7 +78,7 @@
          assets (->> table
                      (map :code)
                      (into []))]
-     (add-update-list dbc {:lists/name list-name :lists/asset assets})
+     (add-update-list assetdb {:lists/name list-name :lists/asset assets})
      
      )))
 

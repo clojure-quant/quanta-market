@@ -7,7 +7,7 @@
    [quanta.market.asset.datahike :refer [get-list]]))
 
 (defn import-bars-list [ctx {:keys [list calendar start end]}]
-  (let [assets (-> (get-list (:dbc ctx) list)
+  (let [assets (-> (get-list (:assetdb ctx) list)
                    :lists/asset)
         opts-seq (->> assets
                       (map (fn [asset]

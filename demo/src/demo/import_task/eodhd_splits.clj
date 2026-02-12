@@ -40,4 +40,4 @@ splits-a
 (tc/row-count @splits-a)
 ; 2812 = 2300 stocks, 500 etf
 
-(save-ds "./data/splits.nippy.gz" @splits-a)
+(save-ds (str (System/getenv "QUANTASTORE") "./splits.nippy.gz") @splits-a)

@@ -9,7 +9,7 @@
 (defonce splits-a (atom (tc/dataset)))
 
 (defn import-splits-list [ctx {:keys [list start end]}]
-  (let [assets (-> (get-list (:dbc ctx) list)
+  (let [assets (-> (get-list (:assetdb ctx) list)
                    :lists/asset)
         opts-seq (->> assets
                       (map (fn [asset]

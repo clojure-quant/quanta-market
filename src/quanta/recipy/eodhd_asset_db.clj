@@ -50,7 +50,7 @@
           (into [])
           (save :edn filename)))))
 
-(defn build-asset-edn-normalized [{:keys [eodhd-token dbc]}
+(defn build-asset-edn-normalized [{:keys [eodhd-token assetdb]}
                                   {:keys [market exchanges types
                                           filename] :as opts}]
   (m/sp
@@ -59,8 +59,8 @@
                       (map convert-asset)
                       (into []))]
      (save :edn filename assets)
-     (when dbc
-       (add-update-asset dbc assets))
+     (when assetdb
+       (add-update-asset assetdb assets))
      assets)))
 
 (defn build-exchange-edn [{:keys [eodhd-token]} {:keys [filename] :as opts}]

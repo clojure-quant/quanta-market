@@ -4,31 +4,31 @@
    [quanta.market.asset.datahike :refer [add-update-asset query-assets get-asset
                                          add-update-list get-list
                                          ]]
-   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy dbc]]
+   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy assetdb]]
    ))
 
 
-(add-asset-details dbc {:asset/symbol "AAPL"
+(add-asset-details assetdb {:asset/symbol "AAPL"
                         :asset/name "Apple Computer Inc"})
 
-(add-update-asset dbc [{:asset/symbol "AAPL"
+(add-update-asset assetdb [{:asset/symbol "AAPL"
                   :asset/name "Apple Computer Inc"}])
 
-(add-update-asset dbc [{:asset/symbol "AAPL"
+(add-update-asset assetdb [{:asset/symbol "AAPL"
                   :asset/exchange "NASDAQ"
                   :asset/type :equity}])
 
-(add-update-asset dbc [{:asset/symbol "MO"
+(add-update-asset assetdb [{:asset/symbol "MO"
                         :asset/name "Altria"
                         :asset/exchange "NYSE"
                         :asset/type :equity}])
 
-(add-update-asset dbc [{:asset/symbol "SPY"
+(add-update-asset assetdb [{:asset/symbol "SPY"
                   :asset/name "Spiders S&P 500 ETF"
                   :asset/exchange "NYSE"
                   :asset/type :etf}])
 
-(add-update-asset dbc [{:asset/symbol "SPY"
+(add-update-asset assetdb [{:asset/symbol "SPY"
                   :asset/name "Spiders S&P 500 ETF"
                   :asset/exchange "NYSE"
                   :asset/type :etf}])
@@ -45,13 +45,13 @@
    query-assets-all
    '[?id :asset/exchange :NASDAQ]))
 
-(d/q  query-assets-all @dbc)
+(d/q  query-assets-all @assetdb)
 
 (def a 34)
 
 `[?id :asset/exchange ~a]
 
-(d/q  query-assets-nasdaq @dbc)
+(d/q  query-assets-nasdaq @assetdb)
 
 
 (re-find #"(?i)FOO" "Foobar")
@@ -59,36 +59,36 @@
 
 [(clojure.string/lower-case ?name) ?lname]
 
-(query-assets dbc {:exchange "NASDAQ"})
-(query-assets dbc {:exchange "NYSE"})
+(query-assets assetdb {:exchange "NASDAQ"})
+(query-assets assetdb {:exchange "NYSE"})
 
-(query-assets dbc {:exchange "NYSE" :type :stock})
-(query-assets dbc {:exchange "NYSE" :type :etf})
-(query-assets dbc {:type :etf})
-(query-assets dbc {:type :stock})
-(query-assets dbc {})
+(query-assets assetdb {:exchange "NYSE" :type :stock})
+(query-assets assetdb {:exchange "NYSE" :type :etf})
+(query-assets assetdb {:type :etf})
+(query-assets assetdb {:type :stock})
+(query-assets assetdb {})
 
-(query-assets dbc {:exchange "NYSE" :type :etf :q "MO"})
+(query-assets assetdb {:exchange "NYSE" :type :etf :q "MO"})
 
-(query-assets dbc {:q "Tr"})
+(query-assets assetdb {:q "Tr"})
 
-(get-asset dbc "MSFT")
-(get-asset dbc "000")
+(get-asset assetdb "MSFT")
+(get-asset assetdb "000")
 
 ;; lists 
 
-(add-update-list dbc {:lists/name "flo" :lists/asset ["MSFT" "SPY"]})
+(add-update-list assetdb {:lists/name "flo" :lists/asset ["MSFT" "SPY"]})
 
-(get-list dbc "flo")
+(get-list assetdb "flo")
 
-(get-list dbc "etf-10mio")
+(get-list assetdb "etf-10mio")
 
-(-> (get-list dbc "equity-10mio")
+(-> (get-list assetdb "equity-10mio")
     :lists/asset
     count)
  
 
-(-> (get-list dbc "etf-10mio")
+(-> (get-list assetdb "etf-10mio")
     :lists/asset
     count)
 

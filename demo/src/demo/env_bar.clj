@@ -1,17 +1,24 @@
 (ns demo.env-bar
   (:require
+   [clojure.string :as str]
    [clojure.edn :as edn]
    [quanta.bar.db.nippy :refer [start-bardb-nippy]]
    [quanta.market.asset.db :as asset-db]
-   [quanta.market.asset.load :refer [add-lists-to-db]]
    [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd]]
    [quanta.market.asset.datahike :refer [start-asset-db]]))
 
+(defn expand-env-safe [s]
+  (str/replace s #"\$\{([^}]+)\}"
+               (fn [[match var]]
+                 (or (System/getenv var) (throw (ex-info (str "ENV-VAR not found: " var) {}))))))
+
+;(expand-env-safe "${MYVAULT}/quanta.edn")
+;(expand-env-safe "${MYVAULT4}/quanta.edn")
+
 (def secrets
-  (-> ;(str (System/getenv "MYVAULT") "/quanta.edn")
-   "/home/florian/repo/myLinux/myvault/quanta.edn"
-   (slurp)
-   (edn/read-string)))
+  (-> (str (System/getenv "MYVAULT") "/quanta.edn")
+      (slurp)
+      (edn/read-string)))
 
 secrets
 (def assets
@@ -22,22 +29,17 @@ secrets
 #_(doall
    (map asset-db/add assets))
 
-(add-lists-to-db)
-
 ;(asset-db/instrument-details "EUR/USD")
 (def bardb-nippy
-  (start-bardb-nippy "./data/nippy/"))
-
+  (start-bardb-nippy  (str (System/getenv "QUANTASTORE") "/bardb/eodhd-nippy/")))
 
 (def eodhd-token  (:eodhd secrets))
 
 (def eodhd (create-import-eodhd (:eodhd secrets)))
 
-(def dbc (start-asset-db "./data/datahike"))
+(def assetdb (start-asset-db (str (System/getenv "QUANTASTORE") "/assetdb")))
 
-
-(def ctx {:eodhd-token eodhd-token 
+(def ctx {:eodhd-token eodhd-token
           :eodhd eodhd
           :bardb bardb-nippy
-          :dbc dbc
-          })
+          :assetdb assetdb})

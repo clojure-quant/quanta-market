@@ -50,25 +50,27 @@
 
 (m/? (build-asset-edn ctx {:market "US"
                            :types #{"ETF"}
-                           :filename "./data/raw/eodhd-etf.edn"}))
+                           :filename (str (System/getenv "QUANTASTORE") "./asset/raw/eodhd-etf.edn")}))
 
 (m/? (build-asset-edn ctx {:market "US"
                            :types #{"Common Stock"}
                            :exchanges #{"NYSE" "NASDAQ" "AMEX" "NYSE MKT"}
-                           :filename "./data/raw/eodhd-stocks.edn"}))
+                           :filename (str (System/getenv "QUANTASTORE") "./asset/raw/eodhd-stocks.edn")}))
 
-(m/? (build-exchange-edn ctx {:filename "./data/raw/eodhd-exchanges.edn"}))
+(m/? (build-exchange-edn ctx {:filename (str (System/getenv "QUANTASTORE") "./asset/raw/eodhd-exchanges.edn")}))
 
 ;; NORMALIZED ASSETS AND DB ACCESS
 
 (m/? (build-asset-edn-normalized ctx {:market "US"
                                       :types #{"ETF"}
-                                      :filename "./data/eodhd-etf.edn"}))
+                                      :filename (str (System/getenv "QUANTASTORE") 
+                                                     "./asset/eodhd-etf.edn")}))
 
 (m/? (build-asset-edn-normalized ctx {:market "US"
                                       :types #{"Common Stock"
                                                "Preferred Stock"}
                                       :exchanges #{"NYSE" "NYSE MKT" "NYSE ARCA"
                                                    "NASDAQ" "AMEX"}
-                                      :filename  "./data/eodhd-stocks.edn"}))
+                                      :filename  (str (System/getenv "QUANTASTORE")
+                                                      "./asset/eodhd-stocks.edn")}))
 

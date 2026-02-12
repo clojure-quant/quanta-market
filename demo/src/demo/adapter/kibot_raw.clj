@@ -1,4 +1,4 @@
-(ns demo.barimport.kibot-raw
+(ns demo.adapter.kibot-raw
   (:require
    [missionary.core :as m]
    [quanta.market.barimport.kibot.raw :as kb]

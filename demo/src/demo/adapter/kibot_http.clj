@@ -1,4 +1,4 @@
-(ns demo.barimport.kibot-http
+(ns demo.adapter.kibot-http
   (:require
    [missionary.core :as m]
    [quanta.market.asset.db :as db]

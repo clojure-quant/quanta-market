@@ -1,4 +1,4 @@
-(ns demo.barimport.kibot-api
+(ns demo.adapter.kibot-api
   (:require
    [tick.core :as t]
    [missionary.core :as m]

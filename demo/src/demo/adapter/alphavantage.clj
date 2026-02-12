@@ -1,4 +1,4 @@
-(ns demo.barimport.alphavantage
+(ns demo.adapter.alphavantage
   (:require
    [clojure.pprint :refer [print-table]]
    [quanta.market.util.date :refer [parse-date]]

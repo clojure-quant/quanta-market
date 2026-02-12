@@ -1,4 +1,4 @@
-(ns demo.barimport.bybit
+(ns demo.adapter.bybit
   (:require
    [missionary.core :as m]
    [tick.core :as t]

@@ -10,10 +10,12 @@
 ;; => {:category "spot", :assets 621}
 
 (m/? (download-asset-category ctx {:category "linear"}))
+; fix it. we cannto reuse the same bybit sybmol, because spot and linear can hav ethe 
+; same symbol
 
-(m/? (download-asset-category ctx {:category "inverse"}))
+;(m/? (download-asset-category ctx {:category "inverse"}))
 ;; => {:category "inverse", :assets 13}
-(m/? (download-asset-category ctx {:category "option"}))
+;(m/? (download-asset-category ctx {:category "option"}))
 ;; => {:category "option", :assets 500}
 
 

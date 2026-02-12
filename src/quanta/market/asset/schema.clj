@@ -31,10 +31,18 @@
    {:db/ident :asset/exchange
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
+   ; provider
+   {:db/ident :asset/bybit ;; mapping to bybit. todo: change to tuple [:spot "BTCUSDT"]
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}
    {:db/ident :asset/bybit-category
     :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one}
-   ])
+   {:db/ident :asset/eodhq
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/identity}])
 
 (def lists
   [{:db/ident :lists/name

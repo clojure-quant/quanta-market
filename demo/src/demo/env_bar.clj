@@ -2,8 +2,7 @@
   (:require
    [clojure.string :as str]
    [clojure.edn :as edn]
-   [quanta.bar.db.nippy :refer [start-bardb-nippy]]
-   [quanta.market.asset.db :as asset-db]
+   [quanta.bar.db.nippy :refer [start-bardb-nippy]] 
    [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd]]
    [quanta.market.asset.datahike :refer [start-asset-db]]))
 
@@ -22,7 +21,6 @@
 
 secrets
 
-;(asset-db/instrument-details "EUR/USD")
 (def bardb-nippy
   (start-bardb-nippy  (str (System/getenv "QUANTASTORE") "/bardb/eodhd-nippy/")))
 

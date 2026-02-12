@@ -76,6 +76,32 @@
       (d/q @dbconn asset-symbol)
       first))
 
+(name :b)
+
+(defn asset->provider [dbconn provider asset]
+  (let [provider-k (keyword (symbol "asset" (name provider)))]
+    (-> `[:find [(~'pull ~'?id [~provider-k]) ...]
+          :in ~'$ ~'?asset-symbol
+          :where
+          [~'?id :asset/symbol ~'?asset-symbol]]
+        (d/q @dbconn asset)
+        first
+        (get provider-k)
+        )))
+
+(defn provider->asset [dbconn provider asset-provider]
+  (let [provider-k (keyword (symbol "asset" (name provider)))]
+    (-> `[:find [(~'pull ~'?id [:asset/symbol]) ...]
+          :in ~'$ ~'?asset-provider
+          :where
+          [~'?id ~provider-k  ~'?asset-provider]]
+        (d/q @dbconn asset-provider)
+        first
+        :asset/symbol)))
+
+
+(get {:a 1} :a)
+
 ;; LISTS
 
 (defn tupelize-list [data]

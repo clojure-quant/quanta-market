@@ -1,11 +1,23 @@
-(ns demo.asset.db.datahike
+(ns demo.asset.datahike
   (:require
    [datahike.api :as d]
    [quanta.market.asset.datahike :refer [add-update-asset query-assets get-asset
                                          add-update-list get-list
-                                         ]]
+                                         provider->asset asset->provider]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy assetdb]]
    ))
+
+{:symbol "ENSUSDT.BB",
+ :name "ENSUSDT",
+ :exchange "BYBIT",
+ :category :crypto,
+ :bybit "ENSUSDT",
+ :bybit-category :spot}
+
+(asset->provider assetdb :bybit "ENSUSDT.BB")
+;; "ENSUSDT"
+(provider->asset assetdb :bybit "ENSUSDT")
+;; "ENSUSDT.BB"
 
 
 (add-asset-details assetdb {:asset/symbol "AAPL"

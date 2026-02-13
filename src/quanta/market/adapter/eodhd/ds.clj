@@ -74,7 +74,7 @@
 ; {:date "1987-06-16", :split "2.000000/1.000000"}
 ;(split-str->factor "2.000000/1.000000")
 
-(defn get-splits [api-token {:keys [asset calendar]} {:keys [start end] :as window}]
+(defn get-splits [api-token {:keys [asset _calendar]} {:keys [start end] :as _window}]
   (m/sp
    (let [start-opts (if start {:from (fmt-yyyymmdd start)} {})
          end-opts (if end {:to (fmt-yyyymmdd end)} {})
@@ -100,7 +100,8 @@
    "Warrant" :other
    "Notes" :other})
 
-(defn convert-asset [{:keys [Code Name Type Country Exchange Currency Isin]}]
+(defn convert-asset [{:keys [Code Name Type  Exchange
+                             _Country _Currency _Isin]}]
   {:asset/symbol Code
    :asset/name Name
    :asset/category (get eod-type-dict Type)

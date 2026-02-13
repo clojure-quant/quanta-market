@@ -22,7 +22,7 @@
                                                           (select-keys opts [:start :end])))]
                               ;(println "asset: " (:asset opts) " splits: " (tc/row-count splits))
                               splits)))
-        store-fn (fn [ctx opts data]
+        store-fn (fn [_ctx opts data]
                    (m/sp
                     (when (and data (not (= 0 (tc/row-count data))))
                       (let [data-asset (tc/add-column data :asset (:asset opts))]

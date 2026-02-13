@@ -1,7 +1,7 @@
 (ns quanta.market.asset.datahike
   (:require
    [taoensso.timbre :as timbre :refer [info warn error]]
-   [clojure.java.io :as io]
+   ;[clojure.java.io :as io]
    [datahike.api :as d]
    [quanta.market.asset.schema :refer [schema]]))
 
@@ -128,7 +128,7 @@
 
 (defn untupelize-list [data]
   (update data :lists/asset #(into []
-                                   (map (fn [[idx asset]]
+                                   (map (fn [[_idx asset]]
                                           asset) %))))
 
 (defn add-update-list

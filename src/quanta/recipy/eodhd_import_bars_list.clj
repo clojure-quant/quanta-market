@@ -1,9 +1,9 @@
 (ns quanta.recipy.eodhd-import-bars-list
   (:require
    [missionary.core :as m]
-   [tablecloth.api :as tc]
+   ;[tablecloth.api :as tc]
    [quanta.missionary :refer [rest-import]]
-   [quanta.bar.protocol :as b :refer [bardb barsource]]
+   [quanta.bar.protocol :as b]
    [quanta.market.asset.datahike :refer [get-list]]))
 
 (defn import-bars-list [ctx {:keys [list calendar start end]}]

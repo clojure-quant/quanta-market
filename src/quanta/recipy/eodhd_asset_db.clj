@@ -5,7 +5,7 @@
    [modular.persist.protocol :refer [save]]
    [quanta.market.adapter.eodhd.raw :as raw]
    [quanta.market.adapter.eodhd.ds :refer [convert-asset]]
-   [quanta.market.asset.datahike :refer [add-update-asset query-assets]]))
+   [quanta.market.asset.datahike :refer [add-update-asset]]))
 
 (defn asset-stats [assets]
   {:exchanges (->> assets
@@ -41,7 +41,7 @@
          (into []))))
 
 (defn build-asset-edn [{:keys [eodhd-token]} {:keys [market
-                                                     exchanges types
+                                                     _exchanges _types
                                                      filename] :as opts}]
   (m/sp
    (let [assets (m/? (raw/get-exchange-assets eodhd-token market))]
@@ -51,7 +51,7 @@
           (save :edn filename)))))
 
 (defn build-asset-edn-normalized [{:keys [eodhd-token assetdb]}
-                                  {:keys [market exchanges types
+                                  {:keys [market _exchanges _types
                                           filename] :as opts}]
   (m/sp
    (let [assets  (->> (m/? (raw/get-exchange-assets eodhd-token market))
@@ -63,7 +63,7 @@
        (add-update-asset assetdb assets))
      assets)))
 
-(defn build-exchange-edn [{:keys [eodhd-token]} {:keys [filename] :as opts}]
+(defn build-exchange-edn [{:keys [eodhd-token]} {:keys [filename] :as _opts}]
   (m/sp
    (let [exchanges (->> (m/? (raw/get-exchanges eodhd-token))
                         (into []))]

@@ -1,10 +1,9 @@
 (ns quanta.market.adapter.eodhd.raw
   (:require
-   [clojure.set :refer [rename-keys]]
+   ;[clojure.set :refer [rename-keys]]
    [taoensso.timbre :refer [info warn error]]
    [missionary.core :as m]
-   [quanta.market.util.clj-http :refer [http-get parse-json]]
-   [ta.import.helper :refer [str->float]]))
+   [quanta.market.util.clj-http :refer [http-get parse-json]]))
 
 ;; https://eodhd.com/pricing all world EOD 20 USD/month.
 ;; https://eodhd.com
@@ -80,7 +79,7 @@
   "returns bulk data for all assets of an exchange for a day 
    date is either 2010-09-21 or not included as a key which means current day
    type is either splits or dividends or nil for EOD Bars"
-  [api-token {:keys [exchange type date] :as opts}]
+  [api-token {:keys [exchange _type _date] :as opts}]
   ; https://eodhd.com/api/eod-bulk-last-day/US?api_token={YOUR_API_TOKEN}&type=dividends
   (eodhd-http-get api-token (str "eod-bulk-last-day/" exchange)
                   (dissoc opts :exchange)))
@@ -89,7 +88,7 @@
   "returns splits for one asset
    from [optional] – start date from in the format “Y-m-d” example 2010-09-21 
    to optional – end date to in the format “Y-m-d” example 2010-09-21 "
-  [api-token {:keys [asset from to] :as opts}]
+  [api-token {:keys [asset _from _to] :as opts}]
   ; https://eodhd.com/api/eod-bulk-last-day/US?api_token={YOUR_API_TOKEN}&type=dividends
   (eodhd-http-get api-token (str "splits/" asset)
                   (dissoc opts :asset)))

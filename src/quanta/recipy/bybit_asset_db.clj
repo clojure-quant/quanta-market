@@ -1,11 +1,9 @@
 (ns quanta.recipy.bybit-asset-db
   (:require
-   [tick.core :as t]
-   [clojure.string :as str]
    [missionary.core :as m]
    [modular.persist.edn] ; side effects to load edn files
    [modular.persist.protocol :refer [save]]
-   [quanta.market.asset.datahike :refer [add-update-asset query-assets]]
+   [quanta.market.asset.datahike :refer [add-update-asset]]
    [quanta.market.adapter.bybit.raw :as bb]))
 
 ;; => {:lotSizeFilter
@@ -24,7 +22,7 @@
 ;;     :status "Trading",
 ;;     :riskParameters {:marketParameter "0.03", :limitParameter "0.03"}}
 
-(defn normalize-spot [{:keys [symbol priceFilter] :as row}]
+(defn normalize-spot [{:keys [symbol priceFilter] :as _row}]
   (let [asset symbol]
     {:asset/symbol (str asset ".BB")
      :asset/name asset
@@ -35,7 +33,7 @@
      :asset/bybit [:spot symbol]
      :asset/bybit-category :spot}))
 
-(defn normalize-linear [{:keys [symbol priceFilter] :as row}]
+(defn normalize-linear [{:keys [symbol _priceFilter] :as _row}]
   (let [asset symbol]
     {:asset/symbol (str asset ".P.BB")
      :asset/name asset

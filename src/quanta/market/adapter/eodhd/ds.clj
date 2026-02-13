@@ -93,6 +93,7 @@
    "Mutual Fund" :fund
    "FUND" :fund
    "INDEX" :index
+   "Currency" :fx
    "BOND" :bond
    "Unit" :other
    "ETC" :other

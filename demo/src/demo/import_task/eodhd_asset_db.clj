@@ -59,6 +59,13 @@
                            :exchanges #{"NYSE" "NASDAQ" "AMEX" "NYSE MKT"}
                            :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-stocks.edn")}))
 
+(m/? (build-asset-edn ctx {:market "FOREX"
+                           ;:types #{"Common Stock"}
+                           ;:exchanges #{"FOREX"}
+                           :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-forex.edn")}))
+
+;; EXCHANGE LIST
+
 (m/? (build-exchange-edn ctx {:filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-exchanges.edn")}))
 
 ;; NORMALIZED ASSETS AND DB ACCESS
@@ -75,4 +82,8 @@
                                                    "NASDAQ" "AMEX"}
                                       :filename  (str (System/getenv "QUANTASTORE")
                                                       "/asset/eodhd-stocks.edn")}))
+
+(m/? (build-asset-edn-normalized ctx {:market "FOREX"
+                                      :filename (str (System/getenv "QUANTASTORE")
+                                                     "/asset/eodhd-forex.edn")}))
 

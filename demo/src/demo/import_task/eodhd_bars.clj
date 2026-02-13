@@ -26,7 +26,7 @@
 (time
  (m/? (import-bars-list
        ctx
-       {:list "equity-10mio"
+       {:list "equity-20mio"
         :calendar [:us :d]
         :start (t/zoned-date-time "1980-01-01T00:00:00Z")
         :end (t/zoned-date-time "2026-03-20T00:00:00Z")})))

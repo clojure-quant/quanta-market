@@ -32,7 +32,7 @@
      :asset/category :crypto
      :tick-size (:tickSize priceFilter)
      ; bybit specific
-     :asset/bybit symbol
+     :asset/bybit [:spot symbol]
      :asset/bybit-category :spot}))
 
 (defn normalize-linear [{:keys [symbol priceFilter] :as row}]
@@ -43,7 +43,7 @@
      :asset/category :crypto-future
      ;:tick-size (:tickSize priceFilter)
      ; bybit specific
-     :asset/bybit symbol
+     :asset/bybit [:linear symbol]
      :asset/bybit-category :linear}))
 
 (defn normalize [category asset]

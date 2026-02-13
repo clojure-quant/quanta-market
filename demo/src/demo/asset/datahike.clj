@@ -15,8 +15,8 @@
  :bybit-category :spot}
 
 (asset->provider assetdb :bybit "ENSUSDT.BB")
-;; "ENSUSDT"
-(provider->asset assetdb :bybit "ENSUSDT")
+;; [:spot "ENSUSDT"]
+(provider->asset assetdb :bybit [:spot "ENSUSDT"])
 ;; "ENSUSDT.BB"
 
 (add-update-asset assetdb {:asset/symbol "AAPL"
@@ -96,6 +96,7 @@
          {:category :etf}
          {:category :equity}
          {:category :crypto}
+         {:category :fx}
          {:exchange "NASDAQ"}
          {:exchange "NYSE"}
          {:exchange "BYBIT"}

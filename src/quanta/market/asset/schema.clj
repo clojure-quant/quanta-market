@@ -32,14 +32,15 @@
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
    ; provider
-   {:db/ident :asset/bybit ;; mapping to bybit. todo: change to tuple [:spot "BTCUSDT"]
-    :db/valueType :db.type/string
+   {:db/ident :asset/bybit ;; bybit
+    :db/valueType :db.type/tuple
+    :db/tupleTypes [:db.type/keyword :db.type/string] ; [category symbol]  [:spot "BTCUSDT"]
     :db/cardinality :db.cardinality/one
     :db/unique :db.unique/identity}
    {:db/ident :asset/bybit-category
     :db/valueType :db.type/keyword
     :db/cardinality :db.cardinality/one}
-   {:db/ident :asset/eodhq
+   {:db/ident :asset/eodhq ; eodhd
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/unique :db.unique/identity}])

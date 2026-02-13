@@ -14,10 +14,7 @@
  :bybit "ENSUSDT",
  :bybit-category :spot}
 
-(asset->provider assetdb :bybit "ENSUSDT.BB")
-;; [:spot "ENSUSDT"]
-(provider->asset assetdb :bybit [:spot "ENSUSDT"])
-;; "ENSUSDT.BB"
+;; add/modify asset
 
 (add-update-asset assetdb {:asset/symbol "AAPL"
                            :asset/name "Apple Computer Inc"})
@@ -43,6 +40,18 @@
                             :asset/name "Spiders S&P 500 ETF"
                             :asset/exchange "NYSE"
                             :asset/category :etf}])
+
+;; details on single asset
+
+(get-asset assetdb "MSFT")
+(get-asset assetdb "000")
+
+(asset->provider assetdb :bybit "ENSUSDT.BB")
+;; [:spot "ENSUSDT"]
+(provider->asset assetdb :bybit [:spot "ENSUSDT"])
+;; "ENSUSDT.BB"
+
+; query assets
 
 (def query-assets-all
   '[:find [(pull ?id [*]) ...]
@@ -106,22 +115,21 @@
          {:q "Tr"}
          {:exchange "NYSE" :category :etf :q "MO"}])
 
-(get-asset assetdb "MSFT")
-(get-asset assetdb "000")
-
 ;; lists 
 
 (add-update-list assetdb {:lists/name "flo" :lists/asset ["MSFT" "SPY"]})
 
 (get-list assetdb "flo")
 
-(get-list assetdb "etf-10mio")
-
-(-> (get-list assetdb "equity-10mio")
-    :lists/asset
-    count)
-
 (-> (get-list assetdb "etf-10mio")
     :lists/asset
     count)
+
+(get-list assetdb "etf-10mio")
+
+(-> (get-list assetdb "equity-100mio")
+    :lists/asset
+    count)
+
+
 

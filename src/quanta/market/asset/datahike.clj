@@ -138,7 +138,8 @@
     (d/transact dbconn (tupelize-list data))))
 
 (defn get-list [dbconn list-name]
-  (-> '[:find [(pull ?id [*]) ...]
+  (-> '[:find [(pull ?id [:lists/name
+                          [:lists/asset :limit nil]]) ...]
         :in $ ?list-name
         :where
         [?id :lists/name ?list-name]]
@@ -146,3 +147,5 @@
       first
       untupelize-list))
 
+*
+{:lists/items [*] :limit nil}

@@ -16,19 +16,19 @@
 etfs
 
 (def equities (m/? (add-list-high-volume-assets ctx {:exchange "US"
-                                                     :turnover-min 20000000.0
+                                                     :turnover-min 100000000.0
                                                      :add-name true
                                                      :remove-no-name true
                                                      :type :equity
-                                                     :list-name "equity-20mio"})))
+                                                     :list-name "equity-100mio"})))
 
 (->> equities
      :tx-data
      reverse
-     (take 3)
-;    count
-     )
+     count)
  ;[2419 "ALG"]
-
+; 20 mio 2058
+; 50 mio 1500
+; 100 mio 1100
 
 

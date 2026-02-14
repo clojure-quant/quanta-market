@@ -126,8 +126,9 @@
     count)
 
 (get-list assetdb "etf-10mio")
+;; asset list now contains duplicates.
 
-(-> (get-list assetdb "equity-100mio")
+(-> (get-list assetdb "equity-20mio")
     :lists/asset
     count)
 

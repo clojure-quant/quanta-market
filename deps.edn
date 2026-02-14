@@ -19,10 +19,10 @@
   babashka/process {:mvn/version "0.5.21"} ; shell to other apps
   org.clj-commons/hickory {:mvn/version "0.7.4"} ; http parser (kibot asset list)
   com.taoensso/telemere {:mvn/version "1.0.0-beta25"}
-  org.pinkgorilla/timbre {:mvn/version "0.0.7"}
+  org.pinkgorilla/timbre {:mvn/version "0.0.8"}
   io.github.clojure-quant/quanta-missionary {:mvn/version "0.1.5"}
-  io.github.clojure-quant/quanta-calendar {:mvn/version "0.6.26"}
-  io.github.clojure-quant/quanta-bar-warehouse {:mvn/version "0.6.66"} ; barsource interface
+  io.github.clojure-quant/quanta-calendar {:mvn/version "0.6.29"}
+  io.github.clojure-quant/quanta-bar-warehouse {:mvn/version "0.7.69"} ; barsource interface
   }
  
  :aliases
@@ -39,7 +39,7 @@
           :ns-default build}
 
   :lint
-  {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2024.09.27"}}
+  {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2026.01.19"}}
    :main-opts ["-m" "clj-kondo.main"
                "--fail-level" "error"
                "--color"
@@ -56,7 +56,7 @@
    :extra-deps {jonase/eastwood {:mvn/version "1.4.3"}}}
 
   :cljfmt
-  {:extra-deps {cljfmt/cljfmt {:mvn/version "0.8.0"}}
+  {:extra-deps {cljfmt/cljfmt {:mvn/version "0.9.2"}}
    :main-opts ["-m" "cljfmt.main"
                "--indents" "cljfmt.edn"
                "check"
@@ -64,7 +64,7 @@
                "./demo/src"]}
 
   :cljfmt-fix
-  {:extra-deps {cljfmt/cljfmt {:mvn/version "0.8.0"}}
+  {:extra-deps {cljfmt/cljfmt {:mvn/version "0.9.2"}}
    :main-opts ["-m" "cljfmt.main"
                "--indents" "cljfmt.edn"
                "fix"

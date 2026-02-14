@@ -1,5 +1,6 @@
 {:paths ["src" "resources"]
- :deps {org.pinkgorilla/modular {:mvn/version "0.2.69"}  ; modular.writer
+ :deps {org.pinkgorilla/modular {:mvn/version "0.3.73"}  ; modular.writer
+        org.pinkgorilla/timbre {:mvn/version "0.0.8"} ; timbre config
         io.github.clojure-quant/quanta-market {:local/root "../" :deps/manifest :deps}}
 
  :aliases

@@ -2,35 +2,51 @@
   (:require
    [clojure.string :as str]
    [clojure.edn :as edn]
+   [modular.env :refer [env]]
+   [modular.log :refer [timbre-config!]]
    [quanta.bar.db.nippy :refer [start-bardb-nippy]]
+   [quanta.bar.db.duck :as duck]
+   [quanta.bar.split.service :refer [start-split-service]]
    [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd]]
    [quanta.market.asset.datahike :refer [start-asset-db]]))
 
-(defn expand-env-safe [s]
-  (str/replace s #"\$\{([^}]+)\}"
-               (fn [[match var]]
-                 (or (System/getenv var) (throw (ex-info (str "ENV-VAR not found: " var) {}))))))
-
-;(expand-env-safe "${MYVAULT}/quanta.edn")
-;(expand-env-safe "${MYVAULT4}/quanta.edn")
+(timbre-config!
+ {:min-level [[#{"org.eclipse.jetty.*"} :warn]
+              [#{"modular.oauth2.token.refresh"} :warn]
+              [#{"*"} :info]]
+  :appenders {:default {:type :console-color}}})
 
 (def secrets
-  (-> (str (System/getenv "MYVAULT") "/quanta.edn")
+  (-> (env "${MYVAULT}/quanta.edn")
       (slurp)
       (edn/read-string)))
 
 secrets
 
+(def assetdb (start-asset-db (env "${QUANTASTORE}/assetdb")))
+
 (def bardb-nippy
-  (start-bardb-nippy  (str (System/getenv "QUANTASTORE") "/bardb/eodhd-nippy/")))
+  (start-bardb-nippy (env "${QUANTASTORE}/bardb/eodhd-nippy/")))
+
+(def bardb-duck (duck/start-bardb-duck (env "${QUANTASTORE}/bardb/eodhd.ddb")))
+
+(def ss (start-split-service {:bardb bardb-duck}))
 
 (def eodhd-token  (:eodhd secrets))
 
 (def eodhd (create-import-eodhd (:eodhd secrets)))
 
-(def assetdb (start-asset-db (str (System/getenv "QUANTASTORE") "/assetdb")))
 
-(def ctx {:eodhd-token eodhd-token
+
+
+
+(def ctx {:assetdb assetdb
+          :bardb bardb-duck ;bardb-nippy
+          :ss ss
+          :eodhd-token eodhd-token
           :eodhd eodhd
-          :bardb bardb-nippy
-          :assetdb assetdb})
+          
+          })
+
+
+

@@ -1,7 +1,7 @@
 (ns quanta.recipy.eodhd-import-bars-list
   (:require
    [missionary.core :as m]
-   ;[tablecloth.api :as tc]
+   [tablecloth.api :as tc]
    [quanta.missionary :refer [rest-import]]
    [quanta.bar.protocol :as b]
    [quanta.market.asset.datahike :refer [get-list]]))
@@ -22,9 +22,12 @@
                               ;(println "asset: " (:asset opts) " bars: " (tc/row-count bars))
                               bars)))
         store-fn (fn [ctx opts data]
-                   (b/append-bars (:bardb ctx)
-                                  (select-keys opts [:asset :calendar])
-                                  data))]
+                   (m/sp 
+                    (when (and data (not (= 0 (tc/row-count data))))
+                      (m/? (b/delete-bars (:bardb ctx) (select-keys opts [:asset :calendar])))
+                      (m/? (b/append-bars (:bardb ctx)
+                                          (select-keys opts [:asset :calendar])
+                                          data)))))]
     (rest-import ctx {:tasks-opts opts-seq
                       :download-fn download-fn
                       :store-fn store-fn

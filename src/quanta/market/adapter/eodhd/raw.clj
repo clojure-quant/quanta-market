@@ -42,7 +42,7 @@
               limit (get-in response [:headers "X-RateLimit-Limit"])
               remaining (get-in response [:headers "X-RateLimit-Remaining"])]
           ;(println "headers: " (:headers response))
-          (println "limit: " limit " remaining: " remaining)
+          (info "limit: " limit " remaining: " remaining)
           body)
         (catch Exception ex
           (let [data (ex-data ex)]
@@ -57,7 +57,7 @@
             (throw ex))))))
 
 (defn get-bars [api-token asset start-str end-str]
-  (warn "getting bars asset: " asset "from: " start-str " to: " end-str)
+  (debug "getting bars asset: " asset "from: " start-str " to: " end-str)
   (let [endpoint (str "eod/" asset)]
     (eodhd-http-get
      api-token

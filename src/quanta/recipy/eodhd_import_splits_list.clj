@@ -3,10 +3,9 @@
    [missionary.core :as m]
    [tablecloth.api :as tc]
    [quanta.missionary :refer [rest-import]]
+   [quanta.bar.split.service :refer [save-splits delete-splits]]
    [quanta.market.adapter.eodhd.ds :refer [get-splits]]
    [quanta.market.asset.datahike :refer [get-list]]))
-
-(defonce splits-a (atom (tc/dataset)))
 
 (defn import-splits-list [ctx {:keys [list start end]}]
   (let [assets (-> (get-list (:assetdb ctx) list)
@@ -26,7 +25,8 @@
                    (m/sp
                     (when (and data (not (= 0 (tc/row-count data))))
                       (let [data-asset (tc/add-column data :asset (:asset opts))]
-                        (swap! splits-a tc/concat data-asset)))))]
+                        (m/? (delete-splits (:ss ctx) (:asset opts)))
+                        (m/? (save-splits (:ss ctx) data-asset))))))]
     (rest-import ctx {:tasks-opts opts-seq
                       :download-fn download-fn
                       :store-fn store-fn

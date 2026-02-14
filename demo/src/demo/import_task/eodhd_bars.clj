@@ -2,8 +2,10 @@
   (:require
    [tick.core :as t]
    [missionary.core :as m]
+   [quanta.bar.db.duck.warehouse :as wh]
    [quanta.recipy.eodhd-import-bars-list :refer [import-bars-list]]
-   [demo.env-bar :refer [eodhd eodhd-token bardb-nippy ctx]]))
+   [demo.env-bar :refer [ctx]]))
+
 
 (m/? (import-bars-list
       ctx
@@ -21,6 +23,7 @@
         :start (t/zoned-date-time "1980-01-01T00:00:00Z")
         :end (t/zoned-date-time "2026-03-20T00:00:00Z")})))
 ; "Elapsed time: 71530.718723 msecs"
+; "Elapsed time: 153454.516684 msecs"
 {:success 947, :error 0, :error-details []}
 
 (time
@@ -32,3 +35,5 @@
         :end (t/zoned-date-time "2026-03-20T00:00:00Z")})))
 ; "Elapsed time: 115999.964061 msecs"
 {:success 1000, :error 0, :error-details []}
+
+(wh/warehouse-summary (:bardb ctx) [:us :d])

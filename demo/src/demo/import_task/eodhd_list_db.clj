@@ -37,5 +37,9 @@ etfs
                                                      :list-name "equity-20mio"})))
 ; 1956
 
-
-
+(def equities (m/? (add-list-high-volume-assets ctx {:exchange "US"
+                                                     :turnover-min 10000000.0
+                                                     :add-name true
+                                                     :remove-no-name true
+                                                     :type :equity
+                                                     :list-name "equity-10mio"})))

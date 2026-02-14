@@ -7,11 +7,11 @@
                                          exchanges categories]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy assetdb]]))
 
-{:symbol "ENSUSDT.BB",
- :name "ENSUSDT",
- :exchange "BYBIT",
- :category :crypto,
- :bybit "ENSUSDT",
+{:symbol "ENSUSDT.BB"
+ :name "ENSUSDT"
+ :exchange "BYBIT"
+ :category :crypto
+ :bybit "ENSUSDT"
  :bybit-category :spot}
 
 ;; add/modify asset
@@ -117,7 +117,7 @@
 
 ;; lists 
 
-(add-update-list assetdb {:lists/name "flo" :lists/asset ["MSFT" "SPY"]})
+(add-update-list assetdb {:lists/name "flo" :lists/asset ["QQQ" "MSFT" "SPY"]})
 
 (get-list assetdb "flo")
 
@@ -132,5 +132,10 @@
     :lists/asset
     count)
 
+(-> (get-list assetdb "equity-20mio")
+    :lists/asset
+    count)
 
+; 14676
 
+(d/transact assetdb [[:db/retractEntity 14676]])

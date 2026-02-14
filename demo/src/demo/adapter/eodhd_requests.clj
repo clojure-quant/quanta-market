@@ -75,10 +75,10 @@ d
 
 ;; search api seems to have been discontinued.
 #_(try (m/? (raw/search eodhd-token {:q "S"
-                                   :type "index"}))
-     (catch Exception ex
-       (println "ex: " ex)
-       (println "ex data:" (ex-data ex))
-       (println "ex cause:" (ex-cause ex))))
+                                     :type "index"}))
+       (catch Exception ex
+         (println "ex: " ex)
+         (println "ex data:" (ex-data ex))
+         (println "ex cause:" (ex-cause ex))))
 
 

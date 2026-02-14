@@ -131,11 +131,23 @@
                                    (map (fn [[_idx asset]]
                                           asset) %))))
 
+(defn- list-id [dbconn list-name]
+  (d/q '[:find ?id .
+         :in $ ?list-name
+         :where
+         [?id :lists/name ?list-name]]
+       @dbconn list-name))
+
 (defn add-update-list
+  "Upserts a list by `:lists/name` and **replaces** `:lists/asset`."
   [dbconn data]
-  (if (map? data)
-    (d/transact dbconn [(tupelize-list data)])
-    (d/transact dbconn (tupelize-list data))))
+  (let [id (list-id dbconn (:lists/name data))
+        tx (concat
+            (if id
+              [[:db/retractEntity id]]
+              [])
+            [(tupelize-list data)])]
+    (d/transact dbconn (vec tx))))
 
 (defn get-list [dbconn list-name]
   (-> '[:find [(pull ?id [:lists/name
@@ -146,6 +158,3 @@
       (d/q @dbconn list-name)
       first
       untupelize-list))
-
-*
-{:lists/items [*] :limit nil}

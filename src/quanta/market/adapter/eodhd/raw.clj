@@ -57,7 +57,6 @@
             (throw ex))))))
 
 (defn get-bars [api-token asset start-str end-str]
-  (debug "getting bars asset: " asset "from: " start-str " to: " end-str)
   (let [endpoint (str "eod/" asset)]
     (eodhd-http-get
      api-token

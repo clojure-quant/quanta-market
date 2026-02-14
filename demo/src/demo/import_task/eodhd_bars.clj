@@ -2,10 +2,10 @@
   (:require
    [tick.core :as t]
    [missionary.core :as m]
+   [quanta.bar.protocol :refer [get-bars]]
    [quanta.bar.db.duck.warehouse :as wh]
    [quanta.recipy.eodhd-import-bars-list :refer [import-bars-list]]
    [demo.env-bar :refer [ctx]]))
-
 
 (m/? (import-bars-list
       ctx
@@ -37,3 +37,6 @@
 {:success 1000, :error 0, :error-details []}
 
 (wh/warehouse-summary (:bardb ctx) [:us :d])
+
+(m/? (get-bars (:bardb ctx) {:asset "A" :calendar [:us :d]} {}))
+(m/? (get-bars (:bardb ctx) {:asset "SPY" :calendar [:us :d]} {}))

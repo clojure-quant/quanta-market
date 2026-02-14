@@ -22,7 +22,6 @@ etfs
                                                      :type :equity
                                                      :list-name "equity-100mio"})))
 
-
 (->> equities
      :tx-data
      reverse

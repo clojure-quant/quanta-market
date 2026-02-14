@@ -36,17 +36,11 @@ secrets
 
 (def eodhd (create-import-eodhd (:eodhd secrets)))
 
-
-
-
-
 (def ctx {:assetdb assetdb
           :bardb bardb-duck ;bardb-nippy
           :ss ss
           :eodhd-token eodhd-token
-          :eodhd eodhd
-          
-          })
+          :eodhd eodhd})
 
 
 

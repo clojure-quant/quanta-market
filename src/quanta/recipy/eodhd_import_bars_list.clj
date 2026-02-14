@@ -22,7 +22,7 @@
                               ;(println "asset: " (:asset opts) " bars: " (tc/row-count bars))
                               bars)))
         store-fn (fn [ctx opts data]
-                   (m/sp 
+                   (m/sp
                     (when (and data (not (= 0 (tc/row-count data))))
                       (m/? (b/delete-bars (:bardb ctx) (select-keys opts [:asset :calendar])))
                       (m/? (b/append-bars (:bardb ctx)

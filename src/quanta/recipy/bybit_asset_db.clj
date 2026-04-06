@@ -1,8 +1,7 @@
 (ns quanta.recipy.bybit-asset-db
   (:require
    [missionary.core :as m]
-   [modular.persist.edn] ; side effects to load edn files
-   [modular.persist.protocol :refer [save]]
+   [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.market.asset.datahike :refer [add-update-asset]]
    [quanta.market.adapter.bybit.raw :as bb]))
 
@@ -63,8 +62,8 @@
          filename-raw (str (System/getenv "QUANTASTORE") "/asset/raw/bybit-" category ".edn")
          filename (str (System/getenv "QUANTASTORE") "/asset/bybit-" category ".edn")]
      (println "bybit category " category " asset count: " (count assets-raw))
-     (save :edn filename-raw assets-raw)
-     (save :edn filename assets)
+     (spit-edn filename-raw assets-raw)
+     (spit-edn filename assets)
      (when assetdb
        (add-update-asset assetdb assets))
      assets)))

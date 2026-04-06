@@ -4,8 +4,7 @@
    [tick.core :as t]
    [missionary.core :as m]
    [tablecloth.api :as tc]
-   [modular.persist.edn] ; side effects to load edn files
-   [modular.persist.protocol :refer [save loadr]]
+   [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.bar.protocol :as b :refer [bardb barsource]]
    [quanta.calendar.window :refer [date-range->window
                                    window->close-range

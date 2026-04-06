@@ -1,8 +1,7 @@
 (ns quanta.recipy.eodhd-asset-db
   (:require
    [missionary.core :as m]
-   [modular.persist.edn] ; side effects to load edn files
-   [modular.persist.protocol :refer [save]]
+   [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.market.adapter.eodhd.raw :as raw]
    [quanta.market.adapter.eodhd.ds :refer [convert-asset]]
    [quanta.market.asset.datahike :refer [add-update-asset]]))
@@ -48,7 +47,7 @@
      (->> assets
           (filter-assets opts)
           (into [])
-          (save :edn filename)))))
+          (spit-edn filename)))))
 
 (defn build-asset-edn-normalized [{:keys [eodhd-token assetdb]}
                                   {:keys [market _exchanges _types
@@ -58,7 +57,7 @@
                       (filter-assets opts)
                       (map convert-asset)
                       (into []))]
-     (save :edn filename assets)
+     (spit-edn filename assets)
      (when assetdb
        (add-update-asset assetdb assets))
      assets)))
@@ -67,7 +66,7 @@
   (m/sp
    (let [exchanges (->> (m/? (raw/get-exchanges eodhd-token))
                         (into []))]
-     (save :edn filename exchanges))))
+     (spit-edn filename exchanges))))
 
 
 

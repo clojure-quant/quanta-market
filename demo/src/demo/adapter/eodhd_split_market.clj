@@ -4,8 +4,7 @@
    [tick.core :as t]
    [missionary.core :as m]
    [tablecloth.api :as tc]
-   [modular.persist.edn] ; side effects to load edn files
-   [modular.persist.protocol :refer [save loadr]]
+   [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.bar.protocol :as b :refer [bardb barsource]]
    [quanta.calendar.window :refer [date-range->window
                                    window->close-range
@@ -73,7 +72,7 @@
     ;window->date-string-vector
     (m/? (get-splits-window eodhd-token "US" window))))
 
-(save :edn "./data/splits-2026.edn" splits-2026)
+(spit-edn "./data/splits-2026.edn" splits-2026)
 
 splits-2026
 (count splits-2026)
@@ -87,7 +86,7 @@ splits-2026
     (m/? (get-splits-window eodhd-token "US" window))))
 
 (count splits-2025)
-(save :edn "./data/splits-2025.edn" splits-2025)
+(spit-edn "./data/splits-2025.edn" splits-2025)
 (count splits-2025)
 ;; 1700
 ; 33000 out of 100,000

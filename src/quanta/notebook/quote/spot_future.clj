@@ -1,4 +1,4 @@
-(ns demo.quote.spot-future
+(ns quanta.notebook.quote.spot-future
   (:require
    [clojure.pprint :refer [print-table]]
    [missionary.core :as m]

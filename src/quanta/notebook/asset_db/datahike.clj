@@ -1,4 +1,4 @@
-(ns demo.asset.datahike
+(ns quanta.notebook.asset-db.datahike
   (:require
    [datahike.api :as d]
    [quanta.market.asset.datahike :refer [add-update-asset query-assets get-asset

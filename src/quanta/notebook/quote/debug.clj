@@ -1,4 +1,4 @@
-(ns demo.quote.debug
+(ns quanta.notebook.quote.debug
   (:require
    [tick.core :as t]
    [missionary.core :as m]

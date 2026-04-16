@@ -1,4 +1,4 @@
-(ns dev.rest.bybit-history
+(ns quanta.notebook.api-test.bybit-history
   (:require
    [clojure.string :as str]
    [tick.core :as t]

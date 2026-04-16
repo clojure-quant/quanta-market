@@ -1,4 +1,4 @@
-(ns demo.adapter.eodhd-requests
+(ns quanta.notebook.api-test.eodhd-requests
   (:require
    [tick.core :as t]
    [missionary.core :as m]

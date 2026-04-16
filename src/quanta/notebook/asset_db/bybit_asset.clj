@@ -1,4 +1,4 @@
-(ns demo.asset.study.bybit-asset
+(ns quanta.notebook.asset-db.bybit-asset
   (:require
    [tick.core :as t]
    [clojure.string :as str]

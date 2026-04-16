@@ -1,4 +1,4 @@
-(ns dev.quote.quote-feed-random
+(ns quanta.notebook.quote.quote-feed-random
   (:require
    [taoensso.timbre :as timbre :refer [info warn error]]
    [manifold.stream :as s]

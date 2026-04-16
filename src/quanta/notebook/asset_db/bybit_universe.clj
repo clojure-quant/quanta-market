@@ -1,4 +1,4 @@
-(ns demo.asset.bybit-universe
+(ns quanta.notebook.asset-db.bybit-universe
   (:require
    [clojure.edn :as edn]
    [clojure.string :as str]

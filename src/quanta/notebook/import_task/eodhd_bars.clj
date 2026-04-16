@@ -1,4 +1,4 @@
-(ns demo.import-task.eodhd-bars
+(ns quanta.notebook.import-task.eodhd-bars
   (:require
    [tick.core :as t]
    [missionary.core :as m]

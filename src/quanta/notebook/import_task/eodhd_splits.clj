@@ -1,4 +1,4 @@
-(ns demo.import-task.eodhd-splits
+(ns quanta.notebook.import-task.eodhd-splits
   (:require
    [tick.core :as t]
    [missionary.core :as m]

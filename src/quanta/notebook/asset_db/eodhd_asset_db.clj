@@ -1,4 +1,4 @@
-(ns demo.import-task.eodhd-asset-db
+(ns quanta.notebook.asset-db.eodhd-asset-db
   (:require
    [missionary.core :as m]
    [quanta.recipy.eodhd-asset-db :refer [get-exchange-assets asset-summary asset-stats filter-assets

@@ -1,4 +1,4 @@
-(ns demo.adapter.eodhd-split
+(ns quanta.notebook.api-test.eodhd-split
   (:require
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]

@@ -1,4 +1,4 @@
-(ns demo.adapter.bybit
+(ns quanta.notebook.api-test.bybit
   (:require
    [missionary.core :as m]
    [tick.core :as t]

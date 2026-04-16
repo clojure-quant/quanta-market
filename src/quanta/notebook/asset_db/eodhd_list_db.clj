@@ -1,4 +1,4 @@
-(ns demo.import-task.eodhd-list-db
+(ns quanta.notebook.asset-db.eodhd-list-db
   (:require
    [clojure.pprint :refer [print-table]]
    [tick.core :as t]

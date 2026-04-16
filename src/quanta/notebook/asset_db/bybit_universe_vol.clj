@@ -1,4 +1,4 @@
-(ns demo.asset.bybit-universe-vol
+(ns quanta.notebook.asset-db.bybit-universe-vol
   (:require
    [clojure.pprint :refer [print-table]]
    [missionary.core :as m]

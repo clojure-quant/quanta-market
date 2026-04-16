@@ -2,10 +2,10 @@
   (:require
    [missionary.core :as m]
    [tick.core :as t]
+   [quanta.calendar.window :refer [trailing-window]]
    [quanta.bar.protocol :refer [get-bars]]
    [quanta.market.adapter.bybit.raw :as raw]
-   [quanta.market.adapter.bybit.ds :refer [get-bars-parallel create-import-bybit]]
-   [quanta.calendar.window :refer [trailing-window]]))
+   [quanta.market.adapter.bybit.ds :refer [get-bars-parallel create-import-bybit]]))
 
 (def w
   (trailing-window [:crypto :m5] 9 (-> "2025-02-01T00:00:00Z" t/instant)))

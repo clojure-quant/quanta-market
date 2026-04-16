@@ -2,8 +2,8 @@
   (:require
    [tick.core :as t]
    [missionary.core :as m]
-   [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.bar.protocol :as b]
+   [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.market.adapter.eodhd.raw :as raw]
    [demo.env-bar :refer [eodhd-token eodhd]]))
 

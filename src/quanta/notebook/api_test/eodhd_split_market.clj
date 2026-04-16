@@ -4,12 +4,12 @@
    [tick.core :as t]
    [missionary.core :as m]
    [tablecloth.api :as tc]
-   [quanta.market.persist :refer [spit-edn slurp-edn]]
-   [quanta.bar.protocol :as b :refer [bardb barsource]]
    [quanta.calendar.window :refer [date-range->window
                                    window->close-range
                                    window->open-range
                                    window->intervals]]
+   [quanta.bar.protocol :as b :refer [bardb barsource]]
+   [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.market.adapter.eodhd.raw :as raw]
    [quanta.recipy.eodhd-list-volume :refer [high-volume-assets add-name-exchange-type]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy ctx]]))

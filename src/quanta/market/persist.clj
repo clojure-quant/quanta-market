@@ -8,6 +8,6 @@
 (add-tick-edn-handlers!)
 (add-tick-fipp-printers!)
 
-(def spit-edn f/spit-edn)
+(def spit-edn f/spit-fipp)
 
 (def slurp-edn e/slurp-edn)

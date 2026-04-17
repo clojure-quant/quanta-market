@@ -9,7 +9,7 @@
    [modular.system :refer [system]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy ctx]]))
 
-(def ctx (get :ctx system))
+(def ctx (:ctx system))
 
 (m/? (import-splits-list
       ctx

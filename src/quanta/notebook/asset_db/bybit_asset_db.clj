@@ -6,7 +6,7 @@
    [quanta.recipy.bybit-asset-db :refer [download-asset-category]]
    [modular.system :refer [system]]))
 
-(def ctx (get :ctx system))
+(def ctx (:ctx system))
 
 (m/? (download-asset-category ctx {:category "spot"}))
 ;; => {:category "spot", :assets 621}

@@ -5,7 +5,7 @@
                                          build-asset-edn build-asset-edn-normalized build-exchange-edn]]
    [modular.system :refer [system]]))
 
-(def ctx (get :ctx system))
+(def ctx (:ctx system))
 
 (m/? (asset-summary ctx {:market "US"}))
 

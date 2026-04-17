@@ -15,7 +15,6 @@
  :bybit "ENSUSDT"
  :bybit-category :spot}
 
-
 ;; details on single asset
 
 (get-asset asset-db "MSFT")
@@ -26,13 +25,11 @@
 (provider->asset asset-db :bybit [:spot "ENSUSDT"])
 ;; "ENSUSDT.BB"
 
-
 (exchanges asset-db)
 
 (categories asset-db)
 
 (query-assets asset-db {:q "MSFT"})
-
 
 ;; lists 
 

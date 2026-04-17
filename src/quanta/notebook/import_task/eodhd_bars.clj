@@ -7,7 +7,7 @@
    [quanta.recipy.eodhd-import-bars-list :refer [import-bars-list]]
    [modular.system :refer [system]]))
 
-(def ctx (get :ctx system))
+(def ctx (:ctx system))
 
 (m/? (import-bars-list
       ctx

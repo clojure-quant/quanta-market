@@ -7,7 +7,7 @@
    [quanta.recipy.eodhd-list-volume :refer [add-list-high-volume-assets]]
    [modular.system :refer [system]]))
 
-(def ctx (get :ctx system))
+(def ctx (:ctx system))
 
 (def etfs (m/? (add-list-high-volume-assets ctx {:exchange "US"
                                                  :turnover-min 10000000.0

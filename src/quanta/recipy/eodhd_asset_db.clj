@@ -49,7 +49,7 @@
           (into [])
           (spit-edn filename)))))
 
-(defn build-asset-edn-normalized [{:keys [eodhd-token assetdb]}
+(defn build-asset-edn-normalized [{:keys [eodhd-token asset-db]}
                                   {:keys [market _exchanges _types
                                           filename] :as opts}]
   (m/sp
@@ -58,8 +58,8 @@
                       (map convert-asset)
                       (into []))]
      (spit-edn filename assets)
-     (when assetdb
-       (add-update-asset assetdb assets))
+     (when asset-db
+       (add-update-asset asset-db assets))
      assets)))
 
 (defn build-exchange-edn [{:keys [eodhd-token]} {:keys [filename] :as _opts}]

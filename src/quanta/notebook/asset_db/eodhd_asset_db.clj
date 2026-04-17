@@ -3,7 +3,9 @@
    [missionary.core :as m]
    [quanta.recipy.eodhd-asset-db :refer [get-exchange-assets asset-summary asset-stats filter-assets
                                          build-asset-edn build-asset-edn-normalized build-exchange-edn]]
-   [demo.env-bar :refer [ctx]]))
+   [modular.system :refer [system]]))
+
+(def ctx (get :ctx system))
 
 (m/? (asset-summary ctx {:market "US"}))
 

@@ -6,7 +6,10 @@
    [quanta.bar.db.nippy :refer [save-ds]]
    [quanta.bar.split.service :refer [save-splits delete-splits get-splits]]
    [quanta.recipy.eodhd-import-splits-list :refer [import-splits-list]]
+   [modular.system :refer [system]]
    [demo.env-bar :refer [eodhd eodhd-token bardb-nippy ctx]]))
+
+(def ctx (get :ctx system))
 
 (m/? (import-splits-list
       ctx

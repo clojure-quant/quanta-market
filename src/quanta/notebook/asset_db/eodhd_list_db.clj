@@ -5,7 +5,9 @@
    [missionary.core :as m]
    [tablecloth.api :as tc]
    [quanta.recipy.eodhd-list-volume :refer [add-list-high-volume-assets]]
-   [demo.env-bar :refer [ctx]]))
+   [modular.system :refer [system]]))
+
+(def ctx (get :ctx system))
 
 (def etfs (m/? (add-list-high-volume-assets ctx {:exchange "US"
                                                  :turnover-min 10000000.0

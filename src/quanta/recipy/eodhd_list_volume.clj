@@ -14,9 +14,9 @@
   (when s
     (subs s 0 (min 20 (dec (count s))))))
 
-(defn add-name-exchange-type [{:keys [assetdb] :as _ctx} items]
+(defn add-name-exchange-type [{:keys [asset-db] :as _ctx} items]
   (let [one (fn [item]
-              (let [asset (get-asset assetdb (:code item))]
+              (let [asset (get-asset asset-db (:code item))]
                 (if asset
                   (assoc item :name (shorten (:asset/name asset))
                          :exchange (:asset/exchange asset)
@@ -62,7 +62,7 @@
         (filter-when (and add-name type) #(= (:type %) type))
         (remove-when remove-no-name #(= (:name %) "-")))))
 
-(defn add-list-high-volume-assets [{:keys [assetdb] :as ctx}
+(defn add-list-high-volume-assets [{:keys [asset-db _eodhd-token] :as ctx}
                                    {:keys [_turnover-min _exchange _add-name _remove-no-name list-name]
                                     :as opts}]
   (m/sp
@@ -70,7 +70,7 @@
          assets (->> table
                      (map :code)
                      (into []))]
-     (add-update-list assetdb {:lists/name list-name :lists/asset assets}))))
+     (add-update-list asset-db {:lists/name list-name :lists/asset assets}))))
 
 
 

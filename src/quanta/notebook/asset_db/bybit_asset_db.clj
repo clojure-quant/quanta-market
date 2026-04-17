@@ -4,7 +4,9 @@
    [clojure.string :as str]
    [missionary.core :as m]
    [quanta.recipy.bybit-asset-db :refer [download-asset-category]]
-   [demo.env-bar :refer [ctx]]))
+   [modular.system :refer [system]]))
+
+(def ctx (get :ctx system))
 
 (m/? (download-asset-category ctx {:category "spot"}))
 ;; => {:category "spot", :assets 621}

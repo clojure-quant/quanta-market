@@ -6,8 +6,8 @@
    [quanta.bar.protocol :as b]
    [quanta.market.asset.datahike :refer [get-list]]))
 
-(defn import-bars-list [ctx {:keys [list calendar start end]}]
-  (let [assets (-> (get-list (:assetdb ctx) list)
+(defn import-bars-list [{:keys [eodhd asset-db bar-db-raw]} {:keys [list calendar start end]}]
+  (let [assets (-> (get-list asset-db list)
                    :lists/asset)
         opts-seq (->> assets
                       (map (fn [asset]
@@ -16,7 +16,7 @@
                               :start start
                               :end end})))
         download-fn (fn [ctx opts]
-                      (m/sp (let [bars (m/? (b/get-bars (:eodhd ctx)
+                      (m/sp (let [bars (m/? (b/get-bars eodhd
                                                         (select-keys opts [:asset :calendar])
                                                         (select-keys opts [:start :end])))]
                               ;(println "asset: " (:asset opts) " bars: " (tc/row-count bars))
@@ -24,8 +24,8 @@
         store-fn (fn [ctx opts data]
                    (m/sp
                     (when (and data (not (= 0 (tc/row-count data))))
-                      (m/? (b/delete-bars (:bardb ctx) (select-keys opts [:asset :calendar])))
-                      (m/? (b/append-bars (:bardb ctx)
+                      (m/? (b/delete-bars bar-db-raw (select-keys opts [:asset :calendar])))
+                      (m/? (b/append-bars bar-db-raw
                                           (select-keys opts [:asset :calendar])
                                           data)))))]
     (rest-import ctx {:tasks-opts opts-seq

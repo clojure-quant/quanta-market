@@ -23,7 +23,7 @@
 
 secrets
 
-(def assetdb (start-asset-db (env "${QUANTASTORE}/assetdb")))
+(def asset-db (start-asset-db (env "${QUANTASTORE}/assetdb")))
 
 (def bardb-nippy
   (start-bardb-nippy (env "${QUANTASTORE}/bardb/eodhd-nippy/")))
@@ -36,7 +36,7 @@ secrets
 
 (def eodhd (create-import-eodhd (:eodhd secrets)))
 
-(def ctx {:assetdb assetdb
+(def ctx {:asset-db asset-db
           :bardb bardb-duck ;bardb-nippy
           :ss ss
           :eodhd-token eodhd-token

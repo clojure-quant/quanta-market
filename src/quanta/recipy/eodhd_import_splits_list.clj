@@ -7,8 +7,8 @@
    [quanta.market.adapter.eodhd.ds :refer [get-splits]]
    [quanta.market.asset.datahike :refer [get-list]]))
 
-(defn import-splits-list [ctx {:keys [list start end]}]
-  (let [assets (-> (get-list (:assetdb ctx) list)
+(defn import-splits-list [{:keys [asset-db ss eodhd-token] :as ctx} {:keys [list start end]}]
+  (let [assets (-> (get-list asset-db list)
                    :lists/asset)
         opts-seq (->> assets
                       (map (fn [asset]
@@ -16,7 +16,7 @@
                               :start start
                               :end end})))
         download-fn (fn [ctx opts]
-                      (m/sp (let [splits (m/? (get-splits (:eodhd-token ctx)
+                      (m/sp (let [splits (m/? (get-splits eodhd-token
                                                           (select-keys opts [:asset])
                                                           (select-keys opts [:start :end])))]
                               ;(println "asset: " (:asset opts) " splits: " (tc/row-count splits))
@@ -25,8 +25,8 @@
                    (m/sp
                     (when (and data (not (= 0 (tc/row-count data))))
                       (let [data-asset (tc/add-column data :asset (:asset opts))]
-                        (m/? (delete-splits (:ss ctx) (:asset opts)))
-                        (m/? (save-splits (:ss ctx) data-asset))))))]
+                        (m/? (delete-splits ss (:asset opts)))
+                        (m/? (save-splits ss data-asset))))))]
     (rest-import ctx {:tasks-opts opts-seq
                       :download-fn download-fn
                       :store-fn store-fn

@@ -49,7 +49,7 @@
     "linear" (normalize-linear asset)
     asset))
 
-(defn download-asset-category [{:keys [assetdb]} {:keys [category]}]
+(defn download-asset-category [{:keys [asset-db]} {:keys [category]}]
   (m/sp
    (let [assets-raw  (-> (m/? (bb/get-assets category))
                          (:list))
@@ -64,8 +64,8 @@
      (println "bybit category " category " asset count: " (count assets-raw))
      (spit-edn filename-raw assets-raw)
      (spit-edn filename assets)
-     (when assetdb
-       (add-update-asset assetdb assets))
+     (when asset-db
+       (add-update-asset asset-db assets))
      assets)))
 
 

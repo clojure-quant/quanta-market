@@ -5,7 +5,9 @@
    [quanta.bar.protocol :refer [get-bars]]
    [quanta.bar.db.duck.warehouse :as wh]
    [quanta.recipy.eodhd-import-bars-list :refer [import-bars-list]]
-   [demo.env-bar :refer [ctx]]))
+   [modular.system :refer [system]]))
+
+(def ctx (get :ctx system))
 
 (m/? (import-bars-list
       ctx
@@ -36,7 +38,7 @@
 ; "Elapsed time: 115999.964061 msecs"
 {:success 1000, :error 0, :error-details []}
 
-(wh/warehouse-summary (:bardb ctx) [:us :d])
+(wh/warehouse-summary (:bar-db ctx) [:us :d])
 
-(m/? (get-bars (:bardb ctx) {:asset "A" :calendar [:us :d]} {}))
-(m/? (get-bars (:bardb ctx) {:asset "SPY" :calendar [:us :d]} {}))
+(m/? (get-bars (:bar-db ctx) {:asset "A" :calendar [:us :d]} {}))
+(m/? (get-bars (:bar-db ctx) {:asset "SPY" :calendar [:us :d]} {}))

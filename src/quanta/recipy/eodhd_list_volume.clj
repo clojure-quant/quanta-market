@@ -69,8 +69,9 @@
    (let [table (m/? (high-volume-assets ctx opts))
          assets (->> table
                      (map :code)
-                     (into []))]
-     (add-update-list asset-db {:lists/name list-name :lists/asset assets}))))
+                     (into []))
+         tx-result (add-update-list asset-db {:lists/name list-name :lists/asset assets})]
+     (-> tx-result :tx-data count))))
 
 
 

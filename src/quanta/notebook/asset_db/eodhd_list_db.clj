@@ -9,39 +9,30 @@
 
 (def ctx (:ctx system))
 
-(def etfs (m/? (add-list-high-volume-assets ctx {:exchange "US"
-                                                 :turnover-min 10000000.0
-                                                 :add-name true
-                                                 :remove-no-name true
-                                                 :type :etf
-                                                 :list-name "etf-10mio"})))
-etfs
+(m/? (add-list-high-volume-assets ctx {:exchange "US"
+                                       :turnover-min 10000000.0
+                                       :add-name true
+                                       :remove-no-name true
+                                       :type :etf
+                                       :list-name "etf-10mio"}))
 
-(def equities (m/? (add-list-high-volume-assets ctx {:exchange "US"
-                                                     :turnover-min 100000000.0
-                                                     :add-name true
-                                                     :remove-no-name true
-                                                     :type :equity
-                                                     :list-name "equity-100mio"})))
+(m/? (add-list-high-volume-assets ctx {:exchange "US"
+                                       :turnover-min 100000000.0
+                                       :add-name true
+                                       :remove-no-name true
+                                       :type :equity
+                                       :list-name "equity-100mio"}))
 
-(->> equities
-     :tx-data
-     reverse
-     count)
-; 1020
-;
+(m/? (add-list-high-volume-assets ctx {:exchange "US"
+                                       :turnover-min 20000000.0
+                                       :add-name true
+                                       :remove-no-name true
+                                       :type :equity
+                                       :list-name "equity-20mio"}))
 
-(def equities (m/? (add-list-high-volume-assets ctx {:exchange "US"
-                                                     :turnover-min 20000000.0
-                                                     :add-name true
-                                                     :remove-no-name true
-                                                     :type :equity
-                                                     :list-name "equity-20mio"})))
-; 1956
-
-(def equities (m/? (add-list-high-volume-assets ctx {:exchange "US"
-                                                     :turnover-min 10000000.0
-                                                     :add-name true
-                                                     :remove-no-name true
-                                                     :type :equity
-                                                     :list-name "equity-10mio"})))
+(m/? (add-list-high-volume-assets ctx {:exchange "US"
+                                       :turnover-min 10000000.0
+                                       :add-name true
+                                       :remove-no-name true
+                                       :type :equity
+                                       :list-name "equity-10mio"}))

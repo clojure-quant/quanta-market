@@ -3,7 +3,8 @@
    [missionary.core :as m]
    [quanta.recipy.eodhd-asset-db :refer [get-exchange-assets asset-summary asset-stats filter-assets
                                          build-asset-edn build-asset-edn-normalized build-exchange-edn]]
-   [modular.system :refer [system]]))
+   [modular.system :refer [system]]
+   [quanta.studio.plot :refer [asset-table]]))
 
 (def ctx (:ctx system))
 
@@ -52,40 +53,53 @@
 
 ;; RAW ASSET LISTS
 
-(m/? (build-asset-edn ctx {:market "US"
-                           :types #{"ETF"}
-                           :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-etf.edn")}))
+(count
+ (m/? (build-asset-edn
+       ctx
+       {:market "US"
+        :types #{"ETF"}
+        :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-etf.edn")})))
 
-(m/? (build-asset-edn ctx {:market "US"
-                           :types #{"Common Stock"}
-                           :exchanges #{"NYSE" "NASDAQ" "AMEX" "NYSE MKT"}
-                           :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-stocks.edn")}))
+;; {:Currency "USD" :Exchange "BATS" :Code "AAAU" :Name "Goldman Sachs Physical Gold ETF" :Isin "US38150K1034" :Type "ETF" :Country "USA"}
 
-(m/? (build-asset-edn ctx {:market "FOREX"
-                           ;:types #{"Common Stock"}
-                           ;:exchanges #{"FOREX"}
-                           :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-forex.edn")}))
+(count (m/? (build-asset-edn
+             ctx
+             {:market "US"
+              :types #{"Common Stock"}
+              :exchanges #{"NYSE" "NASDAQ" "AMEX" "NYSE MKT"}
+              :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-stocks.edn")})))
+
+(count (m/? (build-asset-edn
+             ctx
+             {:market "FOREX"
+                               ;:types #{"Common Stock"}
+                               ;:exchanges #{"FOREX"}
+              :filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-forex.edn")})))
 
 ;; EXCHANGE LIST
 
-(m/? (build-exchange-edn ctx {:filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-exchanges.edn")}))
+(m/? (build-exchange-edn
+      ctx
+      {:filename (str (System/getenv "QUANTASTORE") "/asset/raw/eodhd-exchanges.edn")}))
 
 ;; NORMALIZED ASSETS AND DB ACCESS
 
-(m/? (build-asset-edn-normalized ctx {:market "US"
-                                      :types #{"ETF"}
-                                      :filename (str (System/getenv "QUANTASTORE")
-                                                     "/asset/eodhd-etf.edn")}))
+(-> (m/? (build-asset-edn-normalized
+          ctx {:market "US"
+               :types #{"ETF"}
+               :filename (str (System/getenv "QUANTASTORE") "/asset/eodhd-etf.edn")}))
+    asset-table)
 
-(m/? (build-asset-edn-normalized ctx {:market "US"
-                                      :types #{"Common Stock"
-                                               "Preferred Stock"}
-                                      :exchanges #{"NYSE" "NYSE MKT" "NYSE ARCA"
-                                                   "NASDAQ" "AMEX"}
-                                      :filename  (str (System/getenv "QUANTASTORE")
-                                                      "/asset/eodhd-stocks.edn")}))
+(-> (m/? (build-asset-edn-normalized ctx {:market "US"
+                                          :types #{"Common Stock"
+                                                   "Preferred Stock"}
+                                          :exchanges #{"NYSE" "NYSE MKT" "NYSE ARCA"
+                                                       "NASDAQ" "AMEX"}
+                                          :filename  (str (System/getenv "QUANTASTORE")
+                                                          "/asset/eodhd-stocks.edn")}))
+    asset-table)
 
-(m/? (build-asset-edn-normalized ctx {:market "FOREX"
-                                      :filename (str (System/getenv "QUANTASTORE")
-                                                     "/asset/eodhd-forex.edn")}))
-
+(-> (m/? (build-asset-edn-normalized ctx {:market "FOREX"
+                                          :filename (str (System/getenv "QUANTASTORE")
+                                                         "/asset/eodhd-forex.edn")}))
+    asset-table)

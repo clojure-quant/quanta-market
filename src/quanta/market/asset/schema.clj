@@ -31,6 +31,9 @@
    {:db/ident :asset/exchange
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one}
+   {:db/ident :asset/market ;; :us :forex :crypto :eu (it is related to the calendar)
+    :db/valueType :db.type/keyword
+    :db/cardinality :db.cardinality/one}
    ; provider
    {:db/ident :asset/bybit ;; bybit
     :db/valueType :db.type/tuple

@@ -76,6 +76,11 @@
       (d/q @dbconn asset-symbol)
       first))
 
+(defn get-asset-market [dbconn asset-symbol]
+  (if-let [asset (get-asset dbconn asset-symbol)]
+    (or (:asset/market asset) :us) ; todo: make sure this is not needed, by adding all recipies to have :market
+    nil))
+
 ;; provider symbol mappings
 
 (defn asset->provider [dbconn provider asset]

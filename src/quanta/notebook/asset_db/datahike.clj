@@ -18,6 +18,7 @@
 ;; details on single asset
 
 (get-asset asset-db "MSFT")
+
 (get-asset asset-db "000")
 
 (asset->provider asset-db :bybit "ENSUSDT.BB")
@@ -32,8 +33,8 @@
 (query-assets asset-db {:q "MSFT"})
 
 ;; lists 
-
-(add-update-list asset-db {:lists/name "flo" :lists/asset ["QQQ" "MSFT" "SPY"]})
+(-> (add-update-list asset-db {:lists/name "flo" :lists/asset ["QQQ" "MSFT" "SPY"]})
+    nil)
 
 (get-list asset-db "flo")
 

@@ -13,8 +13,11 @@
    [quanta.bar.split.adjust :refer [add-split-factor-linear split-adjust]]
    [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd get-splits]]
    [quanta.market.adapter.eodhd.raw :as raw]
-   [demo.env-bar :refer [eodhd bardb-nippy eodhd-token]]))
+   [modular.system :refer [system]]))
 
+ (def eodhd (:eodhd system))
+ (def eodhd-token (:eodhd system))
+ 
 ;; BULK API
 
 (def splits
@@ -34,8 +37,9 @@ splits
 ;; SPLIT BY ASSET
 
 (def split-ds
-  (m/? (get-splits eodhd-token {:asset "MSFT"} {:from (t/date "1980-01-01")
-                                                :to (t/date "2026-03-20")})))
+  (m/? (get-splits eodhd-token {:asset "MSFT"} 
+                   {:from (t/date "1980-01-01")
+                    :to (t/date "2026-03-20")})))
 
 split-ds
 
@@ -76,3 +80,10 @@ split-ds
                             (/ a b)) (:close ds) (:adjusted_close ds)))
       (tc/info)))
 
+
+
+ (m/? (get-splits eodhd-token {:asset "JNJ"}
+                 {:from (t/date "1980-01-01")
+                  :to (t/date "2026-03-20")}))
+
+{:asset "JNJ", :start #time/date "1980-01-01", :end #time/date "2026-04-19"}

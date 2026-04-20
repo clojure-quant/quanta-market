@@ -9,7 +9,7 @@
 
 (def ctx (:ctx system))
 
-(def base 
+(def base
   {:start (t/date "1980-01-01")
    :end (t/date "2026-04-19")})
 
@@ -21,7 +21,6 @@
  (m/? (import-splits-list
        ctx
        (assoc base :list "etf-10mio"))))
-
 
 ; {:asset "XLY", :start #time/date "1980-01-01", :end #time/date "2026-04-19"}
 ; "Elapsed time: 58455.765072 msecs"
@@ -45,7 +44,6 @@
 
 (m/? (get-splits (:ss system) "IGE"))
 (m/? (get-splits (:ss system) "MSFT"))
-
 
 (m/? (get-splits (:ss system) "SLV"))
 

@@ -1,6 +1,7 @@
 (ns quanta.recipy.eodhd-asset-db
   (:require
    [missionary.core :as m]
+   [taoensso.timbre :refer [info warn error]]
    [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.market.adapter.eodhd.raw :as raw]
    [quanta.market.adapter.eodhd.ds :refer [convert-asset]]
@@ -43,11 +44,13 @@
                                                      _exchanges _types
                                                      filename] :as opts}]
   (m/sp
-   (let [assets (m/? (raw/get-exchange-assets eodhd-token market))]
-     (->> assets
-          (filter-assets opts)
-          (into [])
-          (spit-edn filename)))))
+   (let [assets (m/? (raw/get-exchange-assets eodhd-token market))
+         filtered-assets (->> assets
+                              (filter-assets opts)
+                              (into []))]
+     (info "build-asset-edn market: " market " assets: " (count assets) "filtered assets: " (count filtered-assets))
+     (spit-edn filename filtered-assets)
+     filtered-assets)))
 
 (defn build-asset-edn-normalized [{:keys [eodhd-token asset-db]}
                                   {:keys [market _exchanges _types

@@ -1,6 +1,7 @@
 (ns quanta.market.adapter.eodhd.raw
   (:require
    ;[clojure.set :refer [rename-keys]]
+   [clojure.string :as str]
    [taoensso.timbre :refer [info warn error]]
    [missionary.core :as m]
    [quanta.market.util.clj-http :refer [http-get parse-json]]))
@@ -70,6 +71,12 @@
 
 (defn get-exchange-assets [api-token exchange-code]
   ;https://eodhd.com/api/exchange-symbol-list/{EXCHANGE_CODE}?api_token={YOUR_API_TOKEN}&fmt=json
+  (assert api-token "api-token is required")
+  (assert (string? api-token) "api-token needs to be string")
+  (assert (string? exchange-code) "exchange-code needs to be string")
+  (assert (not (str/blank? api-token)) "api-token cannot be blank")
+  (assert (not (str/blank? exchange-code)) "exchange-code cannot be blank")
+  (info "get-exchange-assets api-token: " api-token " exchange-code: " exchange-code)
   (eodhd-http-get api-token (str "exchange-symbol-list/" exchange-code)
                   {:socket-timeout 15000
                    :connection-timeout 15000}))

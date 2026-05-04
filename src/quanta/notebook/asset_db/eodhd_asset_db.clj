@@ -7,8 +7,8 @@
    [quanta.studio.plot :refer [asset-table]]))
 
 (def ctx (:ctx system))
-
-(m/? (asset-summary ctx {:market "US"}))
+(keys ctx)
+(:eodhd-token ctx)
 
 (m/? (asset-summary ctx {:market "VI"}))
 

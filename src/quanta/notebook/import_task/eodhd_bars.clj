@@ -11,7 +11,7 @@
 (def base
   {:calendar [:us :d]
    :start (t/zoned-date-time "1980-01-01T00:00:00Z")
-   :end (t/zoned-date-time "2026-04-19T00:00:00Z")})
+   :end (t/zoned-date-time "2026-05-01T00:00:00Z")})
 
 (m/? (import-bars-list
       ctx
@@ -35,4 +35,5 @@
 (m/? (summary (:bar-db-duck system) {:calendar [:us :d]}))
 
 (m/? (get-bars (:bar-db-duck system) {:asset "A" :calendar [:us :d]} {}))
+
 (m/? (get-bars (:bar-db-duck system) {:asset "SPY" :calendar [:us :d]} {}))

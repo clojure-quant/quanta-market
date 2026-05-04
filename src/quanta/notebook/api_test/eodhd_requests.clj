@@ -8,9 +8,13 @@
    [modular.system :refer [system]]))
 
 (def eodhd (:eodhd system))
-(def eodhd-token (:eodhd system))
+(def eodhd-token (:eodhd-token system))
+
+eodhd-token
 
 ;; RAW
+
+(m/? (raw/get-exchange-assets eodhd-token "US"))
 
 (def d (m/? (raw/get-bars eodhd-token
                           "MCD.US" "2026-01-01" "2026-02-01")))

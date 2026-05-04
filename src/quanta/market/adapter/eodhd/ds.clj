@@ -2,11 +2,12 @@
   (:require
    [clojure.string :as str]
    [missionary.core :as m]
-   [tick.core :as t] ; tick uses cljc.java-time
+   [tick.core :as t]
    [tech.v3.dataset :as tds]
    [tablecloth.api :as tc]
    [ta.import.helper :refer [str->double]]
    [quanta.bar.protocol :refer [barsource] :as b]
+   [quanta.market.adapter.eod-close-time :refer [adjust-time-to-exchange-close]]
    [quanta.market.util.date :refer [parse-date-only]]
    [quanta.market.adapter.eodhd.raw :as eodhd]))
 
@@ -24,22 +25,17 @@
              dt)]
     (t/format yyyy-mm-dd-formatter dt)))
 
-(defn convert-date [dt-s]
-  (-> (parse-date-only dt-s)
-      (t/at (t/time "00:00:00"))
-      (t/in "UTC")
-      (t/instant)))
-
 (defn sort-ds [ds]
   (tc/order-by ds [:date] [:asc]))
 
 (defn ds-fix-date [ds]
-  (tc/add-column ds :date (map convert-date (:date ds))))
+  (tc/add-column ds :date (map parse-date-only (:date ds))))
 
-(defn eodhd-result->dataset [result]
+(defn eodhd-result->dataset [calendar result]
   (-> result
       (tds/->dataset)
       (ds-fix-date)
+      (adjust-time-to-exchange-close (first calendar))
       ;(sort-ds) ; 
       ;(tc/select-columns [:date :open :high :low :close :volume])
       ))
@@ -47,17 +43,16 @@
 (defn error? [body]
   (-> body last :warning))
 
-(defn get-bars-eodhd [api-token {:keys [asset _calendar] :as opts} {:keys [start end] :as window}]
+(defn get-bars-eodhd [api-token {:keys [asset calendar] :as opts} {:keys [start end] :as window}]
   (m/sp
    (let [start-str (fmt-yyyymmdd start)
          end-str (fmt-yyyymmdd end)
          r (m/? (eodhd/get-bars api-token asset start-str end-str))]
-     ;(warn "r: " r)
      (if-let [e (error? r)]
        (throw (ex-info "get-bars-eodhd failed" {:message e
                                                 :opts opts
                                                 :window window}))
-       (eodhd-result->dataset r)))))
+       (eodhd-result->dataset calendar r)))))
 
 (defrecord import-eodhd [api-token]
   barsource
@@ -74,7 +69,7 @@
 ; {:date "1987-06-16", :split "2.000000/1.000000"}
 ;(split-str->factor "2.000000/1.000000")
 
-(defn get-splits [api-token {:keys [asset _calendar]} {:keys [start end] :as _window}]
+(defn get-splits [api-token {:keys [asset calendar]} {:keys [start end] :as _window}]
   (m/sp
    (let [start-opts (if start {:from (fmt-yyyymmdd start)} {})
          end-opts (if end {:to (fmt-yyyymmdd end)} {})
@@ -82,8 +77,9 @@
          splits (m/? (eodhd/get-splits api-token opts))]
      (-> (->> splits
               (map #(assoc % :factor (split-str->factor (:split %))))
-              (map #(update % :date convert-date))
-              tc/dataset)
+              (map #(update % :date parse-date-only))
+              tc/dataset
+              (adjust-time-to-exchange-close calendar))
          (tc/drop-columns [:split])))))
 
 (def eod-type-dict

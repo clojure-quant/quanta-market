@@ -12,7 +12,7 @@
    [ta.calendar.calendars :refer [calendars]]
    [quanta.market.asset.db :as db]
    [quanta.bar.protocol :refer [barsource]]
-   [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
+   [quanta.market.adapter.eod-close-time :refer [adjust-time-to-exchange-close]]
    [quanta.market.barimport.kibot.raw :as kibot]
    [quanta.market.util.aleph :as a]
    [quanta.market.util.clj-http :refer [http-head]]))

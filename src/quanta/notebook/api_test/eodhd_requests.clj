@@ -5,7 +5,10 @@
    [quanta.bar.protocol :as b]
    [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.market.adapter.eodhd.raw :as raw]
-   [demo.env-bar :refer [eodhd-token eodhd]]))
+   [modular.system :refer [system]]))
+
+(def eodhd (:eodhd system))
+(def eodhd-token (:eodhd system))
 
 ;; RAW
 
@@ -45,6 +48,7 @@ d
                   :calendar [:us :d]}
                  {:start (t/zoned-date-time "2025-06-01T00:00:00Z")
                   :end (t/zoned-date-time "2026-03-20T00:00:00Z")}))
+
 ;; => _unnamed [56 7]:
 ;;    
 ;;    |                :date | :open | :high |  :low | :close | :adjusted_close | :volume |

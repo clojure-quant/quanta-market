@@ -13,7 +13,7 @@
    [quanta.market.asset.db :as db]
    [quanta.bar.protocol :refer [barsource]]
    [ta.import.helper :refer [p-or-fail]]
-   [quanta.market.barimport.kibot.helper :refer [adjust-time-to-exchange-close]]
+   [quanta.market.barimport.kibot.eod-close-time :refer [adjust-time-to-exchange-close]]
    [quanta.market.barimport.kibot.raw :as kb]))
 
 (defn string->stream [s]

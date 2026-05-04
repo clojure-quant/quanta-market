@@ -44,7 +44,7 @@ d
 ; {:date "2020-08-31", :split "4.000000/1.000000"}]
 
 (m/? (raw/get-splits
-     eodhd-token
+      eodhd-token
       {:asset "SPY" :from "1980-01-01" :to "2026-03-20"}))
 
 (m/? (b/get-bars eodhd

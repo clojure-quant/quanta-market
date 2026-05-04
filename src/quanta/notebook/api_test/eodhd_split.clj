@@ -43,8 +43,6 @@ splits
 
 split-ds
 
-
-
 ;|                :date | :factor |
 ;|----------------------|--------:|
 ;| 1987-09-21T00:00:00Z |     2.0 |
@@ -57,16 +55,15 @@ split-ds
 ;| 1999-03-29T00:00:00Z |     2.0 |
 ;| 2003-02-18T00:00:00Z |     2.0 |
 
-(m/? (get-splits eodhd-token 
+(m/? (get-splits eodhd-token
                  {:asset "QQQ" :calendar [:us :d]}
                  {:from (t/date "1980-01-01")
-                   :to (t/date "2026-03-20")}))
+                  :to (t/date "2026-03-20")}))
 
 (m/? (get-splits eodhd-token
                  {:asset "SPY" :calendar [:us :d]}
                  {:from (t/date "1980-01-01")
                   :to (t/date "2026-03-20")}))
-
 
 (def bar-ds (m/? (b/get-bars eodhd
                              {:asset "MSFT"

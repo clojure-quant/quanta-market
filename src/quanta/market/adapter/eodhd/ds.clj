@@ -81,9 +81,8 @@
          ds (->> splits
                  (map #(assoc % :factor (split-str->factor (:split %))))
                  (map #(update % :date parse-date-only))
-                 tc/dataset)
-         ]
-     
+                 tc/dataset)]
+
      (if (> (tc/row-count ds) 0)
        (-> ds
            (adjust-time-to-exchange-close (first calendar))

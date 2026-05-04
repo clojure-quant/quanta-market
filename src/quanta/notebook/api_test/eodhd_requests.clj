@@ -34,7 +34,7 @@ d
        (println "ex cause:" (ex-cause ex))))
 
 (m/? (raw/get-splits
-      "demo"
+      eodhd-token
       {:asset "AAPL.US" :from "1980-01-01" :to "2026-03-20"}))
 
 ;[{:date "1987-06-16", :split "2.000000/1.000000"}
@@ -42,6 +42,10 @@ d
 ; {:date "2005-02-28", :split "2.000000/1.000000"}
 ; {:date "2014-06-09", :split "7.000000/1.000000"}
 ; {:date "2020-08-31", :split "4.000000/1.000000"}]
+
+(m/? (raw/get-splits
+     eodhd-token
+      {:asset "SPY" :from "1980-01-01" :to "2026-03-20"}))
 
 (m/? (b/get-bars eodhd
                  {:asset "RPM.AU"

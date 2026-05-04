@@ -37,11 +37,13 @@ splits
 ;; SPLIT BY ASSET
 
 (def split-ds
-  (m/? (get-splits eodhd-token {:asset "MSFT"}
+  (m/? (get-splits eodhd-token {:asset "MSFT" :calendar [:us :d]}
                    {:from (t/date "1980-01-01")
                     :to (t/date "2026-03-20")})))
 
 split-ds
+
+
 
 ;|                :date | :factor |
 ;|----------------------|--------:|
@@ -54,6 +56,17 @@ split-ds
 ;| 1998-02-23T00:00:00Z |     2.0 |
 ;| 1999-03-29T00:00:00Z |     2.0 |
 ;| 2003-02-18T00:00:00Z |     2.0 |
+
+(m/? (get-splits eodhd-token 
+                 {:asset "QQQ" :calendar [:us :d]}
+                 {:from (t/date "1980-01-01")
+                   :to (t/date "2026-03-20")}))
+
+(m/? (get-splits eodhd-token
+                 {:asset "SPY" :calendar [:us :d]}
+                 {:from (t/date "1980-01-01")
+                  :to (t/date "2026-03-20")}))
+
 
 (def bar-ds (m/? (b/get-bars eodhd
                              {:asset "MSFT"
@@ -80,7 +93,7 @@ split-ds
                             (/ a b)) (:close ds) (:adjusted_close ds)))
       (tc/info)))
 
-(m/? (get-splits eodhd-token {:asset "JNJ"}
+(m/? (get-splits eodhd-token {:asset "JNJ" :calendar [:us :d]}
                  {:from (t/date "1980-01-01")
                   :to (t/date "2026-03-20")}))
 

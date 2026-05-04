@@ -10,12 +10,14 @@
 (def ctx (:ctx system))
 
 (def base
-  {:start (t/date "1980-01-01")
+  {:calendar [:us :d]
+   :start (t/date "1980-01-01")
    :end (t/date "2026-04-19")})
 
 (m/? (import-splits-list
       ctx
       (assoc base :list "flo")))
+
 
 (time
  (m/? (import-splits-list

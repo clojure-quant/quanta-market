@@ -1,6 +1,7 @@
 (ns quanta.market.adapter.eodhd.ds
   (:require
    [clojure.string :as str]
+   [taoensso.timbre :refer [info warn error]]
    [missionary.core :as m]
    [tick.core :as t]
    [tech.v3.dataset :as tds]
@@ -74,13 +75,20 @@
    (let [start-opts (if start {:from (fmt-yyyymmdd start)} {})
          end-opts (if end {:to (fmt-yyyymmdd end)} {})
          opts (merge {:asset asset} start-opts end-opts)
-         splits (m/? (eodhd/get-splits api-token opts))]
-     (-> (->> splits
-              (map #(assoc % :factor (split-str->factor (:split %))))
-              (map #(update % :date parse-date-only))
-              tc/dataset
-              (adjust-time-to-exchange-close calendar))
-         (tc/drop-columns [:split])))))
+         ;_ (info "get splits opts: " opts)
+         splits (m/? (eodhd/get-splits api-token opts))
+         ;_ (info "splits: " (count splits) "calendar: " calendar)
+         ds (->> splits
+                 (map #(assoc % :factor (split-str->factor (:split %))))
+                 (map #(update % :date parse-date-only))
+                 tc/dataset)
+         ]
+     
+     (if (> (tc/row-count ds) 0)
+       (-> ds
+           (adjust-time-to-exchange-close (first calendar))
+           (tc/drop-columns [:split]))
+       ds))))
 
 (def eod-type-dict
   {"Common Stock" :equity

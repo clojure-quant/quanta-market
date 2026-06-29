@@ -10,7 +10,7 @@
    [tech.v3.datatype :as dtype]
    [clj-commons.byte-streams :as bs]
    [ta.calendar.calendars :refer [calendars]]
-   [quanta.market.asset.db :as db]
+   [quanta.asset.db :as db]
    [quanta.bar.protocol :refer [barsource]]
    [quanta.market.adapter.eod-close-time :refer [adjust-time-to-exchange-close]]
    [quanta.market.barimport.kibot.raw :as kibot]

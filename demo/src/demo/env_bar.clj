@@ -8,7 +8,7 @@
    [quanta.bar.db.duck :as duck]
    [quanta.bar.split.service :refer [start-split-service]]
    [quanta.market.adapter.eodhd.ds :refer [create-import-eodhd]]
-   [quanta.market.asset.datahike :refer [start-asset-db]]))
+   [quanta.asset.datahike :refer [start-asset-db]]))
 
 (timbre-config!
  {:min-level [[#{"org.eclipse.jetty.*"} :warn]

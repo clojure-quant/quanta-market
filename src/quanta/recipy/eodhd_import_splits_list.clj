@@ -5,7 +5,7 @@
    [quanta.missionary :refer [rest-import]]
    [quanta.bar.split.service :refer [save-splits delete-splits]]
    [quanta.market.adapter.eodhd.ds :refer [get-splits]]
-   [quanta.market.asset.datahike :refer [get-list]]))
+   [quanta.asset.datahike :refer [get-list]]))
 
 (defn import-splits-list [{:keys [asset-db ss eodhd-token] :as ctx} {:keys [list calendar start end]}]
   (let [assets (-> (get-list asset-db list)

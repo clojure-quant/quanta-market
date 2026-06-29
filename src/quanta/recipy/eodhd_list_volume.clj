@@ -1,7 +1,7 @@
 (ns quanta.recipy.eodhd-list-volume
   (:require
    [missionary.core :as m]
-   [quanta.market.asset.datahike :refer [get-asset add-update-list]]
+   [quanta.asset.datahike :refer [get-asset add-update-list]]
    [quanta.market.adapter.eodhd.raw :as raw]))
 
 (defn in-million [n]

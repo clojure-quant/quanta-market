@@ -5,7 +5,7 @@
    [quanta.market.persist :refer [spit-edn slurp-edn]]
    [quanta.market.adapter.eodhd.raw :as raw]
    [quanta.market.adapter.eodhd.ds :refer [convert-asset]]
-   [quanta.market.asset.datahike :refer [add-update-asset]]))
+   [quanta.asset.datahike :refer [add-update-asset]]))
 
 (defn asset-stats [assets]
   {:exchanges (->> assets

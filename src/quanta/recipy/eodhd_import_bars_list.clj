@@ -4,7 +4,7 @@
    [tablecloth.api :as tc]
    [quanta.missionary :refer [rest-import]]
    [quanta.bar.protocol :as b]
-   [quanta.market.asset.datahike :refer [get-list]]))
+   [quanta.asset.datahike :refer [get-list]]))
 
 (defn import-bars-list [{:keys [eodhd asset-db bar-db-raw] :as ctx} {:keys [list calendar start end]}]
   (let [assets (-> (get-list asset-db list)

@@ -2,7 +2,7 @@
   (:require
    [missionary.core :as m]
    [quanta.market.persist :refer [spit-edn slurp-edn]]
-   [quanta.market.asset.datahike :refer [add-update-asset]]
+   [quanta.asset.datahike :refer [add-update-asset]]
    [quanta.market.adapter.bybit.raw :as bb]))
 
 ;; => {:lotSizeFilter

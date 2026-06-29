@@ -1,6 +1,6 @@
 (ns quanta.notebook.asset-db.datahike
   (:require
-   [quanta.market.asset.datahike :refer [add-update-asset query-assets get-asset
+   [quanta.asset.datahike :refer [add-update-asset query-assets get-asset
                                          add-update-list get-list
                                          provider->asset asset->provider
                                          exchanges categories]]

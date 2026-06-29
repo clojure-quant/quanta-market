@@ -1,6 +1,6 @@
 (ns demo.asset.db.asset-add
   (:require
-   [quanta.market.asset.db :as db]
+   [quanta.asset.db :as db]
    [ta.db.asset.symbollist :refer [load-lists-full]]
    [ta.import.provider.kibot-http.assets :as kibot-http]))
 
